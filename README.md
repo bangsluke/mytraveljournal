@@ -1,5 +1,10 @@
 Created using: `npx create-next-app@latest --ts mytraveljournal`
 
+## Added Dependencies
+
+`npm install gray-matter` - lets us parse the metadata in each markdown file
+
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
