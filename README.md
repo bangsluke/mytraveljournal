@@ -6,6 +6,17 @@ Created using: `npx create-next-app@latest --ts mytraveljournal`
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Python API
+
+To start up the flask server, run:
+
+```bash
+cd backend
+python app.py
+```
+
+The `app.py` file is located in the `backend` directory. The server will be running on `http://localhost:5000/api/data`.
+
 ## Getting Started
 
 First, run the development server:
