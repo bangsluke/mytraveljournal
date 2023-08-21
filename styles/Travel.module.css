@@ -1,0 +1,55 @@
+.navbar {
+  position: fixed;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  background-color: #fe395c;
+  color: #F3F3F3;
+  display: flex;
+  padding: 0 20px;
+  /* justify-content: flex-start; */
+  justify-content: center;
+  /* Position Horizontally */
+  align-items: center;
+  /* Center Vertically */
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.logo {
+  height: 60%;
+  width: auto;
+  color: #F3F3F3;
+  filter: invert(100);
+  margin-right: 20px;
+}
+
+.travelcard {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 90%;
+}
+
+.travelcard:hover,
+.travelcard:focus,
+.travelcard:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.travelcard h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.travelcard p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}

@@ -1,15 +1,24 @@
-import React from "react";
+import styles from "../styles/Travel.module.css";
 
 const MarkdownList = ({ data }) => {
   return (
-    <ul>
+    <>
       {data.map((item, index) => (
-        <li key={index}>
-          <strong>{item.filename}</strong>
-          <div dangerouslySetInnerHTML={{ __html: item.content }} />
-        </li>
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+          className={styles.travelcard}
+        >
+          <li key={index}>
+            <strong>{item.filename}</strong>
+            <div dangerouslySetInnerHTML={{ __html: item.content }} />
+          </li>
+        </div>
       ))}
-    </ul>
+    </>
   );
 };
 
