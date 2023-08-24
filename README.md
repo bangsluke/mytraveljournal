@@ -1,23 +1,22 @@
-Created using: `npx create-next-app@latest --ts mytraveljournal`
+# MyTravelJournal
 
-## Added Dependencies
+## Set Up
 
-`npm install gray-matter` - lets us parse the metadata in each markdown file
+### Python Set Up
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Python API
-
-To start up the flask server, run:
+To install all of the required dependencies, run:
 
 ```bash
-cd backend
-python app.py
+pip install json os markdown2 obsidiantools neomodel
 ```
 
-The `app.py` file is located in the `backend` directory. The server will be running on `http://localhost:5000/api/data`.
-
 ## Getting Started
+
+### Next.js Start Up
+
+Created using: `npx create-next-app@latest --ts mytraveljournal`
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 First, run the development server:
 
@@ -34,6 +33,19 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+### Python Start Up
+
+#### Python API
+
+To start up the flask server, run:
+
+```bash
+cd backend
+python app.py
+```
+
+The `app.py` file is located in the `backend` directory. The server will be running on `http://localhost:5000/api/data`.
 
 ## Learn More
 
