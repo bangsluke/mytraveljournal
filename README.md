@@ -1,23 +1,40 @@
-Created using: `npx create-next-app@latest --ts mytraveljournal`
+# MyTravelJournal
 
-## Added Dependencies
+## Set Up
 
-`npm install gray-matter` - lets us parse the metadata in each markdown file
+### Python Set Up
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Python API
-
-To start up the flask server, run:
+To install all of the required dependencies, run:
 
 ```bash
-cd backend
-python app.py
+pip install json os markdown2 obsidiantools neomodel
 ```
 
-The `app.py` file is located in the `backend` directory. The server will be running on `http://localhost:5000/api/data`.
+### Properties Set Up
+
+To set up the properties, navigate to the `backend` directory and open the `properties.properties` file. Set the values to work with your project using the examples below;
+
+```bash
+[NEO4J]
+N4J.ConnType = bolt:// # The connection type
+N4J.URL = localhost:7687 # The URL
+N4J.USER = neo4j # The username used to connect
+N4J.PW = example # The password used to connect
+N4J.DB = neo4j # The database name
+[DATA]
+DATA.RelativePath = testdata # A relative path to the .md data files
+DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # The full path to the .md data files
+```
+
+> Note: If a full path is not specified, the relative path will be used.
 
 ## Getting Started
+
+### Next.js Start Up
+
+Created using: `npx create-next-app@latest --ts mytraveljournal`
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 First, run the development server:
 
@@ -34,6 +51,19 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+### Python Start Up
+
+#### Python API
+
+To start up the flask server, run:
+
+```bash
+cd backend
+python app.py
+```
+
+The `app.py` file is located in the `backend` directory. The server will be running on `http://localhost:5000/api/data`.
 
 ## Learn More
 
