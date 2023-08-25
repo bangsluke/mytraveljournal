@@ -1,5 +1,6 @@
 # This is a sample Python script.
 import configparser
+import os
 
 import obsidiantools.api as otools
 from neomodel import (RelationshipTo, StringProperty, StructuredNode,
@@ -29,12 +30,39 @@ class Person(StructuredNode):
     attended = RelationshipTo(Holiday, "ATTENDED")
 
 
+# Define the relative file path of the config file
+rel_config_file_path = 'properties.properties'
+
 if __name__ == '__main__':
+
+    # Get the full path of the current script i.e. /path/to/dir/foobar.py
+    current_script_path = os.path.abspath(__file__)
+    # Get the directory of the current script i.e. /path/to/dir/
+    current_script_dir = os.path.split(current_script_path)[0]
+    # Create the full path of the config file
+    config_file_path = os.path.join(current_script_dir, rel_config_file_path)
+    print("config_file_path: ", config_file_path)
+
+with open(config_file_path, 'r') as file:
+    content = file.read()
+    print("content of config_file_path: \n", content)
+
     config_file = configparser.ConfigParser()
-    config_file.read('../../properties.properties')
+    config_file.read(config_file_path)
+    # config_file.read('../properties.properties')
+    # print(config_file.read())
     config.DATABASE_URL = f'{config_file.get("NEO4J", "N4J.ConnType")}{config_file.get("NEO4J", "N4J.USER")}:{config_file.get("NEO4J", "N4J.PW")}@{config_file.get("NEO4J", "N4J.URL")}/{config_file.get("NEO4J", "N4J.DB")}'
 
-    db.cypher_query("MATCH(n) DETACH DELETE n")  # Only for debugging
+    # Check if the database URL is correct
+    print("config.DATABASE_URL: ", config.DATABASE_URL)
+
+    db.cypher_query("MATCH (n) DETACH DELETE n")  # Only for debugging
+    print("'MATCH (n) DETACH DELETE n' sent to clear the database")
+
+    # TODO: Delete the below test
+    db.cypher_query("CREATE (n:Person {name: 'John', age: 30})")
+    print(
+        "'CREATE (n:Person {name: 'John', age: 30})' sent to create a person")
 
     # C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes\Notes\02 Areas\Travel
     vault = otools.Vault("../testdata").connect().gather()
