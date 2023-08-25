@@ -13,6 +13,26 @@ class Location(StructuredNode):
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
+class Continent(StructuredNode):
+    name = StringProperty(unique_index=True, required=True)
+    level = StringProperty()
+    # area = StringProperty()
+
+
+class Country(StructuredNode):
+    name = StringProperty(unique_index=True, required=True)
+    level = StringProperty()
+    located_in = RelationshipTo("Location", "LOCATED_IN")
+
+
+class City(StructuredNode):
+    name = StringProperty(unique_index=True, required=True)
+    level = StringProperty()
+    located_in = RelationshipTo("Location", "LOCATED_IN")
+    # coordinates = StringProperty()
+    # population = StringProperty()
+
+
 class Holiday(StructuredNode):
     """
     Class to represent real Identity of an entity.
@@ -72,7 +92,7 @@ with open(config_file_path, 'r') as file:
     print("'MATCH (n) DETACH DELETE n' sent to clear the database")
 
     # Connect to the vault of data and gather the tags
-    vault = otools.Vault(data_folder_path).connect().gather()
+    vault = otools.Vault(vault_folder_path).connect().gather()
     for node in vault.graph.nodes:
         print(node)  # List all found tags
         try:
