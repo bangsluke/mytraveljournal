@@ -93,8 +93,9 @@ with open(config_file_path, 'r') as file:
 
     # Connect to the vault of data and gather the tags
     vault = otools.Vault(vault_folder_path).connect().gather()
+    print("Collecting tags from the vault and building nodes...")
     for node in vault.graph.nodes:
-        print(node)  # List all found tags
+        # print(node)  # List all found tags
         try:
             tags = vault.get_tags(node)
             if "holiday" in tags:
@@ -111,15 +112,24 @@ with open(config_file_path, 'r') as file:
                     person.save()
                     person.attended.connect(holiday)
             elif "location" in tags:
-                if "city" in tags:
-                    level = "city".capitalize()
+                if "continent" in tags:  # Create the continent nodes
+                    node = Continent.get_or_create(
+                        {"name": node, "level": "Continent"})[0]
+                    node.save()
                 elif "country" in tags:
-                    level = "country".capitalize()
+                    node = Country.get_or_create(
+                        {"name": node, "level": "Country"})[0]
+                    node.save()
+                elif "city" in tags:
+                    level = "city".capitalize()
+                    node = City.get_or_create({"name": node})[0]
+                    node.level = level
+                    node.save()
                 else:
                     level = "Unknown"
-                location = Location.get_or_create({"name": node})[0]
-                location.level = level
-                location.save()
+                # location = Location.get_or_create({"name": node})[0]
+                # location.level = level
+                # location.save()
             elif "person" in tags:
                 person = Person.get_or_create({"name": node})[0]
                 person.save()
@@ -135,5 +145,23 @@ with open(config_file_path, 'r') as file:
                 city = Location.get_or_create({"name": start_node})[0]
                 country = Location.get_or_create({"name": end_node})[0]
                 city.located_in.connect(country)
+            if "country" in start_tags and "continent" in end_tags:
+                country = Country.get_or_create({"name": start_node})[0]
+                continent = Continent.get_or_create({"name": end_node})[0]
+                country.located_in.connect(continent)
         except ValueError as e:
             print(e)
+
+    # Count the number of nodes
+    print("Done.")
+    node_labels_to_count = ["Continent", "Country",
+                            "City"]  # Define the node labels to count
+
+    # Function to print the node count for each passed node label
+    def print_node_count(strings):
+        for string in strings:
+            print(string)
+            print("   " + string + " Count: ", db.cypher_query(
+                "MATCH (c:" + string + ") RETURN count(c) AS count")[0])
+
+    print_node_count(node_labels_to_count)  # Call the function
