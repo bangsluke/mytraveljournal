@@ -28,6 +28,7 @@ class Country(StructuredNode):
 class City(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
+    capital = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
     # coordinates = StringProperty()
     # population = StringProperty()
@@ -121,9 +122,12 @@ with open(config_file_path, 'r') as file:
                         {"name": node, "level": "Country"})[0]
                     node.save()
                 elif "city" in tags:
-                    level = "city".capitalize()
-                    node = City.get_or_create({"name": node})[0]
-                    node.level = level
+                    if "capital" in tags:  # Check if the current node is a capital
+                        capital = "true"
+                    else:
+                        capital = "false"
+                    node = City.get_or_create(
+                        {"name": node, "level": "City", "capital": capital})[0]
                     node.save()
                 else:
                     level = "Unknown"
@@ -139,6 +143,7 @@ with open(config_file_path, 'r') as file:
     for start_node, end_node in set((start_node, end_node) for start_node, end_node, _ in vault.graph.edges):
         try:
             start_tags = vault.get_tags(start_node)
+            print(start_tags)
             end_tags = vault.get_tags(end_node)
             # print(start_node, end_node)
             if "city" in start_tags and "country" in end_tags:
@@ -160,8 +165,11 @@ with open(config_file_path, 'r') as file:
     # Function to print the node count for each passed node label
     def print_node_count(strings):
         for string in strings:
-            print(string)
+            # print(string)
             print("   " + string + " Count: ", db.cypher_query(
                 "MATCH (c:" + string + ") RETURN count(c) AS count")[0])
 
     print_node_count(node_labels_to_count)  # Call the function
+
+    print("   Capital Count: ", db.cypher_query(
+        "MATCH (n) WHERE n.capital = 'true' RETURN count(n) AS capitalCount")[0])
