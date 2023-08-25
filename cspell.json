@@ -6,17 +6,25 @@
   "language": "en",
   // words - list of words to be always considered correct
   "words": [
-    "mkdirp",
-    "tsmerge",
     "githubusercontent",
+    "mkdirp",
+    "neomodel",
+    "obsidiantools",
+    "otools",
     "streetsidesoftware",
-    "vsmarketplacebadge",
-    "visualstudio"
+    "testdata",
+    "tsmerge",
+    "visualstudio",
+    "vsmarketplacebadge"
   ],
   // flagWords - list of words to be always considered incorrect
   // This is useful for offensive words and common spelling errors.
   // For example "hte" should be "the"
-  "flagWords": ["hte"],
+  "flagWords": [
+    "hte"
+  ],
   // ignorePaths - list of paths to ignore
-  "ignorePaths": ["backend/output.json"]
+  "ignorePaths": [
+    "backend/output.json"
+  ]
 }
