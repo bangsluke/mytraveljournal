@@ -10,6 +10,24 @@ To install all of the required dependencies, run:
 pip install json os markdown2 obsidiantools neomodel
 ```
 
+### Properties Set Up
+
+To set up the properties, navigate to the `backend` directory and open the `properties.properties` file. Set the values to work with your project using the examples below;
+
+```bash
+[NEO4J]
+N4J.ConnType = bolt:// # The connection type
+N4J.URL = localhost:7687 # The URL
+N4J.USER = neo4j # The username used to connect
+N4J.PW = example # The password used to connect
+N4J.DB = neo4j # The database name
+[DATA]
+DATA.RelativePath = testdata # A relative path to the .md data files
+DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # The full path to the .md data files
+```
+
+> Note: If a full path is not specified, the relative path will be used.
+
 ## Getting Started
 
 ### Next.js Start Up

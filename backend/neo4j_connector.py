@@ -59,22 +59,22 @@ with open(config_file_path, 'r') as file:
     # config_file.read('../properties.properties')
     # print(config_file.read())
     config.DATABASE_URL = f'{config_file.get("NEO4J", "N4J.ConnType")}{config_file.get("NEO4J", "N4J.USER")}:{config_file.get("NEO4J", "N4J.PW")}@{config_file.get("NEO4J", "N4J.URL")}/{config_file.get("NEO4J", "N4J.DB")}'
-
     # Check if the database URL is correct
     print("config.DATABASE_URL: ", config.DATABASE_URL)
 
+    # Get the vault data folder path. If FullPath is not set, use RelativePath
+    vault_folder_path = config_file.get("DATA", "DATA.FullPath") if config_file.get("DATA", "DATA.FullPath") \
+        else os.path.join(current_script_dir, config_file.get("DATA", "DATA.RelativePath"))  # If FullPath is not set, use RelativePath and create a full path
+    print("vault_folder_path: ", vault_folder_path)
+
+    # Clear the database
     db.cypher_query("MATCH (n) DETACH DELETE n")  # Only for debugging
     print("'MATCH (n) DETACH DELETE n' sent to clear the database")
 
-    # TODO: Delete the below test
-    db.cypher_query("CREATE (n:Person {name: 'John', age: 30})")
-    print(
-        "'CREATE (n:Person {name: 'John', age: 30})' sent to create a person")
-
-    # C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes\Notes\02 Areas\Travel
+    # Connect to the vault of data and gather the tags
     vault = otools.Vault(data_folder_path).connect().gather()
     for node in vault.graph.nodes:
-        print(node)
+        print(node)  # List all found tags
         try:
             tags = vault.get_tags(node)
             if "holiday" in tags:

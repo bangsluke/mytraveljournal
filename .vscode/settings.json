@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["blockquote", "mytraveljournal"]
+  "cSpell.words": ["blockquote", "mytraveljournal"],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }
