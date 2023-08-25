@@ -33,6 +33,9 @@ class Person(StructuredNode):
 # Define the relative file path of the config file
 rel_config_file_path = 'properties.properties'
 
+# Define the relative folder path of the .md data files
+rel_data_folder_path = 'testdata'
+
 if __name__ == '__main__':
 
     # Get the full path of the current script i.e. /path/to/dir/foobar.py
@@ -42,6 +45,10 @@ if __name__ == '__main__':
     # Create the full path of the config file
     config_file_path = os.path.join(current_script_dir, rel_config_file_path)
     print("config_file_path: ", config_file_path)
+
+    # Create the full path of the data folder
+    data_folder_path = os.path.join(current_script_dir, rel_data_folder_path)
+    print("data_folder_path: ", data_folder_path)
 
 with open(config_file_path, 'r') as file:
     content = file.read()
@@ -65,8 +72,9 @@ with open(config_file_path, 'r') as file:
         "'CREATE (n:Person {name: 'John', age: 30})' sent to create a person")
 
     # C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes\Notes\02 Areas\Travel
-    vault = otools.Vault("../testdata").connect().gather()
+    vault = otools.Vault(data_folder_path).connect().gather()
     for node in vault.graph.nodes:
+        print(node)
         try:
             tags = vault.get_tags(node)
             if "holiday" in tags:
