@@ -29,7 +29,7 @@ class City(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
     capital = StringProperty()
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    located_in = RelationshipTo("Country", "LOCATED_IN")
     # coordinates = StringProperty()
     # population = StringProperty()
 
@@ -143,17 +143,17 @@ with open(config_file_path, 'r') as file:
     for start_node, end_node in set((start_node, end_node) for start_node, end_node, _ in vault.graph.edges):
         try:
             start_tags = vault.get_tags(start_node)
-            print(start_tags)
+            # print(start_tags)
             end_tags = vault.get_tags(end_node)
             # print(start_node, end_node)
             if "city" in start_tags and "country" in end_tags:
-                city = Location.get_or_create({"name": start_node})[0]
-                country = Location.get_or_create({"name": end_node})[0]
+                city = City.get_or_create({"name": start_node})[0]
+                country = Country.get_or_create({"name": end_node})[0]
                 city.located_in.connect(country)
-            if "country" in start_tags and "continent" in end_tags:
-                country = Country.get_or_create({"name": start_node})[0]
-                continent = Continent.get_or_create({"name": end_node})[0]
-                country.located_in.connect(continent)
+            # if "country" in start_tags and "continent" in end_tags:
+            #     country = Country.get_or_create({"name": start_node})[0]
+            #     continent = Continent.get_or_create({"name": end_node})[0]
+            #     country.located_in.connect(continent)
         except ValueError as e:
             print(e)
 
