@@ -1,10 +1,11 @@
 # This is a sample Python script.
 import configparser
 import os
+import re
 
-import obsidiantools.api as otools
-from neomodel import (RelationshipTo, StringProperty, StructuredNode,
-                      ZeroOrOne, config, db)
+import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
+from neomodel import (JSONProperty, RelationshipTo, StringProperty,
+                      StructuredNode, ZeroOrOne, config, db)
 
 
 class Location(StructuredNode):
@@ -16,7 +17,7 @@ class Location(StructuredNode):
 class Continent(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
-    # area = StringProperty()
+    # area = StringProperty() # TODO: Add a API to add the area
 
 
 class Country(StructuredNode):
@@ -39,7 +40,12 @@ class Holiday(StructuredNode):
     Class to represent real Identity of an entity.
     """
     name = StringProperty(unique_index=True, required=True)
+    date_year = StringProperty(required=True)
+    date_month = StringProperty(required=True)
     text = StringProperty()
+    front_matter = StringProperty()  # All of the YAML front matter
+    test_matter = StringProperty()
+    body_text = JSONProperty()  # All of the HTML body text below the front matter
     location = RelationshipTo(Location, "TRAVELED_TO", ZeroOrOne)
 
 
@@ -49,6 +55,30 @@ class Person(StructuredNode):
     """
     name = StringProperty(unique_index=True, required=True)
     attended = RelationshipTo(Holiday, "ATTENDED")
+
+# Helper function to extract year and month and name from a string
+# Called using: `extract_year_month_name(string)`
+
+
+def extract_year_month_name(s):
+    pattern = r'^(\d{4}) (\d{2}) (.+)$'
+    match = re.match(pattern, s)
+    if match:
+        year = int(match.group(1))
+        month = int(match.group(2))
+        name = match.group(3)
+        return {"year": year, "month": month, "name": name}
+    else:
+        return None
+
+# Helper function to remove the prefix from a string
+# Called using: `remove_prefix(string, prefix)`
+
+
+def remove_prefix(string, prefix):
+    if string.startswith(prefix):
+        return string[len(prefix):]
+    return string
 
 
 # Define the relative file path of the config file
@@ -100,9 +130,28 @@ with open(config_file_path, 'r') as file:
         try:
             tags = vault.get_tags(node)
             if "holiday" in tags:
+                # Get the name, year and month from the holiday note name
+                extract_result = extract_year_month_name(node)
+                # print(node)
+                if node[:3] == "TBC":  # Check if the first three characters are TBC of the node name
+                    continue  # Skip this item
+                # print(extract_result)
+                # print("Year:", extract_result["year"])
+                # Extract the year from the result
+                date_year = extract_result["year"]
+                # Extract the month from the result
+                date_month = extract_result["month"]
+                # Extract the name from the result, removing the "- " prefix
+                name = remove_prefix(extract_result["name"], "- ")
+
                 text = vault.get_readable_text(node)
-                holiday = Holiday(name=node, text=text[text.find(
-                    "\n", text.find("location:") + 10):].strip())
+                body_text = vault.get_readable_text(node)
+                front_matter = vault.get_front_matter(node)
+                test_matter = ' '.join(vault.get_front_matter(node))
+
+                # Create the holiday node and add all data to it
+                holiday = Holiday(name=name, date_year=date_year, date_month=date_month, text=text[text.find(
+                    "\n", text.find("location:") + 10):].strip(), front_matter=front_matter, test_matter=test_matter, body_text=body_text)
                 holiday.save()
                 location = Location.get_or_create({"name": text[text.find(
                     "location:") + 10:text.find("\n", text.find("location:") + 10)].strip()})[0]
@@ -160,7 +209,7 @@ with open(config_file_path, 'r') as file:
     # Count the number of nodes
     print("Done.")
     node_labels_to_count = ["Continent", "Country",
-                            "City"]  # Define the node labels to count
+                            "City", "Holiday"]  # Define the node labels to count
 
     # Function to print the node count for each passed node label
     def print_node_count(strings):
