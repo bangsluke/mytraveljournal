@@ -36,3 +36,8 @@ yarn-error.log*
 
 # Python
 properties.properties
+
+# GraphQL
+.env
+# GraphQL Dependencies
+/backend/graphql/node_modules
