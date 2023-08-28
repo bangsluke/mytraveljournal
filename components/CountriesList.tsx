@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
-import CountCard from "./CountCard";
 
 export default function CountryList() {
   const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
@@ -13,11 +12,6 @@ export default function CountryList() {
 
   return (
     <>
-      <CountCard
-        id="1"
-        cardTitle="Countries Count"
-        countValue={numberOfItems}
-      />
       {data.countries.map(({ name }) => (
         <div>
           <h3>{name}</h3>

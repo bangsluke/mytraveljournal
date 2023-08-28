@@ -88,3 +88,11 @@
   height: 5rem;
   line-height: normal;
 }
+
+.countCardSection {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}

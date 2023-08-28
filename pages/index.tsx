@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
+import CountCardSection from "../components/CountCardSection";
 import CountryList from "../components/CountriesList";
 import MarkdownList from "../components/MarkdownList";
 import NavBar from "../components/NavBar";
@@ -37,6 +38,8 @@ export default function Home(props: any) {
 
           <section>
             <h1>My Travel Journal</h1>
+
+            <CountCardSection />
 
             <CountryList />
 

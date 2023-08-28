@@ -3,7 +3,7 @@ import styles from "../styles/Travel.module.css";
 interface CountCardProp {
   id: string;
   cardTitle: string;
-  countValue: number;
+  countValue: number | string;
 }
 
 // Define a count card component that holds a string title and a number.
