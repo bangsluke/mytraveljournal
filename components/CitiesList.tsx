@@ -11,9 +11,11 @@ export default function CitiesList() {
   return (
     <div className={styles.dataList}>
       <h3>Cities Visited</h3>
-      {data.cities.map(({ name }) => (
-        <h4 id={name}>{name}</h4>
-      ))}
+      <ul>
+        {data.cities.map(({ name }) => (
+          <h4 id={name}>{name}</h4>
+        ))}
+      </ul>
     </div>
   );
 }

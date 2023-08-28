@@ -11,9 +11,11 @@ export default function CountryList() {
   return (
     <div className={styles.dataList}>
       <h3>Countries Visited</h3>
-      {data.countries.map(({ name }) => (
-        <h4 id={name}>{name}</h4>
-      ))}
+      <ul>
+        {data.countries.map(({ name }) => (
+          <h4 id={name}>{name}</h4>
+        ))}
+      </ul>
     </div>
   );
 }
