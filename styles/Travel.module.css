@@ -53,3 +53,19 @@
   font-size: 1.25rem;
   line-height: 1.5;
 }
+
+.countcard {
+  height: 100px;
+  width: 100px;
+  background-color: #fe395c;
+  color: #F3F3F3;
+  display: flex;
+  padding: 0 20px;
+  border-radius: 20px;
+  /* justify-content: flex-start; */
+  justify-content: center;
+  /* Position Horizontally */
+  align-items: center;
+  /* Center Vertically */
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+}
