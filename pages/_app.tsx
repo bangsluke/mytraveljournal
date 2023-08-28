@@ -1,3 +1,9 @@
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  gql,
+} from "@apollo/client";
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
 
@@ -7,8 +13,31 @@ import "../styles/globals.css";
 // Define dark mode
 const darkMode = false;
 
+const client = new ApolloClient({
+  uri: "http://127.0.0.1:4000/",
+  cache: new InMemoryCache(),
+});
+
+// const client = ...
+
+client
+  .query({
+    query: gql`
+      query GetLocations {
+        cities {
+          name
+        }
+      }
+    `,
+  })
+  .then((result) => console.log(result));
+
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <ApolloProvider client={client}>
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
 }
 
 export default MyApp;
