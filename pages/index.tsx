@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
+import CitiesList from "../components/CitiesList";
 import CountCardSection from "../components/CountCardSection";
 import CountryList from "../components/CountriesList";
 import MarkdownList from "../components/MarkdownList";
@@ -41,9 +42,13 @@ export default function Home(props: any) {
 
             <CountCardSection />
 
-            <CountryList />
+            <div id="listsSection" className={styles.listsSection}>
+              <CountryList />
 
-            {/* <HolidayList /> */}
+              <CitiesList />
+
+              {/* <HolidayList /> */}
+            </div>
 
             <MarkdownList data={jsonData} />
           </section>

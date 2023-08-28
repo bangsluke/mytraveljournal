@@ -12,6 +12,21 @@
   align-items: center;
 }
 
+.listsSection {
+  background-color: aqua;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.listsSection h3 {
+  text-align: center;
+}
+
+
+
 .footer {
   display: flex;
   flex: 1;
