@@ -27,6 +27,7 @@ const typeDefs = `#graphql
 		name: String
 		date_year: Int
 		date_month: Int
+		holiday_id: String
 	}
 `;
 

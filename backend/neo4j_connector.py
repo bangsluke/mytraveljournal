@@ -63,6 +63,7 @@ class Holiday(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     date_year = IntegerProperty(required=True)
     date_month = IntegerProperty(required=True)
+    holiday_id = StringProperty(unique_index=True, required=True)
     text = StringProperty()
     text_full_note_text = StringProperty()  # All of the Obsidian note text
     text_frontmatter = StringProperty()  # All of the YAML front matter
@@ -115,6 +116,15 @@ def extract_year_month_name(string):
         return {"year": year, "month": month, "name": name}
     else:
         return None
+
+
+# Helper function to remove non-ASCII characters
+# Called using: `remove_non_ascii(text)`
+def remove_non_ascii(text):
+    # Use a regular expression to match non-ASCII characters
+    pattern = r'[^\x00-\x7F]+'
+    cleaned_text = re.sub(pattern, '', text)
+    return cleaned_text
 
 
 # Define the relative file path of the config file
@@ -253,6 +263,12 @@ with open(config_file_path, 'r') as file:
                 date_month = extract_result["month"]
                 # Extract the name from the result
                 name = extract_result["name"]
+                # Clean the name of non-ASCII characters and replace any comma spaces with dashes, and remove any spaces
+                cleanedName = remove_non_ascii(
+                    name.replace(", ", "-")).strip().replace(" ", "-").strip()
+
+                # Create the holiday id - the :02 formats the month to two digits
+                holiday_id = f"{date_year}-{date_month:02}-{cleanedName}"
 
                 # Get the various forms of the text to add to the node
                 full_node_path = f"{vault_folder_path}\{node}.md"
@@ -278,6 +294,7 @@ with open(config_file_path, 'r') as file:
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
+                                  holiday_id=holiday_id,
                                   #   text_full_note_text=text_full_note_text,
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content,

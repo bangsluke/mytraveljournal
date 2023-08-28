@@ -22,6 +22,7 @@ const GET_HOLIDAYS = gql`
       name
       date_year
       date_month
+      holiday_id
     }
   }
 `;

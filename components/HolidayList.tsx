@@ -17,10 +17,10 @@ export default function HolidayList() {
     <div className={styles.dataList}>
       <h3>Holidays</h3>
       <ul>
-        {data.holidays.map(({ name, date_year, date_month }) => (
+        {data.holidays.map(({ name, date_year, date_month, holiday_id }) => (
           <li
             key={name}
-            onClick={() => router.push({ pathname: `/holidays/${name}` })}
+            onClick={() => router.push({ pathname: `/holidays/${holiday_id}` })}
           >
             <h4>{name}</h4>
             <h5>
