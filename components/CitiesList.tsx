@@ -13,7 +13,9 @@ export default function CitiesList() {
       <h3>Cities Visited</h3>
       <ul>
         {data.cities.map(({ name }) => (
-          <h4 id={name}>{name}</h4>
+          <li key={name}>
+            <h4>{name}</h4>
+          </li>
         ))}
       </ul>
     </div>

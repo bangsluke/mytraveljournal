@@ -13,7 +13,9 @@ export default function CountryList() {
       <h3>Countries Visited</h3>
       <ul>
         {data.countries.map(({ name }) => (
-          <h4 id={name}>{name}</h4>
+          <li key={name}>
+            <h4>{name}</h4>
+          </li>
         ))}
       </ul>
     </div>
