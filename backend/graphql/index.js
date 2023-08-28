@@ -16,6 +16,10 @@ const typeDefs = `#graphql
         name: String
         movies: [Movie!]! @relationship(type: "ACTED_IN", direction: OUT)
     }
+
+	type City {
+		name: String
+	}
 `;
 
 console.log(`Database password is ${process.env.N4J_PW}`);
