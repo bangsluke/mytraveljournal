@@ -51,7 +51,9 @@ class Holiday(StructuredNode):
     # All of the HTML body text below the front matter
     text_body_text = StringProperty()
     text_html_content = StringProperty()  # Hold the parsed HTML
-    location = RelationshipTo(Location, "TRAVELED_TO", ZeroOrOne)
+    # Location details
+    location = StringProperty()
+    travelled_to = RelationshipTo(Location, "TRAVELLED_TO", ZeroOrOne)
 
 
 class Person(StructuredNode):
@@ -170,24 +172,33 @@ with open(config_file_path, 'r') as file:
                 # Get the body text using a strip
                 text = vault.get_readable_text(node)
                 text_body_text = text[text.find(
-                    "\n", text.find("location:") + 10):].strip()
+                    "\n", text.find("location:") + 9):].strip()
 
                 # Convert the markdown body text to html
                 text_html_content = markdown2.markdown(
                     text_body_text)  # Convert the markdown to html
 
+                # Generate other properties on the node
+                location = text[text.find(
+                    "location:") + 9:text.find("departingAirport:")].strip()
+                print("Note: ", node, ", location: ", location)
+
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
                                   #   text_full_note_text=text_full_note_text,
                                   text_body_text=text_body_text,
-                                  text_html_content=text_html_content)
+                                  text_html_content=text_html_content,
+                                  location=location)
                 holiday.save()
 
                 # Get the location and connect it to the holiday
-                location = Location.get_or_create({"name": text[text.find(
-                    "location:") + 10:text.find("\n", text.find("location:") + 10)].strip()})[0]
+                # Split out the location text
+                location = text[text.find(
+                    "location:") + 9:text.find("departingAirport:")].strip()
+                # print("Location: ", location)
+                location = Location.create_or_update({"name": location})[0]
                 location.save()
-                holiday.location.connect(location)
+                holiday.travelled_to.connect(location)
 
                 # Get the attendees and connect them to the holiday
                 for attendee in [attendee.strip() for attendee in text[text.find("attendees:") + 10:text.find("coverPhoto:")].split(',')]:
@@ -196,22 +207,26 @@ with open(config_file_path, 'r') as file:
                     person.attended.connect(holiday)
             elif "location" in tags:
                 if "continent" in tags:  # Create the continent nodes
-                    node = Continent.get_or_create(
+                    node = Continent.create_or_update(
                         {"name": node, "level": "Continent"})[0]
                     node.save()
                 elif "country" in tags:
-                    node = Country.get_or_create(
+                    # TODO: Connect the country node to the continent
+                    node = Country.create_or_update(
                         {"name": node, "level": "Country"})[0]
                     node.save()
                 elif "city" in tags:
+                    # TODO: Connect the city node to the country
                     if "capital" in tags:  # Check if the current node is a capital
                         capital = "true"
                     else:
                         capital = "false"
-                    node = City.get_or_create(
+                    node = City.create_or_update(
                         {"name": node, "level": "City", "capital": capital})[0]
                     node.save()
                 else:
+                    # TODO: Create the location node
+                    # TODO: Connect the location node to the country
                     level = "Unknown"
                 # location = Location.get_or_create({"name": node})[0]
                 # location.level = level
