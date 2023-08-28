@@ -4,8 +4,8 @@ import os
 import re
 
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
-from neomodel import (JSONProperty, RelationshipTo, StringProperty,
-                      StructuredNode, ZeroOrOne, config, db)
+from neomodel import (IntegerProperty, JSONProperty, RelationshipTo,
+                      StringProperty, StructuredNode, ZeroOrOne, config, db)
 
 
 class Location(StructuredNode):
@@ -40,8 +40,8 @@ class Holiday(StructuredNode):
     Class to represent real Identity of an entity.
     """
     name = StringProperty(unique_index=True, required=True)
-    date_year = StringProperty(required=True)
-    date_month = StringProperty(required=True)
+    date_year = IntegerProperty(required=True)
+    date_month = IntegerProperty(required=True)
     text = StringProperty()
     front_matter = StringProperty()  # All of the YAML front matter
     test_matter = StringProperty()
