@@ -16,26 +16,44 @@ class Location(StructuredNode):
     level = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
-
-class Continent(StructuredNode):
-    name = StringProperty(unique_index=True, required=True)
-    level = StringProperty()
-    # area = StringProperty() # TODO: Add a API to add the area
+# Create the Continent class as a subclass of Location - https://stackoverflow.com/a/56778266
 
 
-class Country(StructuredNode):
-    name = StringProperty(unique_index=True, required=True)
-    level = StringProperty()
+class Continent(Location):
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
+    area = StringProperty()  # TODO: Add a API to add the area
+
+
+# Create the Country class as a subclass of Location - https://stackoverflow.com/a/56778266
+class Country(Location):
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
-class City(StructuredNode):
-    name = StringProperty(unique_index=True, required=True)
-    level = StringProperty()
+# Create the County class as a subclass of Location - https://stackoverflow.com/a/56778266
+class County(Location):
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
+    located_in = RelationshipTo("Location", "LOCATED_IN")
+
+
+# Create the City class as a subclass of Location - https://stackoverflow.com/a/56778266
+class City(Location):
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
     capital = StringProperty()
     located_in = RelationshipTo("Country", "LOCATED_IN")
     # coordinates = StringProperty()
     # population = StringProperty()
+
+
+# Create the Island class as a subclass of Location - https://stackoverflow.com/a/56778266
+class Island(Location):
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
+    located_in = RelationshipTo("Country", "LOCATED_IN")
 
 
 class Holiday(StructuredNode):
@@ -143,11 +161,85 @@ with open(config_file_path, 'r') as file:
     # Connect to the vault of data and gather the tags
     vault = otools.Vault(vault_folder_path).connect().gather()
     print("Collecting tags from the vault and building nodes...")
+
+    # Do the first loop through the nodes - creating the basic nodes such as Continent, Country, City, People etc
     for node in vault.graph.nodes:
         print(node)  # List all found tags
         try:
             tags = vault.get_tags(node)
+            if "location" in tags:
+                if "continent" in tags:  # Create the continent nodes
+                    continent = Continent.create_or_update(
+                        {"name": node, "level": "Continent"})[0]
+                    continent.save()
+                elif "country" in tags:
+                    # TODO: Connect the country node to the continent
+                    country = Country.create_or_update(
+                        {"name": node, "level": "Country"})[0]
+                    country.save()
+                elif "county" in tags:
+                    # TODO: Connect the county node to the country
+                    county = County.create_or_update(
+                        {"name": node, "level": "County"})[0]
+                    county.save()
+                elif "city" in tags:
+                    # TODO: Connect the city node to the country
+                    if "capital" in tags:  # Check if the current node is a capital
+                        capital = "true"
+                    else:
+                        capital = "false"
+                    city = City.create_or_update(
+                        {"name": node, "level": "City", "capital": capital})[0]
+                    city.save()
+                elif "island" in tags:
+                    # TODO: Connect the island node to the country
+                    # TODO: Connect the island node to the located in node
+                    island = Island.create_or_update(
+                        {"name": node, "level": "Island"})[0]
+                    island.save()
+                else:
+                    # TODO: Create the location node
+                    # TODO: Connect the location node to the country
+                    level = "Unknown"
+                # location = Location.get_or_create({"name": node})[0]
+                # location.level = level
+                # location.save()
+            elif "person" in tags:
+
+                # Get the body text using a strip
+                text = vault.get_readable_text(node)
+                text_body_text = text
+
+                # Create or update and existing person node and add all data to it
+                person = Person.create_or_update(
+                    {"name": node, "text_body_text": text_body_text})[0]
+                person.save()
+        except ValueError as e:
+            print(e)
+
+    for start_node, end_node in set((start_node, end_node) for start_node, end_node, _ in vault.graph.edges):
+        try:
+            start_tags = vault.get_tags(start_node)
+            # print(start_tags)
+            end_tags = vault.get_tags(end_node)
+            # print(start_node, end_node)
+            if "city" in start_tags and "country" in end_tags:
+                city = City.get_or_create({"name": start_node})[0]
+                country = Country.get_or_create({"name": end_node})[0]
+                city.located_in.connect(country)
+            # if "country" in start_tags and "continent" in end_tags:
+            #     country = Country.get_or_create({"name": start_node})[0]
+            #     continent = Continent.get_or_create({"name": end_node})[0]
+            #     country.located_in.connect(continent)
+        except ValueError as e:
+            print(e)
+
+    # Do the second loop through the nodes - creating the holidays
+    for node in vault.graph.nodes:
+        try:
+            tags = vault.get_tags(node)
             if "holiday" in tags:
+                print("   " + node)  # List all found holidays
                 # Get the name, year and month from the holiday note name
                 extract_result = extract_year_month_name(node)
                 # print(node)
@@ -182,6 +274,7 @@ with open(config_file_path, 'r') as file:
                 location = text[text.find(
                     "location:") + 9:text.find("departingAirport:")].strip()
                 print("Note: ", node, ", location: ", location)
+                print(location)
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
@@ -205,42 +298,6 @@ with open(config_file_path, 'r') as file:
                     person = Person.create_or_update({"name": attendee})[0]
                     person.save()
                     person.attended.connect(holiday)
-            elif "location" in tags:
-                if "continent" in tags:  # Create the continent nodes
-                    node = Continent.create_or_update(
-                        {"name": node, "level": "Continent"})[0]
-                    node.save()
-                elif "country" in tags:
-                    # TODO: Connect the country node to the continent
-                    node = Country.create_or_update(
-                        {"name": node, "level": "Country"})[0]
-                    node.save()
-                elif "city" in tags:
-                    # TODO: Connect the city node to the country
-                    if "capital" in tags:  # Check if the current node is a capital
-                        capital = "true"
-                    else:
-                        capital = "false"
-                    node = City.create_or_update(
-                        {"name": node, "level": "City", "capital": capital})[0]
-                    node.save()
-                else:
-                    # TODO: Create the location node
-                    # TODO: Connect the location node to the country
-                    level = "Unknown"
-                # location = Location.get_or_create({"name": node})[0]
-                # location.level = level
-                # location.save()
-            elif "person" in tags:
-
-                # Get the body text using a strip
-                text = vault.get_readable_text(node)
-                text_body_text = text
-
-                # Create or update and existing person node and add all data to it
-                person = Person.create_or_update(
-                    {"name": node, "text_body_text": text_body_text})[0]
-                person.save()
         except ValueError as e:
             print(e)
 
