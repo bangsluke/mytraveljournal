@@ -16,9 +16,20 @@ const GET_CITIES = gql`
   }
 `;
 
+const GET_HOLIDAYS = gql`
+  query GetHolidays {
+    holidays {
+      name
+      date_year
+      date_month
+    }
+  }
+`;
+
 const GraphQLQueriesS = {
   GET_COUNTRIES,
   GET_CITIES,
+  GET_HOLIDAYS,
 };
 
 export default GraphQLQueriesS;

@@ -4,8 +4,6 @@ import { Neo4jGraphQL } from "@neo4j/graphql";
 import "dotenv/config.js"; // https://stackoverflow.com/a/65292523
 import neo4j from "neo4j-driver";
 
-// require("dotenv").config();
-
 const typeDefs = `#graphql
     type Movie {
         title: String
@@ -24,9 +22,15 @@ const typeDefs = `#graphql
 	type City {
 		name: String
 	}
+
+	type Holiday {
+		name: String
+		date_year: Int
+		date_month: Int
+	}
 `;
 
-console.log(`Database password is ${process.env.N4J_PW}`);
+// console.log(`Database password is ${process.env.N4J_PW}`);
 
 const driver = neo4j.driver(
   //   "bolt://localhost:7687",

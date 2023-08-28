@@ -4,6 +4,7 @@ import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CitiesList from "../components/CitiesList";
 import CountCardSection from "../components/CountCardSection";
 import CountryList from "../components/CountriesList";
+import HolidayList from "../components/HolidayList";
 import MarkdownList from "../components/MarkdownList";
 import NavBar from "../components/NavBar";
 import styles from "../styles/Home.module.css";
@@ -35,6 +36,7 @@ export default function Home(props: any) {
             height={250} // Desired size with correct aspect ratio
             width={330} // Desired size with correct aspect ratio
             alt="Nice Photo"
+            priority
           />
 
           <section>
@@ -43,11 +45,11 @@ export default function Home(props: any) {
             <CountCardSection />
 
             <div id="listsSection" className={styles.listsSection}>
+              <HolidayList />
+
               <CountryList />
 
               <CitiesList />
-
-              {/* <HolidayList /> */}
             </div>
 
             <MarkdownList data={jsonData} />
