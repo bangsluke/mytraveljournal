@@ -59,22 +59,8 @@ class Person(StructuredNode):
     Class to represent real Identity of an entity.
     """
     name = StringProperty(unique_index=True, required=True)
+    text_body_text = StringProperty()  # All of the Obsidian note text
     attended = RelationshipTo(Holiday, "ATTENDED")
-
-# Helper function to extract year and month and name from a string
-# Called using: `extract_year_month_name(string)`
-
-
-def extract_year_month_name(s):
-    pattern = r'^(\d{4}) (\d{2}) (.+)$'
-    match = re.match(pattern, s)
-    if match:
-        year = int(match.group(1))
-        month = int(match.group(2))
-        name = match.group(3)
-        return {"year": year, "month": month, "name": name}
-    else:
-        return None
 
 # Helper function to remove the prefix from a string
 # Called using: `remove_prefix(string, prefix)`
@@ -84,6 +70,31 @@ def remove_prefix(string, prefix):
     if string.startswith(prefix):
         return string[len(prefix):]
     return string
+
+# Helper function to extract year and month and name from a string
+# Called using: `extract_year_month_name(string)`
+
+
+def extract_year_month_name(string):
+    # print("string: ", string)
+    # print("string.rfind()", string.rfind("\\"))
+    last_backslash_index = string.rfind("\\")  # Find the last backslash index
+    if last_backslash_index != -1:
+        # Get the text to the right of the backslash
+        string = string[last_backslash_index + 1:]
+    # print("string: ", string)
+    pattern = r'^(\d{4}) (\d{2}) (.+)$'
+    match = re.match(pattern, string)
+    if match:
+        year = int(match.group(1))
+        month = int(match.group(2))
+        name = match.group(3)
+        # Extract the name from the result, removing the "- " prefix
+        name = remove_prefix(name, "- ")
+        # print("name: ", name)
+        return {"year": year, "month": month, "name": name}
+    else:
+        return None
 
 
 # Define the relative file path of the config file
@@ -131,7 +142,7 @@ with open(config_file_path, 'r') as file:
     vault = otools.Vault(vault_folder_path).connect().gather()
     print("Collecting tags from the vault and building nodes...")
     for node in vault.graph.nodes:
-        # print(node)  # List all found tags
+        print(node)  # List all found tags
         try:
             tags = vault.get_tags(node)
             if "holiday" in tags:
@@ -146,13 +157,14 @@ with open(config_file_path, 'r') as file:
                 date_year = extract_result["year"]
                 # Extract the month from the result
                 date_month = extract_result["month"]
-                # Extract the name from the result, removing the "- " prefix
-                name = remove_prefix(extract_result["name"], "- ")
+                # Extract the name from the result
+                name = extract_result["name"]
 
                 # Get the various forms of the text to add to the node
                 full_node_path = f"{vault_folder_path}\{node}.md"
                 # print(full_node_path)
-                text_full_note_text = frontmatter.load(full_node_path)
+                # TODO: Fix the fact that the node path is being lost
+                # text_full_note_text = frontmatter.load(full_node_path)
                 # print(text_full_note_text)
 
                 # Get the body text using a strip
@@ -166,16 +178,20 @@ with open(config_file_path, 'r') as file:
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
-                                  text_full_note_text=text_full_note_text,
+                                  #   text_full_note_text=text_full_note_text,
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content)
                 holiday.save()
+
+                # Get the location and connect it to the holiday
                 location = Location.get_or_create({"name": text[text.find(
                     "location:") + 10:text.find("\n", text.find("location:") + 10)].strip()})[0]
                 location.save()
                 holiday.location.connect(location)
-                for attendee in [attendee.strip() for attendee in text[text.find("attendees:") + 10:text.find("photoAlbum:")].split(',')]:
-                    person = Person.get_or_create({"name": attendee})[0]
+
+                # Get the attendees and connect them to the holiday
+                for attendee in [attendee.strip() for attendee in text[text.find("attendees:") + 10:text.find("coverPhoto:")].split(',')]:
+                    person = Person.create_or_update({"name": attendee})[0]
                     person.save()
                     person.attended.connect(holiday)
             elif "location" in tags:
@@ -201,7 +217,14 @@ with open(config_file_path, 'r') as file:
                 # location.level = level
                 # location.save()
             elif "person" in tags:
-                person = Person.get_or_create({"name": node})[0]
+
+                # Get the body text using a strip
+                text = vault.get_readable_text(node)
+                text_body_text = text
+
+                # Create or update and existing person node and add all data to it
+                person = Person.create_or_update(
+                    {"name": node, "text_body_text": text_body_text})[0]
                 person.save()
         except ValueError as e:
             print(e)
@@ -226,7 +249,7 @@ with open(config_file_path, 'r') as file:
     # Count the number of nodes
     print("Done.")
     node_labels_to_count = ["Continent", "Country",
-                            "City", "Holiday"]  # Define the node labels to count
+                            "City", "Holiday", "Person"]  # Define the node labels to count
 
     # Function to print the node count for each passed node label
     def print_node_count(strings):
