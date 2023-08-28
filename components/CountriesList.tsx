@@ -8,7 +8,7 @@ const GET_COUNTRIES = gql`
   }
 `;
 
-function CountryList() {
+export default function CountryList() {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
 
   if (loading) return <p>Loading...</p>;
@@ -28,5 +28,3 @@ function CountryList() {
     </>
   );
 }
-
-export default CountryList;

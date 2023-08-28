@@ -8,7 +8,7 @@ const GET_LOCATIONS = gql`
   }
 `;
 
-function HolidayList() {
+export default function HolidayList() {
   const { loading, error, data } = useQuery(GET_LOCATIONS);
 
   if (loading) return <p>Loading...</p>;
@@ -20,5 +20,3 @@ function HolidayList() {
     </div>
   ));
 }
-
-export default HolidayList;
