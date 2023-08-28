@@ -3,9 +3,12 @@ import configparser
 import os
 import re
 
+import frontmatter
+import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
-from neomodel import (IntegerProperty, JSONProperty, RelationshipTo,
-                      StringProperty, StructuredNode, ZeroOrOne, config, db)
+from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
+    IntegerProperty, RelationshipTo, StringProperty, StructuredNode, ZeroOrOne,
+    config, db)
 
 
 class Location(StructuredNode):
@@ -43,9 +46,11 @@ class Holiday(StructuredNode):
     date_year = IntegerProperty(required=True)
     date_month = IntegerProperty(required=True)
     text = StringProperty()
-    front_matter = StringProperty()  # All of the YAML front matter
-    test_matter = StringProperty()
-    body_text = JSONProperty()  # All of the HTML body text below the front matter
+    text_full_note_text = StringProperty()  # All of the Obsidian note text
+    text_frontmatter = StringProperty()  # All of the YAML front matter
+    # All of the HTML body text below the front matter
+    text_body_text = StringProperty()
+    text_html_content = StringProperty()  # Hold the parsed HTML
     location = RelationshipTo(Location, "TRAVELED_TO", ZeroOrOne)
 
 
@@ -144,18 +149,26 @@ with open(config_file_path, 'r') as file:
                 # Extract the name from the result, removing the "- " prefix
                 name = remove_prefix(extract_result["name"], "- ")
 
+                # Get the various forms of the text to add to the node
+                full_node_path = f"{vault_folder_path}\{node}.md"
+                # print(full_node_path)
+                text_full_note_text = frontmatter.load(full_node_path)
+                # print(text_full_note_text)
+
+                # Get the body text using a strip
                 text = vault.get_readable_text(node)
-                body_text = vault.get_readable_text(node)
-                front_matter = vault.get_front_matter(node)
-                test_matter = vault.front_matter_index
+                text_body_text = text[text.find(
+                    "\n", text.find("location:") + 10):].strip()
+
+                # Convert the markdown body text to html
+                text_html_content = markdown2.markdown(
+                    text_body_text)  # Convert the markdown to html
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
-                                  text=text[text.find("\n", text.find(
-                                      "location:") + 10):].strip(),
-                                  front_matter=front_matter,
-                                  test_matter=test_matter,
-                                  body_text=body_text)
+                                  text_full_note_text=text_full_note_text,
+                                  text_body_text=text_body_text,
+                                  text_html_content=text_html_content)
                 holiday.save()
                 location = Location.get_or_create({"name": text[text.find(
                     "location:") + 10:text.find("\n", text.find("location:") + 10)].strip()})[0]
