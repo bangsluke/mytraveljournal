@@ -147,11 +147,15 @@ with open(config_file_path, 'r') as file:
                 text = vault.get_readable_text(node)
                 body_text = vault.get_readable_text(node)
                 front_matter = vault.get_front_matter(node)
-                test_matter = ' '.join(vault.get_front_matter(node))
+                test_matter = vault.front_matter_index
 
                 # Create the holiday node and add all data to it
-                holiday = Holiday(name=name, date_year=date_year, date_month=date_month, text=text[text.find(
-                    "\n", text.find("location:") + 10):].strip(), front_matter=front_matter, test_matter=test_matter, body_text=body_text)
+                holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
+                                  text=text[text.find("\n", text.find(
+                                      "location:") + 10):].strip(),
+                                  front_matter=front_matter,
+                                  test_matter=test_matter,
+                                  body_text=body_text)
                 holiday.save()
                 location = Location.get_or_create({"name": text[text.find(
                     "location:") + 10:text.find("\n", text.find("location:") + 10)].strip()})[0]
