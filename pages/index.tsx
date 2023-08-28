@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
-import HolidayList from "../components/HolidayList";
+import CountryList from "../components/CountriesList";
 import MarkdownList from "../components/MarkdownList";
 import NavBar from "../components/NavBar";
 import styles from "../styles/Home.module.css";
@@ -38,7 +38,9 @@ export default function Home(props: any) {
           <section>
             <h1>My Travel Journal</h1>
 
-            <HolidayList />
+            <CountryList />
+
+            {/* <HolidayList /> */}
 
             <MarkdownList data={jsonData} />
           </section>

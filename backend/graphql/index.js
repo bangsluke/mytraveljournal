@@ -17,6 +17,10 @@ const typeDefs = `#graphql
         movies: [Movie!]! @relationship(type: "ACTED_IN", direction: OUT)
     }
 
+	type Country {
+		name: String
+	}
+
 	type City {
 		name: String
 	}

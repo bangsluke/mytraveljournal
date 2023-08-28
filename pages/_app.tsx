@@ -30,7 +30,7 @@ client
       }
     `,
   })
-  .then((result) => console.log(result));
+  .then((result) => console.log("Test connection in _app.tsx", result));
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
