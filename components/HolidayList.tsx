@@ -1,15 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
-
-const GET_LOCATIONS = gql`
-  query GetLocations {
-    cities {
-      name
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
 
 export default function HolidayList() {
-  const { loading, error, data } = useQuery(GET_LOCATIONS);
+  const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CITIES);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
