@@ -13,7 +13,7 @@
 }
 
 .listsSection {
-  background-color: aqua;
+  /* background-color: aqua; */
   display: flex;
   flex-direction: row;
   gap: 20px;

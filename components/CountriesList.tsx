@@ -12,7 +12,7 @@ export default function CountryList() {
     <div className={styles.dataList}>
       <h3>Countries Visited</h3>
       {data.countries.map(({ name }) => (
-        <h4>{name}</h4>
+        <h4 id={name}>{name}</h4>
       ))}
     </div>
   );

@@ -12,7 +12,7 @@ export default function CitiesList() {
     <div className={styles.dataList}>
       <h3>Cities Visited</h3>
       {data.cities.map(({ name }) => (
-        <h4>{name}</h4>
+        <h4 id={name}>{name}</h4>
       ))}
     </div>
   );
