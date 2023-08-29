@@ -27,10 +27,22 @@ const GET_HOLIDAYS = gql`
   }
 `;
 
+const GET_HOLIDAY_BY_ID = gql`
+  query GetHolidayById($holiday_id: String) {
+    holidays(where: { holiday_id: $holiday_id }) {
+      name
+      date_year
+      date_month
+      holiday_id
+    }
+  }
+`;
+
 const GraphQLQueriesS = {
   GET_COUNTRIES,
   GET_CITIES,
   GET_HOLIDAYS,
+  GET_HOLIDAY_BY_ID,
 };
 
 export default GraphQLQueriesS;
