@@ -7,6 +7,7 @@
   - [Python Set Up](#python-set-up)
   - [Properties Set Up](#properties-set-up)
 - [Getting Started](#getting-started)
+  - [Quick Start](#quick-start)
   - [Next.js Start Up](#next-start-up)
   - [Node.js Start Up (Apollo Server)](#node-start-up)
   - [Python Start Up](#python-start-up)
@@ -62,6 +63,15 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 > Note: If a full path is not specified, the relative path will be used.
 
 ## Getting Started
+
+### Quick start
+
+To quickly get started, do the following steps:
+
+1. Start the Neo4j graph database (Neo4j desktop)
+2. In the terminal, start the backend Apollo Server by running: `yarn backendstart` to call the script from `package.json`
+3. In another terminal, start the frontend by running: `yarn dev`
+4. Open [http://localhost:3000](http://localhost:3000)
 
 ### Next Start Up
 

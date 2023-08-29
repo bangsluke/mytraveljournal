@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generategraph": "python backend/generate_neo4j_graph_from_md.py",
+    "backendstart": "cd backend/graphql && node index.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.1",
