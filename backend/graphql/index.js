@@ -50,4 +50,5 @@ const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
 });
 
+console.log(`Backend server started up`);
 console.log(`🚀 Server ready at ${url}`);
