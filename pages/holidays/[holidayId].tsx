@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 
 export default function HolidayPage() {
   const router = useRouter();
-  console.log(router.query.slug);
+  const { holidayId } = router.query;
+  console.log(holidayId);
 
   return (
     <>
       <h1>Holiday Page</h1>
       {/* TODO: Fix the title of the page below */}
-      <h2 style={{ fontWeight: 600, fontSize: 25 }}>{router.query.slug}</h2>
+      <h2 style={{ fontWeight: 600, fontSize: 25 }}>{holidayId}</h2>
       <div
         style={{
           backgroundColor: "blue",
