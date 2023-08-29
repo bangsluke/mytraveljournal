@@ -277,6 +277,10 @@ with open(config_file_path, 'r') as file:
                 # text_full_note_text = frontmatter.load(full_node_path)
                 # print(text_full_note_text)
 
+                # Get the frontmatter
+                text_frontmatter = vault.get_front_matter(node)
+                print("frontmatter: ", text_frontmatter)
+
                 # Get the body text using a strip
                 text = vault.get_readable_text(node)
                 text_body_text = text[text.find(
@@ -290,12 +294,13 @@ with open(config_file_path, 'r') as file:
                 location = text[text.find(
                     "location:") + 9:text.find("departingAirport:")].strip()
                 print("Note: ", node, ", location: ", location)
-                print(location)
+                # print(location)
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
                                   holiday_id=holiday_id,
                                   #   text_full_note_text=text_full_note_text,
+                                  text_frontmatter=text_frontmatter,
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content,
                                   location=location)
