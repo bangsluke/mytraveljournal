@@ -3,7 +3,6 @@ import configparser
 import os
 import re
 
-import frontmatter
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
@@ -66,8 +65,7 @@ class Holiday(StructuredNode):
     holiday_id = StringProperty(unique_index=True, required=True)
     text = StringProperty()
     text_full_note_text = StringProperty()  # All of the Obsidian note text
-    text_frontmatter = StringProperty()  # All of the YAML front matter
-    # All of the HTML body text below the front matter
+    # All of the HTML body text below the fake front matter
     text_body_text = StringProperty()
     text_html_content = StringProperty()  # Hold the parsed HTML
     # Location details
@@ -290,7 +288,7 @@ with open(config_file_path, 'r') as file:
                 location = text[text.find(
                     "location:") + 9:text.find("departingAirport:")].strip()
                 print("Note: ", node, ", location: ", location)
-                print(location)
+                # print(location)
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
