@@ -1,5 +1,6 @@
 .navbar {
   position: fixed;
+  top: 0;
   left: 0;
   height: 80px;
   width: 100%;
@@ -100,4 +101,15 @@
 .dataList {
   width: 50%;
   /* background-color: #0070f3; */
+}
+
+.clickableHeader {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.clickableListItem {
+  /* list-style: none; */
+  cursor: pointer;
+  text-decoration: underline;
 }

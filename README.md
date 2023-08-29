@@ -7,6 +7,7 @@
   - [Python Set Up](#python-set-up)
   - [Properties Set Up](#properties-set-up)
 - [Getting Started](#getting-started)
+  - [Quick Start](#quick-start)
   - [Next.js Start Up](#next-start-up)
   - [Node.js Start Up (Apollo Server)](#node-start-up)
   - [Python Start Up](#python-start-up)
@@ -21,7 +22,7 @@ The page is built off of data from markdown files created in Obsidian. Obsidian 
 
 At the start of each note, I have some fake "front matter" - the name used in Obsidian. By fake, I mean I do not convert the data into YAML using the wrapper `---`, instead I wrap mine in `- - -` to create a line break. This allows me to add tags and linked notes in the data at the start of the page that keeps links within Obsidian and also allows me to read the data into Python in a structured way. If was to use YAML, I would not get the linked notes to work within Obsidian.
 
-**"Front Matter" Structure**
+##### Example of required "Front Matter" Structure
 
 ```JS
 - tags: #holiday
@@ -62,6 +63,15 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 > Note: If a full path is not specified, the relative path will be used.
 
 ## Getting Started
+
+### Quick start
+
+To quickly get started, do the following steps:
+
+1. Start the Neo4j graph database (Neo4j desktop)
+2. In the terminal, start the backend Apollo Server by running: `yarn backendstart` to call the script from `package.json`
+3. In another terminal, start the frontend by running: `yarn dev`
+4. Open [http://localhost:3000](http://localhost:3000)
 
 ### Next Start Up
 
