@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 
@@ -33,13 +34,27 @@ export default function HolidayPage() {
       </>
     );
 
+  // Extract the data into usable variables
+  const { name, date_year, date_month, text_html_content } = data.holidays[0];
   console.log("holiday data: ", data);
 
   return (
     <>
       <h1>Holiday Page</h1>
-      {/* TODO: Fix the title of the page below */}
+
       <h2 style={{ fontWeight: 600, fontSize: 25 }}>{holidayId}</h2>
+
+      <h3>Holiday Name: {name}</h3>
+      <h4>
+        Date: {date_year} {date_month}
+      </h4>
+
+      <section>
+        {/* Use the Interweave library to render the HTML content -
+        https://github.com/milesj/interweave/ */}
+        <Interweave content={text_html_content} />
+      </section>
+
       <div
         style={{
           backgroundColor: "blue",

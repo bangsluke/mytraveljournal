@@ -34,6 +34,7 @@ const GET_HOLIDAY_BY_ID = gql`
       date_year
       date_month
       holiday_id
+      text_html_content
     }
   }
 `;
