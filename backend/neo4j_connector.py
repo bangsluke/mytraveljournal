@@ -1,4 +1,3 @@
-# This is a sample Python script.
 import configparser
 import os
 import re
@@ -11,35 +10,49 @@ from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
 
 
 class Location(StructuredNode):
+    """
+    Class to represent a general location node.
+    """
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
-# Create the Continent class as a subclass of Location - https://stackoverflow.com/a/56778266
-
 
 class Continent(Location):
+    # Create the Continent class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a continent location node.
+    """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     area = StringProperty()  # TODO: Add a API to add the area
 
 
-# Create the Country class as a subclass of Location - https://stackoverflow.com/a/56778266
 class Country(Location):
+    # Create the Country class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a country location node.
+    """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
-# Create the County class as a subclass of Location - https://stackoverflow.com/a/56778266
 class County(Location):
+    # Create the County class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a county location node.
+    """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
-# Create the City class as a subclass of Location - https://stackoverflow.com/a/56778266
 class City(Location):
+    # Create the City class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a city location node.
+    """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     capital = StringProperty()
@@ -48,8 +61,11 @@ class City(Location):
     # population = StringProperty()
 
 
-# Create the Island class as a subclass of Location - https://stackoverflow.com/a/56778266
 class Island(Location):
+    # Create the Island class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent an island location node.
+    """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     located_in = RelationshipTo("Country", "LOCATED_IN")
@@ -57,7 +73,7 @@ class Island(Location):
 
 class Holiday(StructuredNode):
     """
-    Class to represent real Identity of an entity.
+    Class to represent a holiday note node.
     """
     name = StringProperty(unique_index=True, required=True)
     date_year = IntegerProperty(required=True)
@@ -75,7 +91,7 @@ class Holiday(StructuredNode):
 
 class Person(StructuredNode):
     """
-    Class to represent real Identity of an entity.
+    Class to represent a person node.
     """
     name = StringProperty(unique_index=True, required=True)
     text_body_text = StringProperty()  # All of the Obsidian note text
