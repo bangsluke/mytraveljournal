@@ -3,7 +3,6 @@ import configparser
 import os
 import re
 
-import frontmatter
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
@@ -66,8 +65,7 @@ class Holiday(StructuredNode):
     holiday_id = StringProperty(unique_index=True, required=True)
     text = StringProperty()
     text_full_note_text = StringProperty()  # All of the Obsidian note text
-    text_frontmatter = StringProperty()  # All of the YAML front matter
-    # All of the HTML body text below the front matter
+    # All of the HTML body text below the fake front matter
     text_body_text = StringProperty()
     text_html_content = StringProperty()  # Hold the parsed HTML
     # Location details
@@ -277,10 +275,6 @@ with open(config_file_path, 'r') as file:
                 # text_full_note_text = frontmatter.load(full_node_path)
                 # print(text_full_note_text)
 
-                # Get the frontmatter
-                text_frontmatter = vault.get_front_matter(node)
-                print("frontmatter: ", text_frontmatter)
-
                 # Get the body text using a strip
                 text = vault.get_readable_text(node)
                 text_body_text = text[text.find(
@@ -300,7 +294,6 @@ with open(config_file_path, 'r') as file:
                 holiday = Holiday(name=name, date_year=date_year, date_month=date_month,
                                   holiday_id=holiday_id,
                                   #   text_full_note_text=text_full_note_text,
-                                  text_frontmatter=text_frontmatter,
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content,
                                   location=location)
