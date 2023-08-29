@@ -101,3 +101,8 @@
   width: 50%;
   /* background-color: #0070f3; */
 }
+
+.clickableHeader {
+  cursor: pointer;
+  text-decoration: underline;
+}
