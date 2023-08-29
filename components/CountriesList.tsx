@@ -21,7 +21,7 @@ export default function CountryList() {
       </h3>
       <ul>
         {data.countries.map(({ name }) => (
-          <li key={name}>
+          <li key={name} className={styles.clickableListItem}>
             <h4>{name}</h4>
           </li>
         ))}

@@ -25,6 +25,7 @@ export default function HolidayList() {
         {data.holidays.map(({ name, date_year, date_month, holiday_id }) => (
           <li
             key={name}
+            className={styles.clickableListItem}
             onClick={() => router.push({ pathname: `/holidays/${holiday_id}` })}
           >
             <h4>{name}</h4>
