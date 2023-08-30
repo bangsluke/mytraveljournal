@@ -7,6 +7,7 @@ class Location(StructuredNode):
     """
     Class to represent a general location node.
     """
+    node_id = StringProperty()
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
@@ -69,6 +70,7 @@ class Holiday(StructuredNode):
     """
     Class to represent a holiday note node.
     """
+    node_id = StringProperty(unique_index=True, required=True)
     name = StringProperty(unique_index=True, required=True)
     date_year = StringProperty(required=True)
     date_month = StringProperty(required=True)
@@ -87,6 +89,7 @@ class Person(StructuredNode):
     """
     Class to represent a person node.
     """
+    node_id = StringProperty()
     name = StringProperty(unique_index=True, required=True)
     text_body_text = StringProperty()  # All of the Obsidian note text
     attended = RelationshipTo(Holiday, "ATTENDED")
