@@ -22,18 +22,18 @@ const GET_HOLIDAYS = gql`
       name
       date_year
       date_month
-      holiday_id
+      node_id
     }
   }
 `;
 
 const GET_HOLIDAY_BY_ID = gql`
-  query GetHolidayById($holiday_id: String) {
-    holidays(where: { holiday_id: $holiday_id }) {
+  query GetHolidayById($node_id: String) {
+    holidays(where: { node_id: $node_id }) {
       name
       date_year
       date_month
-      holiday_id
+      node_id
       text_html_content
     }
   }

@@ -7,11 +7,11 @@ import styles from "../../styles/Home.module.css";
 
 export default function HolidayPage() {
   const router = useRouter();
-  const { holidayId } = router.query; // Use the same variable name as the [holidayId] file name
-  console.log("holidayId: ", holidayId);
+  const { node_id } = router.query; // Use the same variable name as the [node_id] file name
+  console.log("node_id: ", node_id);
 
   const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAY_BY_ID, {
-    variables: { holiday_id: holidayId }, // Pass the variable to the query
+    variables: { node_id: node_id }, // Pass the variable to the query
   });
 
   if (loading) return <p>Loading...</p>;
@@ -47,7 +47,7 @@ export default function HolidayPage() {
 
         <h1>Holiday Page</h1>
 
-        <h2 style={{ fontWeight: 600, fontSize: 25 }}>{holidayId}</h2>
+        <h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
         <h3>Holiday Name: {name}</h3>
         <h4>

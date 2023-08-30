@@ -27,7 +27,7 @@ const typeDefs = `#graphql
 		name: String
 		date_year: String
 		date_month: String
-		holiday_id: String
+    node_id: String
     text_html_content: String
 	}
 `;

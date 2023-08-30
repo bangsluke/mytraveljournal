@@ -148,7 +148,7 @@ with open(config_file_path, 'r') as file:
                 # print("Year:", extract_result["year"])
                 # Extract the year from the result
                 date_year = extract_result["year"]
-                # Extract the month from the result
+                # Extract the month from the result - the :02 formats the month to two digits
                 date_month = f"{extract_result['month']:02}"
                 # Extract the name from the result
                 name = extract_result["name"]
@@ -156,10 +156,8 @@ with open(config_file_path, 'r') as file:
                 cleanedName = remove_non_ascii(
                     name.replace(", ", "-")).strip().replace(" ", "-").strip()
 
-                # Create the holiday id (used in the url) - the :02 formats the month to two digits
-                holiday_id = f"{date_year}-{date_month:02}-{cleanedName}"
                 # Create the node id (used across the app)
-                node_id = "holiday-" + holiday_id
+                node_id = f"holiday-{date_year}-{date_month}-{cleanedName}"
 
                 # Get the various forms of the text to add to the node
                 full_node_path = f"{vault_folder_path}\{node}.md"
@@ -185,7 +183,6 @@ with open(config_file_path, 'r') as file:
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(node_id=node_id, name=name, date_year=date_year, date_month=date_month,
-                                  holiday_id=holiday_id,
                                   #   text_full_note_text=text_full_note_text,
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content,

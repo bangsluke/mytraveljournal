@@ -74,7 +74,6 @@ class Holiday(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     date_year = StringProperty(required=True)
     date_month = StringProperty(required=True)
-    holiday_id = StringProperty(unique_index=True, required=True)
     text = StringProperty()
     text_full_note_text = StringProperty()  # All of the Obsidian note text
     # All of the HTML body text below the fake front matter
