@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../styles/Travel.module.css";
+import styles from "../styles/Home.module.css";
 
 // Define a nav bar component that holds the logo and the page name.
 export default function NavBar() {

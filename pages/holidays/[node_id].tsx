@@ -2,8 +2,6 @@ import { useQuery } from "@apollo/client";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import NavBar from "../../components/NavBar";
-import styles from "../../styles/Home.module.css";
 
 export default function HolidayPage() {
   const router = useRouter();
@@ -42,38 +40,36 @@ export default function HolidayPage() {
 
   return (
     <>
-      <div className={styles.container}>
-        <NavBar />
+      {/* Note: Layout wraps component in a main tag */}
 
-        <h1>Holiday Page</h1>
+      <h1>Holiday Page</h1>
 
-        <h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+      <h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
-        <h3>Holiday Name: {name}</h3>
-        <h4>
-          Date: {date_year} {date_month}
-        </h4>
+      <h3>Holiday Name: {name}</h3>
+      <h4>
+        Date: {date_year} {date_month}
+      </h4>
 
-        <section>
-          {/* Use the Interweave library to render the HTML content -
+      <section>
+        {/* Use the Interweave library to render the HTML content -
         https://github.com/milesj/interweave/ */}
-          <Interweave content={text_html_content} />
-        </section>
+        <Interweave content={text_html_content} />
+      </section>
 
-        <div
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-            margin: "3rem auto 0rem auto",
-            padding: "0.3rem 1.5rem",
-            lineHeight: "0.5",
-            borderRadius: "0.5rem",
-            cursor: "pointer",
-          }}
-          onClick={() => router.back()} // Go back to the last visited page
-        >
-          <h4>Click here to go back</h4>
-        </div>
+      <div
+        style={{
+          backgroundColor: "blue",
+          color: "white",
+          margin: "3rem auto 0rem auto",
+          padding: "0.3rem 1.5rem",
+          lineHeight: "0.5",
+          borderRadius: "0.5rem",
+          cursor: "pointer",
+        }}
+        onClick={() => router.back()} // Go back to the last visited page
+      >
+        <h4>Click here to go back</h4>
       </div>
     </>
   );
