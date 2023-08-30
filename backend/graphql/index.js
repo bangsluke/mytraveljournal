@@ -25,8 +25,8 @@ const typeDefs = `#graphql
 
 	type Holiday {
 		name: String
-		date_year: Int
-		date_month: Int
+		date_year: String
+		date_month: String
 		holiday_id: String
     text_html_content: String
 	}

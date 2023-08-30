@@ -77,8 +77,8 @@ class Holiday(StructuredNode):
     Class to represent a holiday note node.
     """
     name = StringProperty(unique_index=True, required=True)
-    date_year = IntegerProperty(required=True)
-    date_month = IntegerProperty(required=True)
+    date_year = StringProperty(required=True)
+    date_month = StringProperty(required=True)
     holiday_id = StringProperty(unique_index=True, required=True)
     text = StringProperty()
     text_full_note_text = StringProperty()  # All of the Obsidian note text
@@ -232,7 +232,7 @@ with open(config_file_path, 'r') as file:
                 # Extract the year from the result
                 date_year = extract_result["year"]
                 # Extract the month from the result
-                date_month = extract_result["month"]
+                date_month = f"{extract_result['month']:02}"
                 # Extract the name from the result
                 name = extract_result["name"]
                 # Clean the name of non-ASCII characters and replace any comma spaces with dashes, and remove any spaces
