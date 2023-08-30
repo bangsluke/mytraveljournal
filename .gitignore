@@ -36,6 +36,7 @@ yarn-error.log*
 
 # Python
 properties.properties
+**/__pycache__/
 
 # GraphQL
 .env

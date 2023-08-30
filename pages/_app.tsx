@@ -1,10 +1,6 @@
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
 import type { AppProps } from "next/app";
+import Layout from "../components/Layout";
 import "../styles/globals.css";
 
 // This App component is the top-level component which will be common across all the different pages.
@@ -14,30 +10,32 @@ import "../styles/globals.css";
 const darkMode = false;
 
 const client = new ApolloClient({
-  uri: "http://127.0.0.1:4000/",
-  cache: new InMemoryCache(),
+	uri: "http://127.0.0.1:4000/",
+	cache: new InMemoryCache(),
 });
 
 // const client = ...
 
 client
-  .query({
-    query: gql`
-      query GetLocations {
-        cities {
-          name
-        }
-      }
-    `,
-  })
-  .then((result) => console.log("Test connection in _app.tsx", result));
+	.query({
+		query: gql`
+			query GetLocations {
+				cities {
+					name
+				}
+			}
+		`,
+	})
+	.then((result) => console.log("Test connection in _app.tsx", result));
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <ApolloProvider client={client}>
-      <Component {...pageProps} />
-    </ApolloProvider>
-  );
+	return (
+		<ApolloProvider client={client}>
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
+		</ApolloProvider>
+	);
 }
 
 export default MyApp;

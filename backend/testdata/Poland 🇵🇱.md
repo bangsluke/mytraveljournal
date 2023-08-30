@@ -1,10 +1,14 @@
-- - -
+---
+
 tags: #location, #country, #europe
-aliases: 
-- - -
-🇵🇱 
+aliases:
+
+---
+
+🇵🇱
 
 %% Begin Waypoint %%
+
 - [[Gdańsk]]
 - [[Kraków]]
 

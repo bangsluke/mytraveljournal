@@ -1,3 +1,28 @@
 {
-	"extends": ["next/babel", "next/core-web-vitals"]
+	"extends": "next/core-web-vitals",
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+			"rules": {
+				// https://eslint.org/docs/rules/array-bracket-spacing
+				"array-bracket-spacing": ["error", "never"],
+				// Use the one true brace style. https://eslint.org/docs/rules/brace-style
+				"brace-style": ["error", "1tbs"],
+				// Enforce using camelCase. https://eslint.org/docs/rules/camelcase
+				// "camelcase": ["warn", { "properties": "never" }],
+				// Indent using tab. 0 = off, 1 = warn, 2 = error  https://eslint.org/docs/rules/indent
+				"indent": [1, "tab", { "SwitchCase": 1 }],
+				// No trailing spaces in code
+				"no-trailing-spaces": ["error"],
+				// Object shorthand. https://eslint.org/docs/latest/rules/object-shorthand
+				"object-shorthand": ["error", "always"],
+				// Don't use semicolons at the end of your statements. https://eslint.org/docs/rules/semi
+				"semi": ["error", "always"],
+				// Ensure comments have a capital letter to start. https://eslint.org/docs/rules/capitalized-comments
+				// "capitalized-comments": ["error", "always"],
+				// Force files to use strict. https://eslint.org/docs/rules/strict
+				"strict": ["error", "global"]
+			}
+		}
+	]
 }

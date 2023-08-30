@@ -1,29 +1,34 @@
 {
-  "name": "mytraveljournal",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "generategraph": "python backend/generate_neo4j_graph_from_md.py",
-    "backendstart": "cd backend/graphql && node index.js"
-  },
-  "dependencies": {
-    "@apollo/client": "^3.8.1",
-    "graphql": "^16.8.0",
-    "interweave": "^13.1.0",
-    "next": "^13.4.19",
-    "react": "^18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.0.3",
-    "@types/react": "18.0.15",
-    "@types/react-dom": "18.0.6",
-    "eslint": "8.19.0",
-    "eslint-config-next": "12.2.2",
-    "typescript": "4.7.4"
-  }
+	"name": "mytraveljournal",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"generategraph": "python backend/generate_neo4j_graph_from_md.py",
+		"backendstart": "cd backend/graphql && node index.js"
+	},
+	"dependencies": {
+		"@apollo/client": "^3.8.1",
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@mui/icons-material": "^5.14.7",
+		"@mui/material": "^5.14.7",
+		"graphql": "^16.8.0",
+		"interweave": "^13.1.0",
+		"next": "^13.4.19",
+		"react": "^18.2.0",
+		"react-dom": "18.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "18.0.3",
+		"@types/react": "18.0.15",
+		"@types/react-dom": "18.0.6",
+		"eslint": "8.19.0",
+		"eslint-config-next": "12.2.2",
+		"prettier": "^3.0.3",
+		"typescript": "4.7.4"
+	}
 }

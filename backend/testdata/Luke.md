@@ -1,4 +1,6 @@
-- - -
+---
+
 tags: #person
-aliases: 
-- - -
+aliases:
+
+---
