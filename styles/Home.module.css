@@ -15,7 +15,7 @@
   height: var(--header-height, 80px);
   width: 100%;
   background-color: #fe395c;
-  color: #F3F3F3;
+  color: #f3f3f3;
   display: flex;
   padding: 0 20px;
   /* justify-content: flex-start; */
@@ -30,7 +30,7 @@
 .logo {
   height: 100%;
   width: auto;
-  color: #F3F3F3;
+  color: #f3f3f3;
   filter: invert(100);
   margin-right: 20px;
 }
@@ -97,8 +97,11 @@
   border-radius: 5px;
   padding: 0.75rem;
   font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+  font-family:
+    Menlo,
+    Monaco,
+    Lucida Console,
+    Liberation Mono;
 }
 
 .grid {
@@ -117,7 +120,9 @@
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
   max-width: 300px;
 }
 

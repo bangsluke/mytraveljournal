@@ -9,7 +9,7 @@
 				// Use the one true brace style. https://eslint.org/docs/rules/brace-style
 				"brace-style": ["error", "1tbs"],
 				// Enforce using camelCase. https://eslint.org/docs/rules/camelcase
-				"camelcase": ["error", { "properties": "always" }],
+				// "camelcase": ["warn", { "properties": "never" }],
 				// Indent using tab. 0 = off, 1 = warn, 2 = error  https://eslint.org/docs/rules/indent
 				"indent": [1, "tab", { "SwitchCase": 1 }],
 				// No trailing spaces in code

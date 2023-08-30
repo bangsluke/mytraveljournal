@@ -1,5 +1,8 @@
-- - -
+---
+
 tags: #location, #city
-aliases: 
-- - -
+aliases:
+
+---
+
 Country: [[Poland 🇵🇱]]
