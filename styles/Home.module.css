@@ -40,6 +40,11 @@
   align-items: center;
 }
 
+.navbar_logo {
+  color: #f3f3f3;
+  filter: invert(100);
+}
+
 .navbar_headerContainer {
   /* background-color: #222; */
   text-align: left;
@@ -56,12 +61,6 @@
 }
 
 
-
-.logo {
-  height: var(--header-height, 80px);
-  color: #f3f3f3;
-  filter: invert(100);
-}
 
 .listsSection {
   /* background-color: aqua; */

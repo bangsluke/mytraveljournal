@@ -1,6 +1,6 @@
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
-import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 
@@ -11,7 +11,7 @@ export default function NavBar() {
 	return (
 		<nav id='navbar' className={styles.navbar}>
 			<div className={styles.navbar_logoContainer}>
-				<TravelExploreIcon sx={{ fontSize: 50 }} />
+				<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' className={styles.navbar_logo} />
 			</div>
 			<div className={styles.navbar_headerContainer}>
 				<h1>my travel journal.</h1>
