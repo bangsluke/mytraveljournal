@@ -4,6 +4,7 @@ import re
 
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
+from helper_functions import extract_year_month_name, remove_non_ascii
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     IntegerProperty, RelationshipTo, StringProperty, StructuredNode, ZeroOrOne,
     config, db)
@@ -96,49 +97,6 @@ class Person(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     text_body_text = StringProperty()  # All of the Obsidian note text
     attended = RelationshipTo(Holiday, "ATTENDED")
-
-# Helper function to remove the prefix from a string
-# Called using: `remove_prefix(string, prefix)`
-
-
-def remove_prefix(string, prefix):
-    if string.startswith(prefix):
-        return string[len(prefix):]
-    return string
-
-# Helper function to extract year and month and name from a string
-# Called using: `extract_year_month_name(string)`
-
-
-def extract_year_month_name(string):
-    # print("string: ", string)
-    # print("string.rfind()", string.rfind("\\"))
-    last_backslash_index = string.rfind("\\")  # Find the last backslash index
-    if last_backslash_index != -1:
-        # Get the text to the right of the backslash
-        string = string[last_backslash_index + 1:]
-    # print("string: ", string)
-    pattern = r'^(\d{4}) (\d{2}) (.+)$'
-    match = re.match(pattern, string)
-    if match:
-        year = int(match.group(1))
-        month = int(match.group(2))
-        name = match.group(3)
-        # Extract the name from the result, removing the "- " prefix
-        name = remove_prefix(name, "- ")
-        # print("name: ", name)
-        return {"year": year, "month": month, "name": name}
-    else:
-        return None
-
-
-# Helper function to remove non-ASCII characters
-# Called using: `remove_non_ascii(text)`
-def remove_non_ascii(text):
-    # Use a regular expression to match non-ASCII characters
-    pattern = r'[^\x00-\x7F]+'
-    cleaned_text = re.sub(pattern, '', text)
-    return cleaned_text
 
 
 # Define the relative file path of the config file
@@ -281,7 +239,9 @@ with open(config_file_path, 'r') as file:
                 cleanedName = remove_non_ascii(
                     name.replace(", ", "-")).strip().replace(" ", "-").strip()
 
-                # Create the holiday id - the :02 formats the month to two digits
+                # Create the node id (used across the app)
+
+                # Create the holiday id (used in the url) - the :02 formats the month to two digits
                 holiday_id = f"{date_year}-{date_month:02}-{cleanedName}"
 
                 # Get the various forms of the text to add to the node
