@@ -138,7 +138,7 @@ with open(config_file_path, 'r') as file:
         try:
             tags = vault.get_tags(node)
             if "holiday" in tags:
-                print("   " + node)  # List all found holidays
+                print(" " + node)  # List all found holidays
                 # Get the name, year and month from the holiday note name
                 extract_result = extract_year_month_name(node)
                 # print(node)
@@ -178,15 +178,19 @@ with open(config_file_path, 'r') as file:
                 # Generate other properties on the node
                 location = text[text.find(
                     "location:") + 9:text.find("departingAirport:")].strip()
-                print("Note: ", node, ", location: ", location)
+                print("    note: ", node, ", location: ", location)
                 # print(location)
+                attendees = text[text.find(
+                    "attendees:") + 10:text.find("coverPhoto:")].strip()
+                print("    attendees: ", attendees)
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(node_id=node_id, name=name, date_year=date_year, date_month=date_month,
                                   #   text_full_note_text=text_full_note_text,
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content,
-                                  location=location)
+                                  location=location,
+                                  attendees=attendees,)
                 holiday.save()
 
                 # Get the location and connect it to the holiday
