@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
+import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import { Cities } from "../../types/types";
 import styles from "../styles/Travel.module.css";
 
 export default function CitiesList() {
@@ -17,7 +18,7 @@ export default function CitiesList() {
 				Cities Visited
 			</h3>
 			<ul>
-				{data.cities.map(({ name }) => (
+				{data.cities.map(({ name }: Cities) => (
 					<li key={name} className={styles.clickableListItem}>
 						<h4>{name}</h4>
 					</li>

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
+import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import { Holiday } from "../../types/types";
 import styles from "../styles/Travel.module.css";
 
 export default function HolidayList() {
@@ -19,7 +20,7 @@ export default function HolidayList() {
 				Holidays
 			</h3>
 			<ul>
-				{data.holidays.map(({ name, date_year, date_month, node_id }) => (
+				{data.holidays.map(({ name, date_year, date_month, node_id }: Holiday) => (
 					<li key={name} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${node_id}` })}>
 						<h4>{name}</h4>
 						<h5>

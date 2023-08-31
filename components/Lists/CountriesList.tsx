@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
+import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import { Countries } from "../../types/types";
 import styles from "../styles/Travel.module.css";
 
 export default function CountryList() {
@@ -17,7 +18,7 @@ export default function CountryList() {
 				Countries Visited
 			</h3>
 			<ul>
-				{data.countries.map(({ name }) => (
+				{data.countries.map(({ name }: Countries) => (
 					<li key={name} className={styles.clickableListItem}>
 						<h4>{name}</h4>
 					</li>
