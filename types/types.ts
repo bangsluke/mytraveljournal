@@ -13,3 +13,7 @@ export interface Holiday {
 	node_id: string;
 	text_html_content?: string;
 }
+
+export interface Person {
+	name: string;
+}
