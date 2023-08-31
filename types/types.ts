@@ -1,8 +1,8 @@
-export interface Countries {
+export interface Country {
 	name: string;
 }
 
-export interface Cities {
+export interface City {
 	name: string;
 }
 

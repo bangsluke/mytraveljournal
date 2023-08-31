@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import styles from "../../styles/Travel.module.css";
-import { Countries } from "../../types/types";
+import { Country } from "../../types/types";
 
 export default function CountryList() {
 	const router = useRouter();
@@ -18,7 +18,7 @@ export default function CountryList() {
 				Countries Visited
 			</h3>
 			<ul>
-				{data.countries.map(({ name }: Countries) => (
+				{data.countries.map(({ name }: Country) => (
 					<li key={name} className={styles.clickableListItem}>
 						<h4>{name}</h4>
 					</li>
