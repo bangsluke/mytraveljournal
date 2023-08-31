@@ -109,9 +109,14 @@ with open(config_file_path, 'r') as file:
                 text = vault.get_readable_text(node)
                 text_body_text = text
 
+                # Generate other properties on the node
+                aliases = text[text.find(
+                    "aliases:") + 8:text.find("/n")].strip()
+                print("    aliases: ", aliases)
+
                 # Create or update and existing person node and add all data to it
                 person = Person.create_or_update(
-                    {"node_id": node_id, "name": node, "text_body_text": text_body_text})[0]
+                    {"node_id": node_id, "name": node, "text_body_text": text_body_text, "aliases": aliases})[0]
                 person.save()
         except ValueError as e:
             print(e)

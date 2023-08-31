@@ -92,4 +92,5 @@ class Person(StructuredNode):
     node_id = StringProperty()
     name = StringProperty(unique_index=True, required=True)
     text_body_text = StringProperty()  # All of the Obsidian note text
+    aliases = StringProperty()
     attended = RelationshipTo(Holiday, "ATTENDED")
