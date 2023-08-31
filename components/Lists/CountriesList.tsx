@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import styles from "../../styles/Travel.module.css";
 import { Countries } from "../../types/types";
-import styles from "../styles/Travel.module.css";
 
 export default function CountryList() {
 	const router = useRouter();
