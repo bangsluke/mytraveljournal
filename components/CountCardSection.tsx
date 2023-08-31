@@ -75,12 +75,12 @@ const useGetHolidayCount = () => {
 export default function CountCardSection() {
 	return (
 		<div id='countCardSection' className={styles.countCardSection}>
-			<CountCard id='1' cardTitle='Continent Count' countValue={useGetContinentCount()} />
-			<CountCard id='2' cardTitle='Countries Count' countValue={useGetCountryCount()} />
-			<CountCard id='3' cardTitle='Cities Count' countValue={useGetCityCount()} />
-			<CountCard id='4' cardTitle='Islands Count' countValue={useGetIslandCount()} />
-			<CountCard id='5' cardTitle='Travel Partners Count' countValue={useGetPersonCount()} />
-			<CountCard id='6' cardTitle='Holiday Count' countValue={useGetHolidayCount()} />
+			<CountCard id='1' cardTitle='Continent Count' countValue={useGetContinentCount()} pagePath='/continents' />
+			<CountCard id='2' cardTitle='Countries Count' countValue={useGetCountryCount()} pagePath='/countries' />
+			<CountCard id='3' cardTitle='Cities Count' countValue={useGetCityCount()} pagePath='/cities' />
+			<CountCard id='4' cardTitle='Islands Count' countValue={useGetIslandCount()} pagePath='/islands' />
+			<CountCard id='5' cardTitle='Travel Partners Count' countValue={useGetPersonCount()} pagePath='/persons' />
+			<CountCard id='6' cardTitle='Holiday Count' countValue={useGetHolidayCount()} pagePath='/holidays' />
 		</div>
 	);
 }

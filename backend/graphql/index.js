@@ -27,20 +27,21 @@ const typeDefs = `#graphql
 		name: String
 	}
 
-  type Island {
+	type Island {
 		name: String
 	}
 
-  type Person {
+	type Person {
 		name: String
+		node_id: String
 	}
 
 	type Holiday {
 		name: String
 		date_year: String
 		date_month: String
-    node_id: String
-    text_html_content: String
+		node_id: String
+		text_html_content: String
 	}
 `;
 

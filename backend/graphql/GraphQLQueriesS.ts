@@ -40,6 +40,15 @@ const GET_PERSONS = gql`
 	}
 `;
 
+const GET_PERSON_BY_ID = gql`
+	query GetPersonById($node_id: String) {
+		persons(where: { node_id: $node_id }) {
+			name
+			node_id
+		}
+	}
+`;
+
 const GET_HOLIDAYS = gql`
 	query GetHolidays {
 		holidays {
@@ -69,6 +78,7 @@ const GraphQLQueriesS = {
 	GET_CITIES,
 	GET_ISLANDS,
 	GET_PERSONS,
+	GET_PERSON_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,
 };

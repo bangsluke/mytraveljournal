@@ -74,6 +74,7 @@ class Holiday(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     date_year = StringProperty(required=True)
     date_month = StringProperty(required=True)
+    attendees = StringProperty()
     text = StringProperty()
     text_full_note_text = StringProperty()  # All of the Obsidian note text
     # All of the HTML body text below the fake front matter
@@ -91,4 +92,5 @@ class Person(StructuredNode):
     node_id = StringProperty()
     name = StringProperty(unique_index=True, required=True)
     text_body_text = StringProperty()  # All of the Obsidian note text
+    aliases = StringProperty()
     attended = RelationshipTo(Holiday, "ATTENDED")

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
-import CitiesList from "../components/CitiesList";
 import CountCardSection from "../components/CountCardSection";
-import CountryList from "../components/CountriesList";
-import HolidayList from "../components/HolidayList";
+import CitiesList from "../components/Lists/CitiesList";
+import CountryList from "../components/Lists/CountriesList";
+import HolidayList from "../components/Lists/HolidayList";
 import MarkdownList from "../components/MarkdownList";
 import styles from "../styles/Home.module.css";
 

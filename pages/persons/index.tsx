@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
-import HolidayList from "../../components/Lists/HolidayList";
+import PersonsList from "../../components/Lists/PersonsList";
 
-export default function HolidaysPage(props: any) {
+export default function PersonsPage(props: any) {
 	const router = useRouter();
 
 	return (
 		<>
 			{/* Note: Layout wraps component in a main tag */}
 			<section>
-				<h1>Holidays Page</h1>
+				<h1>Person Page</h1>
 
-				<HolidayList />
+				<PersonsList />
 
 				<div
 					style={{
