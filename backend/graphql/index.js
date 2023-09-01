@@ -17,18 +17,22 @@ const typeDefs = `#graphql
 
 	type Continent {
 		name: String
+		node_id: String
 	}
 
     type Country {
 		name: String
+		node_id: String
 	}
 
 	type City {
 		name: String
+		node_id: String
 	}
 
 	type Island {
 		name: String
+		node_id: String
 	}
 
 	type Person {

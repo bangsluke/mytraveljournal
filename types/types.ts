@@ -1,9 +1,26 @@
+export interface Continent {
+	name: string;
+	node_id: string;
+}
+
 export interface Country {
 	name: string;
+	node_id: string;
+}
+
+export interface County {
+	name: string;
+	node_id: string;
 }
 
 export interface City {
 	name: string;
+	node_id: string;
+}
+
+export interface Island {
+	name: string;
+	node_id: string;
 }
 
 export interface Holiday {
@@ -17,4 +34,5 @@ export interface Holiday {
 
 export interface Person {
 	name: string;
+	node_id: string;
 }

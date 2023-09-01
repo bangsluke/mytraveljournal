@@ -4,6 +4,7 @@ const GET_CONTINENTS = gql`
 	query GetContinents {
 		continents {
 			name
+			node_id
 		}
 	}
 `;
@@ -12,6 +13,7 @@ const GET_COUNTRIES = gql`
 	query GetCountries {
 		countries {
 			name
+			node_id
 		}
 	}
 `;
@@ -20,6 +22,7 @@ const GET_CITIES = gql`
 	query GetCities {
 		cities {
 			name
+			node_id
 		}
 	}
 `;
@@ -28,6 +31,7 @@ const GET_ISLANDS = gql`
 	query GetIslands {
 		islands {
 			name
+			node_id
 		}
 	}
 `;
@@ -36,6 +40,7 @@ const GET_PERSONS = gql`
 	query GetPersons {
 		person {
 			name
+			node_id
 		}
 	}
 `;
