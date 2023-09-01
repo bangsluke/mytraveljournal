@@ -35,4 +35,6 @@ export interface Holiday {
 export interface Person {
 	name: string;
 	node_id: string;
+	aliases: string[];
+	text_body_text: string;
 }
