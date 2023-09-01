@@ -40,15 +40,18 @@ const GET_PEOPLE = gql`
 	query GetPeople {
 		people {
 			name
+			node_id
 		}
 	}
 `;
 
 const GET_PERSON_BY_ID = gql`
-	query GetPersonById($node_id: String) {
-		persons(where: { node_id: $node_id }) {
+	query GetPeopleById($node_id: String) {
+		people(where: { node_id: $node_id }) {
 			name
 			node_id
+			aliases
+			text_body_text
 		}
 	}
 `;

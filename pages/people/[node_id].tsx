@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import { Person } from "../../types/types";
 
 export default function PersonPage() {
 	const router = useRouter();
@@ -34,7 +35,8 @@ export default function PersonPage() {
 		);
 
 	// Extract the data into usable variables
-	const { name } = data.persons[0];
+	const { name, aliases, text_body_text }: Person = data.people[0];
+
 	console.log("person data: ", data);
 
 	return (
@@ -46,6 +48,10 @@ export default function PersonPage() {
 			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
 			<h3>Person Name: {name}</h3>
+
+			<h4>Aliases : {aliases}</h4>
+
+			<h4>Text: {text_body_text}</h4>
 		</>
 	);
 }

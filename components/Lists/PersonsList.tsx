@@ -17,12 +17,12 @@ export default function PersonsList() {
 
 	return (
 		<div className={styles.dataList}>
-			<h3 className={styles.clickableHeader} onClick={() => router.push({ pathname: `/persons` })}>
+			<h3 className={styles.clickableHeader} onClick={() => router.push({ pathname: `/people` })}>
 				Travel Comapanions
 			</h3>
 			<ul>
 				{data.people.map(({ name, node_id }: Person) => (
-					<li key={node_id} className={styles.clickableListItem}>
+					<li key={node_id} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/people/${node_id}` })}>
 						<h4>{name}</h4>
 					</li>
 				))}

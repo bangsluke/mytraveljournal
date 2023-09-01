@@ -7,7 +7,7 @@ from helper_functions import extract_year_month_name, remove_non_ascii
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     config, db)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
-                          Location, People)
+                          Location, Person)
 
 # Define the relative file path of the config file
 rel_config_file_path = 'properties.properties'
