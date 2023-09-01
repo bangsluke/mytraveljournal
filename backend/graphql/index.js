@@ -38,6 +38,8 @@ const typeDefs = `#graphql
 	type Person {
 		name: String
 		node_id: String
+		aliases: String
+		text_body_text: String
 	}
 
 	type Holiday {

@@ -48,14 +48,14 @@ const useGetIslandCount = () => {
 };
 
 // Get the number of people
-const useGetPersonCount = () => {
-	console.log("useGetPersonCount");
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PERSONS);
+const useGetPeopleCount = () => {
+	console.log("useGetPeopleCount");
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
 	console.log("data from useGetPersonCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
-	numberOfItems = Object.keys(data.persons).length; // Else - get the number of items
+	numberOfItems = Object.keys(data.people).length; // Else - get the number of items
 	console.log("data from useGetPersonCount", data);
 	return numberOfItems;
 };
@@ -79,7 +79,7 @@ export default function CountCardSection() {
 			<CountCard id='2' cardTitle='Countries Count' countValue={useGetCountryCount()} pagePath='/countries' />
 			<CountCard id='3' cardTitle='Cities Count' countValue={useGetCityCount()} pagePath='/cities' />
 			<CountCard id='4' cardTitle='Islands Count' countValue={useGetIslandCount()} pagePath='/islands' />
-			<CountCard id='5' cardTitle='Travel Partners Count' countValue={useGetPersonCount()} pagePath='/persons' />
+			<CountCard id='5' cardTitle='Travel Partners Count' countValue={useGetPeopleCount()} pagePath='/persons' />
 			<CountCard id='6' cardTitle='Holiday Count' countValue={useGetHolidayCount()} pagePath='/holidays' />
 		</div>
 	);

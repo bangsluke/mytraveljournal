@@ -7,7 +7,7 @@ from helper_functions import extract_year_month_name, remove_non_ascii
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     config, db)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
-                          Location, Person)
+                          Location, People)
 
 # Define the relative file path of the config file
 rel_config_file_path = 'properties.properties'
@@ -114,7 +114,7 @@ with open(config_file_path, 'r') as file:
                     "aliases:") + 8:text.find("/n")].strip()
                 print("    aliases: ", aliases)
 
-                # Create or update and existing person node and add all data to it
+                # Create or update and existing people node and add all data to it
                 person = Person.create_or_update(
                     {"node_id": node_id, "name": node, "text_body_text": text_body_text, "aliases": aliases})[0]
                 person.save()

@@ -36,11 +36,10 @@ const GET_ISLANDS = gql`
 	}
 `;
 
-const GET_PERSONS = gql`
-	query GetPersons {
-		person {
+const GET_PEOPLE = gql`
+	query GetPeople {
+		people {
 			name
-			node_id
 		}
 	}
 `;
@@ -83,7 +82,7 @@ const GraphQLQueriesS = {
 	GET_COUNTRIES,
 	GET_CITIES,
 	GET_ISLANDS,
-	GET_PERSONS,
+	GET_PEOPLE,
 	GET_PERSON_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,

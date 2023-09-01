@@ -7,10 +7,13 @@ import { Person } from "../../types/types";
 export default function PersonsList() {
 	const router = useRouter();
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PERSONS);
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
 
+	console.log("person data: ", data);
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error : {error.message}</p>;
+
+	console.log("person data: ", data);
 
 	return (
 		<div className={styles.dataList}>
@@ -18,7 +21,7 @@ export default function PersonsList() {
 				Travel Comapanions
 			</h3>
 			<ul>
-				{data.persons.map(({ name, node_id }: Person) => (
+				{data.people.map(({ name, node_id }: Person) => (
 					<li key={node_id} className={styles.clickableListItem}>
 						<h4>{name}</h4>
 					</li>
