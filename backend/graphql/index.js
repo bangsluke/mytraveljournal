@@ -17,23 +17,29 @@ const typeDefs = `#graphql
 
 	type Continent {
 		name: String
+		node_id: String
 	}
 
     type Country {
 		name: String
+		node_id: String
 	}
 
 	type City {
 		name: String
+		node_id: String
 	}
 
 	type Island {
 		name: String
+		node_id: String
 	}
 
 	type Person {
 		name: String
 		node_id: String
+		aliases: String
+		text_body_text: String
 	}
 
 	type Holiday {
@@ -42,6 +48,7 @@ const typeDefs = `#graphql
 		date_month: String
 		node_id: String
 		text_html_content: String
+		attendees: [String!]
 	}
 `;
 

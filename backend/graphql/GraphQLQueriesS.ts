@@ -4,6 +4,7 @@ const GET_CONTINENTS = gql`
 	query GetContinents {
 		continents {
 			name
+			node_id
 		}
 	}
 `;
@@ -12,6 +13,7 @@ const GET_COUNTRIES = gql`
 	query GetCountries {
 		countries {
 			name
+			node_id
 		}
 	}
 `;
@@ -20,6 +22,7 @@ const GET_CITIES = gql`
 	query GetCities {
 		cities {
 			name
+			node_id
 		}
 	}
 `;
@@ -28,23 +31,27 @@ const GET_ISLANDS = gql`
 	query GetIslands {
 		islands {
 			name
+			node_id
 		}
 	}
 `;
 
-const GET_PERSONS = gql`
-	query GetPersons {
-		person {
+const GET_PEOPLE = gql`
+	query GetPeople {
+		people {
 			name
+			node_id
 		}
 	}
 `;
 
 const GET_PERSON_BY_ID = gql`
-	query GetPersonById($node_id: String) {
-		persons(where: { node_id: $node_id }) {
+	query GetPeopleById($node_id: String) {
+		people(where: { node_id: $node_id }) {
 			name
 			node_id
+			aliases
+			text_body_text
 		}
 	}
 `;
@@ -68,6 +75,7 @@ const GET_HOLIDAY_BY_ID = gql`
 			date_month
 			node_id
 			text_html_content
+			attendees
 		}
 	}
 `;
@@ -77,7 +85,7 @@ const GraphQLQueriesS = {
 	GET_COUNTRIES,
 	GET_CITIES,
 	GET_ISLANDS,
-	GET_PERSONS,
+	GET_PEOPLE,
 	GET_PERSON_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,

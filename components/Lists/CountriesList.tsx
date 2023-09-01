@@ -18,8 +18,8 @@ export default function CountryList() {
 				Countries Visited
 			</h3>
 			<ul>
-				{data.countries.map(({ name }: Country) => (
-					<li key={name} className={styles.clickableListItem}>
+				{data.countries.map(({ name, node_id }: Country) => (
+					<li key={node_id} className={styles.clickableListItem}>
 						<h4>{name}</h4>
 					</li>
 				))}

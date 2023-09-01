@@ -23,15 +23,15 @@ if __name__ == '__main__':
     current_script_dir = os.path.split(current_script_path)[0]
     # Create the full path of the config file
     config_file_path = os.path.join(current_script_dir, rel_config_file_path)
-    print("config_file_path: ", config_file_path)
+    # print("config_file_path: ", config_file_path)
 
     # Create the full path of the data folder
     data_folder_path = os.path.join(current_script_dir, rel_data_folder_path)
-    print("data_folder_path: ", data_folder_path)
+    # print("data_folder_path: ", data_folder_path)
 
 with open(config_file_path, 'r') as file:
     content = file.read()
-    print("content of config_file_path:\n", content)
+    # print("content of config_file_path:\n", content)
 
     config_file = configparser.ConfigParser()
     config_file.read(config_file_path)
@@ -39,12 +39,12 @@ with open(config_file_path, 'r') as file:
     # print(config_file.read())
     config.DATABASE_URL = f'{config_file.get("NEO4J", "N4J.ConnType")}{config_file.get("NEO4J", "N4J.USER")}:{config_file.get("NEO4J", "N4J.PW")}@{config_file.get("NEO4J", "N4J.URL")}/{config_file.get("NEO4J", "N4J.DB")}'
     # Check if the database URL is correct
-    print("config.DATABASE_URL: ", config.DATABASE_URL)
+    # print("config.DATABASE_URL: ", config.DATABASE_URL)
 
     # Get the vault data folder path. If FullPath is not set, use RelativePath
     vault_folder_path = config_file.get("DATA", "DATA.FullPath") if config_file.get("DATA", "DATA.FullPath") \
         else os.path.join(current_script_dir, config_file.get("DATA", "DATA.RelativePath"))  # If FullPath is not set, use RelativePath and create a full path
-    print("vault_folder_path: ", vault_folder_path)
+    # print("vault_folder_path: ", vault_folder_path)
 
     # Clear the database
     db.cypher_query("MATCH (n) DETACH DELETE n")  # Only for debugging
@@ -114,7 +114,7 @@ with open(config_file_path, 'r') as file:
                     "aliases:") + 8:text.find("/n")].strip()
                 print("    aliases: ", aliases)
 
-                # Create or update and existing person node and add all data to it
+                # Create or update and existing people node and add all data to it
                 person = Person.create_or_update(
                     {"node_id": node_id, "name": node, "text_body_text": text_body_text, "aliases": aliases})[0]
                 person.save()
@@ -187,7 +187,10 @@ with open(config_file_path, 'r') as file:
                 # print(location)
                 attendees = text[text.find(
                     "attendees:") + 10:text.find("coverPhoto:")].strip()
-                print("    attendees: ", attendees)
+                attendees_array = attendees.split(", ")
+                # attendees_array_type = type(attendees_array)
+                # print("    attendees type: ", attendees_array_type)
+                print("    attendees: ", attendees_array)
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(node_id=node_id, name=name, date_year=date_year, date_month=date_month,
@@ -195,7 +198,7 @@ with open(config_file_path, 'r') as file:
                                   text_body_text=text_body_text,
                                   text_html_content=text_html_content,
                                   location=location,
-                                  attendees=attendees,)
+                                  attendees=attendees_array)
                 holiday.save()
 
                 # Get the location and connect it to the holiday
