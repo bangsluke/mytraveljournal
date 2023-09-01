@@ -12,6 +12,7 @@ export interface Holiday {
 	date_month: string;
 	node_id: string;
 	text_html_content?: string;
+	attendees: string[];
 }
 
 export interface Person {

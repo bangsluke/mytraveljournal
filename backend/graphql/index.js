@@ -42,6 +42,7 @@ const typeDefs = `#graphql
 		date_month: String
 		node_id: String
 		text_html_content: String
+		attendees: [String!]
 	}
 `;
 

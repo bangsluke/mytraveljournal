@@ -68,6 +68,7 @@ const GET_HOLIDAY_BY_ID = gql`
 			date_month
 			node_id
 			text_html_content
+			attendees
 		}
 	}
 `;

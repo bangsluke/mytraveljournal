@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import styles from "../../styles/Travel.module.css";
+import { Holiday } from "../../types/types";
 
 export default function HolidayPage() {
 	const router = useRouter();
@@ -11,6 +13,8 @@ export default function HolidayPage() {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAY_BY_ID, {
 		variables: { node_id }, // Pass the variable to the query
 	});
+
+	console.log("holiday data: ", data);
 
 	if (loading) return <p>Loading...</p>;
 	if (error)
@@ -35,8 +39,9 @@ export default function HolidayPage() {
 		);
 
 	// Extract the data into usable variables
-	const { name, date_year, date_month, text_html_content } = data.holidays[0];
+	const { name, date_year, date_month, text_html_content, attendees }: Holiday = data.holidays[0];
 	console.log("holiday data: ", data);
+	console.log("attendees: ", attendees);
 
 	return (
 		<>
@@ -50,6 +55,18 @@ export default function HolidayPage() {
 			<h4>
 				Date: {date_year} {date_month}
 			</h4>
+
+			<section>
+				<h4>Attendees:</h4>
+
+				<ul>
+					{attendees.map((name, index) => (
+						<li key={name + index} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/persons/${name}` })}>
+							<h4>{name}</h4>
+						</li>
+					))}
+				</ul>
+			</section>
 
 			<section>
 				{/* Use the Interweave library to render the HTML content -
