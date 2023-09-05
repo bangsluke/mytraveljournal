@@ -1,5 +1,5 @@
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
-    ArrayProperty, RelationshipTo, StringProperty, StructuredNode,
+    ArrayProperty, OneOrMore, RelationshipTo, StringProperty, StructuredNode,
     UniqueIdProperty, ZeroOrOne)
 
 
@@ -30,6 +30,7 @@ class Country(Location):
     """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
@@ -40,6 +41,7 @@ class County(Location):
     """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
     located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
@@ -51,6 +53,7 @@ class City(Location):
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     capital = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
     located_in = RelationshipTo("Country", "LOCATED_IN")
     # coordinates = StringProperty()
     # population = StringProperty()
@@ -82,7 +85,7 @@ class Holiday(StructuredNode):
     text_html_content = StringProperty()  # Hold the parsed HTML
     # Location details
     locations = ArrayProperty()
-    travelled_to = RelationshipTo(Location, "TRAVELLED_TO", ZeroOrOne)
+    travelled_to = RelationshipTo(Location, "TRAVELLED_TO", OneOrMore)
     # Photo details
     cover_photo = StringProperty()
 
