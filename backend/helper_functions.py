@@ -40,3 +40,11 @@ def remove_non_ascii(text):
     pattern = r'[^\x00-\x7F]+'
     cleaned_text = re.sub(pattern, '', text)
     return cleaned_text
+
+
+def remove_start_and_end_double_brackets(string):
+    # Helper function to remove start and end double brackets
+    if string.startswith("[[") and string.endswith("]]"):
+        return string[2:-2]
+    else:
+        return string

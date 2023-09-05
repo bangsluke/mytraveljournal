@@ -20,6 +20,8 @@ The page is built off of data from markdown files created in Obsidian. Obsidian 
 
 #### Note Set Up
 
+<!-- TODO: Update the below note to not mention fake matter anymore as using properties  -->
+
 At the start of each note, I have some fake "front matter" - the name used in Obsidian. By fake, I mean I do not convert the data into YAML using the wrapper `---`, instead I wrap mine in `- - -` to create a line break. This allows me to add tags and linked notes in the data at the start of the page that keeps links within Obsidian and also allows me to read the data into Python in a structured way. If was to use YAML, I would not get the linked notes to work within Obsidian.
 
 ##### Example of required "Front Matter" Structure
@@ -35,6 +37,8 @@ At the start of each note, I have some fake "front matter" - the name used in Ob
 ```
 
 > Key Details: For the above to work with the scripts, the above structure needs to be used. The script will look for "location" after "whatsAppGroup" for example.
+>
+> Note: If more than one location is added, the script will use the first location.
 
 ### Python Set Up
 

@@ -81,7 +81,7 @@ class Holiday(StructuredNode):
     text_body_text = StringProperty()
     text_html_content = StringProperty()  # Hold the parsed HTML
     # Location details
-    location = StringProperty()
+    locations = ArrayProperty()
     travelled_to = RelationshipTo(Location, "TRAVELLED_TO", ZeroOrOne)
 
 
