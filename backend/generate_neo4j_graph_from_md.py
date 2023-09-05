@@ -196,8 +196,11 @@ with open(config_file_path, 'r') as file:
                             locations_array.append(remove_start_and_end_double_brackets(
                                 location))
                         # Get the cover photo
-                        cover_photo = frontmatter['coverPhoto']
-                        print("cover_photo: ", cover_photo)
+                        try:
+                            cover_photo = frontmatter['coverPhoto']
+                            print("cover_photo: ", cover_photo)
+                        except KeyError:
+                            cover_photo = ""
 
                         # Get the body text using a strip
                         text = vault.get_readable_text(node)
