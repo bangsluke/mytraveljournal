@@ -194,11 +194,7 @@ with open(config_file_path, 'r') as file:
 
                 # Create the holiday node and add all data to it
                 holiday = Holiday(node_id=node_id, name=name, date_year=date_year, date_month=date_month,
-                                  #   text_full_note_text=text_full_note_text,
-                                  text_body_text=text_body_text,
-                                  text_html_content=text_html_content,
-                                  location=location,
-                                  attendees=attendees_array)
+                                  text_body_text=text_body_text, text_html_content=text_html_content, location=location, attendees=attendees_array)
                 holiday.save()
 
                 # Get the location and connect it to the holiday
