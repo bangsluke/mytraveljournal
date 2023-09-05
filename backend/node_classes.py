@@ -83,6 +83,8 @@ class Holiday(StructuredNode):
     # Location details
     locations = ArrayProperty()
     travelled_to = RelationshipTo(Location, "TRAVELLED_TO", ZeroOrOne)
+    # Photo details
+    cover_photo = StringProperty()
 
 
 class Person(StructuredNode):

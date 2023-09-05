@@ -195,6 +195,9 @@ with open(config_file_path, 'r') as file:
                         for location in locations:
                             locations_array.append(remove_start_and_end_double_brackets(
                                 location))
+                        # Get the cover photo
+                        cover_photo = frontmatter['coverPhoto']
+                        print("cover_photo: ", cover_photo)
 
                         # Get the body text using a strip
                         text = vault.get_readable_text(node)
@@ -207,7 +210,7 @@ with open(config_file_path, 'r') as file:
 
                         # Create the holiday node and add all data to it
                         holiday = Holiday(node_id=node_id, name=name, date_year=date_year, date_month=date_month,
-                                          text_body_text=text_body_text, text_html_content=text_html_content, locations=locations_array, attendees=attendees_array)
+                                          text_body_text=text_body_text, text_html_content=text_html_content, locations=locations_array, attendees=attendees_array, cover_photo=cover_photo)
                         holiday.save()
 
                         # Get the location and connect it to the holiday
