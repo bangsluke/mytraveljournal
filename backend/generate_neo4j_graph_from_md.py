@@ -60,66 +60,72 @@ with open(config_file_path, 'r') as file:
     for node in vault.graph.nodes:
         print(node)  # List all found tags
         try:
-            tags = vault.get_tags(node)
-            if "location" in tags:
-                if "continent" in tags:  # Create the continent nodes
-                    node_id = "continent-" + node
-                    continent = Continent.create_or_update(
-                        {"node_id": node_id, "name": node, "level": "Continent"})[0]
-                    continent.save()
-                elif "country" in tags:
-                    node_id = "country-" + node
-                    # TODO: Connect the country node to the continent
-                    country = Country.create_or_update(
-                        {"node_id": node_id, "name": node, "level": "Country"})[0]
-                    country.save()
-                elif "county" in tags:
-                    node_id = "county-" + node
-                    # TODO: Connect the county node to the country
-                    county = County.create_or_update(
-                        {"node_id": node_id, "name": node, "level": "County"})[0]
-                    county.save()
-                elif "city" in tags:
-                    node_id = "city-" + node
-                    # TODO: Connect the city node to the country
-                    if "capital" in tags:  # Check if the current node is a capital
-                        capital = "true"
-                    else:
-                        capital = "false"
-                    city = City.create_or_update(
-                        {"node_id": node_id, "name": node, "level": "City", "capital": capital})[0]
-                    city.save()
-                elif "island" in tags:
-                    node_id = "island-" + node
-                    # TODO: Connect the island node to the country
-                    # TODO: Connect the island node to the located in node
-                    island = Island.create_or_update(
-                        {"node_id": node_id, "name": node, "level": "Island"})[0]
-                    island.save()
-                else:
-                    # TODO: What is unknown?
-                    node_id = "unknown-" + node
-                    # TODO: Create the location node
-                    # TODO: Connect the location node to the country
-                    level = "Unknown"
-                # location = Location.get_or_create({"name": node})[0]
-                # location.level = level
-                # location.save()
-            elif "person" in tags:
-                node_id = "person-" + node
-                # Get the body text using a strip
-                text = vault.get_readable_text(node)
-                text_body_text = text
+            frontmatter = vault.get_front_matter(node)
+            # Test if the notes has properties on it and use this via front matter
+            if frontmatter is not None and frontmatter != "" and frontmatter != {}:
+                tags = frontmatter['tags']
+                # print("tags: ", tags)
+                if tags is not None:
+                    # Run code based on what type of node it is
+                    if "location" in tags:
+                        if "continent" in tags:  # Create the continent nodes
+                            node_id = "continent-" + node
+                            continent = Continent.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "Continent"})[0]
+                            continent.save()
+                        elif "country" in tags:
+                            node_id = "country-" + node
+                            # TODO: Connect the country node to the continent
+                            country = Country.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "Country"})[0]
+                            country.save()
+                        elif "county" in tags:
+                            node_id = "county-" + node
+                            # TODO: Connect the county node to the country
+                            county = County.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "County"})[0]
+                            county.save()
+                        elif "city" in tags:
+                            node_id = "city-" + node
+                            # TODO: Connect the city node to the country
+                            if "capital" in tags:  # Check if the current node is a capital
+                                capital = "true"
+                            else:
+                                capital = "false"
+                            city = City.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "City", "capital": capital})[0]
+                            city.save()
+                        elif "island" in tags:
+                            node_id = "island-" + node
+                            # TODO: Connect the island node to the country
+                            # TODO: Connect the island node to the located in node
+                            island = Island.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "Island"})[0]
+                            island.save()
+                        else:
+                            # TODO: What is unknown?
+                            node_id = "unknown-" + node
+                            # TODO: Create the location node
+                            # TODO: Connect the location node to the country
+                            level = "Unknown"
+                        # location = Location.get_or_create({"name": node})[0]
+                        # location.level = level
+                        # location.save()
+                    elif "person" in tags:
+                        node_id = "person-" + node
+                        # Get the body text using a strip
+                        text = vault.get_readable_text(node)
+                        text_body_text = text
 
-                # Generate other properties on the node
-                aliases = text[text.find(
-                    "aliases:") + 8:text.find("/n")].strip()
-                print("    aliases: ", aliases)
+                        # Generate other properties on the node
+                        aliases = text[text.find(
+                            "aliases:") + 8:text.find("/n")].strip()
+                        print("    aliases: ", aliases)
 
-                # Create or update and existing people node and add all data to it
-                person = Person.create_or_update(
-                    {"node_id": node_id, "name": node, "text_body_text": text_body_text, "aliases": aliases})[0]
-                person.save()
+                        # Create or update and existing people node and add all data to it
+                        person = Person.create_or_update(
+                            {"node_id": node_id, "name": node, "text_body_text": text_body_text, "aliases": aliases})[0]
+                        person.save()
         except ValueError as e:
             print(e)
 
@@ -198,7 +204,7 @@ with open(config_file_path, 'r') as file:
                         # Get the cover photo
                         try:
                             cover_photo = frontmatter['coverPhoto']
-                            print("cover_photo: ", cover_photo)
+                            # print("cover_photo: ", cover_photo)
                         except KeyError:
                             cover_photo = ""
 
