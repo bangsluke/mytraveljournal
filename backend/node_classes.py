@@ -10,7 +10,7 @@ class Location(StructuredNode):
     node_id = StringProperty()
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    # located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
 class Continent(Location):
@@ -23,15 +23,18 @@ class Continent(Location):
     area = StringProperty()  # TODO: Add a API to add the area
 
 
-class Country(Location):
+class Country(StructuredNode):
     # Create the Country class as a subclass of Location - https://stackoverflow.com/a/56778266
     """
     Class to represent a country location node.
     """
+    node_id = StringProperty(unique_index=True, required=True)
+    name = StringProperty(required=True)
+    level = StringProperty()
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    located_in = RelationshipTo("Location", "LOCATED_IN", OneOrMore)
 
 
 class County(Location):
@@ -53,7 +56,7 @@ class State(Location):
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
-    located_in = RelationshipTo("Location", "LOCATED_IN", OneOrMore)
+    located_in = RelationshipTo(Country, "LOCATED_IN", OneOrMore)
 
 
 class City(Location):
@@ -66,6 +69,20 @@ class City(Location):
     capital = StringProperty()
     # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
     located_in = RelationshipTo("Country", "LOCATED_IN")
+    # coordinates = StringProperty()
+    # population = StringProperty()
+
+
+class Town(StructuredNode):
+    # Create the Town class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a town location node.
+    """
+    node_id = StringProperty()
+    name = StringProperty(unique_index=True, required=True)
+    level = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    located_in = RelationshipTo("Country", "LOCATED_IN", OneOrMore)
     # coordinates = StringProperty()
     # population = StringProperty()
 

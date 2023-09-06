@@ -9,7 +9,7 @@ from helper_functions import (extract_year_month_name, remove_non_ascii,
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     config, db)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
-                          Location, Person, State)
+                          Location, Person, State, Town)
 
 # Define the relative file path of the config file
 rel_config_file_path = 'properties.properties'
@@ -64,10 +64,15 @@ with open(config_file_path, 'r') as file:
             # Test if the notes has properties on it and use this via front matter
             if frontmatter is not None and frontmatter != "" and frontmatter != {}:
                 tags = frontmatter['tags']
-                # print("tags: ", tags)
+                print("  tags: ", tags)
                 if tags is not None:
                     # Run code based on what type of node it is
                     if "location" in tags:
+                        print("tags: ", tags)
+                        # Extract the location from the front matter
+                        located_in = remove_start_and_end_double_brackets(
+                            frontmatter['locatedIn'])
+                        # print("located_in: ", located_in)
                         if "continent" in tags:  # Create the continent nodes
                             node_id = "continent-" + node
                             continent = Continent.create_or_update(
@@ -86,10 +91,13 @@ with open(config_file_path, 'r') as file:
                                 {"node_id": node_id, "name": node, "level": "County"})[0]
                             county.save()
                         elif "state" in tags:
+                            print("state: ", node)
+                            print("located_in: ", located_in)
                             node_id = "state-" + node
                             # TODO: Connect the state node to the country
                             state = State.create_or_update(
-                                {"node_id": node_id, "name": node, "level": "State"})[0]
+                                {"node_id": node_id, "name": node, "level": "State", "located_in": located_in})[0]
+                            state.located_in.connect(located_in)
                             state.save()
                         elif "city" in tags:
                             node_id = "city-" + node
@@ -99,8 +107,18 @@ with open(config_file_path, 'r') as file:
                             else:
                                 capital = "false"
                             city = City.create_or_update(
-                                {"node_id": node_id, "name": node, "level": "City", "capital": capital})[0]
+                                {"node_id": node_id, "name": node, "level": "City", "capital": capital, "located_in": located_in})[0]
                             city.save()
+                        elif "town" in tags:
+                            node_id = "town-" + node
+                            # TODO: Connect the town node to the country
+                            town = Town.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "Town", "located_in": located_in})[0]
+                            country = Country.get_or_create(
+                                {"node_id": "country-" + located_in, "name": located_in}, relationship=town.located_in)[0]
+                            # town.located_in.connect(country)
+                            town.save()
+                            country.save()
                         elif "island" in tags:
                             node_id = "island-" + node
                             # TODO: Connect the island node to the country
@@ -135,23 +153,6 @@ with open(config_file_path, 'r') as file:
         except ValueError as e:
             print(e)
 
-    for start_node, end_node in set((start_node, end_node) for start_node, end_node, _ in vault.graph.edges):
-        try:
-            start_tags = vault.get_tags(start_node)
-            # print(start_tags)
-            end_tags = vault.get_tags(end_node)
-            # print(start_node, end_node)
-            if "city" in start_tags and "country" in end_tags:
-                city = City.create_or_update({"name": start_node})[0]
-                country = Country.create_or_update({"name": end_node})[0]
-                city.located_in.connect(country)
-            # if "country" in start_tags and "continent" in end_tags:
-            #     country = Country.create_or_update({"name": start_node})[0]
-            #     continent = Continent.create_or_update({"name": end_node})[0]
-            #     country.located_in.connect(continent)
-        except ValueError as e:
-            print(e)
-
     # Do the second loop through the nodes - creating the holidays
     for node in vault.graph.nodes:
         try:
@@ -164,7 +165,7 @@ with open(config_file_path, 'r') as file:
                 if tags is not None:
 
                     if "holiday" in tags:
-                        print(" " + node)  # List all found holidays
+                        # print(" " + node)  # List all found holidays
                         # Get the name, year and month from the holiday note name
                         extract_result = extract_year_month_name(node)
                         # Check if the first three characters are TBC of the node name
@@ -267,8 +268,8 @@ with open(config_file_path, 'r') as file:
 
     # Count the number of nodes
     print("Done.")
-    node_labels_to_count = ["Continent", "Country", "County",
-                            "City", "Holiday", "Person"]  # Define the node labels to count
+    node_labels_to_count = ["Continent", "Country", "County", "State",
+                            "City", "Town", "Island", "Holiday", "Person"]  # Define the node labels to count
 
     # Function to print the node count for each passed node label
     def print_node_count(strings):
