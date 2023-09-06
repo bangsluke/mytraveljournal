@@ -9,7 +9,7 @@ from helper_functions import (extract_year_month_name, remove_non_ascii,
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     config, db)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
-                          Location, Person)
+                          Location, Person, State)
 
 # Define the relative file path of the config file
 rel_config_file_path = 'properties.properties'
@@ -85,6 +85,12 @@ with open(config_file_path, 'r') as file:
                             county = County.create_or_update(
                                 {"node_id": node_id, "name": node, "level": "County"})[0]
                             county.save()
+                        elif "state" in tags:
+                            node_id = "state-" + node
+                            # TODO: Connect the state node to the country
+                            state = State.create_or_update(
+                                {"node_id": node_id, "name": node, "level": "State"})[0]
+                            state.save()
                         elif "city" in tags:
                             node_id = "city-" + node
                             # TODO: Connect the city node to the country

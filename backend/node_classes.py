@@ -42,7 +42,18 @@ class County(Location):
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    located_in = RelationshipTo("Location", "LOCATED_IN", OneOrMore)
+
+
+class State(Location):
+    # Create the State class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a state location node.
+    """
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    located_in = RelationshipTo("Location", "LOCATED_IN", OneOrMore)
 
 
 class City(Location):
