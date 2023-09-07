@@ -129,8 +129,7 @@ with open(config_file_path, 'r') as file:
                         else:
                             # TODO: What is unknown?
                             node_id = "unknown-" + node
-                            # TODO: Create the location node
-                            # TODO: Connect the location node to the country
+                            # TODO: Create the location node and connect the location node to the country
                             level = "Unknown"
                         # location = Location.get_or_create({"name": node})[0]
                         # location.level = level
