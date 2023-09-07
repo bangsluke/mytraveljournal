@@ -1,5 +1,5 @@
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
-    ArrayProperty, RelationshipTo, StringProperty, StructuredNode,
+    ArrayProperty, OneOrMore, RelationshipTo, StringProperty, StructuredNode,
     UniqueIdProperty, ZeroOrOne)
 
 
@@ -10,7 +10,7 @@ class Location(StructuredNode):
     node_id = StringProperty()
     name = StringProperty(unique_index=True, required=True)
     level = StringProperty()
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    # located_in = RelationshipTo("Location", "LOCATED_IN")
 
 
 class Continent(Location):
@@ -23,14 +23,18 @@ class Continent(Location):
     area = StringProperty()  # TODO: Add a API to add the area
 
 
-class Country(Location):
+class Country(StructuredNode):
     # Create the Country class as a subclass of Location - https://stackoverflow.com/a/56778266
     """
     Class to represent a country location node.
     """
+    node_id = StringProperty(unique_index=True, required=True)
+    name = StringProperty(required=True)
+    level = StringProperty()
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    located_in = RelationshipTo("Location", "LOCATED_IN", OneOrMore)
 
 
 class County(Location):
@@ -40,7 +44,19 @@ class County(Location):
     """
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
-    located_in = RelationshipTo("Location", "LOCATED_IN")
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    located_in = RelationshipTo("Location", "LOCATED_IN", OneOrMore)
+
+
+class State(Location):
+    # Create the State class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a state location node.
+    """
+    # name = StringProperty(unique_index=True, required=True)
+    # level = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    located_in = RelationshipTo(Country, "LOCATED_IN", OneOrMore)
 
 
 class City(Location):
@@ -51,7 +67,22 @@ class City(Location):
     # name = StringProperty(unique_index=True, required=True)
     # level = StringProperty()
     capital = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
     located_in = RelationshipTo("Country", "LOCATED_IN")
+    # coordinates = StringProperty()
+    # population = StringProperty()
+
+
+class Town(StructuredNode):
+    # Create the Town class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a town location node.
+    """
+    node_id = StringProperty()
+    name = StringProperty(unique_index=True, required=True)
+    level = StringProperty()
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    located_in = RelationshipTo("Country", "LOCATED_IN", OneOrMore)
     # coordinates = StringProperty()
     # population = StringProperty()
 
@@ -81,8 +112,10 @@ class Holiday(StructuredNode):
     text_body_text = StringProperty()
     text_html_content = StringProperty()  # Hold the parsed HTML
     # Location details
-    location = StringProperty()
-    travelled_to = RelationshipTo(Location, "TRAVELLED_TO", ZeroOrOne)
+    locations = ArrayProperty()
+    travelled_to = RelationshipTo(Location, "TRAVELLED_TO", OneOrMore)
+    # Photo details
+    cover_photo = StringProperty()
 
 
 class Person(StructuredNode):
