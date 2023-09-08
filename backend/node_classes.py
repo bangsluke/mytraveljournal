@@ -127,3 +127,24 @@ class Person(StructuredNode):
     text_body_text = StringProperty()  # All of the Obsidian note text
     aliases = StringProperty()
     attended = RelationshipTo(Holiday, "ATTENDED")
+
+
+# Function to create a relationship from a town to a country by name
+def connect_town_to_country(town_name, country_properties):
+    # Query for the town by name
+    town = Town.nodes.get_or_none(name=town_name)
+
+    # Check if the town exists
+    if town:
+        # Create a new Country node with the specified properties
+        country = Country(**country_properties).save()
+
+        # Create a relationship from the town to the country
+        town.country.connect(country)
+
+        # Save the changes
+        town.save()
+
+        return f"Connected {town_name} to country {country.name}"
+    else:
+        return f"Town with name {town_name} not found"
