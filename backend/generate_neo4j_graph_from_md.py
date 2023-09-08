@@ -65,14 +65,14 @@ with open(config_file_path, 'r') as file:
             # Test if the notes has properties on it and use this via front matter
             if frontmatter is not None and frontmatter != "" and frontmatter != {}:
                 tags = frontmatter['tags']
-                print("  tags: ", tags)
+                print("  node: ", node, " - tags: ", tags)
                 if tags is not None:
                     # Run code based on what type of node it is
                     if "location" in tags:
-                        print("tags: ", tags)
-                        # Extract the location from the front matter
-                        located_in = remove_start_and_end_double_brackets(
-                            frontmatter['locatedIn'])
+                        if not "continent" in tags:
+                            # Extract the location from the front matter (other than for the continent nodes)
+                            located_in = remove_start_and_end_double_brackets(
+                                frontmatter['locatedIn'])
                         # print("located_in: ", located_in)
                         if "continent" in tags:  # Create the continent nodes
                             node_id = "continent-" + node
@@ -113,6 +113,7 @@ with open(config_file_path, 'r') as file:
                             island = Island.create_or_update(
                                 {"node_id": node_id, "name": node, "level": "Island"})[0]
                             island.save()
+                        # TODO: Add in "Airline" nodes and "Airport" nodes and connect them
                         else:
                             # TODO: What is unknown?
                             node_id = "unknown-" + node
@@ -159,20 +160,21 @@ with open(config_file_path, 'r') as file:
                             # TODO: Do nothing with the continent node?
                             pass
                         elif "country" in tags:
+                            node_id = "country-" + node
                             # TODO: Connect the country node to the continent
-                            country.save()
+                            # country.save()
                         elif "county" in tags:
                             node_id = "county-" + node
                             # TODO: Connect the county node to the country
-                            county.save()
+                            # county.save()
                         elif "state" in tags:
                             node_id = "state-" + node
                             # TODO: Connect the state node to the country
-                            state.save()
+                            # state.save()
                         elif "city" in tags:
                             node_id = "city-" + node
                             # TODO: Connect the city node to the country
-                            city.save()
+                            # city.save()
                         elif "town" in tags:
                             node_id = "town-" + node
                             # TODO: Connect the town node to the country
@@ -194,7 +196,7 @@ with open(config_file_path, 'r') as file:
                         elif "island" in tags:
                             node_id = "island-" + node
                             # TODO: Connect the island node to the country
-                            island.save()
+                            # island.save()
                         else:
                             # TODO: What is unknown?
                             node_id = "unknown-" + node
