@@ -1,6 +1,6 @@
 # MyTravelJournal
 
-## TOC
+## Table of Contents
 
 - [Set Up](#set-up)
   - [Markdown Set Up](#markdown-set-up)
@@ -20,9 +20,7 @@ The page is built off of data from markdown files created in Obsidian. Obsidian 
 
 #### Note Set Up
 
-<!-- TODO: Update the below note to not mention fake matter anymore as using properties  -->
-
-At the start of each note, I have some fake "front matter" - the name used in Obsidian. By fake, I mean I do not convert the data into YAML using the wrapper `---`, instead I wrap mine in `- - -` to create a line break. This allows me to add tags and linked notes in the data at the start of the page that keeps links within Obsidian and also allows me to read the data into Python in a structured way. If was to use YAML, I would not get the linked notes to work within Obsidian.
+At the start of each note, I have some "front matter" - the name used in Obsidian, added via the properties functionality. This allows me to add tags and linked notes in the data at the start of the page that keeps links within Obsidian and also allows me to read the data into Python in a structured way.
 
 ##### Example of required "Front Matter" Structure
 
@@ -92,12 +90,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ### Node Start Up
 
