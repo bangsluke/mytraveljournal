@@ -1,14 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import { Person } from "../../types/types";
+import { Country } from "../../types/types";
 
-export default function PersonPage() {
+export default function CountryPage() {
 	const router = useRouter();
 	const { node_id } = router.query; // Use the same variable name as the [node_id] file name
 	console.log("node_id: ", node_id);
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PERSON_BY_ID, {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRY_BY_ID, {
 		variables: { node_id }, // Pass the variable to the query
 	});
 
@@ -34,26 +34,24 @@ export default function PersonPage() {
 			</>
 		);
 
-	// Extract the data into usable variables
-	const { name, aliases, text_body_text }: Person = data.people[0];
+	console.log("data", data);
 
-	console.log("person data: ", data);
+	// Extract the data into usable variables
+	const { name }: Country = data.countries[0];
+
+	console.log("country data: ", data);
 
 	return (
 		<>
 			{/* Note: Layout wraps component in a main tag */}
 
-			<h1>Person Page</h1>
+			<h1>Country Page</h1>
 
 			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
-			<h3>Person Name: {name}</h3>
+			<h3>Country Name: {name}</h3>
 
-			<h4>Aliases : {aliases}</h4>
-
-			<h4>Text: {text_body_text}</h4>
-
-			<div>Holidays been on</div>
+			<div>Number of times visited:</div>
 		</>
 	);
 }

@@ -19,7 +19,7 @@ export default function CountryList() {
 			</h3>
 			<ul>
 				{data.countries.map(({ name, node_id }: Country) => (
-					<li key={node_id} className={styles.clickableListItem}>
+					<li key={node_id} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/countries/${node_id}` })}>
 						<h4>{name}</h4>
 					</li>
 				))}
