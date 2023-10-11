@@ -21,7 +21,7 @@ for root, _, files in os.walk(input_folder):
                     content = file.read()  # Read the file
                     html_content = markdown2.markdown(
                         content)  # Convert the markdown to html
-                    pagePath = "/holiday"
+                    pagePath = "/holidays"
                     # Append the filename and content to the json data
                     data.append(
                         {"filename": filename, "content": html_content, "pagePath": pagePath})
