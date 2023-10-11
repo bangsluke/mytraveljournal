@@ -1,8 +1,5 @@
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CountCardSection from "../components/CountCardSection";
-import CitiesList from "../components/Lists/CitiesList";
-import CountryList from "../components/Lists/CountriesList";
-import HolidayList from "../components/Lists/HolidayList";
 import MapChart from "../components/MapChart";
 import MarkdownList from "../components/MarkdownList";
 import styles from "../styles/Home.module.css";
@@ -11,24 +8,26 @@ export default function Home(props: any) {
 	return (
 		<>
 			{/* Note: Layout wraps component in a main tag */}
-
+			{/* Initial header for SEO */}
+			<h1 className={styles.hidden}>My Travel Journal</h1>
+			{/* Top section holding the map and count card elements */}
 			<section>
-				<h1 className={styles.hidden}>My Travel Journal</h1>
+				<h2 id={styles.homepageHeader}>Visited Locations</h2>
 
 				<div className={styles.mapContainer}>
 					<MapChart />
 				</div>
 
 				<CountCardSection />
+			</section>
 
-				<div id='listsSection' className={styles.listsSection}>
-					<HolidayList />
+			{/* TODO: Delete this section once sidebar is implemented */}
+			<section>
+				<a href='/lists'>Lists Page</a>
+			</section>
 
-					<CountryList />
-
-					<CitiesList />
-				</div>
-
+			{/* Bottom section holds the holiday cards */}
+			<section>
 				<MarkdownList data={jsonData} />
 			</section>
 		</>

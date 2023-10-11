@@ -183,6 +183,11 @@
   }
 }
 
+#homepageHeader {
+  text-align: center;
+  color: #BBB;
+}
+
 .mapContainer {
   margin: auto;
   height: 440px;
