@@ -79,7 +79,7 @@ export default function CountCardSection() {
 			<CountCard id='2' cardTitle='Countries Count' countValue={useGetCountryCount()} pagePath='/countries' />
 			<CountCard id='3' cardTitle='Cities Count' countValue={useGetCityCount()} pagePath='/cities' />
 			<CountCard id='4' cardTitle='Islands Count' countValue={useGetIslandCount()} pagePath='/islands' />
-			<CountCard id='5' cardTitle='Travel Partners Count' countValue={useGetPeopleCount()} pagePath='/people' />
+			<CountCard id='5' cardTitle='Travel Companion Count' countValue={useGetPeopleCount()} pagePath='/people' />
 			<CountCard id='6' cardTitle='Holiday Count' countValue={useGetHolidayCount()} pagePath='/holidays' />
 		</div>
 	);

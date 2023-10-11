@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
+import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import styles from "../../styles/Home.module.css";
@@ -46,6 +47,8 @@ export default function HolidayPage() {
 	return (
 		<>
 			{/* Note: Layout wraps component in a main tag */}
+
+			<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} />
 
 			<h1>Holiday Page</h1>
 
