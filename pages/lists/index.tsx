@@ -1,6 +1,7 @@
 import CitiesList from "../../components/Lists/CitiesList";
 import CountryList from "../../components/Lists/CountriesList";
 import HolidayList from "../../components/Lists/HolidayList";
+import PageHeader from "../../components/PageHeader";
 import styles from "../../styles/Home.module.css";
 
 export default function ListsPage(props: any) {
@@ -8,7 +9,7 @@ export default function ListsPage(props: any) {
 		<>
 			{/* Note: Layout wraps component in a main tag */}
 			<section>
-				<h1>Site Lists</h1>
+				<PageHeader PageHeaderTitle='Site Lists' />
 
 				<div id='listsSection' className={styles.listsSection}>
 					<HolidayList />
