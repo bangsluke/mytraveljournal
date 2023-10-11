@@ -15,10 +15,11 @@ export default function NavBar(props: NavBarProps) {
 	const router = useRouter();
 	const { NavBarStyle } = props; // Extract the props
 
-	console.log("NavBarStyle: ", NavBarStyle);
+	// Create a combination of class names for the navbar based on the navbar style
+	const NavBarClassNames = `${styles.navbar} ${NavBarStyle === "Opaque" ? styles.navbarOpaque : null}`;
 
 	return (
-		<nav id='navbar' className={styles.navbar}>
+		<nav id='navbar' className={NavBarClassNames}>
 			{/* Display the logo if the navbar is opaque */}
 			{NavBarStyle === "Opaque" ? (
 				<div className={styles.navbar_logoContainer}>
@@ -37,6 +38,7 @@ export default function NavBar(props: NavBarProps) {
 				{/* Add a back arrow to navigate the last page */}
 				<ArrowBackSharpIcon sx={{ fontSize: 50 }} onClick={() => router.back()} />
 			</div>
+
 			<div className={styles.navbar_menuContainer}>
 				<MenuSharpIcon sx={{ fontSize: 50 }} />
 			</div>

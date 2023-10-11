@@ -57,14 +57,16 @@ export default function HolidayPage() {
 				<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} className={styles.holidayImage} />
 			</div>
 
-			<h1>Holiday Page</h1>
+			<section className={styles.section}>
+				<h1>Holiday Page</h1>
 
-			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
-			<h3>Holiday Name: {name}</h3>
-			<h4>
-				Date: {date_year} {date_month}
-			</h4>
+				<h3>Holiday Name: {name}</h3>
+				<h4>
+					Date: {date_year} {date_month}
+				</h4>
+			</section>
 
 			<section>
 				<h4>Attendees:</h4>
