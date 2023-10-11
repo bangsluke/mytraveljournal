@@ -1,8 +1,8 @@
-import PersonsList from "../../components/Lists/PersonsList";
+import CountriesList from "../../components/Lists/CountriesList";
 import NavBar from "../../components/NavBar";
 import PageHeader from "../../components/PageHeader";
 
-export default function PersonsPage(props: any) {
+export default function CountriesPage(props: any) {
 	return (
 		<>
 			{/* Note: Layout wraps component in a main tag */}
@@ -11,9 +11,9 @@ export default function PersonsPage(props: any) {
 			<NavBar NavBarStyle='Opaque' />
 
 			<section className={styles.section}>
-				<PageHeader PageHeaderTitle='Travel Companions' />
+				<PageHeader PageHeaderTitle='Countries' />
 
-				<PersonsList />
+				<CountriesList />
 			</section>
 		</>
 	);

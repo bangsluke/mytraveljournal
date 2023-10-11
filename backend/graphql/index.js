@@ -52,7 +52,7 @@ const typeDefs = `#graphql
 	}
 `;
 
-// console.log(`Database password is ${process.env.N4J_PW}`);
+//console.log(`Database password is ${process.env.N4J_PW}`);
 
 const driver = neo4j.driver(
 	//   "bolt://localhost:7687",

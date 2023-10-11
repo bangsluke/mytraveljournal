@@ -1,8 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
+import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import styles from "../../styles/Travel.module.css";
+import NavBar from "../../components/NavBar";
+import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
 
 export default function HolidayPage() {
@@ -47,14 +49,24 @@ export default function HolidayPage() {
 		<>
 			{/* Note: Layout wraps component in a main tag */}
 
-			<h1>Holiday Page</h1>
+			{/* Include the navbar - with transparent styling */}
+			<NavBar NavBarStyle='Transparent' />
 
-			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+			{/* Hold the full width image of the holiday */}
+			<div className={styles.holidayImageContainer}>
+				<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} className={styles.holidayImage} />
+			</div>
 
-			<h3>Holiday Name: {name}</h3>
-			<h4>
-				Date: {date_year} {date_month}
-			</h4>
+			<section className={styles.section}>
+				<h1>Holiday Page</h1>
+
+				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+
+				<h3>Holiday Name: {name}</h3>
+				<h4>
+					Date: {date_year} {date_month}
+				</h4>
+			</section>
 
 			<section>
 				<h4>Attendees:</h4>
