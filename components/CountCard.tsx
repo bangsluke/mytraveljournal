@@ -12,6 +12,8 @@ interface CountCardProp {
 export default function CountCard(props: CountCardProp) {
 	const router = useRouter();
 
+	console.log("props: ", props);
+
 	const { id, cardTitle, countValue, pagePath } = props; // Extract the props
 	return (
 		<div id={id} className={styles.countcard} onClick={() => router.push({ pathname: pagePath })}>
