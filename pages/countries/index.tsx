@@ -8,7 +8,7 @@ export default function CountriesPage(props: any) {
 			{/* Note: Layout wraps component in a main tag */}
 
 			{/* Include the navbar */}
-			<NavBar />
+			<NavBar NavBarStyle='Opaque' />
 
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Countries' />

@@ -11,7 +11,7 @@ export default function Home(props: any) {
 			{/* Note: Layout wraps component in a main tag */}
 
 			{/* Include the navbar */}
-			<NavBar />
+			<NavBar NavBarStyle='Opaque' />
 
 			{/* Initial header for SEO */}
 			<h1 className={styles.hidden}>My Travel Journal</h1>

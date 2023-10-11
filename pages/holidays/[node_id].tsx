@@ -3,6 +3,7 @@ import { Interweave } from "interweave"; // https://github.com/milesj/interweave
 import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import NavBar from "../../components/NavBar";
 import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
 
@@ -48,7 +49,13 @@ export default function HolidayPage() {
 		<>
 			{/* Note: Layout wraps component in a main tag */}
 
-			<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} />
+			{/* Include the navbar - with transparent styling */}
+			<NavBar NavBarStyle='Transparent' />
+
+			{/* Hold the full width image of the holiday */}
+			<div className={styles.holidayImageContainer}>
+				<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} className={styles.holidayImage} />
+			</div>
 
 			<h1>Holiday Page</h1>
 

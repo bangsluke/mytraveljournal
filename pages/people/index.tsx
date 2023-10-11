@@ -8,7 +8,7 @@ export default function PersonsPage(props: any) {
 			{/* Note: Layout wraps component in a main tag */}
 
 			{/* Include the navbar */}
-			<NavBar />
+			<NavBar NavBarStyle='Opaque' />
 
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Travel Companions' />

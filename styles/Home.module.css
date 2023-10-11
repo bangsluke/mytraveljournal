@@ -318,3 +318,14 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.holidayImageContainer {
+  position: absolute;
+  top: 0;
+}
+
+.holidayImage {
+  max-width: 100%;
+  height: auto;
+  top: 0;
+}

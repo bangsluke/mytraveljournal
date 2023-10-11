@@ -11,7 +11,7 @@ export default function ListsPage(props: any) {
 			{/* Note: Layout wraps component in a main tag */}
 
 			{/* Include the navbar */}
-			<NavBar />
+			<NavBar NavBarStyle='Opaque' />
 
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Site Lists' />

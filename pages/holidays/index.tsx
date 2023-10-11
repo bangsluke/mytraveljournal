@@ -9,7 +9,7 @@ export default function HolidaysPage(props: any) {
 			{/* Note: Layout wraps component in a main tag */}
 
 			{/* Include the navbar */}
-			<NavBar />
+			<NavBar NavBarStyle='Opaque' />
 
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Holidays' />
