@@ -10,6 +10,7 @@ export default function Home(props: any) {
 		<>
 			{/* Note: Layout wraps component in a main tag */}
 
+			{/* Include the navbar */}
 			<NavBar />
 
 			{/* Initial header for SEO */}
