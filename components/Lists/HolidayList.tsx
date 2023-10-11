@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import styles from "../../styles/Travel.module.css";
+import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
 
 export default function HolidayList() {

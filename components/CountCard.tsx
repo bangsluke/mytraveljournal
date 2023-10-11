@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import styles from "../styles/Travel.module.css";
+import styles from "../styles/Home.module.css";
 
 interface CountCardProp {
 	id: string;
