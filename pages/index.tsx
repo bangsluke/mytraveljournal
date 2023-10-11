@@ -13,9 +13,11 @@ export default function Home(props: any) {
 			{/* Note: Layout wraps component in a main tag */}
 
 			<section>
-				<h1>My Travel Journal</h1>
+				<h1 className={styles.hidden}>My Travel Journal</h1>
 
-				<MapChart />
+				<div className={styles.mapContainer}>
+					<MapChart />
+				</div>
 
 				<CountCardSection />
 

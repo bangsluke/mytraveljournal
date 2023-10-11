@@ -6,7 +6,26 @@ export default function MapChart() {
 	return (
 		<ComposableMap>
 			<Geographies geography={geoUrl}>
-				{({ geographies }) => geographies.map((geo) => <Geography key={geo.rsmKey} geography={geo} />)}
+				{({ geographies }) =>
+					geographies.map((geo) => (
+						<Geography
+							key={geo.rsmKey}
+							geography={geo}
+							style={{
+								default: {
+									fill: "#FFF",
+									stroke: "#D6D6DA",
+								},
+								hover: {
+									fill: "#F53",
+								},
+								pressed: {
+									fill: "#E42",
+								},
+							}}
+						/>
+					))
+				}
 			</Geographies>
 		</ComposableMap>
 	);

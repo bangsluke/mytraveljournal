@@ -182,3 +182,14 @@
     flex-direction: column;
   }
 }
+
+.mapContainer {
+  margin: auto;
+  height: 440px;
+  width: 95%;
+  background-color: #EAEAEA;
+}
+
+.hidden {
+  display: none;
+}
