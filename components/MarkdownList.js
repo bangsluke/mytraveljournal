@@ -17,7 +17,9 @@ const MarkdownList = ({ data }) => {
 						borderRadius: "5px",
 					}}
 					className={styles.travelcard}
-					onClick={() => router.push({ pathname: pagePath })}>
+					onClick={() => {
+						router.push({ pathname: item.pagePath });
+					}}>
 					<li key={index}>
 						<strong>{item.filename}</strong>
 						<div dangerouslySetInnerHTML={{ __html: item.content }} />
