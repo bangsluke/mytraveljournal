@@ -10,7 +10,7 @@ export default function CountriesPage(props: any) {
 			{/* Include the navbar */}
 			<NavBar />
 
-			<section>
+			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Countries' />
 
 				<CountriesList />

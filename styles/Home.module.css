@@ -1,11 +1,15 @@
 .main {
   /* background-color: aqua; */
   /* Drop the contents of main under header */
-  padding: 0 20px;
+  padding: 0 0;
   padding-top: calc(var(--header-height, 80px) + 1rem);
   margin: 0;
   min-height: 100vh;
   min-width: 100vw;
+}
+
+.section {
+  padding: 0 10px;
 }
 
 .pageHeaderContainer {

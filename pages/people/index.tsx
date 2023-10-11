@@ -10,7 +10,7 @@ export default function PersonsPage(props: any) {
 			{/* Include the navbar */}
 			<NavBar />
 
-			<section>
+			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Travel Companions' />
 
 				<PersonsList />

@@ -13,7 +13,7 @@ export default function ListsPage(props: any) {
 			{/* Include the navbar */}
 			<NavBar />
 
-			<section>
+			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Site Lists' />
 
 				<div id='listsSection' className={styles.listsSection}>

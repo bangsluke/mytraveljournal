@@ -16,7 +16,7 @@ export default function Home(props: any) {
 			{/* Initial header for SEO */}
 			<h1 className={styles.hidden}>My Travel Journal</h1>
 			{/* Top section holding the map and count card elements */}
-			<section>
+			<section className={styles.section}>
 				<h2 id={styles.homepageHeader}>Visited Locations</h2>
 
 				<div className={styles.mapContainer}>
@@ -27,12 +27,12 @@ export default function Home(props: any) {
 			</section>
 
 			{/* TODO: Delete this section once sidebar is implemented */}
-			<section>
+			<section className={styles.section}>
 				<a href='/lists'>Lists Page</a>
 			</section>
 
 			{/* Bottom section holds the holiday cards */}
-			<section>
+			<section className={styles.section}>
 				<MarkdownList data={jsonData} />
 			</section>
 		</>
