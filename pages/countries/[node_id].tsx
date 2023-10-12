@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
+import PageHeader from "../../components/PageHeader";
+import styles from "../../styles/Home.module.css";
 import { Country } from "../../types/types";
 
 export default function CountryPage() {
@@ -35,22 +37,26 @@ export default function CountryPage() {
 			</>
 		);
 
-	console.log("data", data);
+	// console.log("data", data);
 
 	// Extract the data into usable variables
 	const { name }: Country = data.countries[0];
 
-	console.log("country data: ", data);
+	// console.log("country data: ", data);
 
 	return (
-		<Layout>
-			<h1>Country Page</h1>
+		<Layout NavBarStyle='Opaque'>
+			<section className={styles.section}>
+				<PageHeader PageHeaderTitle={name} />
 
-			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+				<h1>Country Page</h1>
 
-			<h3>Country Name: {name}</h3>
+				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
-			<div>Number of times visited:</div>
+				<h3>Country Name: {name}</h3>
+
+				<div>Number of times visited:</div>
+			</section>
 		</Layout>
 	);
 }

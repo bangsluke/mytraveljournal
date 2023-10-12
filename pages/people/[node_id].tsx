@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
+import PageHeader from "../../components/PageHeader";
+import styles from "../../styles/Home.module.css";
 import { Person } from "../../types/types";
 
 export default function PersonPage() {
@@ -42,17 +44,21 @@ export default function PersonPage() {
 
 	return (
 		<Layout NavBarStyle='Opaque'>
-			<h1>Person Page</h1>
+			<section className={styles.section}>
+				<PageHeader PageHeaderTitle={name} />
 
-			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+				<h1>Person Page</h1>
 
-			<h3>Person Name: {name}</h3>
+				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
-			<h4>Aliases : {aliases}</h4>
+				<h3>Person Name: {name}</h3>
 
-			<h4>Text: {text_body_text}</h4>
+				<h4>Aliases : {aliases}</h4>
 
-			<div>Holidays been on</div>
+				<h4>Text: {text_body_text}</h4>
+
+				<div>Holidays been on</div>
+			</section>
 		</Layout>
 	);
 }
