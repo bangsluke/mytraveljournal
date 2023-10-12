@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import Layout from "../../components/Layouts/Layout";
 import { Country } from "../../types/types";
 
 export default function CountryPage() {
@@ -42,9 +43,7 @@ export default function CountryPage() {
 	console.log("country data: ", data);
 
 	return (
-		<>
-			{/* Note: Layout wraps component in a main tag */}
-
+		<Layout>
 			<h1>Country Page</h1>
 
 			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
@@ -52,6 +51,6 @@ export default function CountryPage() {
 			<h3>Country Name: {name}</h3>
 
 			<div>Number of times visited:</div>
-		</>
+		</Layout>
 	);
 }

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 
-type Transparency = "Transparent" | "Opaque";
+export type Transparency = "Transparent" | "Opaque";
 
 interface NavBarProps {
 	NavBarStyle: Transparency;

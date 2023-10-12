@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import Layout from "../../components/Layouts/Layout";
 import { Person } from "../../types/types";
 
 export default function PersonPage() {
@@ -40,9 +41,7 @@ export default function PersonPage() {
 	console.log("person data: ", data);
 
 	return (
-		<>
-			{/* Note: Layout wraps component in a main tag */}
-
+		<Layout NavBarStyle='Opaque'>
 			<h1>Person Page</h1>
 
 			<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
@@ -54,6 +53,6 @@ export default function PersonPage() {
 			<h4>Text: {text_body_text}</h4>
 
 			<div>Holidays been on</div>
-		</>
+		</Layout>
 	);
 }

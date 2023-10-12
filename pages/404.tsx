@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Layout from "../components/Layouts/Layout";
 import Error404Image from "../public/images/404Image.webp";
 
 // https://nextjs.org/docs/advanced-features/custom-error-page
 export default function Custom404Page() {
 	const router = useRouter();
 	return (
-		<>
+		<Layout NavBarStyle='Opaque'>
 			<Image src={Error404Image} alt='Travel Site Error Logo' width='200' height='200' layout='fixed' loading='lazy' />
 			<h2 style={{ fontWeight: 600, fontSize: 18 }}>404 - Page Not Found</h2>
 			<div
@@ -23,6 +24,6 @@ export default function Custom404Page() {
 			>
 				<h4>Click here to go back</h4>
 			</div>
-		</>
+		</Layout>
 	);
 }

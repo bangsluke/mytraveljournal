@@ -1,6 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
 import "../styles/globals.css";
 
 // This App component is the top-level component which will be common across all the different pages.
@@ -31,9 +30,7 @@ client
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<ApolloProvider client={client}>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
+			<Component {...pageProps} />
 		</ApolloProvider>
 	);
 }
