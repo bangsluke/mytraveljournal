@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 const MarkdownList = ({ data }) => {
 	const router = useRouter();
 
-	console.log("data: ", data);
+	// console.log("data: ", data);
 
 	return (
 		<>
