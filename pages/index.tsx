@@ -1,18 +1,14 @@
+import Link from "next/link";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CountCardSection from "../components/CountCardSection";
+import Layout from "../components/Layouts/Layout";
 import MapChart from "../components/MapChart";
 import MarkdownList from "../components/MarkdownList";
-import NavBar from "../components/NavBar";
 import styles from "../styles/Home.module.css";
 
 export default function Home(props: any) {
 	return (
-		<>
-			{/* Note: Layout wraps component in a main tag */}
-
-			{/* Include the navbar */}
-			<NavBar NavBarStyle='Opaque' />
-
+		<Layout NavBarStyle='Opaque'>
 			{/* Initial header for SEO */}
 			<h1 className={styles.hidden}>My Travel Journal</h1>
 			{/* Top section holding the map and count card elements */}
@@ -28,13 +24,13 @@ export default function Home(props: any) {
 
 			{/* TODO: Delete this section once sidebar is implemented */}
 			<section className={styles.section}>
-				<a href='/lists'>Lists Page</a>
+				<Link href='/lists'>Lists Page</Link>
 			</section>
 
 			{/* Bottom section holds the holiday cards */}
 			<section className={styles.section}>
 				<MarkdownList data={jsonData} />
 			</section>
-		</>
+		</Layout>
 	);
 }

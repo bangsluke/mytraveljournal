@@ -3,7 +3,7 @@ import { Interweave } from "interweave"; // https://github.com/milesj/interweave
 import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import NavBar from "../../components/NavBar";
+import Layout from "../../components/Layouts/Layout";
 import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
 
@@ -45,16 +45,30 @@ export default function HolidayPage() {
 	console.log("holiday data: ", data);
 	console.log("attendees: ", attendees);
 
+	const RandomPictureID = Math.floor(Math.random() * 999) + 1;
+
 	return (
-		<>
-			{/* Note: Layout wraps component in a main tag */}
-
-			{/* Include the navbar - with transparent styling */}
-			<NavBar NavBarStyle='Transparent' />
-
+		<Layout NavBarStyle='Transparent'>
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
-				<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} className={styles.holidayImage} />
+				<Image
+					src={`https://picsum.photos/id/${RandomPictureID}/375/600`}
+					alt='Holiday Photo'
+					layout='fill'
+					objectFit='cover'
+					quality={100}
+					// width={375}
+					// height={400}
+					// className={styles.holidayImage}
+				/>
+
+				<div className={styles.holidayImageOverlayContainer}>
+					{/* Holiday Name */}
+					<h3>/ {name}</h3>
+					<h4>
+						{date_year} {date_month}
+					</h4>
+				</div>
 			</div>
 
 			<section className={styles.section}>
@@ -62,13 +76,6 @@ export default function HolidayPage() {
 
 				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
 
-				<h3>Holiday Name: {name}</h3>
-				<h4>
-					Date: {date_year} {date_month}
-				</h4>
-			</section>
-
-			<section>
 				<h4>Attendees:</h4>
 
 				<ul>
@@ -100,6 +107,6 @@ export default function HolidayPage() {
 			>
 				<h4>Click here to go back</h4>
 			</div>
-		</>
+		</Layout>
 	);
 }

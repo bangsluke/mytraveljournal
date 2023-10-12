@@ -10,7 +10,7 @@ const useGetContinentCount = () => {
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.continents).length; // Else - get the number of items
-	console.log("data from useGetContinentCount", data);
+	// console.log("data from useGetContinentCount", data);
 	return numberOfItems;
 };
 
@@ -21,7 +21,7 @@ const useGetCountryCount = () => {
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.countries).length; // Else - get the number of items
-	console.log("data from useGetCountryCount", data);
+	// console.log("data from useGetCountryCount", data);
 	return numberOfItems;
 };
 
@@ -32,7 +32,7 @@ const useGetCityCount = () => {
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
-	console.log("data from useGetCityCount", data);
+	// console.log("data from useGetCityCount", data);
 	return numberOfItems;
 };
 
@@ -43,7 +43,7 @@ const useGetIslandCount = () => {
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.islands).length; // Else - get the number of items
-	console.log("data from useGetIslandCount", data);
+	// console.log("data from useGetIslandCount", data);
 	return numberOfItems;
 };
 
@@ -56,7 +56,7 @@ const useGetPeopleCount = () => {
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.people).length; // Else - get the number of items
-	console.log("data from useGetPersonCount", data);
+	// console.log("data from useGetPersonCount", data);
 	return numberOfItems;
 };
 
@@ -67,7 +67,7 @@ const useGetHolidayCount = () => {
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
-	console.log("data from useGetHolidayCount", data);
+	// console.log("data from useGetHolidayCount", data);
 	return numberOfItems;
 };
 

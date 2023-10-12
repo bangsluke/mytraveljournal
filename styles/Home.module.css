@@ -43,6 +43,13 @@
   z-index: 100;
 }
 
+.navbarOffset {
+  position: fixed;
+  top: 0;
+  height: calc(var(--header-height, 80px) + 1rem);
+  width: 100%;
+}
+
 .navbarOpaque {
   background-color: #fe395c;
   box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
@@ -308,7 +315,7 @@
 
 
 .dataList {
-  width: 50%;
+  width: 100%;
   /* background-color: #0070f3; */
 }
 
@@ -324,13 +331,32 @@
 }
 
 .holidayImageContainer {
-  position: absolute;
-  top: 0;
+  position: relative;
+  /* top: calc(-var(--header-height, 80px)); */
+  /* top: -100px; */
+  top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
   z-index: 0;
+  height: 60vh;
+  width: 100%;
 }
 
-.holidayImage {
-  max-width: 100%;
-  height: auto;
-  top: 0;
+
+.holidayImageOverlayContainer {
+  position: absolute;
+  top: 60%;
+  left: 10px;
+  color: white;
+  text-align: left;
+  z-index: 1;
+  /* Ensure text is displayed on top of the image */
+}
+
+.holidayImageOverlayContainer h3 {
+  font-size: 2rem;
+  /* Ensure text is displayed on top of the image */
+}
+
+.holidayImageOverlayContainer h4 {
+  font-size: 1.5rem;
+  /* Ensure text is displayed on top of the image */
 }

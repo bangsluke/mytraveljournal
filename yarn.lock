@@ -430,6 +430,43 @@
   dependencies:
     tslib "^2.4.0"
 
+"@types/d3-color@^2":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/d3-color/-/d3-color-2.0.4.tgz#a35cd4aed4a396713bb3ad5a415473050fef79b1"
+  integrity sha512-6pOlI55HUZohMD9oKFfuiRYbk1bk/MkB5FiEQiFmM3rvLnG0RVZNeUHAuyvBf2QrDOHt9X1PlkkiK9UvgXNGNg==
+
+"@types/d3-geo@^2":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@types/d3-geo/-/d3-geo-2.0.5.tgz#ead85d9ccc2ffe048a674c20ed214e828ddf6ba4"
+  integrity sha512-nPracTayzILkfeSy4tXnrvuLfcECl52OEfrkrdqOxpPChbDxO0cFGB7B7r3ue/O1DYwCQq2fJk1/1uxaLbOueQ==
+  dependencies:
+    "@types/geojson" "*"
+
+"@types/d3-interpolate@^2":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@types/d3-interpolate/-/d3-interpolate-2.0.3.tgz#9c8dc8c914d9e35af4d7d97872e9b06e7b8b0ecb"
+  integrity sha512-ZSkWQUNoBBi6cBZu+WhXh82I7QMAFFxdMBqGfXcIZ0HHSKpoMTQ2RAVbMQReDzldtRjXghbgn3WWqn+t7dk4qQ==
+  dependencies:
+    "@types/d3-color" "^2"
+
+"@types/d3-selection@^2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/d3-selection/-/d3-selection-2.0.2.tgz#404a51aeec350c4cf467baec4b71341a7cd41125"
+  integrity sha512-YYMq8nwEdEsO+uKPxS2O7cNGPkR1snwLzX4tfYmDattZxJLmrwasrkDxx5bYoDmqz2aKZ8yZPOmqDZZLpziYUg==
+
+"@types/d3-zoom@^2":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@types/d3-zoom/-/d3-zoom-2.0.5.tgz#68c9fc948b3338fe1f5e91d252c0a95b1df5a8d4"
+  integrity sha512-Q1enkDdwwkeQLBTuQGV4/AmcAi1HgK1G8s7N9Lti9Y+j16W8qy4PKN3+vdzAx9fxipVoAkNkRjATf0g3WepE1Q==
+  dependencies:
+    "@types/d3-interpolate" "^2"
+    "@types/d3-selection" "^2"
+
+"@types/geojson@*":
+  version "7946.0.11"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.11.tgz#012c17cb2256ad8de78560da851ab914a7b9b40e"
+  integrity sha512-L7A0AINMXQpVwxHJ4jxD6/XjZ4NDufaRlUJHjNIFKYUFBH1SvOW+neaqb0VTRSLW5suSrSu19ObFEFnfNcr+qg==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
@@ -455,6 +492,16 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.6.tgz#36652900024842b74607a17786b6662dd1e103a1"
   integrity sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-simple-maps@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-simple-maps/-/react-simple-maps-3.0.1.tgz#059198c5e27b8c3a146d2aa9c4f3ffb211bfc9aa"
+  integrity sha512-xKUKf1XGfxnyiIkAuj6VMlfZKgq2Mv9q0JJ6k+m/oXTe93Z/mLmyo3NxkHoGFgz8xDXhzFMTwz1RrIGGGBME7g==
+  dependencies:
+    "@types/d3-geo" "^2"
+    "@types/d3-zoom" "^2"
+    "@types/geojson" "*"
     "@types/react" "*"
 
 "@types/react-transition-group@^4.4.6":
