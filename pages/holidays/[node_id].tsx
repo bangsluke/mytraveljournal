@@ -45,12 +45,14 @@ export default function HolidayPage() {
 	console.log("holiday data: ", data);
 	console.log("attendees: ", attendees);
 
+	const RandomPictureID = Math.floor(Math.random() * 999) + 1;
+
 	return (
 		<Layout NavBarStyle='Transparent'>
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
 				<Image
-					src='https://picsum.photos/375/600'
+					src={`https://picsum.photos/id/${RandomPictureID}/375/600`}
 					alt='Holiday Photo'
 					layout='fill'
 					objectFit='cover'
@@ -62,9 +64,9 @@ export default function HolidayPage() {
 
 				<div className={styles.holidayImageOverlayContainer}>
 					{/* Holiday Name */}
-					<h3>{name}</h3>
+					<h3>/ {name}</h3>
 					<h4>
-						Date: {date_year} {date_month}
+						{date_year} {date_month}
 					</h4>
 				</div>
 			</div>
@@ -73,9 +75,7 @@ export default function HolidayPage() {
 				<h1>Holiday Page</h1>
 
 				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
-			</section>
 
-			<section>
 				<h4>Attendees:</h4>
 
 				<ul>

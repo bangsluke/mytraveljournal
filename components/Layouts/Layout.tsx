@@ -13,7 +13,9 @@ export default function Layout({ children, NavBarStyle }: any) {
 			</Head>
 			{/* Include the navbar */}
 			<NavBar NavBarStyle={NavBarStyle} />
+			{/* Wrap all children in a main tag with a header offset padding value */}
 			<main className={styles.main}>{children}</main>
+			{/* Add a footer at the bottom of every page */}
 			<footer className={styles.footer}>
 				{/* TODO: Actually set up a good footer */}
 				<a
