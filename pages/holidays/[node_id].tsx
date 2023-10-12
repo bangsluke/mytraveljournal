@@ -54,18 +54,30 @@ export default function HolidayPage() {
 
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
-				<Image src='https://picsum.photos/375/400' alt='Holiday Photo' width={375} height={400} className={styles.holidayImage} />
+				<Image
+					src='https://picsum.photos/375/600'
+					alt='Holiday Photo'
+					layout='fill'
+					objectFit='cover'
+					quality={100}
+					// width={375}
+					// height={400}
+					// className={styles.holidayImage}
+				/>
+
+				<div className={styles.holidayImageOverlayContainer}>
+					{/* Holiday Name */}
+					<h3>{name}</h3>
+					<h4>
+						Date: {date_year} {date_month}
+					</h4>
+				</div>
 			</div>
 
 			<section className={styles.section}>
 				<h1>Holiday Page</h1>
 
 				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
-
-				<h3>Holiday Name: {name}</h3>
-				<h4>
-					Date: {date_year} {date_month}
-				</h4>
 			</section>
 
 			<section>

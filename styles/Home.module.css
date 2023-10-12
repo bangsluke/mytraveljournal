@@ -2,7 +2,7 @@
   /* background-color: aqua; */
   /* Drop the contents of main under header */
   padding: 0 0;
-  padding-top: calc(var(--header-height, 80px) + 1rem);
+  /* padding-top: calc(var(--header-height, 80px) + 1rem); */
   margin: 0;
   min-height: 100vh;
   min-width: 100vw;
@@ -41,6 +41,13 @@
   column-gap: 10px;
   grid-template-columns: 60px 1fr 60px 60px;
   z-index: 100;
+}
+
+.navbarOffset {
+  position: fixed;
+  top: 0;
+  height: calc(var(--header-height, 80px) + 1rem);
+  width: 100%;
 }
 
 .navbarOpaque {
@@ -308,7 +315,7 @@
 
 
 .dataList {
-  width: 50%;
+  width: 100%;
   /* background-color: #0070f3; */
 }
 
@@ -324,13 +331,28 @@
 }
 
 .holidayImageContainer {
-  position: absolute;
+  position: relative;
   top: 0;
   z-index: 0;
+  height: 60vh;
 }
 
-.holidayImage {
-  max-width: 100%;
-  height: auto;
-  top: 0;
+.holidayImageOverlayContainer {
+  position: absolute;
+  top: 60%;
+  left: 10px;
+  color: white;
+  text-align: left;
+  z-index: 1;
+  /* Ensure text is displayed on top of the image */
+}
+
+.holidayImageOverlayContainer h3 {
+  font-size: 2rem;
+  /* Ensure text is displayed on top of the image */
+}
+
+.holidayImageOverlayContainer h4 {
+  font-size: 1.5rem;
+  /* Ensure text is displayed on top of the image */
 }
