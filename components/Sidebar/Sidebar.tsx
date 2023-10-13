@@ -8,12 +8,15 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	const sideBarClassName = `${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
+	const sidebarBackContainerClassName = `${styles.sidebarBackContainer} ${
+		sidebarOpen ? styles.sidebarBackContainerOpen : styles.sidebarBackContainerClosed
+	}`;
 
 	return (
 		<>
 			<nav className={sideBarClassName}>
 				<button className={styles.toggleButton} onClick={toggleSidebar}>
-					Toggle Sidebar
+					Closed Sidebar
 				</button>
 				<div className={styles.sidebarContent}>
 					<h1>Sidebar Content</h1>
@@ -24,9 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					</ul>
 				</div>
 			</nav>
-			<div
-				className={`${styles.sidebarBackContainer} ${sidebarOpen ? styles.sidebarBackContainerOpen : styles.sidebarBackContainerClosed}`}
-				onClick={toggleSidebar}></div>
+			<div className={sidebarBackContainerClassName} onClick={toggleSidebar}></div>
 		</>
 	);
 };

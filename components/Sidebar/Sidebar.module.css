@@ -39,7 +39,7 @@
 	background-color: #777;
 }
 
-/* .sidebarBackContainer {
+.sidebarBackContainer {
 	position: fixed;
 	background-color: #FF0000;
 	top: 0;
@@ -53,4 +53,4 @@
 
 .sidebarBackContainerClosed {
 	left: 0;
-} */
+}
