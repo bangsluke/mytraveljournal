@@ -5,10 +5,10 @@ import NavBar from "../NavBar";
 import Sidebar from "../Sidebar/Sidebar";
 
 export default function Layout({ children, NavBarStyle }: any) {
-	const [isOpen, setIsOpen] = useState(false); // Create a state for toggling the sidebar
+	const [sidebarOpen, setSidebarOpen] = useState(false); // Create a state for toggling the sidebar
 	const toggleSidebar = () => {
-		console.log("toggleSidebar called from Layout to be", isOpen);
-		setIsOpen(!isOpen);
+		console.log("toggleSidebar called from Layout to be", sidebarOpen);
+		setSidebarOpen(!sidebarOpen);
 	};
 
 	return (
@@ -25,7 +25,7 @@ export default function Layout({ children, NavBarStyle }: any) {
 			{/* Wrap all children in a main tag with a header offset padding value */}
 			<main className={styles.main}>
 				{/* Include the sidebar */}
-				<Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+				<Sidebar sidebarOpen toggleSidebar={toggleSidebar} />
 				{children}
 			</main>
 			{/* Add a footer at the bottom of every page */}

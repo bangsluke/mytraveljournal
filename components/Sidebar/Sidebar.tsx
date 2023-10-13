@@ -1,22 +1,40 @@
-import "./Sidebar.module.css";
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
-	isOpen: boolean;
+	sidebarOpen: boolean;
 	toggleSidebar: () => void;
 }
 
 const Sidebar = (props: SidebarProps) => {
-	const { isOpen, toggleSidebar } = props; // Extract the props
+	const { sidebarOpen, toggleSidebar } = props; // Extract the props
+	console.log("sidebarOpen", sidebarOpen);
+
+	console.log(`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`);
+
+	const sideBarClassName = `${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
+	console.log("sideBarClassName", sideBarClassName);
 
 	return (
-		<div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-			<button className='toggle-button' onClick={toggleSidebar}>
-				Toggle Sidebar
-			</button>
-			<div className='content'>
-				<h1>Sidebar Content</h1>
-			</div>
-		</div>
+		<>
+			{/* Add the sidebar */}
+			<nav className={sideBarClassName}>
+				<button className={styles.toggleButton} onClick={toggleSidebar}>
+					Toggle Sidebar
+				</button>
+				<div className={styles.sidebarContent}>
+					<h1>Sidebar Content</h1>
+					<ul>
+						<li>Item 1</li>
+						<li>Item 2</li>
+						<li>Item 3</li>
+					</ul>
+				</div>
+			</nav>
+			{/* Add a black backdrop behind the sidebar */}
+			<div
+				className={`${styles.sidebarBackContainer} ${sidebarOpen ? styles.sidebarBackContainerOpen : styles.sidebarBackContainerClosed}`}
+				onClick={toggleSidebar}></div>
+		</>
 	);
 };
 
