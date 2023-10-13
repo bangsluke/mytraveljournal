@@ -2,7 +2,7 @@
 .sidebar {
 	position: fixed;
 	top: var(--header-height, 80px);
-	width: 300px;
+	width: var(--sidebar-width, 300px);
 	height: 100vh;
 	background-color: #333;
 	opacity: 0.95;
@@ -44,7 +44,9 @@
 	background-color: #FF0000;
 	top: 0;
 	height: 100vh;
-	width: calc(100vw -var(--sidebar-width, 300px));
+	width: calc(100vw - var(--sidebar-width, 300px));
+	transition: left 0.3s ease-in-out;
+	z-index: 2;
 }
 
 .sidebarBackContainerOpen {
@@ -52,5 +54,5 @@
 }
 
 .sidebarBackContainerClosed {
-	left: 0;
+	left: calc(var(--sidebar-width, 300px) * -1);
 }
