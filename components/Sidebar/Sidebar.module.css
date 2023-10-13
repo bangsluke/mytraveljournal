@@ -4,10 +4,12 @@
 	top: var(--header-height, 80px);
 	width: var(--sidebar-width, 300px);
 	height: 100vh;
-	background-color: #333;
+	background-color: #FFF;
 	opacity: 0.95;
 	transition: left 0.3s ease-in-out;
 	z-index: 10;
+	/* Add a right red border */
+	border-right: #FF0000 1px solid;
 }
 
 .sidebarOpen {
@@ -42,6 +44,7 @@
 .sidebarBackContainer {
 	position: fixed;
 	background-color: #FF0000;
+	opacity: 0;
 	top: 0;
 	height: 100vh;
 	width: calc(100vw - var(--sidebar-width, 300px));
