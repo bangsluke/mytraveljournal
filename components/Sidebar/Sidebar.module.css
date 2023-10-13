@@ -2,7 +2,7 @@
 .sidebar {
 	position: fixed;
 	top: var(--header-height, 80px);
-	width: var(--sidebar-width, 300px);
+	width: 300px;
 	height: 100vh;
 	background-color: #333;
 	opacity: 0.95;
@@ -15,7 +15,7 @@
 }
 
 .sidebarClosed {
-	left: calc(var(--sidebar-width, 300px) * -1);
+	left: -300px;
 	/* Start off-screen */
 }
 
@@ -39,7 +39,7 @@
 	background-color: #777;
 }
 
-.sidebarBackContainer {
+/* .sidebarBackContainer {
 	position: fixed;
 	background-color: #FF0000;
 	top: 0;
@@ -53,4 +53,4 @@
 
 .sidebarBackContainerClosed {
 	left: 0;
-}
+} */
