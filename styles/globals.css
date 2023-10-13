@@ -1,6 +1,7 @@
 :root {
 	--header-height: 80px;
 	--sidebar-width: 60vw;
+	--main-accent: #fe395c;
 }
 
 html,
