@@ -8,12 +8,13 @@ export type Transparency = "Transparent" | "Opaque";
 
 interface NavBarProps {
 	NavBarStyle: Transparency;
+	toggleSidebar: () => void;
 }
 
 // Define a nav bar component that holds the logo and the page name.
 export default function NavBar(props: NavBarProps) {
 	const router = useRouter();
-	const { NavBarStyle } = props; // Extract the props
+	const { NavBarStyle, toggleSidebar } = props; // Extract the props
 
 	// Create a combination of class names for the navbar based on the navbar style
 	const NavBarClassNames = `${styles.navbar} ${NavBarStyle === "Opaque" ? styles.navbarOpaque : null}`;
@@ -39,7 +40,7 @@ export default function NavBar(props: NavBarProps) {
 				<ArrowBackSharpIcon sx={{ fontSize: 50 }} onClick={() => router.back()} />
 			</div>
 
-			<div className={styles.navbar_menuContainer}>
+			<div className={styles.navbar_menuContainer} onClick={() => toggleSidebar()}>
 				<MenuSharpIcon sx={{ fontSize: 50 }} />
 			</div>
 		</nav>

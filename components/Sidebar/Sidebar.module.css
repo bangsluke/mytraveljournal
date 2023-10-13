@@ -1,0 +1,30 @@
+.sidebar {
+	position: fixed;
+	top: 0;
+	width: 300px;
+	height: 100vh;
+	background-color: #333;
+	transition: left 0.3s ease-in-out;
+	z-index: 10;
+}
+
+.sidebar.open {
+	left: 0;
+}
+
+.sidebar.closed {
+	left: -300px;
+	/* Start off-screen */
+}
+
+.toggle-button {
+	background-color: #555;
+	color: white;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+}
+
+.toggle-button:hover {
+	background-color: #777;
+}
