@@ -8,6 +8,24 @@
   min-width: 100vw;
 }
 
+.mainStatic {
+  background-color: #0070f3;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  /* Sidebar and main content */
+  grid-template-rows: 100vh;
+  /* Full height */
+  gap: 10px;
+  /* The gap between the sidebar and the main content */
+  justify-content: center;
+  align-items: flex-start;
+
+}
+
+.mainDynamic {
+  background-color: #FFF000;
+}
+
 .section {
   padding: 0 10px;
   z-index: 1;

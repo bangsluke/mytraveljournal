@@ -2,6 +2,7 @@ import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import useScreenSize from "../hooks/useScreenSize";
 import styles from "../styles/Home.module.css";
 
 export type Transparency = "Transparent" | "Opaque";
@@ -15,6 +16,7 @@ interface NavBarProps {
 export default function NavBar(props: NavBarProps) {
 	const router = useRouter();
 	const { NavBarStyle, toggleSidebar } = props; // Extract the props
+	const screenSize = useScreenSize(); // Get the screen size
 
 	// Create a combination of class names for the navbar based on the navbar style
 	const NavBarClassNames = `${styles.navbar} ${NavBarStyle === "Opaque" ? styles.navbarOpaque : null}`;
@@ -40,9 +42,11 @@ export default function NavBar(props: NavBarProps) {
 				<ArrowBackSharpIcon sx={{ fontSize: 50 }} onClick={() => router.back()} />
 			</div>
 
-			<div className={styles.navbar_menuContainer} onClick={() => toggleSidebar()}>
-				<MenuSharpIcon sx={{ fontSize: 50 }} />
-			</div>
+			{screenSize === "mobile" ? (
+				<div className={styles.navbar_menuContainer} onClick={() => toggleSidebar()}>
+					<MenuSharpIcon sx={{ fontSize: 50 }} />
+				</div>
+			) : null}
 		</nav>
 	);
 }

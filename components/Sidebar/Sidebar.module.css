@@ -2,7 +2,7 @@
 .sidebar {
 	position: fixed;
 	top: var(--header-height, 80px);
-	width: var(--sidebar-width, 300px);
+	width: var(--sidebar-width, 200px);
 	height: 100vh;
 	background-color: #FFF;
 	opacity: 0.95;
@@ -10,6 +10,13 @@
 	z-index: 10;
 	/* Add a right red border */
 	border-right: var(--main-accent, #fe395c) 2px solid;
+}
+
+.sidebarStatic {
+	position: relative;
+	top: 0;
+	width: var(--sidebar-width-static, 300px);
+	opacity: 1;
 }
 
 .sidebarOpen {
@@ -43,13 +50,17 @@
 
 .sidebarBackContainer {
 	position: fixed;
-	/* background-color: #FF0000; */
+	/* background-color: #FF00F0; */
 	opacity: 0;
 	top: 0;
 	height: 100vh;
 	width: calc(100vw - var(--sidebar-width, 300px));
 	transition: left 0.3s ease-in-out;
 	z-index: 2;
+}
+
+.sidebarBackContainerHidden {
+	visibility: hidden;
 }
 
 .sidebarBackContainerOpen {
