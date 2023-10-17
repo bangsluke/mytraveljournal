@@ -107,9 +107,15 @@ class DatabaseConnector:
                 loc = geocode(node)
                 sleep(1)
                 if node_class.__name__ == "City":
+                    # Set the capital property to be true if the capital tag exists
+                    capitalBoolean = False
+                    front_matter = self.vault.get_front_matter(node)
+                    # print(front_matter)
+                    if 'tags' in front_matter and 'capital' in front_matter['tags']:
+                        return capitalBoolean == True
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
                                latitude=loc.latitude, longitude=loc.longitude,
-                               capital=self.vault.get_front_matter(node)["capital"]).save()
+                               capital=capitalBoolean).save()
                 else:
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
                                latitude=loc.latitude, longitude=loc.longitude).save()
