@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
-import styles from "../../styles/Home.module.css";
 import NavBar from "../NavBar";
 import Sidebar from "../Sidebar/Sidebar";
+import styles from "./Layout.module.css";
 
 export default function Layout({ children, NavBarStyle }: any) {
 	const screenSize = useScreenSize(); // Get the screen size
