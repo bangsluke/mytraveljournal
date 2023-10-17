@@ -1,10 +1,13 @@
 import configparser
 import os
+import ssl
 from functools import partial
 from pathlib import Path
 from time import sleep
 from typing import List, Tuple
 
+import certifi
+import geopy
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from geopy.geocoders import Nominatim
@@ -92,8 +95,11 @@ class DatabaseConnector:
         :param locations: list of locations
         :param node_class: node type
         """
+        # https://github.com/geopy/geopy/issues/124#issuecomment-388276064
+        ctx = ssl.create_default_context(cafile=certifi.where())
+        geopy.geocoders.options.default_ssl_context = ctx
         geocode = partial(
-            Nominatim(user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
+            Nominatim(scheme='http', user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
             node_old = node_class.nodes.first_or_none(
                 nodeId=node_class.__name__.lower()+"-"+node)
