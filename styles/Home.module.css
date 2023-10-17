@@ -262,3 +262,19 @@
 .sidebarBackContainerClosed {
   left: 0;
 }
+
+.ErrorPageHeader {
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.ErrorMessageDiv {
+  background-color: blue;
+  color: white;
+  margin: 3rem auto 0rem auto;
+  padding: 0.3rem 1.5rem;
+  line-height: 0.5;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
