@@ -3,7 +3,7 @@ import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useScreenSize from "../../hooks/useScreenSize";
-import styles from "../../styles/Home.module.css";
+import styles from "./Navbar.module.css";
 
 export type Transparency = "Transparent" | "Opaque";
 

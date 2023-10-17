@@ -1,0 +1,61 @@
+.Navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 0 10px;
+	height: var(--header-height, 80px);
+	width: 100%;
+	color: #f3f3f3;
+	display: grid;
+	column-gap: 10px;
+	grid-template-columns: 60px 1fr 60px 60px;
+	z-index: 100;
+}
+
+.NavbarOffset {
+	position: fixed;
+	top: 0;
+	height: calc(var(--header-height, 80px) + 1rem);
+	width: 100%;
+}
+
+.NavbarOpaque {
+	background-color: #fe395c;
+	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+}
+
+/* Control all of the Navbar div containers */
+.Navbar>div {
+	padding: 0;
+	margin: 0;
+	height: var(--header-height, 80px);
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.Navbar_logoContainer {
+	/* background-color: #0070f3; */
+	display: flex;
+	align-items: center;
+}
+
+.Navbar_logo {
+	color: #f3f3f3;
+	filter: invert(100);
+}
+
+.Navbar_headerContainer {
+	/* background-color: #222; */
+	text-align: left;
+}
+
+.Navbar_backContainer {
+	/* background-color: #fafafa; */
+	text-align: right;
+}
+
+.Navbar_menuContainer {
+	/* background-color: #555555; */
+	text-align: right;
+}
