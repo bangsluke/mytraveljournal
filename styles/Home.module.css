@@ -143,54 +143,7 @@
 }
 
 
-.countCardSection {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-}
 
-.countcard {
-  height: 150px;
-  width: 150px;
-  background-color: #fe395c;
-  color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  border-radius: 20px;
-  /* justify-content: flex-start; */
-  justify-content: center;
-  /* Position Horizontally */
-  align-items: center;
-  /* Center Vertically */
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.countcard:hover {
-  background-color: #f8012d;
-}
-
-.countcard h3 {
-  margin: 0px;
-  padding: 0px;
-  /* background-color: #0070f3; */
-  font-size: 1rem;
-  height: 1.5rem;
-  line-height: normal;
-}
-
-.countcard h4 {
-  margin: 0px;
-  padding: 0px;
-  /* background-color: #0070f3; */
-  font-size: 5rem;
-  height: 5rem;
-  line-height: normal;
-}
 
 .travelcard {
   margin: 2rem auto;
