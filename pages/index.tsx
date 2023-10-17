@@ -1,4 +1,3 @@
-import Link from "next/link";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CountCardSection from "../components/CountCard/CountCardSection";
 import Layout from "../components/Layouts/Layout";
@@ -20,11 +19,6 @@ export default function Home(props: any) {
 				</div>
 
 				<CountCardSection />
-			</section>
-
-			{/* TODO: Delete this section once sidebar is implemented */}
-			<section className={styles.section}>
-				<Link href='/lists'>Lists Page</Link>
 			</section>
 
 			{/* Bottom section holds the holiday cards */}

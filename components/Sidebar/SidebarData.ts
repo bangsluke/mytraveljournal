@@ -11,4 +11,5 @@ export const SidebarData: SidebarLink[] = [
 	{ id: "2", displayName: "Continents", pagePath: "/continents" },
 	{ id: "3", displayName: "Countries", pagePath: "/countries" },
 	{ id: "4", displayName: "People", pagePath: "/people" },
+	{ id: "5", displayName: "Lists", pagePath: "/lists" },
 ];
