@@ -1,9 +1,9 @@
-// Define a type for the sidebar data.
-export type SidebarLink = {
+// Define an interface for the sidebar data.
+export interface SidebarLink {
 	id: string;
 	displayName: string;
 	pagePath: string;
-};
+}
 
 // Define the data used for the sidebar.
 export const SidebarData: SidebarLink[] = [
