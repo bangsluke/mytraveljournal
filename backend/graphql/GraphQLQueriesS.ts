@@ -9,6 +9,15 @@ const GET_CONTINENTS = gql`
 	}
 `;
 
+const GET_CONTINENT_BY_ID = gql`
+	query GetContinentById($node_id: String) {
+		continents(where: { node_id: $node_id }) {
+			name
+			node_id
+		}
+	}
+`;
+
 const GET_COUNTRIES = gql`
 	query GetCountries {
 		countries {
@@ -91,6 +100,7 @@ const GET_HOLIDAY_BY_ID = gql`
 
 const GraphQLQueriesS = {
 	GET_CONTINENTS,
+	GET_CONTINENT_BY_ID,
 	GET_COUNTRIES,
 	GET_COUNTRY_BY_ID,
 	GET_CITIES,
