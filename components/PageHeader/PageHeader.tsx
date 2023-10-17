@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "./PageHeader.module.css";
 
 // Define a page header component that holds the page title.
 export default function PageHeader(props: { PageHeaderTitle: string }) {

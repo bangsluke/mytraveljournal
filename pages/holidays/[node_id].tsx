@@ -48,7 +48,7 @@ export default function HolidayPage() {
 	const RandomPictureID = Math.floor(Math.random() * 999) + 1;
 
 	return (
-		<Layout NavBarStyle='Transparent'>
+		<Layout NavbarStyle='Transparent'>
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
 				<Image

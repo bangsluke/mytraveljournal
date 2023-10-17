@@ -1,97 +1,7 @@
-.main {
-  /* background-color: aqua; */
-  /* Drop the contents of main under header */
-  padding: 0 0;
-  padding-top: calc(var(--header-height, 80px) + 1rem);
-  margin: 0;
-  min-height: 100vh;
-  min-width: 100vw;
-}
-
 .section {
   padding: 0 10px;
   z-index: 1;
 }
-
-.pageHeaderContainer {
-  /* background-color: #0070f3; */
-  line-height: 5px;
-  width: 100%;
-  text-align: left;
-  color: #BBB;
-  font-size: x-large;
-  display: flex;
-  align-items: center;
-}
-
-.pageHeader {
-  color: #fe395c;
-  margin-left: 8px;
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 0 10px;
-  height: var(--header-height, 80px);
-  width: 100%;
-  color: #f3f3f3;
-  display: grid;
-  column-gap: 10px;
-  grid-template-columns: 60px 1fr 60px 60px;
-  z-index: 100;
-}
-
-.navbarOffset {
-  position: fixed;
-  top: 0;
-  height: calc(var(--header-height, 80px) + 1rem);
-  width: 100%;
-}
-
-.navbarOpaque {
-  background-color: #fe395c;
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-}
-
-/* Control all of the navbar div containers */
-.navbar>div {
-  padding: 0;
-  margin: 0;
-  height: var(--header-height, 80px);
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.navbar_logoContainer {
-  /* background-color: #0070f3; */
-  display: flex;
-  align-items: center;
-}
-
-.navbar_logo {
-  color: #f3f3f3;
-  filter: invert(100);
-}
-
-.navbar_headerContainer {
-  /* background-color: #222; */
-  text-align: left;
-}
-
-.navbar_backContainer {
-  /* background-color: #fafafa; */
-  text-align: right;
-}
-
-.navbar_menuContainer {
-  /* background-color: #555555; */
-  text-align: right;
-}
-
-
 
 .listsSection {
   /* background-color: aqua; */
@@ -104,22 +14,6 @@
 
 .listsSection h3 {
   text-align: center;
-}
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
 }
 
 .title a {
@@ -230,55 +124,6 @@
   display: none;
 }
 
-
-.countCardSection {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
-.countcard {
-  height: 150px;
-  width: 150px;
-  background-color: #fe395c;
-  color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  border-radius: 20px;
-  /* justify-content: flex-start; */
-  justify-content: center;
-  /* Position Horizontally */
-  align-items: center;
-  /* Center Vertically */
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.countcard:hover {
-  background-color: #f8012d;
-}
-
-.countcard h3 {
-  margin: 0px;
-  padding: 0px;
-  /* background-color: #0070f3; */
-  font-size: 1rem;
-  height: 1.5rem;
-  line-height: normal;
-}
-
-.countcard h4 {
-  margin: 0px;
-  padding: 0px;
-  /* background-color: #0070f3; */
-  font-size: 5rem;
-  height: 5rem;
-  line-height: normal;
-}
 
 .travelcard {
   margin: 2rem auto;
@@ -416,4 +261,20 @@
 
 .sidebarBackContainerClosed {
   left: 0;
+}
+
+.ErrorPageHeader {
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.ErrorMessageDiv {
+  background-color: blue;
+  color: white;
+  margin: 3rem auto 0rem auto;
+  padding: 0.3rem 1.5rem;
+  line-height: 0.5;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
