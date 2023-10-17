@@ -9,7 +9,7 @@ export default function Custom404Page() {
 	const router = useRouter();
 	return (
 		<Layout NavbarStyle='Opaque'>
-			<Image src={Error404Image} alt='Travel Site Error Logo' width='200' height='200' layout='fixed' loading='lazy' />
+			<Image src={Error404Image} alt='Travel Site Error Logo' width='200' height='200' layout='fixed' priority />
 			<h2 className={styles.ErrorPageHeader}>404 - Page Not Found</h2>
 			<div
 				className={styles.ErrorMessageDiv}
