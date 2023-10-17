@@ -28,14 +28,63 @@
 	/* Start off-screen */
 }
 
-.sidebar-content {
+.sidebarContent {
 	position: sticky;
 	/* TODO: Fix the above position so that the sidebar content stays visible while the sidebar is open in static mode */
-	background-color: #555;
+	/* background-color: #555; */
 	width: 100%;
 	height: 100%;
 	z-index: 11;
 }
+
+
+/* Modify the styles for SidebarItem */
+.sidebarItem {
+	list-style: none;
+	/* Remove bullet point */
+	padding: 10px;
+	/* Add padding for better spacing */
+	text-decoration: none;
+	/* Remove underline for links */
+	color: black;
+	/* Set link color */
+	/* display: block; */
+	position: relative;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.sidebarItem:hover {
+	background-color: var(--secondary-accent-light, #f0f0f0);
+	/* Change background color on hover */
+	color: var(--main-accent, #fe395c);
+	font-weight: 700;
+}
+
+/* CSS for appending a grey "\" in front of li element on hover */
+.sidebarItem:hover::before {
+	content: '/';
+	color: var(--secondary-accent, #BBB);
+	margin-right: 2px;
+	/* Adjust the distance between the "\" and the text */
+}
+
+/* Add a thin yellow line for the active link */
+.sidebarItemActive::after {
+	content: "";
+	position: absolute;
+	height: 100%;
+	width: 4px;
+	/* Width of the yellow line */
+	background-color: yellow;
+	top: 0;
+	right: -4px;
+	/* Adjust the distance from the end of the text */
+}
+
+
+
 
 .toggle-button {
 	background-color: #555;

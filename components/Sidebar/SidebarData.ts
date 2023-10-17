@@ -3,6 +3,7 @@ export interface SidebarLink {
 	id: string;
 	displayName: string;
 	pagePath: string;
+	active?: boolean;
 }
 
 // Define the data used for the sidebar.
