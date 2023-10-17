@@ -16,42 +16,45 @@ const typeDefs = `#graphql
     }
 
 	type Continent {
-		name: String
-		node_id: String
+		name: String!
+		node_id: String!
 	}
 
     type Country {
-		name: String
-		node_id: String
+		name: String!
+		node_id: String!
 	}
 
 	type City {
-		name: String
-		node_id: String
+		name: String!
+		node_id: String!
+		capital: Boolean!
+		level: String
 	}
 
 	type Island {
-		name: String
-		node_id: String
+		name: String!
+		node_id: String!
 	}
 
 	type Person {
-		name: String
+		name: String!
 		node_id: String
 		aliases: String
 		text_body_text: String
 	}
 
 	type Holiday {
-		name: String
-		date_year: String
-		date_month: String
-		node_id: String
+		name: String!
+		date_year: String!
+		date_month: String!
+		node_id: String!
 		text_html_content: String
 		attendees: [String!]
 	}
 `;
 
+console.log("typeDefs from backend/graphql/index.js", typeDefs);
 //console.log(`Database password is ${process.env.N4J_PW}`);
 
 const driver = neo4j.driver(

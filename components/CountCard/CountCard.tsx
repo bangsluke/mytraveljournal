@@ -10,7 +10,7 @@ interface CountCardProp {
 
 // Define a count card component that holds a string title and a number.
 export default function CountCard(props: CountCardProp) {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 
 	const { id, cardTitle, countValue, pagePath } = props; // Extract the props
 	return (

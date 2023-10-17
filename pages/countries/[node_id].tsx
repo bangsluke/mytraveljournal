@@ -7,7 +7,7 @@ import styles from "../../styles/Home.module.css";
 import { Country } from "../../types/types";
 
 export default function CountryPage() {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 	const { node_id } = router.query; // Use the same variable name as the [node_id] file name
 	console.log("node_id: ", node_id);
 
@@ -21,15 +21,7 @@ export default function CountryPage() {
 			<>
 				<p>Error : {error.message}</p>
 				<div
-					style={{
-						backgroundColor: "blue",
-						color: "white",
-						margin: "3rem auto 0rem auto",
-						padding: "0.3rem 1.5rem",
-						lineHeight: "0.5",
-						borderRadius: "0.5rem",
-						cursor: "pointer",
-					}}
+					className={styles.ErrorMessageDiv}
 					onClick={() => router.back()} // Go back to the last visited page
 				>
 					<h4>Click here to go back</h4>
@@ -51,9 +43,8 @@ export default function CountryPage() {
 
 				<h1>Country Page</h1>
 
-				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
-
 				<h3>Country Name: {name}</h3>
+				<p>{node_id}</p>
 
 				<div>Number of times visited:</div>
 			</section>

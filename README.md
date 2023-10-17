@@ -43,7 +43,7 @@ At the start of each note, I have some "front matter" - the name used in Obsidia
 To install all of the required dependencies, run:
 
 ```bash
-pip install json os markdown2 obsidiantools neomodel
+pip install json os markdown2 obsidiantools neomodel geopy
 ```
 
 ### Properties Set Up

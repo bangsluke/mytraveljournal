@@ -3,7 +3,7 @@
 	line-height: 5px;
 	width: 100%;
 	text-align: left;
-	color: #BBB;
+	color: var(--secondary-accent, #BBB);
 	font-size: x-large;
 	display: flex;
 	align-items: center;

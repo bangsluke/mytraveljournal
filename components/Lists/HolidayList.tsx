@@ -5,7 +5,7 @@ import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
 
 export default function HolidayList() {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
 

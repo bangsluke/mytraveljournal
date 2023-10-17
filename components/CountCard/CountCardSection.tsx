@@ -8,7 +8,7 @@ const useGetContinentCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CONTINENTS);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return (numberOfItems = error.message); // If error - show error message
+	if (error) return console.error("useGetContinentCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.continents).length; // Else - get the number of items
 	// console.log("data from useGetContinentCount", data);
 	return numberOfItems;
@@ -19,7 +19,7 @@ const useGetCountryCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return (numberOfItems = error.message); // If error - show error message
+	if (error) return console.error("useGetCountryCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.countries).length; // Else - get the number of items
 	// console.log("data from useGetCountryCount", data);
 	return numberOfItems;
@@ -30,7 +30,7 @@ const useGetCityCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CITIES);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return (numberOfItems = error.message); // If error - show error message
+	if (error) return console.error("useGetCityCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
 	// console.log("data from useGetCityCount", data);
 	return numberOfItems;
@@ -41,7 +41,7 @@ const useGetIslandCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_ISLANDS);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return (numberOfItems = error.message); // If error - show error message
+	if (error) return console.error("useGetIslandCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.islands).length; // Else - get the number of items
 	// console.log("data from useGetIslandCount", data);
 	return numberOfItems;
@@ -49,12 +49,10 @@ const useGetIslandCount = () => {
 
 // Get the number of people
 const useGetPeopleCount = () => {
-	console.log("useGetPeopleCount");
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
-	console.log("data from useGetPersonCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return (numberOfItems = error.message); // If error - show error message
+	if (error) return console.error("useGetPeopleCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.people).length; // Else - get the number of items
 	// console.log("data from useGetPersonCount", data);
 	return numberOfItems;
@@ -65,9 +63,23 @@ const useGetHolidayCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return (numberOfItems = error.message); // If error - show error message
+	if (error) return console.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
 	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
 	// console.log("data from useGetHolidayCount", data);
+	return numberOfItems;
+};
+
+// Get the number of capitals
+const useGetCapitalCount = () => {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
+		variables: { capitalBoolean: true }, // Pass the variable to the query
+	});
+	console.log("data from useGetCapitalCount", data);
+	let numberOfItems: number | string = 0;
+	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
+	if (error) return console.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
+	console.log("data from useGetCapitalCount", data);
 	return numberOfItems;
 };
 
@@ -81,6 +93,7 @@ export default function CountCardSection() {
 			<CountCard id='4' cardTitle='Cities Count' countValue={useGetCityCount()} pagePath='/cities' />
 			<CountCard id='5' cardTitle='Islands Count' countValue={useGetIslandCount()} pagePath='/islands' />
 			<CountCard id='6' cardTitle='Travel Companion Count' countValue={useGetPeopleCount()} pagePath='/people' />
+			<CountCard id='7' cardTitle='Capitals Count' countValue={useGetCapitalCount()} pagePath='/capitals' />
 		</div>
 	);
 }

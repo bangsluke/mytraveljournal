@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 
 const MarkdownList = ({ data }) => {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 
 	// console.log("data: ", data);
 

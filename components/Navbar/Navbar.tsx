@@ -14,7 +14,7 @@ interface NavbarProps {
 
 // Define a nav bar component that holds the logo and the page name.
 export default function Navbar(props: NavbarProps) {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 	const { NavbarStyle, toggleSidebar } = props; // Extract the props
 	const screenSize = useScreenSize(); // Get the screen size
 
