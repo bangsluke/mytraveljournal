@@ -7,7 +7,7 @@ import styles from "../../styles/Home.module.css";
 import { Person } from "../../types/types";
 
 export default function PersonPage() {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 	const { node_id } = router.query; // Use the same variable name as the [node_id] file name
 	console.log("node_id: ", node_id);
 

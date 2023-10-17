@@ -7,7 +7,7 @@ import styles from "../../styles/Home.module.css";
 import { Continent } from "../../types/types";
 
 export default function ContinentPage() {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 	const { node_id } = router.query; // Use the same variable name as the [node_id] file name
 	console.log("node_id: ", node_id);
 

@@ -3,7 +3,7 @@ import { SidebarLink } from "./SidebarData";
 
 // Define a count card component that holds a string title and a number.
 export default function SidebarItem(props: SidebarLink) {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 	const { id, displayName, pagePath } = props; // Extract the props
 
 	return (
