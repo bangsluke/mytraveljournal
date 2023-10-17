@@ -107,6 +107,16 @@ const GET_HOLIDAY_BY_ID = gql`
 	}
 `;
 
+const GET_CAPITALS = gql`
+	query GetCapitals($capitalCheck: Boolean) {
+		cities(where: { capital: $capitalCheck }) {
+			name
+			node_id
+			capital
+		}
+	}
+`;
+
 const GraphQLQueriesS = {
 	GET_CONTINENTS,
 	GET_CONTINENT_BY_ID,
@@ -119,6 +129,7 @@ const GraphQLQueriesS = {
 	GET_PERSON_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,
+	GET_CAPITALS,
 };
 
 export default GraphQLQueriesS;
