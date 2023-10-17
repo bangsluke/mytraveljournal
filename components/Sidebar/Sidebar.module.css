@@ -29,12 +29,18 @@
 }
 
 .sidebarContent {
+	/* background-color: #555; */
 	position: sticky;
 	/* TODO: Fix the above position so that the sidebar content stays visible while the sidebar is open in static mode */
-	/* background-color: #555; */
 	width: 100%;
 	height: max-content;
 	z-index: 11;
+	margin-left: 0;
+}
+
+.sidebarContent>ul {
+	padding: var(--sidebar-spacing, 15px);
+	margin: 0;
 }
 
 
@@ -42,7 +48,7 @@
 .sidebarItem {
 	list-style: none;
 	/* Remove bullet point */
-	padding: 10px;
+	padding: var(--sidebar-spacing, 15px);
 	/* Add padding for better spacing */
 	text-decoration: none;
 	/* Remove underline for links */
@@ -92,14 +98,15 @@
 	margin-left: 15px;
 	/* Adjust the space between the text and the line */
 	text-align: right;
-	margin-top: 10px;
+	margin-top: var(--sidebar-spacing, 15px);
 }
 
+/* Style a toggle button that shows for mobile devices */
 
 .toggle-button {
 	background-color: #555;
 	color: white;
-	padding: 10px;
+	padding: var(--sidebar-spacing, 15px);
 	border: none;
 	cursor: pointer;
 }
@@ -108,11 +115,17 @@
 	background-color: #777;
 }
 
+/* Style the vertical text down the side of the sidebar */
+
 .verticalText {
+	/* background-color: #777; */
 	writing-mode: vertical-rl;
 	/* Rotate the text to be read vertically */
 	transform: rotate(180deg);
 	/* Rotate the text by 180 degrees for proper orientation */
+	height: 20rem;
+	width: 100%;
+	margin-left: var(--sidebar-spacing, 15px);
 }
 
 
