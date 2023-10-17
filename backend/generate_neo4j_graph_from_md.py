@@ -105,20 +105,31 @@ class DatabaseConnector:
                 nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
                 loc = geocode(node)
+                # Error handling if there is no location
+                # TODO: Kevin to review and improve
+                # print(node)
+                # print(loc)
+                if loc is None:
+                    latitude = 0
+                    longitude = 0
+                else:
+                    latitude = loc.latitude
+                    longitude = loc.longitude
                 sleep(1)
                 if node_class.__name__ == "City":
                     # Set the capital property to be true if the capital tag exists
+                    # TODO: Kevin to review and improve
                     capitalBoolean = False
                     front_matter = self.vault.get_front_matter(node)
                     # print(front_matter)
                     if 'tags' in front_matter and 'capital' in front_matter['tags']:
                         return capitalBoolean == True
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=loc.latitude, longitude=loc.longitude,
+                               latitude=latitude, longitude=longitude,
                                capital=capitalBoolean).save()
                 else:
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=loc.latitude, longitude=loc.longitude).save()
+                               latitude=latitude, longitude=longitude).save()
 
     def connect_locations(self, node_class1: type[StructuredNode] = Location,
                           node_class2: type[StructuredNode] = Location) -> None:
