@@ -1,6 +1,9 @@
+import { useRouter } from "next/router";
 import React from "react";
 import useScreenSize from "../../hooks/useScreenSize";
 import styles from "./Sidebar.module.css";
+import { SidebarData } from "./SidebarData";
+import SidebarItem from "./SidebarItem";
 
 interface SidebarProps {
 	sidebarOpen: boolean;
@@ -10,6 +13,7 @@ interface SidebarProps {
 type SidebarStyle = "static" | "dynamic";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
+	const router = useRouter();
 	const screenSize = useScreenSize(); // Get the screen size
 	const sidebarStyle: SidebarStyle = screenSize == "mobile" ? "dynamic" : "static"; // If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
 	// console.log("sidebarStyle:", sidebarStyle);
@@ -28,6 +32,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 		}`;
 	}
 
+	console.log("SidebarData", SidebarData);
+
 	return (
 		<>
 			<nav className={sideBarClassName}>
@@ -38,10 +44,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 				)}
 				<div className={styles.sidebarContent}>
 					<h1>Sidebar Content</h1>
+
 					<ul>
-						<li>Item 1</li>
-						<li>Item 2</li>
-						<li>Item 3</li>
+						{SidebarData.map((item) => (
+							<SidebarItem id={item.id} key={item.id} displayName={item.displayName} pagePath={item.pagePath} />
+						))}
 					</ul>
 				</div>
 			</nav>
