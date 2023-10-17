@@ -45,6 +45,15 @@ const GET_CITIES = gql`
 	}
 `;
 
+const GET_CITY_BY_ID = gql`
+	query GetCityById($node_id: String) {
+		cities(where: { node_id: $node_id }) {
+			name
+			node_id
+		}
+	}
+`;
+
 const GET_ISLANDS = gql`
 	query GetIslands {
 		islands {
@@ -104,6 +113,7 @@ const GraphQLQueriesS = {
 	GET_COUNTRIES,
 	GET_COUNTRY_BY_ID,
 	GET_CITIES,
+	GET_CITY_BY_ID,
 	GET_ISLANDS,
 	GET_PEOPLE,
 	GET_PERSON_BY_ID,

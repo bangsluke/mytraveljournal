@@ -10,6 +10,7 @@ export const SidebarData: SidebarLink[] = [
 	{ id: "1", displayName: "Holidays", pagePath: "/holidays" },
 	{ id: "2", displayName: "Continents", pagePath: "/continents" },
 	{ id: "3", displayName: "Countries", pagePath: "/countries" },
-	{ id: "4", displayName: "People", pagePath: "/people" },
-	{ id: "5", displayName: "Lists", pagePath: "/lists" },
+	{ id: "4", displayName: "Cities", pagePath: "/cities" },
+	{ id: "5", displayName: "People", pagePath: "/people" },
+	{ id: "6", displayName: "Lists", pagePath: "/lists" },
 ];
