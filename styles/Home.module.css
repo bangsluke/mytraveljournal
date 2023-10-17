@@ -15,11 +15,9 @@
 }
 
 .pageHeader {
-  color: #fe395c;
+  color: var(--main-accent, #fe395c);
   margin-left: 8px;
 }
-
-
 
 .listsSection {
   /* background-color: aqua; */

@@ -20,7 +20,7 @@
 }
 
 .NavbarOpaque {
-	background-color: #fe395c;
+	background-color: var(--main-accent, #fe395c);
 	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
 }
 
