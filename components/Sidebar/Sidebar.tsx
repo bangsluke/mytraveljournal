@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React from "react";
 import useScreenSize from "../../hooks/useScreenSize";
 import styles from "./Sidebar.module.css";
@@ -13,7 +12,6 @@ interface SidebarProps {
 type SidebarStyle = "static" | "dynamic";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
-	const router = useRouter();
 	const screenSize = useScreenSize(); // Get the screen size
 	const sidebarStyle: SidebarStyle = screenSize == "mobile" ? "dynamic" : "static"; // If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
 	// console.log("sidebarStyle:", sidebarStyle);
@@ -32,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 		}`;
 	}
 
-	console.log("SidebarData", SidebarData);
+	// console.log("SidebarData", SidebarData); // Log the SidebarData
 
 	return (
 		<>

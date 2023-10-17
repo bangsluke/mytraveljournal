@@ -51,7 +51,6 @@ const useGetIslandCount = () => {
 const useGetPeopleCount = () => {
 	console.log("useGetPeopleCount");
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
-	console.log("data from useGetPersonCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) return (numberOfItems = error.message); // If error - show error message
