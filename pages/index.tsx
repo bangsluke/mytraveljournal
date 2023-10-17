@@ -1,7 +1,7 @@
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CountCardSection from "../components/CountCard/CountCardSection";
 import Layout from "../components/Layouts/Layout";
-import MapChart from "../components/MapChart";
+// import MapChart from "../components/MapChart";
 import MarkdownList from "../components/MarkdownList";
 import styles from "../styles/Home.module.css";
 
@@ -14,9 +14,9 @@ export default function Home(props: any) {
 			<section className={styles.section}>
 				<h2 id={styles.homepageHeader}>Visited Locations</h2>
 
-				<div className={styles.mapContainer}>
+				{/* <div className={styles.mapContainer}>
 					<MapChart />
-				</div>
+				</div> */}
 
 				<CountCardSection />
 			</section>
