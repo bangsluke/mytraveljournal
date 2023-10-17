@@ -1,13 +1,13 @@
 import configparser
 import os
-
+from functools import partial
 from pathlib import Path
 from time import sleep
 from typing import List, Tuple
-from functools import partial
-from geopy.geocoders import Nominatim
+
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
+from geopy.geocoders import Nominatim
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     StructuredNode, config)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
@@ -33,6 +33,7 @@ class DatabaseConnector:
         function to sort the vault by given tags (labels) and make the data behind the labels iterable.
         """
         for node in self.vault.graph.nodes:
+            print(node)
             try:
                 frontmatter = vault.get_front_matter(node)
                 tags = frontmatter["tags"]
@@ -91,9 +92,11 @@ class DatabaseConnector:
         :param locations: list of locations
         :param node_class: node type
         """
-        geocode = partial(Nominatim(user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
+        geocode = partial(
+            Nominatim(user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
-            node_old = node_class.nodes.first_or_none(nodeId=node_class.__name__.lower()+"-"+node)
+            node_old = node_class.nodes.first_or_none(
+                nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
                 loc = geocode(node)
                 sleep(1)
@@ -126,7 +129,8 @@ class DatabaseConnector:
         :return:
         """
         for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City),
-                                 (self.counties, County), (self.islands, Island), (self.states, State),
+                                 (self.counties, County), (self.islands,
+                                                           Island), (self.states, State),
                                  (self.towns, Town), (self.locations, Location)]:
             self.create_location(loc, node_type)
 
@@ -137,7 +141,8 @@ class DatabaseConnector:
         function to create all persons
         """
         for node in self.persons:
-            node_old = Person.nodes.first_or_none(nodeId=Person.__name__.lower()+"-"+node)
+            node_old = Person.nodes.first_or_none(
+                nodeId=Person.__name__.lower()+"-"+node)
             if node_old is None:
                 Person(name=node, nodeId=Person.__name__.lower()+"-"+node).save()
 
@@ -166,7 +171,8 @@ class DatabaseConnector:
         """
         for connection in connect_to:
             try:
-                holiday.travelled_to.connect(node_type.nodes.first_or_none(name=connection))
+                holiday.travelled_to.connect(
+                    node_type.nodes.first_or_none(name=connection))
             except ValueError as e:
                 print(e)
 
@@ -175,7 +181,8 @@ class DatabaseConnector:
         function to create the holiday nodes and relations
         """
         for node in self.holidays:
-            node_old = Holiday.nodes.first_or_none(nodeId=Holiday.__name__.lower()+"-"+node)
+            node_old = Holiday.nodes.first_or_none(
+                nodeId=Holiday.__name__.lower()+"-"+node)
             if node_old is None:
                 frontmatter = self.vault.get_front_matter(node)
                 text = self.vault.get_readable_text(node)
@@ -201,13 +208,22 @@ class DatabaseConnector:
 
 if __name__ == '__main__':
     # Define the relative file path of the config file
-    rel_config_file_path = r'..\properties.properties'
+    rel_config_file_path = r'properties.properties'
 
     # Define the relative folder path of the .md data files
     rel_data_folder_path = r'\testdata'
 
+    # Get the full path of the current script i.e. /path/to/dir/foobar.py
+    current_script_path = os.path.abspath(__file__)
+
+    # Get the directory of the current script i.e. /path/to/dir/
+    current_script_dir = os.path.split(current_script_path)[0]
+
+    # Create the full path of the config file
+    config_file_path = os.path.join(current_script_dir, rel_config_file_path)
+
     config_file = configparser.ConfigParser()
-    config_file.read(rel_config_file_path)
+    config_file.read(config_file_path)
 
     config.DATABASE_URL = (f'{config_file.get("NEO4J", "N4J.ConnType")}'
                            f'{config_file.get("NEO4J", "N4J.USER")}:'
@@ -238,6 +254,8 @@ if __name__ == '__main__':
     node_labels_to_count: list[type[StructuredNode]] = [Continent, Country, County, State,
                                                         City, Town, Island, Holiday, Person, Location]
 
-    [print("   {} Count:  [[{}]]".format(label.__name__, len(label.nodes))) for label in node_labels_to_count]
+    [print("   {} Count:  [[{}]]".format(label.__name__, len(label.nodes)))
+     for label in node_labels_to_count]
 
-    print("   {} Count:  [[{}]]".format("Capital", len(City.nodes.filter(capital=True))))
+    print("   {} Count:  [[{}]]".format(
+        "Capital", len(City.nodes.filter(capital=True))))
