@@ -7,7 +7,7 @@ import Error404Image from "../public/images/404Image.webp";
 export default function Custom404Page() {
 	const router = useRouter();
 	return (
-		<Layout NavBarStyle='Opaque'>
+		<Layout NavbarStyle='Opaque'>
 			<Image src={Error404Image} alt='Travel Site Error Logo' width='200' height='200' layout='fixed' loading='lazy' />
 			<h2 style={{ fontWeight: 600, fontSize: 18 }}>404 - Page Not Found</h2>
 			<div

@@ -43,7 +43,7 @@ export default function PersonPage() {
 	console.log("person data: ", data);
 
 	return (
-		<Layout NavBarStyle='Opaque'>
+		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 

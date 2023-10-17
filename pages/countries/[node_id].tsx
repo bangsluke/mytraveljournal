@@ -45,7 +45,7 @@ export default function CountryPage() {
 	// console.log("country data: ", data);
 
 	return (
-		<Layout NavBarStyle='Opaque'>
+		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 

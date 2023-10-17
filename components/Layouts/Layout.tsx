@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
-import NavBar from "../NavBar";
+import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import styles from "./Layout.module.css";
 
-export default function Layout({ children, NavBarStyle }: any) {
+export default function Layout({ children, NavbarStyle }: any) {
 	const screenSize = useScreenSize(); // Get the screen size
 	const [sidebarOpen, setSidebarOpen] = useState(false); // Create a state for toggling the sidebar
 
@@ -29,8 +29,8 @@ export default function Layout({ children, NavBarStyle }: any) {
 				<meta name='description' content='A journal of my travels with Bry and others.' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			{/* Include the navbar */}
-			<NavBar NavBarStyle={NavBarStyle} toggleSidebar={toggleSidebar} />
+			{/* Include the Navbar */}
+			<Navbar NavbarStyle={NavbarStyle} toggleSidebar={toggleSidebar} />
 
 			{/* Wrap all children in a main tag with a header offset padding value */}
 			<main className={mainClassName}>

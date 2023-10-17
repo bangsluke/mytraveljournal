@@ -5,7 +5,7 @@ import styles from "../../styles/Home.module.css";
 
 export default function CountriesPage(props: any) {
 	return (
-		<Layout NavBarStyle='Opaque'>
+		<Layout NavbarStyle='Opaque'>
 			{/* Note: Layout wraps component in a main tag */}
 
 			<section className={styles.section}>

@@ -7,7 +7,7 @@ import styles from "../../styles/Home.module.css";
 
 export default function ListsPage(props: any) {
 	return (
-		<Layout NavBarStyle='Opaque'>
+		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Site Lists' />
 
