@@ -1,6 +1,6 @@
 import Link from "next/link";
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
-import CountCardSection from "../components/CountCardSection";
+import CountCardSection from "../components/CountCard/CountCardSection";
 import Layout from "../components/Layouts/Layout";
 import MapChart from "../components/MapChart";
 import MarkdownList from "../components/MarkdownList";

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
-import styles from "../styles/Home.module.css";
+import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import styles from "../../styles/Home.module.css";
 import CountCard from "./CountCard";
 
 // Get the number of continents
