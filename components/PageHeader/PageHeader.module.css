@@ -1,0 +1,15 @@
+.pageHeaderContainer {
+	/* background-color: #0070f3; */
+	line-height: 5px;
+	width: 100%;
+	text-align: left;
+	color: #BBB;
+	font-size: x-large;
+	display: flex;
+	align-items: center;
+}
+
+.pageHeader {
+	color: var(--main-accent, #fe395c);
+	margin-left: 8px;
+}
