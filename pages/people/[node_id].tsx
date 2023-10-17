@@ -21,15 +21,7 @@ export default function PersonPage() {
 			<>
 				<p>Error : {error.message}</p>
 				<div
-					style={{
-						backgroundColor: "blue",
-						color: "white",
-						margin: "3rem auto 0rem auto",
-						padding: "0.3rem 1.5rem",
-						lineHeight: "0.5",
-						borderRadius: "0.5rem",
-						cursor: "pointer",
-					}}
+					className={styles.ErrorMessageDiv}
 					onClick={() => router.back()} // Go back to the last visited page
 				>
 					<h4>Click here to go back</h4>
@@ -49,7 +41,7 @@ export default function PersonPage() {
 
 				<h1>Person Page</h1>
 
-				<h2 style={{ fontWeight: 600, fontSize: 25 }}>{node_id}</h2>
+				<p>{node_id}</p>
 
 				<h3>Person Name: {name}</h3>
 
