@@ -32,6 +32,14 @@ export interface Holiday {
 	attendees: string[];
 }
 
+export interface HolidayDataItem {
+	filename: string;
+	content: string;
+	pagePath: string;
+}
+
+export type HolidayListData = HolidayDataItem[];
+
 export interface Person {
 	name: string;
 	node_id: string;

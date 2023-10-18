@@ -1,8 +1,8 @@
 import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CountCardSection from "../components/CountCard/CountCardSection";
+import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
 import Layout from "../components/Layouts/Layout";
 // import MapChart from "../components/MapChart";
-import MarkdownList from "../components/MarkdownList";
 import styles from "../styles/Home.module.css";
 
 export default function Home(props: any) {
@@ -23,7 +23,8 @@ export default function Home(props: any) {
 
 			{/* Bottom section holds the holiday cards */}
 			<section className={styles.section}>
-				<MarkdownList data={jsonData} />
+				{/* TODO: Need updated jsonData file from Python code */}
+				<HolidayCardList data={jsonData} />
 			</section>
 		</Layout>
 	);
