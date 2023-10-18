@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import Toast from "../Toast/Toast";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
@@ -77,7 +78,11 @@ const useGetCapitalCount = () => {
 	console.log("data from useGetCapitalCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error)
+		return (
+			// If error - show error message, return the
+			console.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0), (<Toast message={error.message} />)
+		);
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
 	console.log("data from useGetCapitalCount", data);
 	return numberOfItems;

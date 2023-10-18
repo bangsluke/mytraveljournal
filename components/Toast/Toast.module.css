@@ -1,0 +1,25 @@
+/* Toast.module.css */
+
+.toast {
+	background-color: var(--hover-message-background, rgba(0, 0, 0, 0.7));
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	max-width: 90%;
+	padding: 10px 20px;
+	border-radius: var(--card-border-radius, 15px);
+	color: white;
+	font-size: 1rem;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+	opacity: 1;
+}
+
+.toast.hide {
+	opacity: 0;
+}
