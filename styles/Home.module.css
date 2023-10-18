@@ -175,37 +175,6 @@
   text-decoration: underline;
 }
 
-.holidayImageContainer {
-  position: relative;
-  /* top: calc(-var(--header-height, 80px)); */
-  /* top: -100px; */
-  top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-  z-index: 0;
-  height: 60vh;
-  width: 100%;
-}
-
-
-.holidayImageOverlayContainer {
-  position: absolute;
-  top: 60%;
-  left: 10px;
-  color: white;
-  text-align: left;
-  z-index: 1;
-  /* Ensure text is displayed on top of the image */
-}
-
-.holidayImageOverlayContainer h3 {
-  font-size: 2rem;
-  /* Ensure text is displayed on top of the image */
-}
-
-.holidayImageOverlayContainer h4 {
-  font-size: 1.5rem;
-  /* Ensure text is displayed on top of the image */
-}
-
 /* Style the full sidebar */
 .sidebar {
   position: fixed;

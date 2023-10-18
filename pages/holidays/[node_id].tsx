@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
-import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
+import styles from "./Holidays.module.css";
 
 export default function HolidayPage() {
 	const router = useRouter(); // Import the Next router
@@ -46,12 +46,10 @@ export default function HolidayPage() {
 				<Image
 					src={`https://picsum.photos/id/${RandomPictureID}/375/600`}
 					alt='Holiday Photo'
-					layout='fill'
-					objectFit='cover'
 					quality={100}
-					// width={375}
-					// height={400}
-					// className={styles.holidayImage}
+					width={375}
+					height={400}
+					className={styles.holidayImage}
 				/>
 
 				<div className={styles.holidayImageOverlayContainer}>
