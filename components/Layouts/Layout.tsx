@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
 import Navbar from "../Navbar/Navbar";
+import ScrollToTopButton from "../ScrollToTop/ScrollToTopButton";
 import Sidebar from "../Sidebar/Sidebar";
 import styles from "./Layout.module.css";
 
@@ -31,6 +32,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 			</Head>
 			{/* Include the Navbar */}
 			<Navbar NavbarStyle={NavbarStyle} toggleSidebar={toggleSidebar} />
+			<ScrollToTopButton />
 
 			{/* Wrap all children in a main tag with a header offset padding value */}
 			<main className={mainClassName}>
