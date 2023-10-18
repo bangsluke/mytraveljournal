@@ -9,7 +9,11 @@ const useGetContinentCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CONTINENTS);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetContinentCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("useGetContinentCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetContinentCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.continents).length; // Else - get the number of items
 	// console.log("data from useGetContinentCount", data);
 	return numberOfItems;
@@ -20,7 +24,11 @@ const useGetCountryCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetCountryCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("useGetCountryCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetCountryCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.countries).length; // Else - get the number of items
 	// console.log("data from useGetCountryCount", data);
 	return numberOfItems;
@@ -31,7 +39,11 @@ const useGetCityCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CITIES);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetCityCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("useGetCityCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetCityCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
 	// console.log("data from useGetCityCount", data);
 	return numberOfItems;
@@ -42,7 +54,11 @@ const useGetIslandCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_ISLANDS);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetIslandCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("useGetIslandCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetIslandCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.islands).length; // Else - get the number of items
 	// console.log("data from useGetIslandCount", data);
 	return numberOfItems;
@@ -53,7 +69,11 @@ const useGetPeopleCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetPeopleCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("useGetPeopleCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetPeopleCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.people).length; // Else - get the number of items
 	// console.log("data from useGetPersonCount", data);
 	return numberOfItems;
@@ -64,7 +84,11 @@ const useGetHolidayCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) return console.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = error.message); // If error - show error message
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
 	// console.log("data from useGetHolidayCount", data);
 	return numberOfItems;
@@ -79,7 +103,7 @@ const useGetCapitalCount = () => {
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) {
-		// If error - show error message, return the
+		// If error - show error message, and raise an error toast
 		console.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0);
 		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
 	}

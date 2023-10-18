@@ -9,7 +9,7 @@ interface ToastProps {
 }
 
 const Toast: React.FC<ToastProps> = ({ message, duration }) => {
-	const [isVisible, setIsVisible] = useState(true); // Set a viisble state
+	const [isVisible, setIsVisible] = useState(true); // Set a visible state
 	const durationMS = duration * 1000; // Convert the time in seconds to milliseconds
 
 	useEffect(() => {
