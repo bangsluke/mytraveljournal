@@ -9,8 +9,9 @@
 }
 
 .holidayImage {
-	height: 60vh;
-	width: auto;
+	/* height: 60vh; */
+	width: 100%;
+	height: auto;
 }
 
 .holidayImageOverlayContainer {
