@@ -78,11 +78,11 @@ const useGetCapitalCount = () => {
 	console.log("data from useGetCapitalCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error)
-		return (
-			// If error - show error message, return the
-			console.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0), (<Toast message={error.message} />)
-		);
+	if (error) {
+		// If error - show error message, return the
+		console.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
+	}
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
 	console.log("data from useGetCapitalCount", data);
 	return numberOfItems;

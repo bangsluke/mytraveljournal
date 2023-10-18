@@ -6,7 +6,7 @@
 	bottom: 20px;
 	left: 50%;
 	transform: translateX(-50%);
-	max-width: 90%;
+	width: 90%;
 	padding: 10px 20px;
 	border-radius: var(--card-border-radius, 15px);
 	color: white;
