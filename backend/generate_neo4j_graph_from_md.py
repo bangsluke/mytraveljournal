@@ -140,11 +140,15 @@ class DatabaseConnector:
         """
         for node in node_class1.nodes:
             try:
-                # print(node.name)
-                # TODO: Error here
-                frontmatter = self.vault.get_front_matter(node.name)
+                print(node)
+                print(node.name)
+                # TODO: Error here. Remove below if statement
+                if "Neorić" or "Gdańsk" in node.name:
+                    print("Skipping " + node.name)
+                    continue
+                front_matter = self.vault.get_front_matter(node.name)
                 node.located_in.connect(
-                    node_class2.nodes.first_or_none(name=self.remove_brackets(frontmatter['locatedIn'])))
+                    node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
             except KeyError as e:
                 print(e)
 
