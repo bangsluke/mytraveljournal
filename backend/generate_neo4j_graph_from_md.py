@@ -1,10 +1,13 @@
 import configparser
 import os
+import ssl
 from functools import partial
 from pathlib import Path
 from time import sleep
 from typing import List, Tuple
 
+import certifi
+import geopy
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from geopy.geocoders import Nominatim
@@ -92,21 +95,41 @@ class DatabaseConnector:
         :param locations: list of locations
         :param node_class: node type
         """
+        # https://github.com/geopy/geopy/issues/124#issuecomment-388276064
+        ctx = ssl.create_default_context(cafile=certifi.where())
+        geopy.geocoders.options.default_ssl_context = ctx
         geocode = partial(
-            Nominatim(user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
+            Nominatim(scheme='http', user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
             node_old = node_class.nodes.first_or_none(
                 nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
                 loc = geocode(node)
+                # Error handling if there is no location
+                # TODO: Kevin to review and improve
+                # print(node)
+                # print(loc)
+                if loc is None:
+                    latitude = 0
+                    longitude = 0
+                else:
+                    latitude = loc.latitude
+                    longitude = loc.longitude
                 sleep(1)
                 if node_class.__name__ == "City":
+                    # Set the capital property to be true if the capital tag exists
+                    # TODO: Kevin to review and improve
+                    capitalBoolean = False
+                    front_matter = self.vault.get_front_matter(node)
+                    # print(front_matter)
+                    if 'tags' in front_matter and 'capital' in front_matter['tags']:
+                        return capitalBoolean == True
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=loc.latitude, longitude=loc.longitude,
-                               capital=self.vault.get_front_matter(node)["capital"]).save()
+                               latitude=latitude, longitude=longitude,
+                               capital=capitalBoolean).save()
                 else:
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=loc.latitude, longitude=loc.longitude).save()
+                               latitude=latitude, longitude=longitude).save()
 
     def connect_locations(self, node_class1: type[StructuredNode] = Location,
                           node_class2: type[StructuredNode] = Location) -> None:
@@ -117,9 +140,15 @@ class DatabaseConnector:
         """
         for node in node_class1.nodes:
             try:
-                frontmatter = self.vault.get_front_matter(node.name)
+                print(node)
+                print(node.name)
+                # TODO: Error here. Remove below if statement
+                if "Neorić" or "Gdańsk" in node.name:
+                    print("Skipping " + node.name)
+                    continue
+                front_matter = self.vault.get_front_matter(node.name)
                 node.located_in.connect(
-                    node_class2.nodes.first_or_none(name=self.remove_brackets(frontmatter['locatedIn'])))
+                    node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
             except KeyError as e:
                 print(e)
 

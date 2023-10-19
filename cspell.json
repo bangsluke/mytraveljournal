@@ -31,5 +31,11 @@
 	],
 	"ignoreWords": [
 		"lucide"
+		"Geocoded",
+		"Nominatim",
+		"cafile",
+		"certifi",
+		"geocoders",
+		"geopy"
 	]
 }
