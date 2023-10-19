@@ -33,9 +33,15 @@ export interface Holiday {
 }
 
 export interface HolidayDataItem {
-	filename: string;
-	content: string;
-	pagePath: string;
+	// filename: string;
+	// content: string;
+	// pagePath: string;
+	date_month: string;
+	date_year: string;
+	name: string;
+	node_id: string;
+	// text_html_content?: string;
+	// attendees: string[];
 }
 
 export type HolidayListData = HolidayDataItem[];

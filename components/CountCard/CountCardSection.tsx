@@ -99,7 +99,7 @@ const useGetCapitalCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
 		variables: { capitalBoolean: true }, // Pass the variable to the query
 	});
-	console.log("data from useGetCapitalCount", data);
+	// console.log("data from useGetCapitalCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
 	if (error) {
