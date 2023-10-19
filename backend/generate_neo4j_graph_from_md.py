@@ -129,11 +129,10 @@ class DatabaseConnector:
                                latitude=latitude, longitude=longitude,
                                capital=capitalBoolean).save()
                 else:
-                    node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=latitude, longitude=longitude).save()
+                    node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node,
+                               level=node_class.__name__, latitude=latitude, longitude=longitude).save()
 
-    def connect_locations(self, node_class1: type[StructuredNode] = Location,
-                          node_class2: type[StructuredNode] = Location) -> None:
+    def connect_locations(self, node_class1: type[StructuredNode] = Location, node_class2: type[StructuredNode] = Location) -> None:
         """
         function to build the relations between all locations
         :param node_class1: optional StructuredNode class
@@ -230,7 +229,8 @@ class DatabaseConnector:
         print("Divide vault by tags")
         # Spilt out all the notes using the different tags "city", "country" etc into separate arrays
         self.divide_vault()
-        print(self.cities)
+        print("self.cities:", self.cities)
+        # print(self.cities)
         # Then iteratively create the three sub-graphs
         print("Create the location sub-graph")
         # Create the location sub-graph, i.e. connect city to country
@@ -291,8 +291,8 @@ if __name__ == '__main__':
     node_labels_to_count: list[type[StructuredNode]] = [Continent, Country, County, State,
                                                         City, Town, Island, Holiday, Person, Location]
 
-    [print("   {} Count:  [[{}]]".format(label.__name__, len(label.nodes)))
+    [print("   {} Count: {}".format(label.__name__, len(label.nodes)))
      for label in node_labels_to_count]
 
-    print("   {} Count:  [[{}]]".format(
+    print("   {} Count: {}".format(
         "Capital", len(City.nodes.filter(capital=True))))
