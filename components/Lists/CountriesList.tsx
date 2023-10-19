@@ -1,16 +1,25 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import styles from "../../styles/Home.module.css";
 import { Country } from "../../types/types";
+import Toast from "../Toast/Toast";
+import styles from "./Lists.module.css";
 
 export default function CountryList() {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
-
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error : {error.message}</p>;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("GraphQLQueriesS.GET_COUNTRIES GraphQL Error: ", error.message);
+		return (
+			<>
+				<p>Error : {error.message}</p>
+				<Toast message={"GraphQLQueriesS.GET_COUNTRIES GraphQL Error: " + error.message} duration={5} />
+			</>
+		);
+	}
 
 	return (
 		<div className={styles.dataList}>
@@ -18,8 +27,8 @@ export default function CountryList() {
 				Countries Visited
 			</h3>
 			<ul>
-				{data.countries.map(({ name, node_id }: Country) => (
-					<li key={node_id} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/countries/${node_id}` })}>
+				{data.countries.map(({ name, nodeId }: Country) => (
+					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/countries/${nodeId}` })}>
 						<h4>{name}</h4>
 					</li>
 				))}

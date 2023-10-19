@@ -1,15 +1,17 @@
 import Layout from "../../components/Layouts/Layout";
-import PersonsList from "../../components/Lists/PersonsList";
+import CitiesList from "../../components/Lists/CitiesList";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import styles from "../../styles/Home.module.css";
 
-export default function PersonsPage(props: any) {
+export default function ContinentsPage(props: any) {
 	return (
 		<Layout NavbarStyle='Opaque'>
-			<section className={styles.section}>
-				<PageHeader PageHeaderTitle='Travel Companions' />
+			{/* Note: Layout wraps component in a main tag */}
 
-				<PersonsList />
+			<section className={styles.section}>
+				<PageHeader PageHeaderTitle='Cities' />
+
+				<CitiesList />
 			</section>
 		</Layout>
 	);

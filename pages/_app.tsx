@@ -21,6 +21,7 @@ client
 			query GetLocations {
 				cities {
 					name
+					nodeId
 				}
 			}
 		`,

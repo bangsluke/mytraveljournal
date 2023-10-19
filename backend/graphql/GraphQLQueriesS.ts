@@ -4,7 +4,16 @@ const GET_CONTINENTS = gql`
 	query GetContinents {
 		continents {
 			name
-			node_id
+			nodeId
+		}
+	}
+`;
+
+const GET_CONTINENT_BY_ID = gql`
+	query GetContinentById($nodeId: String) {
+		continents(where: { nodeId: $nodeId }) {
+			name
+			nodeId
 		}
 	}
 `;
@@ -13,16 +22,16 @@ const GET_COUNTRIES = gql`
 	query GetCountries {
 		countries {
 			name
-			node_id
+			nodeId
 		}
 	}
 `;
 
 const GET_COUNTRY_BY_ID = gql`
-	query GetCountryById($node_id: String) {
-		countries(where: { node_id: $node_id }) {
+	query GetCountryById($nodeId: String) {
+		countries(where: { nodeId: $nodeId }) {
 			name
-			node_id
+			nodeId
 		}
 	}
 `;
@@ -31,7 +40,16 @@ const GET_CITIES = gql`
 	query GetCities {
 		cities {
 			name
-			node_id
+			nodeId
+		}
+	}
+`;
+
+const GET_CITY_BY_ID = gql`
+	query GetCityById($nodeId: String) {
+		cities(where: { nodeId: $nodeId }) {
+			name
+			nodeId
 		}
 	}
 `;
@@ -40,7 +58,7 @@ const GET_ISLANDS = gql`
 	query GetIslands {
 		islands {
 			name
-			node_id
+			nodeId
 		}
 	}
 `;
@@ -49,18 +67,18 @@ const GET_PEOPLE = gql`
 	query GetPeople {
 		people {
 			name
-			node_id
+			nodeId
 		}
 	}
 `;
 
 const GET_PERSON_BY_ID = gql`
-	query GetPeopleById($node_id: String) {
-		people(where: { node_id: $node_id }) {
+	query GetPeopleById($nodeId: String) {
+		people(where: { nodeId: $nodeId }) {
 			name
-			node_id
+			nodeId
 			aliases
-			text_body_text
+			textBodyText
 		}
 	}
 `;
@@ -69,36 +87,49 @@ const GET_HOLIDAYS = gql`
 	query GetHolidays {
 		holidays {
 			name
-			date_year
-			date_month
-			node_id
+			dateYear
+			dateMonth
+			nodeId
 		}
 	}
 `;
 
 const GET_HOLIDAY_BY_ID = gql`
-	query GetHolidayById($node_id: String) {
-		holidays(where: { node_id: $node_id }) {
+	query GetHolidayById($nodeId: String) {
+		holidays(where: { nodeId: $nodeId }) {
 			name
-			date_year
-			date_month
-			node_id
-			text_html_content
+			dateYear
+			dateMonth
+			nodeId
+			textHtmlContent
 			attendees
+		}
+	}
+`;
+
+const GET_CAPITALS = gql`
+	query GetCapitals($capitalCheck: Boolean) {
+		cities(where: { capital: $capitalCheck }) {
+			name
+			nodeId
+			capital
 		}
 	}
 `;
 
 const GraphQLQueriesS = {
 	GET_CONTINENTS,
+	GET_CONTINENT_BY_ID,
 	GET_COUNTRIES,
 	GET_COUNTRY_BY_ID,
 	GET_CITIES,
+	GET_CITY_BY_ID,
 	GET_ISLANDS,
 	GET_PEOPLE,
 	GET_PERSON_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,
+	GET_CAPITALS,
 };
 
 export default GraphQLQueriesS;

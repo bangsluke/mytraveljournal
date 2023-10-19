@@ -1,22 +1,30 @@
 import { useRouter } from "next/router";
-import styles from "../styles/Home.module.css";
+import styles from "./CountCard.module.css";
 
 interface CountCardProp {
 	id: string;
 	cardTitle: string;
-	countValue: number | string;
+	countValue: number | string | JSX.Element;
 	pagePath: string;
 }
 
 // Define a count card component that holds a string title and a number.
 export default function CountCard(props: CountCardProp) {
-	const router = useRouter();
-
+	const router = useRouter(); // Import the Next router
 	const { id, cardTitle, countValue, pagePath } = props; // Extract the props
+
+	// Error handling for if countValue returns an element
+	let displayCountValue;
+	if (countValue instanceof Element) {
+		displayCountValue = 0;
+	} else {
+		displayCountValue = countValue;
+	}
+
 	return (
 		<div id={id} className={styles.countcard} onClick={() => router.push({ pathname: pagePath })}>
 			<h3>{cardTitle}</h3>
-			<h4>{countValue}</h4>
+			<h4>{displayCountValue}</h4>
 		</div>
 	);
 }

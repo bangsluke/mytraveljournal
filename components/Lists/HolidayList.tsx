@@ -1,18 +1,27 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
+import Toast from "../Toast/Toast";
+import styles from "./Lists.module.css";
 
 export default function HolidayList() {
-	const router = useRouter();
+	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error : {error.message}</p>;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
+		return (
+			<>
+				<p>Error : {error.message}</p>
+				<Toast message={"GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: " + error.message} duration={5} />
+			</>
+		);
+	}
 
-	console.log("holiday data: ", data);
+	// console.log("holiday data: ", data);
 
 	return (
 		<div className={styles.dataList}>
@@ -20,11 +29,11 @@ export default function HolidayList() {
 				Holidays
 			</h3>
 			<ul>
-				{data.holidays.map(({ name, date_year, date_month, node_id }: Holiday) => (
-					<li key={node_id} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${node_id}` })}>
+				{data.holidays.map(({ name, dateYear, dateMonth, nodeId }: Holiday) => (
+					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${nodeId}` })}>
 						<h4>{name}</h4>
 						<h5>
-							{date_year} {date_month}
+							{dateYear} {dateMonth}
 						</h5>
 					</li>
 				))}

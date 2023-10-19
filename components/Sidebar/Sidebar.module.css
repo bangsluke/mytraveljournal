@@ -1,0 +1,155 @@
+/* Style the full sidebar */
+.sidebar {
+	position: fixed;
+	top: var(--header-height, 80px);
+	width: var(--sidebar-width, 200px);
+	height: 100vh;
+	background-color: #FFF;
+	opacity: 0.95;
+	transition: left 0.3s ease-in-out;
+	z-index: 10;
+	/* Add a right grey border */
+	border-right: var(--secondary-accent, #BBB) 2px solid;
+}
+
+.sidebarStatic {
+	position: relative;
+	top: 0;
+	width: var(--sidebar-width-static, 300px);
+	opacity: 1;
+}
+
+.sidebarOpen {
+	left: 0;
+}
+
+.sidebarClosed {
+	left: -300px;
+	/* Start off-screen */
+}
+
+.sidebarContent {
+	/* background-color: #555; */
+	position: sticky;
+	/* TODO: Fix the above position so that the sidebar content stays visible while the sidebar is open in static mode */
+	width: 100%;
+	height: max-content;
+	z-index: 11;
+	margin-left: 0;
+}
+
+.sidebarContent>ul {
+	padding: var(--sidebar-spacing, 15px);
+	margin: 0;
+}
+
+
+/* Modify the styles for SidebarItem */
+.sidebarItem {
+	list-style: none;
+	/* Remove bullet point */
+	padding: var(--sidebar-spacing, 15px);
+	/* Add padding for better spacing */
+	text-decoration: none;
+	/* Remove underline for links */
+	color: black;
+	/* Set link color */
+	/* display: block; */
+	position: relative;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.sidebarItem:hover {
+	background-color: var(--secondary-accent-light, #f0f0f0);
+	/* Change background color on hover */
+	color: var(--main-accent, #fe395c);
+	font-weight: 700;
+}
+
+/* CSS for appending a grey "/" in front of li element on hover */
+.sidebarItem:hover::before {
+	content: '/';
+	color: var(--secondary-accent, #BBB);
+	margin-right: 2px;
+	/* Adjust the distance between the "\" and the text */
+}
+
+.sidebarItemActive {
+	/* background-color: var(--secondary-accent-light, #f0f0f0); */
+	/* Change background color on hover */
+	color: var(--main-accent, #fe395c);
+	font-weight: 700;
+}
+
+/* Add a thin line for the active link */
+.sidebarItemActive::after {
+	content: '';
+	/* Required for pseudo-elements */
+	display: inline-block;
+	/* Display the line as inline-block to only take the necessary space */
+	width: 100%;
+	/* Adjust the width of the line */
+	height: 2px;
+	/* Height of the line */
+	background-color: var(--main-accent, #fe395c);
+	/* Color of the line */
+	margin-left: 15px;
+	/* Adjust the space between the text and the line */
+	text-align: right;
+	margin-top: var(--sidebar-spacing, 15px);
+}
+
+/* Style a toggle button that shows for mobile devices */
+
+.toggle-button {
+	background-color: #555;
+	color: white;
+	padding: var(--sidebar-spacing, 15px);
+	border: none;
+	cursor: pointer;
+}
+
+.toggle-button:hover {
+	background-color: #777;
+}
+
+/* Style the vertical text down the side of the sidebar */
+
+.verticalText {
+	/* background-color: #777; */
+	writing-mode: vertical-rl;
+	/* Rotate the text to be read vertically */
+	transform: rotate(180deg);
+	/* Rotate the text by 180 degrees for proper orientation */
+	height: 20rem;
+	width: 100%;
+	margin-left: var(--sidebar-spacing, 15px);
+}
+
+
+/* Style a sidebar back container to be clicked to close the sidebar */
+
+.sidebarBackContainer {
+	position: fixed;
+	/* background-color: #FF00F0; */
+	opacity: 0;
+	top: 0;
+	height: 100vh;
+	width: calc(100vw - var(--sidebar-width, 300px));
+	transition: left 0.3s ease-in-out;
+	z-index: 2;
+}
+
+.sidebarBackContainerHidden {
+	visibility: hidden;
+}
+
+.sidebarBackContainerOpen {
+	left: var(--sidebar-width, 300px);
+}
+
+.sidebarBackContainerClosed {
+	left: calc(var(--sidebar-width, 300px) * -1);
+}

@@ -6,11 +6,14 @@
 	"language": "en",
 	// words - list of words to be always considered correct
 	"words": [
+		"autopep",
 		"backendstart",
+		"Gdańsk",
 		"generategraph",
 		"githubusercontent",
 		"mkdirp",
 		"neomodel",
+		"Neorić",
 		"obsidiantools",
 		"otools",
 		"streetsidesoftware",
@@ -22,19 +25,8 @@
 	// flagWords - list of words to be always considered incorrect
 	// This is useful for offensive words and common spelling errors.
 	// For example "hte" should be "the"
-	"flagWords": [
-		"hte"
-	],
+	"flagWords": ["hte"],
 	// ignorePaths - list of paths to ignore
-	"ignorePaths": [
-		"backend/output.json"
-	],
-	"ignoreWords": [
-		"Geocoded",
-		"Nominatim",
-		"cafile",
-		"certifi",
-		"geocoders",
-		"geopy"
-	]
+	"ignorePaths": ["backend/output.json"],
+	"ignoreWords": ["lucide", "Geocoded", "Nominatim", "cafile", "certifi", "geocoders", "geopy", "blockquote", "certifi", "mytraveljournal"]
 }
