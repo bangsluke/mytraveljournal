@@ -1,0 +1,15 @@
+.dataList {
+	width: 100%;
+	/* background-color: #0070f3; */
+}
+
+.clickableHeader {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.clickableListItem {
+	/* list-style: none; */
+	cursor: pointer;
+	text-decoration: underline;
+}

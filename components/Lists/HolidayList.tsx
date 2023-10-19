@@ -1,18 +1,27 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
-import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
+import Toast from "../Toast/Toast";
+import styles from "./Lists.module.css";
 
 export default function HolidayList() {
 	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error : {error.message}</p>;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		console.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
+		return (
+			<>
+				<p>Error : {error.message}</p>
+				<Toast message={"GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: " + error.message} duration={5} />
+			</>
+		);
+	}
 
-	console.log("holiday data: ", data);
+	// console.log("holiday data: ", data);
 
 	return (
 		<div className={styles.dataList}>
