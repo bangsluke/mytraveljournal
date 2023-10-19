@@ -19,6 +19,7 @@ from node_classes import (City, Continent, Country, County, Holiday, Island,
 
 class DatabaseConnector:
     def __init__(self, obsidian_vault: otools.Vault):
+        # Initialise a bunch of empty arrays to store the nodes
         self.vault = obsidian_vault
         self.cities: list[str] = []
         self.continents: list[str] = []
@@ -157,10 +158,8 @@ class DatabaseConnector:
         function to create the sub-graph of locations
         :return:
         """
-        for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City),
-                                 (self.counties, County), (self.islands,
-                                                           Island), (self.states, State),
-                                 (self.towns, Town), (self.locations, Location)]:
+        for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City), (self.counties, County),
+                                 (self.islands, Island), (self.states, State), (self.towns, Town), (self.locations, Location)]:
             self.create_location(loc, node_type)
 
         self.connect_locations()
@@ -218,19 +217,28 @@ class DatabaseConnector:
                 (year, month, name) = self.divide_title(node)
                 attendees = self.remove_brackets(frontmatter["attendees"])
                 locations = self.remove_brackets(frontmatter["locations"])
+                # Create the holiday nodes
                 h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
                             coverPhoto=frontmatter["coverPhoto"], dateMonth=month, dateYear=year,
                             locations=locations, textBodyText=text, textHtmlContent=markdown2.markdown(text)).save()
+                # Connect the attendees to the holiday node
                 self.attend(attendees, h)
+                # Connect the locations to the holiday node
                 self.locate(locations, h)
 
     def transfer_holiday_vault_to_database(self):
         print("Divide vault by tags")
+        # Spilt out all the notes using the different tags "city", "country" etc into separate arrays
         self.divide_vault()
+        print(self.cities)
+        # Then iteratively create the three sub-graphs
         print("Create the location sub-graph")
+        # Create the location sub-graph, i.e. connect city to country
         self.create_location_sub_graph()
+        # Create the persons sub-graph, (just nodes)
         print("Create the persons")
         self.create_persons()
+        # Create the holiday sub-graph, i.e. connect the holidays to the persons etc
         print("Create the holiday sub-graph")
         self.create_holiday_sub_graph()
 
@@ -274,8 +282,8 @@ if __name__ == '__main__':
 
     # Connect to the vault of data and gather the tags
     vault = otools.Vault(vault_folder_path).connect().gather()
-
     con = DatabaseConnector(vault)
+    # Transfer the data from the vault to the Neo4j database
     con.transfer_holiday_vault_to_database()
 
     # Count the number of nodes
