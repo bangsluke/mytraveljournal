@@ -18,14 +18,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			// 	router.push({ pathname: item.pagePath });
 			// }}
 			onClick={() => {
-				router.push({ pathname: "/holidays/" + holiday.node_id });
+				router.push({ pathname: "/holidays/" + holiday.nodeId });
 			}}
 			className={styles.holidayCard}>
 			<h2>{holiday.name}</h2>
 			{/* <strong>{item.filename}</strong> */}
-			<p>Year: {holiday.date_year}</p>
-			<p>Month: {holiday.date_month}</p>
-			<p>Node ID: {holiday.node_id}</p>
+			<p>Year: {holiday.dateYear}</p>
+			<p>Month: {holiday.dateMonth}</p>
+			<p>Node ID: {holiday.nodeId}</p>
 			{/* <div dangerouslySetInnerHTML={{ __html: item.content }} /> */}
 		</div>
 	));

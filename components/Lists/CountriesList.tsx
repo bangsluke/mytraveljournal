@@ -27,8 +27,8 @@ export default function CountryList() {
 				Countries Visited
 			</h3>
 			<ul>
-				{data.countries.map(({ name, node_id }: Country) => (
-					<li key={node_id} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/countries/${node_id}` })}>
+				{data.countries.map(({ name, nodeId }: Country) => (
+					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/countries/${nodeId}` })}>
 						<h4>{name}</h4>
 					</li>
 				))}

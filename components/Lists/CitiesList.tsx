@@ -27,8 +27,8 @@ export default function CitiesList() {
 				Cities Visited
 			</h3>
 			<ul>
-				{data.cities.map(({ name, node_id }: City) => (
-					<li key={node_id} className={styles.clickableListItem}>
+				{data.cities.map(({ name, nodeId }: City) => (
+					<li key={nodeId} className={styles.clickableListItem}>
 						<h4>{name}</h4>
 					</li>
 				))}

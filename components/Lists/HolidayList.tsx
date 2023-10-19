@@ -29,11 +29,11 @@ export default function HolidayList() {
 				Holidays
 			</h3>
 			<ul>
-				{data.holidays.map(({ name, date_year, date_month, node_id }: Holiday) => (
-					<li key={node_id} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${node_id}` })}>
+				{data.holidays.map(({ name, dateYear, dateMonth, nodeId }: Holiday) => (
+					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${nodeId}` })}>
 						<h4>{name}</h4>
 						<h5>
-							{date_year} {date_month}
+							{dateYear} {dateMonth}
 						</h5>
 					</li>
 				))}

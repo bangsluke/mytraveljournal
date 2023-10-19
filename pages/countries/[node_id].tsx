@@ -8,11 +8,11 @@ import { Country } from "../../types/types";
 
 export default function CountryPage() {
 	const router = useRouter(); // Import the Next router
-	const { node_id } = router.query; // Use the same variable name as the [node_id] file name
-	console.log("node_id: ", node_id);
+	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
+	console.log("nodeId: ", nodeId);
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRY_BY_ID, {
-		variables: { node_id }, // Pass the variable to the query
+		variables: { nodeId }, // Pass the variable to the query
 	});
 
 	if (loading) return <p>Loading...</p>;
@@ -44,7 +44,7 @@ export default function CountryPage() {
 				<h1>Country Page</h1>
 
 				<h3>Country Name: {name}</h3>
-				<p>{node_id}</p>
+				<p>{nodeId}</p>
 
 				<div>Number of times visited:</div>
 			</section>
