@@ -268,7 +268,7 @@ if __name__ == '__main__':
         else Path(os.path.join(rel_data_folder_path, config_file.get("DATA", "DATA.RelativePath")))
     # print("vault_folder_path: ", vault_folder_path)
 
-    # Clear the database (only for debugging)
+    # Clear the database (only for debugging) # TODO: Why have we deleted this? Wouldn't it make sense to always have a clean slate?
     # db.cypher_query("MATCH (n) DETACH DELETE n")
     # print("'MATCH (n) DETACH DELETE n' sent to clear the database")
 
