@@ -4,16 +4,16 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
-import styles from "../../styles/Home.module.css";
 import { Holiday } from "../../types/types";
+import styles from "./Holidays.module.css";
 
 export default function HolidayPage() {
 	const router = useRouter(); // Import the Next router
-	const { node_id } = router.query; // Use the same variable name as the [node_id] file name
-	console.log("node_id: ", node_id);
+	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
+	console.log("nodeId: ", nodeId);
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAY_BY_ID, {
-		variables: { node_id }, // Pass the variable to the query
+		variables: { nodeId }, // Pass the variable to the query
 	});
 
 	console.log("holiday data: ", data);
@@ -33,7 +33,7 @@ export default function HolidayPage() {
 		);
 
 	// Extract the data into usable variables
-	const { name, date_year, date_month, text_html_content, attendees }: Holiday = data.holidays[0];
+	const { name, dateYear, dateMonth, textHtmlContent, attendees }: Holiday = data.holidays[0];
 	console.log("holiday data: ", data);
 	console.log("attendees: ", attendees);
 
@@ -46,19 +46,17 @@ export default function HolidayPage() {
 				<Image
 					src={`https://picsum.photos/id/${RandomPictureID}/375/600`}
 					alt='Holiday Photo'
-					layout='fill'
-					objectFit='cover'
 					quality={100}
-					// width={375}
-					// height={400}
-					// className={styles.holidayImage}
+					width={375}
+					height={400}
+					className={styles.holidayImage}
 				/>
 
 				<div className={styles.holidayImageOverlayContainer}>
 					{/* Holiday Name */}
 					<h3>/ {name}</h3>
 					<h4>
-						{date_year} {date_month}
+						{dateYear} {dateMonth}
 					</h4>
 				</div>
 			</div>
@@ -66,7 +64,7 @@ export default function HolidayPage() {
 			<section className={styles.section}>
 				<h1>Holiday Page</h1>
 
-				<p>{node_id}</p>
+				<p>{nodeId}</p>
 
 				<h4>Attendees:</h4>
 
@@ -82,7 +80,7 @@ export default function HolidayPage() {
 			<section>
 				{/* Use the Interweave library to render the HTML content -
         https://github.com/milesj/interweave/ */}
-				<Interweave content={text_html_content} />
+				<Interweave content={textHtmlContent} />
 			</section>
 		</Layout>
 	);

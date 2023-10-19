@@ -1,40 +1,54 @@
 export interface Continent {
 	name: string;
-	node_id: string;
+	nodeId: string;
 }
 
 export interface Country {
 	name: string;
-	node_id: string;
+	nodeId: string;
 }
 
 export interface County {
 	name: string;
-	node_id: string;
+	nodeId: string;
 }
 
 export interface City {
 	name: string;
-	node_id: string;
+	nodeId: string;
 }
 
 export interface Island {
 	name: string;
-	node_id: string;
+	nodeId: string;
 }
 
 export interface Holiday {
 	name: string;
-	date_year: string;
-	date_month: string;
-	node_id: string;
-	text_html_content?: string;
+	dateYear: string;
+	dateMonth: string;
+	nodeId: string;
+	textHtmlContent?: string;
 	attendees: string[];
 }
 
+export interface HolidayDataItem {
+	// filename: string;
+	// content: string;
+	// pagePath: string;
+	dateMonth: string;
+	dateYear: string;
+	name: string;
+	nodeId: string;
+	// textHtmlContent?: string;
+	// attendees: string[];
+}
+
+export type HolidayListData = HolidayDataItem[];
+
 export interface Person {
 	name: string;
-	node_id: string;
+	nodeId: string;
 	aliases: string[];
-	text_body_text: string;
+	textBodyText: string;
 }

@@ -1,8 +1,7 @@
 {
-	"cSpell.words": ["blockquote", "mytraveljournal"],
+	"cSpell.words": [],
 	"[python]": {
 		"editor.defaultFormatter": "ms-python.autopep8"
 	},
-	"python.formatting.provider": "none",
-	"cSpell.ignoreWords": ["countcard", "travelcard"]
+	"cSpell.ignoreWords": ["hte"]
 }

@@ -1,10 +1,13 @@
 import configparser
 import os
+import ssl
 from functools import partial
 from pathlib import Path
 from time import sleep
 from typing import List, Tuple
 
+import certifi
+import geopy
 import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from geopy.geocoders import Nominatim
@@ -16,6 +19,7 @@ from node_classes import (City, Continent, Country, County, Holiday, Island,
 
 class DatabaseConnector:
     def __init__(self, obsidian_vault: otools.Vault):
+        # Initialise a bunch of empty arrays to store the nodes
         self.vault = obsidian_vault
         self.cities: list[str] = []
         self.continents: list[str] = []
@@ -92,21 +96,41 @@ class DatabaseConnector:
         :param locations: list of locations
         :param node_class: node type
         """
+        # https://github.com/geopy/geopy/issues/124#issuecomment-388276064
+        ctx = ssl.create_default_context(cafile=certifi.where())
+        geopy.geocoders.options.default_ssl_context = ctx
         geocode = partial(
-            Nominatim(user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
+            Nominatim(scheme='http', user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
             node_old = node_class.nodes.first_or_none(
                 nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
                 loc = geocode(node)
+                # Error handling if there is no location
+                # TODO: Kevin to review and improve
+                # print(node)
+                # print(loc)
+                if loc is None:
+                    latitude = 0
+                    longitude = 0
+                else:
+                    latitude = loc.latitude
+                    longitude = loc.longitude
                 sleep(1)
                 if node_class.__name__ == "City":
+                    # Set the capital property to be true if the capital tag exists
+                    # TODO: Kevin to review and improve
+                    capitalBoolean = False
+                    front_matter = self.vault.get_front_matter(node)
+                    # print(front_matter)
+                    if 'tags' in front_matter and 'capital' in front_matter['tags']:
+                        return capitalBoolean == True
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=loc.latitude, longitude=loc.longitude,
-                               capital=self.vault.get_front_matter(node)["capital"]).save()
+                               latitude=latitude, longitude=longitude,
+                               capital=capitalBoolean).save()
                 else:
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=loc.latitude, longitude=loc.longitude).save()
+                               latitude=latitude, longitude=longitude).save()
 
     def connect_locations(self, node_class1: type[StructuredNode] = Location,
                           node_class2: type[StructuredNode] = Location) -> None:
@@ -117,9 +141,15 @@ class DatabaseConnector:
         """
         for node in node_class1.nodes:
             try:
-                frontmatter = self.vault.get_front_matter(node.name)
+                print(node)
+                print(node.name)
+                # TODO: Error here. Remove below if statement
+                if "Neorić" or "Gdańsk" in node.name:
+                    print("Skipping " + node.name)
+                    continue
+                front_matter = self.vault.get_front_matter(node.name)
                 node.located_in.connect(
-                    node_class2.nodes.first_or_none(name=self.remove_brackets(frontmatter['locatedIn'])))
+                    node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
             except KeyError as e:
                 print(e)
 
@@ -128,10 +158,8 @@ class DatabaseConnector:
         function to create the sub-graph of locations
         :return:
         """
-        for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City),
-                                 (self.counties, County), (self.islands,
-                                                           Island), (self.states, State),
-                                 (self.towns, Town), (self.locations, Location)]:
+        for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City), (self.counties, County),
+                                 (self.islands, Island), (self.states, State), (self.towns, Town), (self.locations, Location)]:
             self.create_location(loc, node_type)
 
         self.connect_locations()
@@ -189,19 +217,28 @@ class DatabaseConnector:
                 (year, month, name) = self.divide_title(node)
                 attendees = self.remove_brackets(frontmatter["attendees"])
                 locations = self.remove_brackets(frontmatter["locations"])
+                # Create the holiday nodes
                 h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
                             coverPhoto=frontmatter["coverPhoto"], dateMonth=month, dateYear=year,
                             locations=locations, textBodyText=text, textHtmlContent=markdown2.markdown(text)).save()
+                # Connect the attendees to the holiday node
                 self.attend(attendees, h)
+                # Connect the locations to the holiday node
                 self.locate(locations, h)
 
     def transfer_holiday_vault_to_database(self):
         print("Divide vault by tags")
+        # Spilt out all the notes using the different tags "city", "country" etc into separate arrays
         self.divide_vault()
+        print(self.cities)
+        # Then iteratively create the three sub-graphs
         print("Create the location sub-graph")
+        # Create the location sub-graph, i.e. connect city to country
         self.create_location_sub_graph()
+        # Create the persons sub-graph, (just nodes)
         print("Create the persons")
         self.create_persons()
+        # Create the holiday sub-graph, i.e. connect the holidays to the persons etc
         print("Create the holiday sub-graph")
         self.create_holiday_sub_graph()
 
@@ -245,8 +282,8 @@ if __name__ == '__main__':
 
     # Connect to the vault of data and gather the tags
     vault = otools.Vault(vault_folder_path).connect().gather()
-
     con = DatabaseConnector(vault)
+    # Transfer the data from the vault to the Neo4j database
     con.transfer_holiday_vault_to_database()
 
     # Count the number of nodes
