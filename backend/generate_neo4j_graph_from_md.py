@@ -124,7 +124,7 @@ class DatabaseConnector:
                     front_matter = self.vault.get_front_matter(node)
                     # print(front_matter)
                     if 'tags' in front_matter and 'capital' in front_matter['tags']:
-                        return capitalBoolean == True
+                        capitalBoolean = True
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
                                capital=capitalBoolean).save()
@@ -140,12 +140,12 @@ class DatabaseConnector:
         """
         for node in node_class1.nodes:
             try:
-                print(node)
-                print(node.name)
+                # print(node)
+                print("Line 144: node.name and node", node.name, node)
                 # TODO: Error here. Remove below if statement
-                if "Neorić" or "Gdańsk" in node.name:
-                    print("Skipping " + node.name)
-                    continue
+                # if "Neorić" or "Gdańsk" in node.name:
+                # print("Line 147: Skipping " + node.name)
+                # continue
                 front_matter = self.vault.get_front_matter(node.name)
                 node.located_in.connect(
                     node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
@@ -159,6 +159,7 @@ class DatabaseConnector:
         """
         for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City), (self.counties, County),
                                  (self.islands, Island), (self.states, State), (self.towns, Town), (self.locations, Location)]:
+            print("Line 162: ", loc, node_type)
             self.create_location(loc, node_type)
 
         self.connect_locations()
