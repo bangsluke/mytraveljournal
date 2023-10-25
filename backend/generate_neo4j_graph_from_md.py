@@ -1,6 +1,8 @@
 import configparser
+import json
 import os
 import ssl
+import traceback
 from functools import partial
 from pathlib import Path
 from time import sleep
@@ -15,6 +17,64 @@ from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
     StructuredNode, config)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
                           Location, Person, State, Town)
+
+
+def handle_error(object_name, error_message):
+    """
+    Function to collect object names with errors and store them in a JSON file.
+    """
+    try:
+        raise Exception(f"Error in {object_name}: {error_message}")
+    except Exception as e:
+        error_info = {
+            "object_name": object_name,
+            "error_message": str(e),
+            "line_number": traceback.extract_stack()[-2][1]
+        }
+        # Set the path to the "errors.json" file in the "backend" folder
+        error_file_path = os.path.join("backend", "errors.json")
+        # Check if the file exists and load the existing data
+        if os.path.isfile(error_file_path):
+            with open(error_file_path, "r") as error_file:
+                error_data = json.load(error_file)
+        else:
+            error_data = []
+        # Append the new error to the list
+        error_data.append(error_info)
+        # Write the updated data back to the file
+        with open(error_file_path, "w") as error_file:
+            json.dump(error_data, error_file, indent=4)
+
+
+def get_error_count():
+    """
+    Function to count how many collected errors are in the JSON file.
+    """
+    # Set the path to the "errors.json" file in the "backend" folder
+    error_file_path = os.path.join("backend", "errors.json")
+    try:
+        with open(error_file_path, "r") as file:
+            error_data = json.load(file)
+            return len(error_data)
+    except FileNotFoundError:
+        # If the file doesn't exist, there are no errors.
+        return 0
+
+
+def clear_errors_file():
+    """
+    Function to clear the "errors.json" file by removing it if it exists.
+    """
+    # Set the path to the "errors.json" file in the "backend" folder
+    error_file_path = os.path.join("backend", "errors.json")
+
+    try:
+        # Check if the file exists, and if so, remove it
+        if os.path.isfile(error_file_path):
+            os.remove(error_file_path)
+    except Exception as e:
+        # Handle any potential errors during file removal
+        print(f"Error clearing the errors file: {str(e)}")
 
 
 class DatabaseConnector:
@@ -139,22 +199,13 @@ class DatabaseConnector:
         :param node_class2: optional StructuredNode class
         """
         for node in node_class1.nodes:
+            # TODO: Error handling added here. Review
             try:
-                # print(node)
-                print("     Line 144: node.name and node", node.name, node)
-                # TODO: Error here. Remove below if statement
-                # if "Neorić" or "Gdańsk" in node.name:
-                # print("Line 147: Skipping " + node.name)
-                # continue
                 front_matter = self.vault.get_front_matter(node.name)
-                if 'locatedIn' in front_matter:
-                    node.located_in.connect(
-                        node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
-                else:
-                    print("Line 155: " + node.name +
-                          " does not have a 'locatedIn' tag")
-            except KeyError as e:
-                print(e)
+                node.located_in.connect(node_class2.nodes.first_or_none(
+                    name=self.remove_brackets(front_matter['locatedIn'])))
+            except Exception as error:
+                handle_error(node.name, str(error))
 
     def create_location_sub_graph(self) -> None:
         """
@@ -163,7 +214,7 @@ class DatabaseConnector:
         """
         for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City), (self.counties, County),
                                  (self.islands, Island), (self.states, State), (self.towns, Town), (self.locations, Location)]:
-            print("Line 162: ", loc, node_type)
+            # print("Line 162: ", loc, node_type)
             self.create_location(loc, node_type)
 
         self.connect_locations()
@@ -285,6 +336,9 @@ if __name__ == '__main__':
     # db.cypher_query("MATCH (n) DETACH DELETE n")
     # print("'MATCH (n) DETACH DELETE n' sent to clear the database")
 
+    # Call the function to clear the "errors.json" file
+    clear_errors_file()
+
     # Connect to the vault of data and gather the tags
     vault = otools.Vault(vault_folder_path).connect().gather()
     con = DatabaseConnector(vault)
@@ -301,3 +355,6 @@ if __name__ == '__main__':
 
     print("   {} Count: {}".format(
         "Capital", len(City.nodes.filter(capital=True))))
+
+    error_count = get_error_count()
+    print(f"Number of errors: {error_count}")
