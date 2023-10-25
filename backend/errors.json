@@ -1,5 +1,60 @@
 [
     {
+        "object_name": "Ia\u0219i",
+        "error_message": "Error in Ia\u0219i: \"Ia\u0219i\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "So\u010da Valley",
+        "error_message": "Error in So\u010da Valley: \"So\u010da Valley\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Krak\u00f3w",
+        "error_message": "Error in Krak\u00f3w: \"Krak\u00f3w\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "hotel",
+        "error_message": "Error in hotel: \"hotel\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Chich\u00e9n Itz\u00e1",
+        "error_message": "Error in Chich\u00e9n Itz\u00e1: \"Chich\u00e9n Itz\u00e1\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Petra",
+        "error_message": "Error in Petra: \"Petra\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Actify",
+        "error_message": "Error in Actify: \"Actify\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Acumatica",
+        "error_message": "Error in Acumatica: \"Acumatica\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Gda\u0144sk",
+        "error_message": "Error in Gda\u0144sk: \"Gda\u0144sk\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Tags/Travel/Location/Asia/Jordan/Petra",
+        "error_message": "Error in Tags/Travel/Location/Asia/Jordan/Petra: \"Tags/Travel/Location/Asia/Jordan/Petra\" does not exist so it cannot have front matter.",
+        "line_number": 125
+    },
+    {
+        "object_name": "Val-d'Ise\u0300re",
+        "error_message": "Error in Val-d'Ise\u0300re: \"Val-d'Ise\u0300re\" does not exist so it cannot have front matter.",
+        "line_number": 208
+    },
+    {
         "object_name": "Petra",
         "error_message": "Error in Petra: \"Petra\" does not exist so it cannot have front matter.",
         "line_number": 208

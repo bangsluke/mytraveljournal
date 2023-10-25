@@ -121,8 +121,8 @@ class DatabaseConnector:
                     self.towns.append(node)
                 elif "location" in tags:
                     self.locations.append(node)
-            except ValueError as e:
-                print(e)
+            except Exception as error:
+                handle_error(node, str(error))
 
     @staticmethod
     def remove_brackets(lst: List[str] or str) -> List[str] or str:
