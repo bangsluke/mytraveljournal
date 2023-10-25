@@ -141,14 +141,18 @@ class DatabaseConnector:
         for node in node_class1.nodes:
             try:
                 # print(node)
-                print("Line 144: node.name and node", node.name, node)
+                print("     Line 144: node.name and node", node.name, node)
                 # TODO: Error here. Remove below if statement
                 # if "Neorić" or "Gdańsk" in node.name:
                 # print("Line 147: Skipping " + node.name)
                 # continue
                 front_matter = self.vault.get_front_matter(node.name)
-                node.located_in.connect(
-                    node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
+                if 'locatedIn' in front_matter:
+                    node.located_in.connect(
+                        node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
+                else:
+                    print("Line 155: " + node.name +
+                          " does not have a 'locatedIn' tag")
             except KeyError as e:
                 print(e)
 
