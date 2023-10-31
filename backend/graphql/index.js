@@ -55,7 +55,8 @@ const typeDefs = `#graphql
 `;
 
 console.log("typeDefs from backend/graphql/index.js", typeDefs);
-//console.log(`Database password is ${process.env.N4J_PW}`);
+
+console.log(`Database password is ${process.env.N4J_PW}`);
 
 const driver = neo4j.driver(
 	//   "bolt://localhost:7687",
@@ -74,5 +75,4 @@ const { url } = await startStandaloneServer(server, {
 	listen: { port: 4000 },
 });
 
-console.log(`Backend server started up`);
-console.log(`🚀 Server ready at ${url}`);
+console.log(`Backend server started up. 🚀 Server ready at ${url}`);

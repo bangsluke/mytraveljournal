@@ -244,8 +244,17 @@ class DatabaseConnector:
 
 
 if __name__ == '__main__':
+
+    # Define if the script should be run in dev mode or production mode
+    dev_mode = False
+
     # Define the relative file path of the config file
-    rel_config_file_path = r'properties.properties'
+    if dev_mode:
+        print("Running in development mode")
+        rel_config_file_path = r'properties.properties'
+    else:
+        print("Running in production mode")
+        rel_config_file_path = r'propertiesProduction.properties'
 
     # Define the relative folder path of the .md data files
     rel_data_folder_path = r'\testdata'
