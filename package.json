@@ -20,13 +20,13 @@
 		"backendstart:prod": "set NODE_ENV=production && cd backend/graphql && node index.js"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.8.1",
+		"@apollo/client": "^3.8.6",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
+		"@mui/icons-material": "^5.14.12",
+		"@mui/material": "^5.14.12",
 		"apollo-server-lambda": "^3.12.1",
 		"axios": "^1.5.1",
-		"@mui/material": "^5.14.12",
-		"@mui/icons-material": "^5.14.12",
 		"graphql": "^16.8.1",
 		"interweave": "^13.1.0",
 		"lucide-react": "^0.288.0",
