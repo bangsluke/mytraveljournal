@@ -8,15 +8,16 @@
 		"frontend"
 	],
 	"scripts": {
-		"dev": "set NODE_ENV=development next dev",
+		"dev": "set NODE_ENV=development && next dev",
 		"dev:lambda": "set NODE_ENV=development && netlify-lambda serve src/lambda",
 		"build": "next build",
 		"build:lambda": "netlify-lambda build src/lambda",
-		"start": "set NODE_ENV=production next start",
-		"start:lambda": "set NODE_ENV=production netlify-lambda serve src/lambda",
+		"start": "set NODE_ENV=production && next start",
+		"start:lambda": "set NODE_ENV=production && netlify-lambda serve src/lambda",
 		"lint": "next lint",
 		"generategraph": "python backend/generate_neo4j_graph_from_md.py",
-		"backendstart": "cd backend/graphql && node index.js"
+		"backendstart:dev": "set NODE_ENV=development && cd backend/graphql && node index.js",
+		"backendstart:prod": "set NODE_ENV=production && cd backend/graphql && node index.js"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.8.1",
