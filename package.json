@@ -9,11 +9,8 @@
 	],
 	"scripts": {
 		"dev": "set NODE_ENV=development && next dev",
-		"dev:lambda": "set NODE_ENV=development && netlify-lambda serve src/lambda",
 		"build": "next build",
-		"build:lambda": "netlify-lambda build src/lambda",
 		"start": "set NODE_ENV=production && next start",
-		"start:lambda": "set NODE_ENV=production && netlify-lambda serve src/lambda",
 		"lint": "next lint",
 		"generategraph": "python backend/generate_neo4j_graph_from_md.py",
 		"backendstart:dev": "set NODE_ENV=development && cd backend/graphql && node index.js",
@@ -26,7 +23,6 @@
 		"@mui/icons-material": "^5.14.12",
 		"@mui/material": "^5.14.12",
 		"@types/d3-color": "3.1.0",
-		"apollo-server-lambda": "^3.12.1",
 		"axios": "^1.6.0",
 		"graphql": "^16.8.1",
 		"interweave": "^13.1.0",
@@ -44,7 +40,6 @@
 		"@types/react-simple-maps": "^3.0.1",
 		"eslint": "8.19.0",
 		"eslint-config-next": "12.2.2",
-		"netlify-lambda": "^2.0.16",
 		"prettier": "^3.0.3",
 		"typescript": "4.7.4"
 	}
