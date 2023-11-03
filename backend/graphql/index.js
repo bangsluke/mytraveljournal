@@ -45,9 +45,10 @@ const typeDefs = `#graphql
 	}
 
 	type Holiday {
-		name: String!
 		dateYear: String!
 		dateMonth: String!
+		name: String!
+		holidayTitle: String!
 		nodeId: String!
 		coverPhoto: String
 		textHtmlContent: String!

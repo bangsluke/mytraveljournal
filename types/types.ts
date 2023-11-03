@@ -27,9 +27,10 @@ export interface Holiday {
 	// filename: string;
 	// content: string;
 	// pagePath: string;
-	dateMonth: string;
 	dateYear: string;
+	dateMonth: string;
 	name: string;
+	holidayTitle: string;
 	nodeId: string;
 	coverPhoto: string;
 	textHtmlContent: string;

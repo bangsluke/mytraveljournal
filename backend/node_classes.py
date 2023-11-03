@@ -1,6 +1,6 @@
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
-    ArrayProperty, OneOrMore, RelationshipTo, StringProperty, StructuredNode, FloatProperty, RelationshipFrom,
-    BooleanProperty)
+    ArrayProperty, BooleanProperty, FloatProperty, OneOrMore, RelationshipFrom,
+    RelationshipTo, StringProperty, StructuredNode)
 
 
 class Location(StructuredNode):
@@ -89,6 +89,7 @@ class Holiday(StructuredNode):
     textHtmlContent = StringProperty()  # Hold the parsed HTML
     # Location details
     locations = ArrayProperty()
+    holidayTitle = StringProperty()
     travelled_to = RelationshipTo(Location, "TRAVELLED_TO", OneOrMore)
     # Photo details
     coverPhoto = StringProperty()

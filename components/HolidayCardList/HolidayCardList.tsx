@@ -59,7 +59,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 						</a>
 					</div>
 
-					<h2>{holiday.name}</h2>
+					<h2>{holiday.holidayTitle}</h2>
 					{/* {subtitle ? <h3>{subtitle}</h3> : null} */}
 					{holiday.name ? <h3>{holiday.name}</h3> : null}
 					<p className={styles.holidayCardDates}>

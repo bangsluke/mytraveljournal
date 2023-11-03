@@ -1,6 +1,7 @@
 import configparser
 import json
 import os
+import re
 import ssl
 import traceback
 from functools import partial
@@ -75,6 +76,21 @@ def clear_errors_file():
     except Exception as e:
         # Handle any potential errors during file removal
         print(f"Error clearing the errors file: {str(e)}")
+
+
+def extract_text_from_html_tag(pattern, string):
+    """
+    Function to extract text from a HTML tag. Will return text from the first match.
+    """
+    match = re.search(pattern, string)
+    if match:
+        content = match.group(1)
+        # print(content)
+        return content
+    else:
+        # print("No match found.")
+        handle_error(pattern, str(
+            "No match found from extract_text_from_html_tag."))
 
 
 class DatabaseConnector:
@@ -288,10 +304,14 @@ class DatabaseConnector:
                     handle_error(node.name, str(
                         "coverPhoto not found or in wrong format (non http)"))
                     coverPhoto = ""
+                textHtmlContent = markdown2.markdown(
+                    text)  # Convert markdown to html
+                holidayTitle = extract_text_from_html_tag(
+                    r"<h1>(.*?)</h1>", textHtmlContent)
                 # Create the holiday nodes
                 h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
                             coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
-                            locations=locations, textBodyText=text, textHtmlContent=markdown2.markdown(text)).save()
+                            locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
                 # Connect the attendees to the holiday node
                 self.attend(attendees, h)
                 # Connect the locations to the holiday node
