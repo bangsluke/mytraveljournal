@@ -246,7 +246,7 @@ class DatabaseConnector:
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = False
+    dev_mode = True
 
     # Define the relative file path of the config file
     if dev_mode:
