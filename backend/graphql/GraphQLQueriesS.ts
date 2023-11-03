@@ -90,6 +90,8 @@ const GET_HOLIDAYS = gql`
 			dateYear
 			dateMonth
 			nodeId
+			coverPhoto
+			textHtmlContent
 		}
 	}
 `;

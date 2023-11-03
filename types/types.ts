@@ -40,7 +40,8 @@ export interface HolidayDataItem {
 	dateYear: string;
 	name: string;
 	nodeId: string;
-	// textHtmlContent?: string;
+	coverPhoto: string;
+	textHtmlContent?: string;
 	// attendees: string[];
 }
 
