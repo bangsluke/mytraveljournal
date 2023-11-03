@@ -29,17 +29,17 @@
 	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
 }
 
-.holidayCard-image {
+.holidayCardImage {
 	height: var(--image-height, 300px);
 	width: calc(var(--image-height, 300px) * 0.75);
 	object-fit: cover;
-	border-radius: 10px;
+	border-radius: var(--card-border-radius, 15px);
 	padding: 0px;
 }
 
 /* Style the div holding all the holiday details. */
-.holidayCard-details {
-	/* background-color: blue; */
+.holidayCardDetails {
+	background-color: blue;
 	/* height: max-content; */
 	height: calc(var(--image-height, 300px) + 30px);
 	max-height: var(--image-height, 300px);
@@ -57,8 +57,8 @@
 }
 
 /* Style the top row holding the icon, location and link to Google Maps */
-.holidayCard-details-top-row {
-	/* background-color: aquamarine; */
+.holidayCardDetailsTopRow {
+	background-color: aquamarine;
 	height: 30px;
 	width: max-content;
 	display: flex;
@@ -68,12 +68,12 @@
 	/* Position Vertically */
 }
 
-.holidayCard-icon {
+.holidayCardIcon {
 	color: var(--main-accent, red);
 	font-size: 25px;
 }
 
-.holidayCard-details h3 {
+.holidayCardDetails h3 {
 	text-transform: uppercase;
 	font-size: 12px;
 	font-weight: 200;
@@ -82,25 +82,25 @@
 	margin: 0px 10px 0px 5px;
 }
 
-.holidayCard-details a {
+.holidayCardDetails a {
 	font-size: 10px;
 	font-weight: 200;
 	color: var(--accent-grey, grey);
 }
 
-.directions-icon {
+.directionsIcon {
 	line-height: 0;
 	display: block;
 }
 
-.directions-text {
+.directionsText {
 	line-height: 0;
 	margin-top: -18px;
 	display: none;
 }
 
 /* Style the holiday title */
-.holidayCard-details h2 {
+.holidayCardDetails h2 {
 	font-size: 12px;
 	font-weight: 600;
 	line-height: 0;
@@ -109,7 +109,7 @@
 }
 
 /* Style the holiday subtitle */
-.holidayCard-details>h3 {
+.holidayCardDetails>h3 {
 	font-size: 10px;
 	line-height: 0;
 	margin: 0 !important;
@@ -117,8 +117,8 @@
 	text-transform: none;
 }
 
-.holidayCard-dates {
-	/* background-color: blue; */
+.holidayCardDates {
+	background-color: blue;
 	font-size: 8px;
 	font-weight: 600;
 	line-height: 0;
@@ -126,8 +126,8 @@
 	padding: 0rem;
 }
 
-.holidayCard-description {
-	/* background-color: red; */
+.holidayCardDescription {
+	background-color: red;
 	font-size: 10px;
 	font-weight: 200;
 	margin: 0rem;
@@ -135,13 +135,13 @@
 	line-height: 11px;
 }
 
-.holidayCard-description>p,
-.holidayCard-description>h4 {
+.holidayCardDescription>p,
+.holidayCardDescription>h4 {
 	margin: 0;
 	padding: 0;
 	line-height: 11px;
 }
 
-.holidayCard-description>p {
+.holidayCardDescription>p {
 	padding-bottom: 1rem;
 }

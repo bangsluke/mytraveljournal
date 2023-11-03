@@ -32,26 +32,26 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					router.push({ pathname: "/holidays/" + holiday.nodeId });
 				}}
 				className={styles.holidayCard}>
-				<Image src={holidayImageURL} alt='Holiday Image' width={300} height={300} />
+				<Image src={holidayImageURL} alt='Holiday Image' width={100} height={150} className={styles.holidayCardImage} />
 				{/* <img src={holiday.coverPhoto} className='holidayCard-image' alt='Experience' /> */}
-				<div className='holidayCard-details'>
-					<div className='holidayCard-details-top-row'>
-						<RoomIcon className='holidayCard-icon' />
+				<div className={styles.holidayCardDetails}>
+					<div className={styles.holidayCardDetailsTopRow}>
+						<RoomIcon className={styles.holidayCardIcon} />
 						<h3>{holiday.name}</h3>
 						<a href='{props.experience.googleMapsUrl}'>
-							<DirectionsIcon className='directions-icon' />
-							<p className='directions-text'>View on Google Maps</p>
+							<DirectionsIcon className={styles.directionsIcon} />
+							<p className={styles.directionsText}>View on Google Maps</p>
 						</a>
 					</div>
 					{/* <h2>{title}</h2> */}
 					<h2>{holiday.name}</h2>
 					{/* {subtitle ? <h3>{subtitle}</h3> : null} */}
 					{holiday.name ? <h3>{holiday.name}</h3> : null}
-					<p className='holidayCard-dates'>
+					<p className={styles.holidayCardDates}>
 						{holiday.dateMonth} - {holiday.dateYear}
 					</p>
 					<p>{holiday.nodeId}</p>
-					<div className='holidayCard-description'>{parse(holiday.textHtmlContent)}</div>
+					<div className={styles.holidayCardDescription}>{parse(holiday.textHtmlContent)}</div>
 				</div>
 			</div>
 		);
