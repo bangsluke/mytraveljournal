@@ -11,11 +11,13 @@
 		"Gdańsk",
 		"generategraph",
 		"githubusercontent",
+		"imgur",
 		"mkdirp",
 		"neomodel",
 		"Neorić",
 		"obsidiantools",
 		"otools",
+		"picsum",
 		"streetsidesoftware",
 		"testdata",
 		"tsmerge",
@@ -25,8 +27,23 @@
 	// flagWords - list of words to be always considered incorrect
 	// This is useful for offensive words and common spelling errors.
 	// For example "hte" should be "the"
-	"flagWords": ["hte"],
+	"flagWords": [
+		"hte"
+	],
 	// ignorePaths - list of paths to ignore
-	"ignorePaths": ["backend/output.json"],
-	"ignoreWords": ["lucide", "Geocoded", "Nominatim", "cafile", "certifi", "geocoders", "geopy", "blockquote", "certifi", "mytraveljournal"]
+	"ignorePaths": [
+		"backend/output.json"
+	],
+	"ignoreWords": [
+		"lucide",
+		"Geocoded",
+		"Nominatim",
+		"cafile",
+		"certifi",
+		"geocoders",
+		"geopy",
+		"blockquote",
+		"certifi",
+		"mytraveljournal"
+	]
 }
