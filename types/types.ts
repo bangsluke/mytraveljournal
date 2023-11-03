@@ -24,27 +24,20 @@ export interface Island {
 }
 
 export interface Holiday {
-	name: string;
-	dateYear: string;
-	dateMonth: string;
-	nodeId: string;
-	textHtmlContent?: string;
-	attendees: string[];
-}
-
-export interface HolidayDataItem {
 	// filename: string;
 	// content: string;
 	// pagePath: string;
-	dateMonth: string;
 	dateYear: string;
+	dateMonth: string;
 	name: string;
+	holidayTitle: string;
 	nodeId: string;
-	// textHtmlContent?: string;
-	// attendees: string[];
+	coverPhoto: string;
+	textHtmlContent: string;
+	attendees: string[];
 }
 
-export type HolidayListData = HolidayDataItem[];
+export type HolidayListData = Holiday[];
 
 export interface Person {
 	name: string;

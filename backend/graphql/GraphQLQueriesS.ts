@@ -86,10 +86,13 @@ const GET_PERSON_BY_ID = gql`
 const GET_HOLIDAYS = gql`
 	query GetHolidays {
 		holidays {
-			name
 			dateYear
 			dateMonth
+			name
+			holidayTitle
 			nodeId
+			coverPhoto
+			textHtmlContent
 		}
 	}
 `;

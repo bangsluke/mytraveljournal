@@ -38,6 +38,12 @@ At the start of each note, I have some "front matter" - the name used in Obsidia
 >
 > Note: If more than one location is added, the script will use the first location.
 
+#### Cover Photo Set Up
+
+To add a cover photo to any holiday note, the field accepts a url link to the image.
+
+The easiest way to do this is to use Imgur (<https://imgur.com>) and upload the images you wish to use and then right click on the image and select "Copy image URL". If you paste this copied url into the field, you can use Obsidian to view the image as well as making it available for use on the Travel Site.
+
 ### Python Set Up
 
 To install all of the required dependencies, run:
