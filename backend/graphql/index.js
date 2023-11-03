@@ -54,13 +54,21 @@ const typeDefs = `#graphql
 	}
 `;
 
+// Display the typeDefs nicely formatted in the console
 console.log("typeDefs from backend/graphql/index.js", typeDefs);
-//console.log(`Database password is ${process.env.N4J_PW}`);
 
+// Display the NEO4J_CREDENTIALS nicely formatted in the console
+const NEO4J_CREDENTIALS = `{
+	uri: ${process.env.NEO4J_URI},
+	user: ${process.env.NEO4J_USER},
+	password: ${process.env.NEO4J_PW},
+}`;
+console.log("NEO4J_CREDENTIALS", NEO4J_CREDENTIALS);
+
+// Connect to Neo4j
 const driver = neo4j.driver(
-	//   "bolt://localhost:7687",
-	"bolt://127.0.0.1:7687", // Use 127.0.0.1 instead of localhost - https://stackoverflow.com/a/73777897
-	neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PW),
+	process.env.NEO4J_URI, // Use 127.0.0.1 instead of localhost - https://stackoverflow.com/a/73777897
+	neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PW),
 );
 
 const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
@@ -74,5 +82,5 @@ const { url } = await startStandaloneServer(server, {
 	listen: { port: 4000 },
 });
 
-console.log(`Backend server started up`);
-console.log(`🚀 Server ready at ${url}`);
+// Display the url
+console.log(`Backend server started up. 🚀 Server ready at ${url}`);

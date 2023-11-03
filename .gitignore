@@ -36,9 +36,15 @@ yarn-error.log*
 
 # Python
 properties.properties
+propertiesProduction.properties
 **/__pycache__/
 
-# GraphQL
-.env
 # GraphQL Dependencies
 /backend/graphql/node_modules
+
+# Environment Variables
+.env
+.env.*
+
+# Neo4j Aura Details
+Neo4j-29909dfd-Created-2023-10-09.txt

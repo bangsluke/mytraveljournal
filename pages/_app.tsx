@@ -8,8 +8,10 @@ import "../styles/globals.css";
 // Define dark mode
 const darkMode = false;
 
+// Note: All console logs will be printed in the browser console
+console.log("NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
 const client = new ApolloClient({
-	uri: "http://127.0.0.1:4000/",
+	uri: process.env.NEXT_PUBLIC_APP_BACKEND_URL,
 	cache: new InMemoryCache(),
 });
 
