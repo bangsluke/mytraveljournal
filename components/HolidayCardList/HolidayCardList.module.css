@@ -8,18 +8,18 @@
 }
 
 .holidayCard {
-	/* background-color: yellow; */
+	background-color: yellow;
 	height: calc(var(--image-height, 300px) + 20px);
 	min-height: 120px;
 	border: 1px solid var(--secondary-accent, #BBB);
-	padding: 15px;
+	padding: 10px;
 	/* Add padding to the card */
 	border-radius: var(--card-border-radius, 15px);
 	width: 98%;
 	margin: 0 auto 20px auto;
 	display: grid;
 	column-gap: 10px;
-	grid-template-columns: 30% 50%;
+	grid-template-columns: 15% 75%;
 	grid-template-rows: 130px;
 }
 
@@ -31,7 +31,7 @@
 
 .holidayCardImage {
 	object-fit: cover;
-	border-radius: var(--card-border-radius, 15px);
+	border-radius: var(--image-border-radius, 10px);
 	padding: 0px;
 }
 
@@ -66,11 +66,13 @@
 	/* Position Vertically */
 }
 
-.holidayCardIcon {
+/* Style the location icon */
+.holidayCardLocationIcon {
 	color: var(--main-accent, red);
 	font-size: 25px;
 }
 
+/* Style the header text in the top row */
 .holidayCardDetails h3 {
 	text-transform: uppercase;
 	font-size: 12px;
@@ -86,12 +88,12 @@
 	color: var(--accent-grey, grey);
 }
 
-.directionsIcon {
+.holidayCardDirectionsIcon {
 	line-height: 0;
 	display: block;
 }
 
-.directionsText {
+.holidayCardDirectionsText {
 	line-height: 0;
 	margin-top: -18px;
 	display: none;

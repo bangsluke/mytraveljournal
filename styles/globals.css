@@ -10,6 +10,7 @@
 	--card-border-radius: 15px;
 	/* Images */
 	--image-height: 150px;
+	--image-border-radius: 10px;
 }
 
 ::-webkit-scrollbar {

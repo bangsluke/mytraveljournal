@@ -36,6 +36,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					router.push({ pathname: "/holidays/" + holiday.nodeId });
 				}}
 				className={styles.holidayCard}>
+				{/* Hold the image to the left of the card details */}
 				<Image
 					src={holidayImageURL}
 					alt={`${holiday.name} Image`}
@@ -44,16 +45,20 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					quality={80}
 					className={styles.holidayCardImage}
 				/>
+				{/* Hold the card details to the right of the image */}
 				<div className={styles.holidayCardDetails}>
+					{/* Add a top row holding icons and the holiday header */}
 					<div className={styles.holidayCardDetailsTopRow}>
-						<RoomIcon className={styles.holidayCardIcon} />
+						<RoomIcon className={styles.holidayCardLocationIcon} />
 						<h3>{holiday.name}</h3>
+						{/* TODO: Add link to Google Maps */}
 						<a href='{props.experience.googleMapsUrl}'>
-							<DirectionsIcon className={styles.directionsIcon} />
-							<p className={styles.directionsText}>View on Google Maps</p>
+							<DirectionsIcon className={styles.holidayCardDirectionsIcon} />
+							{/* TODO: Consider displaying the below text on certain size screens */}
+							<p className={styles.holidayCardDirectionsText}>View on Google Maps</p>
 						</a>
 					</div>
-					{/* <h2>{title}</h2> */}
+
 					<h2>{holiday.name}</h2>
 					{/* {subtitle ? <h3>{subtitle}</h3> : null} */}
 					{holiday.name ? <h3>{holiday.name}</h3> : null}
