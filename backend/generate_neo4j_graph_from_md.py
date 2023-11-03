@@ -346,6 +346,7 @@ if __name__ == '__main__':
     # print("'MATCH (n) DETACH DELETE n' sent to clear the database")
 
     # Call the function to clear the "errors.json" file
+    print(" Clearing the errors file")
     clear_errors_file()
 
     # Connect to the vault of data and gather the tags
