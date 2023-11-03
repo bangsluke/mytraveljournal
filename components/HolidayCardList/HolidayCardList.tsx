@@ -1,11 +1,14 @@
-import { HolidayDataItem } from "../../types/types";
+import { Holiday } from "../../types/types";
 // import HolidayCard from "./HolidayCard";
+import DirectionsIcon from "@mui/icons-material/Directions";
+import RoomIcon from "@mui/icons-material/Room";
+import parse from "html-react-parser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./HolidayCardList.module.css";
 
 interface HolidayListProps {
-	data: HolidayDataItem[];
+	data: Holiday[];
 }
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
@@ -33,10 +36,10 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 				{/* <img src={holiday.coverPhoto} className='holidayCard-image' alt='Experience' /> */}
 				<div className='holidayCard-details'>
 					<div className='holidayCard-details-top-row'>
-						{/* <RoomIcon className='holidayCard-icon' /> */}
+						<RoomIcon className='holidayCard-icon' />
 						<h3>{holiday.name}</h3>
 						<a href='{props.experience.googleMapsUrl}'>
-							{/* <DirectionsIcon className='directions-icon' /> */}
+							<DirectionsIcon className='directions-icon' />
 							<p className='directions-text'>View on Google Maps</p>
 						</a>
 					</div>
@@ -48,15 +51,8 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 						{holiday.dateMonth} - {holiday.dateYear}
 					</p>
 					<p>{holiday.nodeId}</p>
-					{/* <div className='holidayCard-description'>{parse(holiday.textHtmlContent)}</div> */}
+					<div className='holidayCard-description'>{parse(holiday.textHtmlContent)}</div>
 				</div>
-
-				{/* <h2>{holiday.name}</h2> */}
-				{/* <strong>{item.filename}</strong> */}
-				{/* <p>Year: {holiday.dateYear}</p> */}
-				{/* <p>Month: {holiday.dateMonth}</p> */}
-				{/* <p>Node ID: {holiday.nodeId}</p> */}
-				{/* <div dangerouslySetInnerHTML={{ __html: item.content }} /> */}
 			</div>
 		);
 	});

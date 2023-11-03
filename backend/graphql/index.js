@@ -50,7 +50,7 @@ const typeDefs = `#graphql
 		dateMonth: String!
 		nodeId: String!
 		coverPhoto: String
-		textHtmlContent: String
+		textHtmlContent: String!
 		attendees: [String!]
 	}
 `;
