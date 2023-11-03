@@ -8,6 +8,8 @@
 	--sidebar-spacing: 15px;
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
+	/* Images */
+	--image-height: 150px;
 }
 
 html,
