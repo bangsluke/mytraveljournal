@@ -12,6 +12,10 @@
 	--image-height: 150px;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
+
 html,
 body {
 	padding: 0;
