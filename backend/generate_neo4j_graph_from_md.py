@@ -14,7 +14,7 @@ import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from geopy.geocoders import Nominatim
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
-    StructuredNode, config)
+    StructuredNode, config, db)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
                           Location, Person, State, Town)
 
@@ -97,7 +97,7 @@ class DatabaseConnector:
         function to sort the vault by given tags (labels) and make the data behind the labels iterable.
         """
         for node in self.vault.graph.nodes:
-            print(node)
+            # print(node)
             try:
                 frontmatter = vault.get_front_matter(node)
                 tags = frontmatter["tags"]
@@ -162,12 +162,16 @@ class DatabaseConnector:
         geocode = partial(
             Nominatim(scheme='http', user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
+            if detailed_logs:
+                print("         creating node.name: ", node.name)
             node_old = node_class.nodes.first_or_none(
                 nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
-                loc = geocode(node)
-                # Error handling if there is no location
-                # TODO: Kevin to review and improve
+                try:
+                    loc = geocode(node)
+                except Exception as error:
+                    handle_error(node, str(error))
+                # TODO: Error handling if there is no location - Kevin to review
                 # print(node)
                 # print(loc)
                 if loc is None:
@@ -199,6 +203,8 @@ class DatabaseConnector:
         :param node_class2: optional StructuredNode class
         """
         for node in node_class1.nodes:
+            if detailed_logs:
+                print("         connecting node.name: ", node.name)
             # TODO: Error handling added here. Review
             try:
                 front_matter = self.vault.get_front_matter(node.name)
@@ -214,7 +220,8 @@ class DatabaseConnector:
         """
         for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City), (self.counties, County),
                                  (self.islands, Island), (self.states, State), (self.towns, Town), (self.locations, Location)]:
-            # print("Line 162: ", loc, node_type)
+            if detailed_logs:
+                print("     Creating node_type: ", node_type)
             self.create_location(loc, node_type)
 
         self.connect_locations()
@@ -272,9 +279,18 @@ class DatabaseConnector:
                 (year, month, name) = self.divide_title(node)
                 attendees = self.remove_brackets(frontmatter["attendees"])
                 locations = self.remove_brackets(frontmatter["locations"])
+                coverPhoto = frontmatter["coverPhoto"]
+                if coverPhoto == "TBC":
+                    coverPhoto = ""
+                elif coverPhoto[:4] == "http":
+                    coverPhoto = coverPhoto
+                else:
+                    handle_error(node.name, str(
+                        "coverPhoto not found or in wrong format (non http)"))
+                    coverPhoto = ""
                 # Create the holiday nodes
                 h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
-                            coverPhoto=frontmatter["coverPhoto"], dateMonth=month, dateYear=year,
+                            coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
                             locations=locations, textBodyText=text, textHtmlContent=markdown2.markdown(text)).save()
                 # Connect the attendees to the holiday node
                 self.attend(attendees, h)
@@ -282,20 +298,19 @@ class DatabaseConnector:
                 self.locate(locations, h)
 
     def transfer_holiday_vault_to_database(self):
-        print("Divide vault by tags")
+        print(" Divide vault by tags")
         # Spilt out all the notes using the different tags "city", "country" etc into separate arrays
         self.divide_vault()
-        print("self.cities:", self.cities)
-        # print(self.cities)
+        # print("self.cities:", self.cities)
         # Then iteratively create the three sub-graphs
-        print("Create the location sub-graph")
+        print(" Create the location sub-graph")
         # Create the location sub-graph, i.e. connect city to country
         self.create_location_sub_graph()
         # Create the persons sub-graph, (just nodes)
-        print("Create the persons")
+        print(" Create the persons")
         self.create_persons()
         # Create the holiday sub-graph, i.e. connect the holidays to the persons etc
-        print("Create the holiday sub-graph")
+        print(" Create the holiday sub-graph")
         self.create_holiday_sub_graph()
 
 
@@ -303,6 +318,8 @@ if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
     dev_mode = True
+    # Define if detailed logs should be printed or not
+    detailed_logs = True
 
     # Define the relative file path of the config file
     if dev_mode:
@@ -327,6 +344,7 @@ if __name__ == '__main__':
     config_file = configparser.ConfigParser()
     config_file.read(config_file_path)
 
+    # TODO: Review if any of the following lines are still needed
     config.DATABASE_URL = (f'{config_file.get("NEO4J", "N4J.ConnType")}'
                            f'{config_file.get("NEO4J", "N4J.USER")}:'
                            f'{config_file.get("NEO4J", "N4J.PW")}@'
@@ -339,11 +357,11 @@ if __name__ == '__main__':
     vault_folder_path = Path(config_file.get("DATA", "DATA.FullPath")) \
         if config_file.get("DATA", "DATA.FullPath") \
         else Path(os.path.join(rel_data_folder_path, config_file.get("DATA", "DATA.RelativePath")))
-    # print("vault_folder_path: ", vault_folder_path)
+    print(" vault_folder_path: ", vault_folder_path)
 
     # Clear the database (only for debugging) # TODO: Why have we deleted this? Wouldn't it make sense to always have a clean slate?
-    # db.cypher_query("MATCH (n) DETACH DELETE n")
-    # print("'MATCH (n) DETACH DELETE n' sent to clear the database")
+    db.cypher_query("MATCH (n) DETACH DELETE n")
+    print(" Clearing the database using 'MATCH (n) DETACH DELETE n'")
 
     # Call the function to clear the "errors.json" file
     print(" Clearing the errors file")

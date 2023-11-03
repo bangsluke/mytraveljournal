@@ -25,11 +25,6 @@
         "line_number": 125
     },
     {
-        "object_name": "Chich\u00e9n Itz\u00e1",
-        "error_message": "Error in Chich\u00e9n Itz\u00e1: \"Chich\u00e9n Itz\u00e1\" does not exist so it cannot have front matter.",
-        "line_number": 125
-    },
-    {
         "object_name": "Petra",
         "error_message": "Error in Petra: \"Petra\" does not exist so it cannot have front matter.",
         "line_number": 125
@@ -55,53 +50,43 @@
         "line_number": 125
     },
     {
+        "object_name": "Cardiff",
+        "error_message": "Error in Cardiff: Service timed out",
+        "line_number": 171
+    },
+    {
         "object_name": "Africa",
         "error_message": "Error in Africa: 'locatedIn'",
-        "line_number": 208
+        "line_number": 212
     },
     {
         "object_name": "Asia",
         "error_message": "Error in Asia: 'locatedIn'",
-        "line_number": 208
+        "line_number": 212
     },
     {
         "object_name": "Europe",
         "error_message": "Error in Europe: 'locatedIn'",
-        "line_number": 208
+        "line_number": 212
     },
     {
         "object_name": "North America",
         "error_message": "Error in North America: 'locatedIn'",
-        "line_number": 208
+        "line_number": 212
     },
     {
         "object_name": "Oceania",
         "error_message": "Error in Oceania: 'locatedIn'",
-        "line_number": 208
+        "line_number": 212
     },
     {
         "object_name": "South America",
         "error_message": "Error in South America: 'locatedIn'",
-        "line_number": 208
-    },
-    {
-        "object_name": "Soc\u030ca Valley",
-        "error_message": "Error in Soc\u030ca Valley: \"Soc\u030ca Valley\" does not exist so it cannot have front matter.",
-        "line_number": 208
+        "line_number": 212
     },
     {
         "object_name": "Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra",
         "error_message": "Error in Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra: Expected node of class Location",
-        "line_number": 208
-    },
-    {
-        "object_name": "Krako\u0301w",
-        "error_message": "Error in Krako\u0301w: \"Krako\u0301w\" does not exist so it cannot have front matter.",
-        "line_number": 208
-    },
-    {
-        "object_name": "Ias\u0326i",
-        "error_message": "Error in Ias\u0326i: \"Ias\u0326i\" does not exist so it cannot have front matter.",
-        "line_number": 208
+        "line_number": 212
     }
 ]
