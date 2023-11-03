@@ -5,12 +5,16 @@ import RoomIcon from "@mui/icons-material/Room";
 import parse from "html-react-parser";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Constants from "../../constants/constants";
 import LogS from "../../services/LogS";
 import styles from "./HolidayCardList.module.css";
 
 interface HolidayListProps {
 	data: Holiday[];
 }
+
+// Extract the required constants
+const { HolidayCardImageHeight, HolidayCardImageWidth } = Constants;
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
@@ -33,7 +37,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					router.push({ pathname: "/holidays/" + holiday.nodeId });
 				}}
 				className={styles.holidayCard}>
-				<Image src={holidayImageURL} alt='Holiday Image' width={100} height={150} className={styles.holidayCardImage} />
+				<Image
+					src={holidayImageURL}
+					alt='Holiday Image'
+					height={HolidayCardImageHeight}
+					width={HolidayCardImageWidth}
+					quality={80}
+					className={styles.holidayCardImage}
+				/>
 				{/* <img src={holiday.coverPhoto} className='holidayCard-image' alt='Experience' /> */}
 				<div className={styles.holidayCardDetails}>
 					<div className={styles.holidayCardDetailsTopRow}>

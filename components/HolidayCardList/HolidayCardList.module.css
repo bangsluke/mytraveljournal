@@ -30,8 +30,6 @@
 }
 
 .holidayCardImage {
-	height: var(--image-height, 300px);
-	width: calc(var(--image-height, 300px) * 0.75);
 	object-fit: cover;
 	border-radius: var(--card-border-radius, 15px);
 	padding: 0px;
