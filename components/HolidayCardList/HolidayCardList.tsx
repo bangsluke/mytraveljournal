@@ -18,7 +18,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const holidayElements = data.map((holiday, index) => {
 		console.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
-		if (holiday.coverPhoto == null || holiday.coverPhoto == "TBC") {
+		if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
 			holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
 		} else {
 			holidayImageURL = holiday.coverPhoto;
