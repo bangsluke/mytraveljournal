@@ -6,7 +6,6 @@ import parse from "html-react-parser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
-import LogS from "../../services/LogS";
 import styles from "./HolidayCardList.module.css";
 
 interface HolidayListProps {
@@ -21,14 +20,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// LogS.log("data from HolidayCardList: ", data);
 
 	const holidayElements = data.map((holiday, index) => {
-		LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
+		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
 		if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
 			holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
 		} else {
 			holidayImageURL = holiday.coverPhoto;
 		}
-		LogS.log("holidayImageURL: ", holidayImageURL);
+		// LogS.log("holidayImageURL: ", holidayImageURL);
 
 		return (
 			<div
@@ -39,13 +38,12 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 				className={styles.holidayCard}>
 				<Image
 					src={holidayImageURL}
-					alt='Holiday Image'
+					alt={`${holiday.name} Image`}
 					height={HolidayCardImageHeight}
 					width={HolidayCardImageWidth}
 					quality={80}
 					className={styles.holidayCardImage}
 				/>
-				{/* <img src={holiday.coverPhoto} className='holidayCard-image' alt='Experience' /> */}
 				<div className={styles.holidayCardDetails}>
 					<div className={styles.holidayCardDetailsTopRow}>
 						<RoomIcon className={styles.holidayCardIcon} />
