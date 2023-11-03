@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { Country } from "../../types/types";
 
 export default function CountryPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
-	console.log("nodeId: ", nodeId);
+	LogS.log("nodeId: ", nodeId);
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRY_BY_ID, {
 		variables: { nodeId }, // Pass the variable to the query
@@ -29,12 +30,12 @@ export default function CountryPage() {
 			</>
 		);
 
-	// console.log("data", data);
+	// LogS.log("data", data);
 
 	// Extract the data into usable variables
 	const { name }: Country = data.countries[0];
 
-	// console.log("country data: ", data);
+	// LogS.log("country data: ", data);
 
 	return (
 		<Layout NavbarStyle='Opaque'>

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
@@ -12,7 +13,7 @@ export default function HolidayList() {
 	if (loading) return <p>Loading...</p>;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		console.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
+		LogS.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
 		return (
 			<>
 				<p>Error : {error.message}</p>
@@ -21,7 +22,7 @@ export default function HolidayList() {
 		);
 	}
 
-	// console.log("holiday data: ", data);
+	// LogS.log("holiday data: ", data);
 
 	return (
 		<div className={styles.dataList}>

@@ -1,6 +1,9 @@
 import configparser
+import json
 import os
+import re
 import ssl
+import traceback
 from functools import partial
 from pathlib import Path
 from time import sleep
@@ -12,9 +15,82 @@ import markdown2
 import obsidiantools.api as otools  # https://pypi.org/project/obsidiantools/
 from geopy.geocoders import Nominatim
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
-    StructuredNode, config)
+    StructuredNode, config, db)
 from node_classes import (City, Continent, Country, County, Holiday, Island,
                           Location, Person, State, Town)
+
+
+def handle_error(object_name, error_message):
+    """
+    Function to collect object names with errors and store them in a JSON file.
+    """
+    try:
+        raise Exception(f"Error in {object_name}: {error_message}")
+    except Exception as e:
+        error_info = {
+            "object_name": object_name,
+            "error_message": str(e),
+            "line_number": traceback.extract_stack()[-2][1]
+        }
+        # Set the path to the "errors.json" file in the "backend" folder
+        error_file_path = os.path.join("backend", "errors.json")
+        # Check if the file exists and load the existing data
+        if os.path.isfile(error_file_path):
+            with open(error_file_path, "r") as error_file:
+                error_data = json.load(error_file)
+        else:
+            error_data = []
+        # Append the new error to the list
+        error_data.append(error_info)
+        # Write the updated data back to the file
+        with open(error_file_path, "w") as error_file:
+            json.dump(error_data, error_file, indent=4)
+
+
+def get_error_count():
+    """
+    Function to count how many collected errors are in the JSON file.
+    """
+    # Set the path to the "errors.json" file in the "backend" folder
+    error_file_path = os.path.join("backend", "errors.json")
+    try:
+        with open(error_file_path, "r") as file:
+            error_data = json.load(file)
+            return len(error_data)
+    except FileNotFoundError:
+        # If the file doesn't exist, there are no errors.
+        return 0
+
+
+def clear_errors_file():
+    """
+    Function to clear the "errors.json" file by removing it if it exists.
+    """
+    # Set the path to the "errors.json" file in the "backend" folder
+    error_file_path = os.path.join("backend", "errors.json")
+
+    try:
+        # Check if the file exists, and if so, remove it
+        if os.path.isfile(error_file_path):
+            os.remove(error_file_path)
+    except Exception as e:
+        # Handle any potential errors during file removal
+        print(f"Error clearing the errors file: {str(e)}")
+
+
+def extract_text_from_html_tag(pattern, string):
+    """
+    Function to extract text from a HTML tag. Will return text from the first match.
+    """
+    match = re.search(pattern, string)
+    if match:
+        content = match.group(1)
+        # print(content)
+        return content
+    else:
+        # print("No match found.")
+        handle_error(pattern, str(
+            "No match found from extract_text_from_html_tag."))
 
 
 class DatabaseConnector:
@@ -37,7 +113,7 @@ class DatabaseConnector:
         function to sort the vault by given tags (labels) and make the data behind the labels iterable.
         """
         for node in self.vault.graph.nodes:
-            print(node)
+            # print(node)
             try:
                 frontmatter = vault.get_front_matter(node)
                 tags = frontmatter["tags"]
@@ -61,8 +137,8 @@ class DatabaseConnector:
                     self.towns.append(node)
                 elif "location" in tags:
                     self.locations.append(node)
-            except ValueError as e:
-                print(e)
+            except Exception as error:
+                handle_error(node, str(error))
 
     @staticmethod
     def remove_brackets(lst: List[str] or str) -> List[str] or str:
@@ -102,12 +178,16 @@ class DatabaseConnector:
         geocode = partial(
             Nominatim(scheme='http', user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
+            if detailed_logs:
+                print("         Creating node: ", node)
             node_old = node_class.nodes.first_or_none(
                 nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
-                loc = geocode(node)
-                # Error handling if there is no location
-                # TODO: Kevin to review and improve
+                try:
+                    loc = geocode(node)
+                except Exception as error:
+                    handle_error(node, str(error))
+                # TODO: Error handling if there is no location - Kevin to review
                 # print(node)
                 # print(loc)
                 if loc is None:
@@ -124,34 +204,30 @@ class DatabaseConnector:
                     front_matter = self.vault.get_front_matter(node)
                     # print(front_matter)
                     if 'tags' in front_matter and 'capital' in front_matter['tags']:
-                        return capitalBoolean == True
+                        capitalBoolean = True
                     node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
                                capital=capitalBoolean).save()
                 else:
-                    node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
-                               latitude=latitude, longitude=longitude).save()
+                    node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node,
+                               level=node_class.__name__, latitude=latitude, longitude=longitude).save()
 
-    def connect_locations(self, node_class1: type[StructuredNode] = Location,
-                          node_class2: type[StructuredNode] = Location) -> None:
+    def connect_locations(self, node_class1: type[StructuredNode] = Location, node_class2: type[StructuredNode] = Location) -> None:
         """
         function to build the relations between all locations
         :param node_class1: optional StructuredNode class
         :param node_class2: optional StructuredNode class
         """
         for node in node_class1.nodes:
+            if detailed_logs:
+                print("         connecting node.name: ", node.name)
+            # TODO: Error handling added here. Review
             try:
-                print(node)
-                print(node.name)
-                # TODO: Error here. Remove below if statement
-                if "Neorić" or "Gdańsk" in node.name:
-                    print("Skipping " + node.name)
-                    continue
                 front_matter = self.vault.get_front_matter(node.name)
-                node.located_in.connect(
-                    node_class2.nodes.first_or_none(name=self.remove_brackets(front_matter['locatedIn'])))
-            except KeyError as e:
-                print(e)
+                node.located_in.connect(node_class2.nodes.first_or_none(
+                    name=self.remove_brackets(front_matter['locatedIn'])))
+            except Exception as error:
+                handle_error(node.name, str(error))
 
     def create_location_sub_graph(self) -> None:
         """
@@ -160,6 +236,8 @@ class DatabaseConnector:
         """
         for (loc, node_type) in [(self.continents, Continent), (self.countries, Country), (self.cities, City), (self.counties, County),
                                  (self.islands, Island), (self.states, State), (self.towns, Town), (self.locations, Location)]:
+            if detailed_logs:
+                print("     Creating node_type: ", node_type)
             self.create_location(loc, node_type)
 
         self.connect_locations()
@@ -217,36 +295,51 @@ class DatabaseConnector:
                 (year, month, name) = self.divide_title(node)
                 attendees = self.remove_brackets(frontmatter["attendees"])
                 locations = self.remove_brackets(frontmatter["locations"])
+                coverPhoto = frontmatter["coverPhoto"]
+                if coverPhoto == "TBC":
+                    coverPhoto = ""
+                elif coverPhoto[:4] == "http":
+                    coverPhoto = coverPhoto
+                else:
+                    handle_error(node.name, str(
+                        "coverPhoto not found or in wrong format (non http)"))
+                    coverPhoto = ""
+                textHtmlContent = markdown2.markdown(
+                    text)  # Convert markdown to html
+                holidayTitle = extract_text_from_html_tag(
+                    r"<h1>(.*?)</h1>", textHtmlContent)
                 # Create the holiday nodes
                 h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
-                            coverPhoto=frontmatter["coverPhoto"], dateMonth=month, dateYear=year,
-                            locations=locations, textBodyText=text, textHtmlContent=markdown2.markdown(text)).save()
+                            coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
+                            locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
                 # Connect the attendees to the holiday node
                 self.attend(attendees, h)
                 # Connect the locations to the holiday node
                 self.locate(locations, h)
 
     def transfer_holiday_vault_to_database(self):
-        print("Divide vault by tags")
+        print(" Divide vault by tags")
         # Spilt out all the notes using the different tags "city", "country" etc into separate arrays
         self.divide_vault()
-        print(self.cities)
+        # print("self.cities:", self.cities)
         # Then iteratively create the three sub-graphs
-        print("Create the location sub-graph")
+        print(" Create the location sub-graph")
         # Create the location sub-graph, i.e. connect city to country
         self.create_location_sub_graph()
         # Create the persons sub-graph, (just nodes)
-        print("Create the persons")
+        print(" Create the persons")
         self.create_persons()
         # Create the holiday sub-graph, i.e. connect the holidays to the persons etc
-        print("Create the holiday sub-graph")
+        print(" Create the holiday sub-graph")
         self.create_holiday_sub_graph()
 
 
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = False
+    dev_mode = True
+    # Define if detailed logs should be printed or not
+    detailed_logs = True
 
     # Define the relative file path of the config file
     if dev_mode:
@@ -271,6 +364,7 @@ if __name__ == '__main__':
     config_file = configparser.ConfigParser()
     config_file.read(config_file_path)
 
+    # TODO: Review if any of the following lines are still needed
     config.DATABASE_URL = (f'{config_file.get("NEO4J", "N4J.ConnType")}'
                            f'{config_file.get("NEO4J", "N4J.USER")}:'
                            f'{config_file.get("NEO4J", "N4J.PW")}@'
@@ -283,11 +377,15 @@ if __name__ == '__main__':
     vault_folder_path = Path(config_file.get("DATA", "DATA.FullPath")) \
         if config_file.get("DATA", "DATA.FullPath") \
         else Path(os.path.join(rel_data_folder_path, config_file.get("DATA", "DATA.RelativePath")))
-    # print("vault_folder_path: ", vault_folder_path)
+    print(" vault_folder_path: ", vault_folder_path)
 
-    # Clear the database (only for debugging)
-    # db.cypher_query("MATCH (n) DETACH DELETE n")
-    # print("'MATCH (n) DETACH DELETE n' sent to clear the database")
+    # Clear the database (only for debugging) # TODO: Why have we deleted this? Wouldn't it make sense to always have a clean slate?
+    db.cypher_query("MATCH (n) DETACH DELETE n")
+    print(" Clearing the database using 'MATCH (n) DETACH DELETE n'")
+
+    # Call the function to clear the "errors.json" file
+    print(" Clearing the errors file")
+    clear_errors_file()
 
     # Connect to the vault of data and gather the tags
     vault = otools.Vault(vault_folder_path).connect().gather()
@@ -300,8 +398,11 @@ if __name__ == '__main__':
     node_labels_to_count: list[type[StructuredNode]] = [Continent, Country, County, State,
                                                         City, Town, Island, Holiday, Person, Location]
 
-    [print("   {} Count:  [[{}]]".format(label.__name__, len(label.nodes)))
+    [print("   {} Count: {}".format(label.__name__, len(label.nodes)))
      for label in node_labels_to_count]
 
-    print("   {} Count:  [[{}]]".format(
+    print("   {} Count: {}".format(
         "Capital", len(City.nodes.filter(capital=True))))
+
+    error_count = get_error_count()
+    print(f"Number of errors: {error_count}")
