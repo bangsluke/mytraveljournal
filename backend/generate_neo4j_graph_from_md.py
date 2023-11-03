@@ -163,7 +163,7 @@ class DatabaseConnector:
             Nominatim(scheme='http', user_agent="MyGeocodedTravelJournal/0.0").geocode, language="en")
         for node in locations:
             if detailed_logs:
-                print("         creating node.name: ", node.name)
+                print("         Creating node: ", node)
             node_old = node_class.nodes.first_or_none(
                 nodeId=node_class.__name__.lower()+"-"+node)
             if node_old is None:
