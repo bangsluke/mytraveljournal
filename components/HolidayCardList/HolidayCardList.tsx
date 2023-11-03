@@ -5,6 +5,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import parse from "html-react-parser";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import LogS from "../../services/LogS";
 import styles from "./HolidayCardList.module.css";
 
 interface HolidayListProps {
@@ -13,17 +14,17 @@ interface HolidayListProps {
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
-	// console.log("data from HolidayCardList: ", data);
+	// LogS.log("data from HolidayCardList: ", data);
 
 	const holidayElements = data.map((holiday, index) => {
-		console.log("holiday.coverPhoto: ", holiday.coverPhoto);
+		LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
 		if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
 			holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
 		} else {
 			holidayImageURL = holiday.coverPhoto;
 		}
-		console.log("holidayImageURL: ", holidayImageURL);
+		LogS.log("holidayImageURL: ", holidayImageURL);
 
 		return (
 			<div

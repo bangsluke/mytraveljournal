@@ -12,7 +12,7 @@ const useScreenSize = () => {
 		} else {
 			setScreenSize("desktop");
 		}
-		// console.log("Screen size:", screenSize); // Log the screen size after resizing
+		// LogS.log("Screen size:", screenSize); // Log the screen size after resizing
 	};
 
 	useEffect(() => {

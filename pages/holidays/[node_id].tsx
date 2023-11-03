@@ -4,19 +4,20 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
+import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
 import styles from "./Holidays.module.css";
 
 export default function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
-	console.log("nodeId: ", nodeId);
+	LogS.log("nodeId: ", nodeId);
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAY_BY_ID, {
 		variables: { nodeId }, // Pass the variable to the query
 	});
 
-	console.log("holiday data: ", data);
+	LogS.log("holiday data: ", data);
 
 	if (loading) return <p>Loading...</p>;
 	if (error)
@@ -34,8 +35,8 @@ export default function HolidayPage() {
 
 	// Extract the data into usable variables
 	const { name, dateYear, dateMonth, textHtmlContent, attendees }: Holiday = data.holidays[0];
-	console.log("holiday data: ", data);
-	console.log("attendees: ", attendees);
+	LogS.log("holiday data: ", data);
+	LogS.log("attendees: ", attendees);
 
 	const RandomPictureID = Math.floor(Math.random() * 999) + 1;
 

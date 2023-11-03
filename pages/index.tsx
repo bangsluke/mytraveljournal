@@ -6,6 +6,7 @@ import Layout from "../components/Layouts/Layout";
 import { useQuery } from "@apollo/client";
 import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
 import Toast from "../components/Toast/Toast";
+import LogS from "../services/LogS";
 import styles from "../styles/Home.module.css";
 
 export default function Home(props: any) {
@@ -13,7 +14,7 @@ export default function Home(props: any) {
 	if (loading) return <p>Loading...</p>;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		console.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
+		LogS.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
 		return (
 			<>
 				<p>Error : {error.message}</p>
@@ -22,7 +23,7 @@ export default function Home(props: any) {
 		);
 	}
 
-	console.log("holiday data: ", data);
+	LogS.log("holiday data: ", data);
 
 	return (
 		<Layout NavbarStyle='Opaque'>

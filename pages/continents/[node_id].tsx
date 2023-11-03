@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { Continent } from "../../types/types";
 
 export default function ContinentPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
-	console.log("nodeId: ", nodeId);
+	LogS.log("nodeId: ", nodeId);
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CONTINENT_BY_ID, {
 		variables: { nodeId }, // Pass the variable to the query
@@ -29,12 +30,12 @@ export default function ContinentPage() {
 			</>
 		);
 
-	// console.log("data", data);
+	// LogS.log("data", data);
 
 	// Extract the data into usable variables
 	const { name }: Continent = data.continents[0];
 
-	// console.log("continent data: ", data);
+	// LogS.log("continent data: ", data);
 
 	return (
 		<Layout NavbarStyle='Opaque'>

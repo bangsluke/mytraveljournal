@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
 import type { AppProps } from "next/app";
+import LogS from "../services/LogS";
 import "../styles/globals.css";
 
 // This App component is the top-level component which will be common across all the different pages.
@@ -9,7 +10,7 @@ import "../styles/globals.css";
 const darkMode = false;
 
 // Note: All console logs will be printed in the browser console
-console.log("NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
+LogS.log("NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
 const client = new ApolloClient({
 	uri: process.env.NEXT_PUBLIC_APP_BACKEND_URL,
 	cache: new InMemoryCache(),
@@ -28,7 +29,7 @@ client
 			}
 		`,
 	})
-	.then((result) => console.log("Test connection in _app.tsx", result));
+	.then((result) => LogS.log("Test connection in _app.tsx", result));
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (

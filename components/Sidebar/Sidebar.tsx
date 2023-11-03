@@ -15,7 +15,7 @@ type SidebarStyle = "static" | "dynamic";
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	const screenSize = useScreenSize(); // Get the screen size
 	const sidebarStyle: SidebarStyle = screenSize == "mobile" ? "dynamic" : "static"; // If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
-	// console.log("sidebarStyle:", sidebarStyle);
+	// LogS.log("sidebarStyle:", sidebarStyle);
 	const router = useRouter(); // Import the Next router
 
 	// If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
@@ -32,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 		}`;
 	}
 
-	// console.log("SidebarData", SidebarData); // Log the SidebarData
+	// LogS.log("SidebarData", SidebarData); // Log the SidebarData
 
 	return (
 		<>

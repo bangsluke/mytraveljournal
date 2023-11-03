@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import LogS from "../../services/LogS";
 import { City } from "../../types/types";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
@@ -12,7 +13,7 @@ export default function CitiesList() {
 	if (loading) return <p>Loading...</p>;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		console.error("GraphQLQueriesS.GET_CITIES GraphQL Error: ", error.message);
+		LogS.error("GraphQLQueriesS.GET_CITIES GraphQL Error: ", error.message);
 		return (
 			<>
 				<p>Error : {error.message}</p>
