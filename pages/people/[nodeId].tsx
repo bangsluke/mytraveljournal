@@ -15,6 +15,7 @@ export default function PersonPage() {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PERSON_BY_ID, {
 		variables: { nodeId }, // Pass the variable to the query
 	});
+	LogS.log("data", data);
 
 	if (loading) return <p>Loading...</p>;
 	if (error)

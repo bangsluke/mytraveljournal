@@ -27,7 +27,7 @@ function AttendeesList({ stringArray }: { stringArray: string[] }): JSX.Element 
 	const handleLinkClick = (name: string) => {
 		// Your logic for handling link clicks here
 		LogS.log(`Clicked on: ${name}`);
-		router.push({ pathname: `/people/person-${name}` });
+		router.push({ pathname: `/people/person-${name.replace(" ", "")}` });
 	};
 
 	return <>{linkElements}</>;
