@@ -8,9 +8,9 @@
 }
 
 .holidayCard {
-	background-color: yellow;
-	height: calc(var(--image-height, 300px) + 20px);
-	min-height: 120px;
+	/* background-color: yellow; */
+	height: calc(var(--holiday-card-image-height, 300px) + 20px);
+	min-height: 150px;
 	border: 1px solid var(--secondary-accent, #BBB);
 	padding: 10px;
 	/* Add padding to the card */
@@ -19,7 +19,7 @@
 	margin: 0 auto 20px auto;
 	display: grid;
 	column-gap: 10px;
-	grid-template-columns: 15% 75%;
+	grid-template-columns: 30% 70%;
 	grid-template-rows: 130px;
 }
 
@@ -31,7 +31,7 @@
 
 .holidayCardImage {
 	object-fit: cover;
-	border-radius: var(--image-border-radius, 10px);
+	border-radius: var(--holiday-card-image-border-radius, 10px);
 	padding: 0px;
 }
 
@@ -39,11 +39,11 @@
 .holidayCardDetails {
 	background-color: blue;
 	/* height: max-content; */
-	height: calc(var(--image-height, 300px) + 30px);
-	max-height: var(--image-height, 300px);
+	height: calc(var(--holiday-card-image-height, 300px) + 30px);
+	max-height: var(--holiday-card-image-height, 300px);
 	overflow-y: scroll;
-	width: 100%;
-	margin: 0px 0px 0px 40px;
+	width: calc(100% - 10px);
+	margin: 0px;
 	display: grid;
 	row-gap: 10px;
 	grid-template-columns: 1fr;

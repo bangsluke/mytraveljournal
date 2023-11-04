@@ -91,6 +91,7 @@ const GET_HOLIDAYS = gql`
 			name
 			holidayTitle
 			nodeId
+			locations
 			coverPhoto
 			textHtmlContent
 		}

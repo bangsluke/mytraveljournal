@@ -50,6 +50,7 @@ const typeDefs = `#graphql
 		name: String!
 		holidayTitle: String!
 		nodeId: String!
+		locations: [String!]
 		coverPhoto: String
 		textHtmlContent: String!
 		attendees: [String!]
