@@ -10,7 +10,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "set NODE_ENV=production && next start",
+		"start": "next start",
 		"lint": "next lint",
 		"generategraph": "python backend/generate_neo4j_graph_from_md.py",
 		"backendstart": "cd backend/graphql && node index.js"
