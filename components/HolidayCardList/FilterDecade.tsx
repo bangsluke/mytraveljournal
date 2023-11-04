@@ -1,3 +1,5 @@
+import styles from "./HolidayCardList.module.css";
+
 // Define the FilterDecade component props
 interface FilterDecadeProps {
 	selectedDecade: string;
@@ -8,7 +10,7 @@ const FilterDecade: React.FC<FilterDecadeProps> = ({ selectedDecade, onDecadeCha
 	const decades = ["All", "1990s", "2000s", "2010s", "2020s"];
 
 	return (
-		<div>
+		<div className={styles.filter}>
 			<label>Filter by Decade: </label>
 			<select title='Decade Filter' value={selectedDecade} onChange={onDecadeChange}>
 				{decades.map((decade) => (
