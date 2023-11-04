@@ -45,4 +45,5 @@ export interface Person {
 	nodeId: string;
 	aliases: string[];
 	textBodyText: string;
+	holidaysAttended: Holiday[];
 }
