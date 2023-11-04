@@ -1,25 +1,30 @@
+.filter {
+	/* background-color: yellow; */
+	padding-top: 2rem;
+}
+
 .holidayCardList {
 	/* background-color: aqua; */
 	padding-top: 2rem;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 10px;
 	width: 100%;
 }
 
 .holidayCard {
-	background-color: yellow;
-	height: calc(var(--image-height, 300px) + 20px);
-	min-height: 120px;
+	/* background-color: yellow; */
+	height: calc(var(--holiday-card-image-height, 300px) + 20px);
+	min-height: 150px;
 	border: 1px solid var(--secondary-accent, #BBB);
 	padding: 10px;
 	/* Add padding to the card */
 	border-radius: var(--card-border-radius, 15px);
 	width: 98%;
-	margin: 0 auto 20px auto;
+	margin: 0px auto 10px auto;
 	display: grid;
 	column-gap: 10px;
-	grid-template-columns: 15% 75%;
+	grid-template-columns: 30% 70%;
 	grid-template-rows: 130px;
 }
 
@@ -31,32 +36,30 @@
 
 .holidayCardImage {
 	object-fit: cover;
-	border-radius: var(--image-border-radius, 10px);
+	border-radius: var(--holiday-card-image-border-radius, 10px);
 	padding: 0px;
 }
 
 /* Style the div holding all the holiday details. */
 .holidayCardDetails {
-	background-color: blue;
+	/* background-color: blue; */
 	/* height: max-content; */
-	height: calc(var(--image-height, 300px) + 30px);
-	max-height: var(--image-height, 300px);
-	overflow-y: scroll;
-	width: 100%;
-	margin: 0px 0px 0px 40px;
+	height: var(--holiday-card-image-height, 300px);
+	/* max-height: var(--holiday-card-image-height, 300px); */
+	overflow-y: none;
+	width: calc(100% - 10px);
+	margin: 0px;
 	display: grid;
-	row-gap: 10px;
+	row-gap: 0px;
 	grid-template-columns: 1fr;
-	grid-template-rows: max-content max-content max-content max-content max-content;
+	grid-template-rows: 30px var(--holiday-card-image-height, 300px);
 	justify-content: flex-start;
 	/* Center Horizontally */
-	align-items: center;
-	/* Center Vertically */
 }
 
 /* Style the top row holding the icon, location and link to Google Maps */
 .holidayCardDetailsTopRow {
-	background-color: aquamarine;
+	/* background-color: aquamarine; */
 	height: 30px;
 	width: max-content;
 	display: flex;
@@ -75,6 +78,7 @@
 /* Style the header text in the top row */
 .holidayCardDetails h3 {
 	text-transform: uppercase;
+	font-style: italic;
 	font-size: 12px;
 	font-weight: 200;
 	line-height: 0;
@@ -99,49 +103,56 @@
 	display: none;
 }
 
+/* Style the holiday text container */
+.holidayCardDetailsText {
+	/* background-color: yellowgreen; */
+	top: 0;
+	padding: 10px 0px 0px 5px;
+	/* Add a small padding to left of the text */
+	height: calc(100% - 30px);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	/* Position Horizontally */
+	align-items: space-between;
+	/* Position Vertically */
+	font-size: 14px;
+}
+
 /* Style the holiday title */
-.holidayCardDetails h2 {
-	font-size: 12px;
+.holidayCardDetailsText>h2 {
+	/* background-color: yellow; */
+	font-size: 20px;
 	font-weight: 600;
-	line-height: 0;
+	line-height: 20px;
+	height: 20px;
 	margin: 0;
+	padding: 0;
+}
+
+/* Style the holiday dates */
+.holidayCardDates {
+	/* background-color: blue; */
+	font-weight: 600;
+	line-height: 14px;
+	margin: 20px 0px;
 	padding: 0;
 }
 
 /* Style the holiday subtitle */
-.holidayCardDetails>h3 {
-	font-size: 10px;
-	line-height: 0;
-	margin: 0 !important;
-	padding: 2 0 0 0 !important;
+.holidayCardDetailsText>h3 {
+	/* background-color: red; */
+	font-weight: 400;
+	line-height: 14px;
 	text-transform: none;
-}
-
-.holidayCardDates {
-	background-color: blue;
-	font-size: 8px;
-	font-weight: 600;
-	line-height: 0;
-	margin: 0.5rem 0rem 0rem 0rem;
-	padding: 0rem;
-}
-
-.holidayCardDescription {
-	background-color: red;
-	font-size: 10px;
-	font-weight: 200;
-	margin: 0rem;
-	padding: 0rem;
-	line-height: 11px;
-}
-
-.holidayCardDescription>p,
-.holidayCardDescription>h4 {
 	margin: 0;
 	padding: 0;
-	line-height: 11px;
 }
 
-.holidayCardDescription>p {
-	padding-bottom: 1rem;
+/* Create a horizontal line separator that goes across the div. */
+.separator {
+	width: 100%;
+	height: 1px;
+	background: var(--secondary-accent, grey);
+	/* margin: 10px auto 20px auto; */
 }

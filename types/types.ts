@@ -32,6 +32,7 @@ export interface Holiday {
 	name: string;
 	holidayTitle: string;
 	nodeId: string;
+	locations: string[];
 	coverPhoto: string;
 	textHtmlContent: string;
 	attendees: string[];

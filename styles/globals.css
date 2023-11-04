@@ -9,8 +9,9 @@
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
 	/* Images */
-	--image-height: 150px;
-	--image-border-radius: 10px;
+	/* Keep aligned with HolidayCardImageHeight in constants.ts */
+	--holiday-card-image-height: 150px;
+	--holiday-card-image-border-radius: 10px;
 }
 
 ::-webkit-scrollbar {

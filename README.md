@@ -16,7 +16,7 @@
 
 ### Markdown Set Up
 
-The page is built off of data from markdown files created in Obsidian. Obsidian is not needed, as any markdown editor/creator will work, however it is the one I use.
+The page is built off of data from markdown files created in Obsidian. Obsidian is not needed, as any markdown editor/creator will work, however it is the one I use and recommend.
 
 #### Note Set Up
 
@@ -30,12 +30,10 @@ At the start of each note, I have some "front matter" - the name used in Obsidia
 - coverPhoto: TBC
 - photoAlbum: 2023 06 - Dublin
 - whatsAppGroup: TBC
-- location: [[Dublin]]
+- locations: [[Dublin]], [[Howth]]
 - departingAirport: TBC
 ```
 
-> Key Details: For the above to work with the scripts, the above structure needs to be used. The script will look for "location" after "whatsAppGroup" for example.
->
 > Note: If more than one location is added, the script will use the first location.
 
 #### Cover Photo Set Up

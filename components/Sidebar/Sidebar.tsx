@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 			<nav className={sideBarClassName}>
 				{sidebarStyle == "dynamic" && (
 					<button className={styles.toggleButton} onClick={toggleSidebar}>
-						Closed Sidebar
+						Close Sidebar
 					</button>
 				)}
 				<div className={styles.sidebarContent}>
