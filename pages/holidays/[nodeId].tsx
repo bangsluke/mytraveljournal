@@ -2,11 +2,36 @@ import { useQuery } from "@apollo/client";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import Image from "next/image";
 import { useRouter } from "next/router";
+import React from "react";
 import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
 import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
 import styles from "./Holidays.module.css";
+
+//  Create a function to return a concatenated list of attendees with hyperlinks
+function AttendeesList({ stringArray }: { stringArray: string[] }): JSX.Element {
+	const router = useRouter(); // Import the Next router
+
+	// Map through the array and create clickable links
+	const linkElements = stringArray.map((name: string, index: number) => (
+		<React.Fragment key={index}>
+			<h4 className={styles.clickableList} onClick={() => handleLinkClick(name)}>
+				{name}
+			</h4>
+			{index < stringArray.length - 1 && ", "}
+		</React.Fragment>
+	));
+
+	// Function to handle link clicks
+	const handleLinkClick = (name: string) => {
+		// Your logic for handling link clicks here
+		LogS.log(`Clicked on: ${name}`);
+		router.push({ pathname: `/people/person-${name}` });
+	};
+
+	return <>{linkElements}</>;
+}
 
 export default function HolidayPage() {
 	const router = useRouter(); // Import the Next router
@@ -74,13 +99,7 @@ export default function HolidayPage() {
 
 				<h4>Attendees:</h4>
 
-				<ul>
-					{attendees.map((name, index) => (
-						<li key={name + index} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/persons/${name}` })}>
-							<h4>{name}</h4>
-						</li>
-					))}
-				</ul>
+				<AttendeesList stringArray={attendees} />
 			</section>
 
 			<section>

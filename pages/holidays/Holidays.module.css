@@ -33,3 +33,10 @@
 	font-size: 1.5rem;
 	/* Ensure text is displayed on top of the image */
 }
+
+.clickableList {
+	display: inline;
+	cursor: pointer;
+	text-decoration: underline;
+	color: var(--main-accent, #fe395c);
+}
