@@ -2,8 +2,10 @@ import DirectionsIcon from "@mui/icons-material/Directions";
 import RoomIcon from "@mui/icons-material/Room";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Constants from "../../constants/constants";
 import { Holiday } from "../../types/types";
+import FilterDecade from "./FilterDecade";
 import styles from "./HolidayCardList.module.css";
 
 // Define the HolidayCardList component props
@@ -13,9 +15,26 @@ interface HolidayListProps {
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
-	// LogS.log("data from HolidayCardList: ", data);
 
-	const holidayElements = data.map((holiday, index) => {
+	// Define the selectedDecade state
+	const [selectedDecade, setSelectedDecade] = useState("All");
+
+	// LogS.log("Original data from HolidayCardList: ", data);
+
+	// Filter holidays based on the selected decade
+	const filteredHolidaysData = data.filter((holiday) => {
+		if (selectedDecade === "All") {
+			return true; // Show all holidays
+		}
+		// Extract the decade from holiday's dateYear
+		const decade: string = (Math.floor(parseInt(holiday.dateYear) / 10) * 10).toString() + "s";
+		// LogS.log("Decade: ", decade);
+		return decade === selectedDecade;
+	});
+
+	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
+
+	const holidayElements = filteredHolidaysData.map((holiday, index) => {
 		// Define the holiday image URL
 		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
@@ -35,6 +54,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		return (
 			<div key={index}>
 				<div
+					key={holiday.nodeId}
 					onClick={() => {
 						router.push({ pathname: "/holidays/" + holiday.nodeId });
 					}}
@@ -79,8 +99,11 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	});
 
 	return (
-		// TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates
-		<div className={styles.holidayCardList}>{holidayElements}</div>
+		<>
+			{/* // TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
+			<FilterDecade selectedDecade={selectedDecade} onDecadeChange={(e) => setSelectedDecade(e.target.value)} />
+			<div className={styles.holidayCardList}>{holidayElements}</div>
+		</>
 	);
 };
 
