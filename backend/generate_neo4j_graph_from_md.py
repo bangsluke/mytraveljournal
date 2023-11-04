@@ -307,9 +307,10 @@ class DatabaseConnector:
                 textHtmlContent = markdown2.markdown(
                     text)  # Convert markdown to html
                 holidayTitle = extract_text_from_html_tag(
-                    r"<h1>(.*?)</h1>", textHtmlContent)
+                    r"<h1>(.*?)</h1>", textHtmlContent)  # Grab the holiday title from between the first <h1> and </h1> tags
+                nodeId = (Holiday.__name__.lower()+"-"+node).replace(" ", "")
                 # Create the holiday nodes
-                h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
+                h = Holiday(name=name, nodeId=nodeId, attendees=attendees,
                             coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
                             locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
                 # Connect the attendees to the holiday node

@@ -45,13 +45,8 @@
         "line_number": 141
     },
     {
-        "object_name": "Agra",
-        "error_message": "Error in Agra: Service timed out",
-        "line_number": 189
-    },
-    {
-        "object_name": "Bergamo",
-        "error_message": "Error in Bergamo: Service timed out",
+        "object_name": "Nice",
+        "error_message": "Error in Nice: Service timed out",
         "line_number": 189
     },
     {
