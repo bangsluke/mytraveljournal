@@ -79,8 +79,7 @@ export default function HolidayPage() {
 			</section>
 
 			<section>
-				{/* Use the Interweave library to render the HTML content -
-        https://github.com/milesj/interweave/ */}
+				{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
 				<Interweave content={textHtmlContent} />
 			</section>
 		</Layout>

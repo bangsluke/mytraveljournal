@@ -1,6 +1,5 @@
 import DirectionsIcon from "@mui/icons-material/Directions";
 import RoomIcon from "@mui/icons-material/Room";
-import parse from "html-react-parser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
@@ -17,6 +16,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// LogS.log("data from HolidayCardList: ", data);
 
 	const holidayElements = data.map((holiday, index) => {
+		// Define the holiday image URL
 		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
 		if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
@@ -25,6 +25,9 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			holidayImageURL = holiday.coverPhoto;
 		}
 		// LogS.log("holidayImageURL: ", holidayImageURL);
+
+		// Format the dates
+		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
 
 		// LogS.log("holiday.locations: ", holiday.locations[0]);
 
@@ -59,14 +62,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					</div>
 
 					{/* Hold the main contents of the card including title and description details */}
-					<h2>{holiday.name}</h2>
-					{holiday.holidayTitle ? <h3>{holiday.holidayTitle}</h3> : null}
-					{holiday.name ? <h3>{holiday.name}</h3> : null}
-					<p className={styles.holidayCardDates}>
-						{holiday.dateMonth} - {holiday.dateYear}
-					</p>
-					<p>{holiday.nodeId}</p>
-					<div className={styles.holidayCardDescription}>{parse(holiday.textHtmlContent)}</div>
+					<div className={styles.holidayCardDetailsText}>
+						<h2>{holiday.name}</h2> {/* Return the holiday name */}
+						{/* Display the dates */}
+						<p className={styles.holidayCardDates}>
+							{monthFormatted} {holiday.dateYear}
+						</p>
+						{holiday.holidayTitle ? <h3>{holiday.holidayTitle}</h3> : null} {/* Return the holiday title */}
+					</div>
 				</div>
 			</div>
 		);
