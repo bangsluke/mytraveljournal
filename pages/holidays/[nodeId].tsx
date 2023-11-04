@@ -34,30 +34,35 @@ export default function HolidayPage() {
 		);
 
 	// Extract the data into usable variables
-	const { name, dateYear, dateMonth, textHtmlContent, attendees }: Holiday = data.holidays[0];
+	const { dateYear, dateMonth, name, holidayTitle, coverPhoto, textHtmlContent, attendees }: Holiday = data.holidays[0];
 	LogS.log("holiday data: ", data);
 	LogS.log("attendees: ", attendees);
 
-	const RandomPictureID = Math.floor(Math.random() * 999) + 1;
+	// Define the holiday image URL
+	LogS.log("coverPhoto: ", coverPhoto);
+	let holidayImageURL = "";
+	if (coverPhoto == null || coverPhoto == "" || coverPhoto == "TBC") {
+		holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
+	} else {
+		holidayImageURL = coverPhoto;
+	}
+	LogS.log("holidayImageURL: ", holidayImageURL);
+
+	// Format the month date
+	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
 
 	return (
 		<Layout NavbarStyle='Transparent'>
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
-				<Image
-					src={`https://picsum.photos/id/${RandomPictureID}/375/600`}
-					alt='Holiday Photo'
-					quality={100}
-					width={375}
-					height={400}
-					className={styles.holidayImage}
-				/>
+				<Image src={holidayImageURL} alt={`${name} Image`} quality={100} width={375} height={400} className={styles.holidayImage} />
 
 				<div className={styles.holidayImageOverlayContainer}>
 					{/* Holiday Name */}
 					<h3>/ {name}</h3>
+					<h3>{holidayTitle}</h3>
 					<h4>
-						{dateYear} {dateMonth}
+						{monthFormatted} {dateYear}
 					</h4>
 				</div>
 			</div>

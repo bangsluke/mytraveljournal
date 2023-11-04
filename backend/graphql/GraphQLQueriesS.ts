@@ -93,6 +93,7 @@ const GET_HOLIDAYS = gql`
 			nodeId
 			locations
 			coverPhoto
+			attendees
 			textHtmlContent
 		}
 	}
@@ -101,12 +102,15 @@ const GET_HOLIDAYS = gql`
 const GET_HOLIDAY_BY_ID = gql`
 	query GetHolidayById($nodeId: String) {
 		holidays(where: { nodeId: $nodeId }) {
-			name
 			dateYear
 			dateMonth
+			name
+			holidayTitle
 			nodeId
-			textHtmlContent
+			locations
+			coverPhoto
 			attendees
+			textHtmlContent
 		}
 	}
 `;

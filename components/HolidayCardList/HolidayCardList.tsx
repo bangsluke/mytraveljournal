@@ -45,7 +45,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		}
 		// LogS.log("holidayImageURL: ", holidayImageURL);
 
-		// Format the dates
+		// Format the month date
 		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
 
 		// LogS.log("holiday.locations: ", holiday.locations[0]);
