@@ -3,7 +3,6 @@ import RoomIcon from "@mui/icons-material/Room";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
-import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
 import styles from "./HolidayCardList.module.css";
 
@@ -31,8 +30,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
 
 		// LogS.log("holiday.locations: ", holiday.locations[0]);
-
-		LogS.log("holiday.nodeId", holiday.nodeId);
+		// LogS.log("holiday.nodeId", holiday.nodeId);
 
 		return (
 			<div key={index}>

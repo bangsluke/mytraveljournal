@@ -16,7 +16,7 @@
 	/* Add padding to the card */
 	border-radius: var(--card-border-radius, 15px);
 	width: 98%;
-	margin: 0px auto 0px auto;
+	margin: 0px auto 10px auto;
 	display: grid;
 	column-gap: 10px;
 	grid-template-columns: 30% 70%;
