@@ -16,7 +16,7 @@
 
 ### Markdown Set Up
 
-The page is built off of data from markdown files created in Obsidian. Obsidian is not needed, as any markdown editor/creator will work, however it is the one I use.
+The page is built off of data from markdown files created in Obsidian. Obsidian is not needed, as any markdown editor/creator will work, however it is the one I use and recommend.
 
 #### Note Set Up
 
