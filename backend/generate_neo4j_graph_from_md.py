@@ -181,7 +181,7 @@ class DatabaseConnector:
             if detailed_logs:
                 print("         Creating node: ", node)
             node_old = node_class.nodes.first_or_none(
-                nodeId=node_class.__name__.lower()+"-"+node)
+                nodeId=(node_class.__name__.lower()+"-"+node).replace(" ", ""))
             if node_old is None:
                 try:
                     loc = geocode(node)
@@ -197,6 +197,8 @@ class DatabaseConnector:
                     latitude = loc.latitude
                     longitude = loc.longitude
                 sleep(1)
+                nodeId = (node_class.__name__.lower() +
+                          "-"+node).replace(" ", "")
                 if node_class.__name__ == "City":
                     # Set the capital property to be true if the capital tag exists
                     # TODO: Kevin to review and improve
@@ -205,12 +207,12 @@ class DatabaseConnector:
                     # print(front_matter)
                     if 'tags' in front_matter and 'capital' in front_matter['tags']:
                         capitalBoolean = True
-                    node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node, level=node_class.__name__,
+                    node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
                                capital=capitalBoolean).save()
                 else:
-                    node_class(name=node, nodeId=node_class.__name__.lower()+"-"+node,
-                               level=node_class.__name__, latitude=latitude, longitude=longitude).save()
+                    node_class(name=node, nodeId=nodeId, level=node_class.__name__,
+                               latitude=latitude, longitude=longitude).save()
 
     def connect_locations(self, node_class1: type[StructuredNode] = Location, node_class2: type[StructuredNode] = Location) -> None:
         """
@@ -247,10 +249,12 @@ class DatabaseConnector:
         function to create all persons
         """
         for node in self.persons:
+            nodeId = (Person.__name__.lower() +
+                      "-"+node).replace(" ", "")
             node_old = Person.nodes.first_or_none(
-                nodeId=Person.__name__.lower()+"-"+node)
+                nodeId=nodeId)
             if node_old is None:
-                Person(name=node, nodeId=Person.__name__.lower()+"-"+node).save()
+                Person(name=node, nodeId=nodeId).save()
 
     @staticmethod
     def attend(connect_to: List[str], holiday: Holiday, node_type: type[StructuredNode] = Person) -> None:
@@ -262,8 +266,10 @@ class DatabaseConnector:
         """
         for connection in connect_to:
             try:
+                nodeId = (node_type.__name__.lower() +
+                          "-"+connection).replace(" ", "")
                 holiday.attended.connect(
-                    node_type.nodes.first_or_none(nodeId=node_type.__name__.lower()+"-"+connection))
+                    node_type.nodes.first_or_none(nodeId=nodeId))
             except ValueError as e:
                 print(e)
 
@@ -287,8 +293,8 @@ class DatabaseConnector:
         function to create the holiday nodes and relations
         """
         for node in self.holidays:
-            node_old = Holiday.nodes.first_or_none(
-                nodeId=Holiday.__name__.lower()+"-"+node)
+            nodeId = (Holiday.__name__.lower()+"-"+node).replace(" ", "")
+            node_old = Holiday.nodes.first_or_none(nodeId=nodeId)
             if node_old is None:
                 frontmatter = self.vault.get_front_matter(node)
                 text = self.vault.get_readable_text(node)
@@ -307,9 +313,10 @@ class DatabaseConnector:
                 textHtmlContent = markdown2.markdown(
                     text)  # Convert markdown to html
                 holidayTitle = extract_text_from_html_tag(
-                    r"<h1>(.*?)</h1>", textHtmlContent)
+                    r"<h1>(.*?)</h1>", textHtmlContent)  # Grab the holiday title from between the first <h1> and </h1> tags
+                nodeId = (Holiday.__name__.lower()+"-"+node).replace(" ", "")
                 # Create the holiday nodes
-                h = Holiday(name=name, nodeId=Holiday.__name__.lower()+"-"+node, attendees=attendees,
+                h = Holiday(name=name, nodeId=nodeId, attendees=attendees,
                             coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
                             locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
                 # Connect the attendees to the holiday node

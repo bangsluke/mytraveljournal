@@ -30,12 +30,10 @@ At the start of each note, I have some "front matter" - the name used in Obsidia
 - coverPhoto: TBC
 - photoAlbum: 2023 06 - Dublin
 - whatsAppGroup: TBC
-- location: [[Dublin]]
+- locations: [[Dublin]], [[Howth]]
 - departingAirport: TBC
 ```
 
-> Key Details: For the above to work with the scripts, the above structure needs to be used. The script will look for "location" after "whatsAppGroup" for example.
->
 > Note: If more than one location is added, the script will use the first location.
 
 #### Cover Photo Set Up
