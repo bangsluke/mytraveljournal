@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
+import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import { Person } from "../../types/types";
 import Toast from "../Toast/Toast";

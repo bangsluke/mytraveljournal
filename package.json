@@ -12,12 +12,10 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"generategraph": "python backend/generate_neo4j_graph_from_md.py",
-		"backendstart": "cd backend/graphql && node index.js"
+		"generategraph": "python python/generate_neo4j_graph_from_md.py"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.8.1",
-		"@apollo/server": "^4.9.5",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
 		"@mui/icons-material": "^5.14.12",

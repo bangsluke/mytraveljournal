@@ -3,8 +3,8 @@ import { Interweave } from "interweave"; // https://github.com/milesj/interweave
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
+import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
 import styles from "./Holidays.module.css";

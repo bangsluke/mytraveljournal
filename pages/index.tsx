@@ -4,8 +4,8 @@ import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
 import Layout from "../components/Layouts/Layout";
 // import MapChart from "../components/MapChart";
 import { useQuery } from "@apollo/client";
-import GraphQLQueriesS from "../backend/graphql/GraphQLQueriesS";
 import Toast from "../components/Toast/Toast";
+import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import LogS from "../services/LogS";
 import styles from "../styles/Home.module.css";
 
