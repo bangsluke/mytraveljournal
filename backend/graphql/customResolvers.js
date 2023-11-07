@@ -1,17 +1,17 @@
 // Define custom resolvers
 const customResolvers = {
 	Query: {
-		personHolidayCount: async (_, { name }, { driver }) => {
+		personHolidayCount: async (_, { nodeId }, { driver }) => {
 			const session = driver.session();
 			try {
 				const result = await session.run(
-					`MATCH (p:Person {name: $name})-[:ATTENDED]->(h:Holiday)
-           RETURN p.name AS personName, count(h) AS holidayCount`,
-					{ name },
+					`MATCH (p:Person {nodeId: $nodeId})-[:ATTENDED]->(h:Holiday)
+           RETURN p.nodeId AS nodeId, count(h) AS holidayCount`,
+					{ nodeId },
 				);
 				const record = result.records[0];
 				return {
-					personName: record.get("personName"),
+					nodeId: record.get("nodeId"),
 					holidayCount: record.get("holidayCount").toInt(),
 				};
 			} finally {

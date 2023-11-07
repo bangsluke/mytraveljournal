@@ -17,11 +17,28 @@ export default function PersonPage() {
 	});
 	LogS.log("data", data);
 
-	if (loading) return <p>Loading...</p>;
-	if (error)
+	const {
+		loading: loadingHolidayCount,
+		error: errorHolidayCount,
+		data: dataHolidayCount,
+	} = useQuery(GraphQLQueriesS.GET_PERSON_HOLIDAY_COUNT_BY_ID, {
+		variables: { nodeId }, // Pass the variable to the query
+	});
+	LogS.log("holidayCountData", dataHolidayCount);
+
+	if (loading || loadingHolidayCount) return <p>Loading...</p>;
+	if (error || errorHolidayCount) {
+		let errorMessage = "";
+		if (error) {
+			errorMessage = error.message.toString();
+		} else if (errorHolidayCount) {
+			errorMessage = errorHolidayCount.toString();
+		} else {
+			errorMessage = "Unknown Error";
+		}
 		return (
 			<>
-				<p>Error : {error.message}</p>
+				<p>Error: {errorMessage}</p>
 				<div
 					className={styles.ErrorMessageDiv}
 					onClick={() => router.back()} // Go back to the last visited page
@@ -30,6 +47,7 @@ export default function PersonPage() {
 				</div>
 			</>
 		);
+	}
 
 	// Extract the data into usable variables
 	const { name, aliases, textBodyText }: Person = data.people[0];
@@ -51,7 +69,7 @@ export default function PersonPage() {
 
 				<h4>Text: {textBodyText}</h4>
 
-				<div>Holidays been on</div>
+				<div>Holidays been on: {dataHolidayCount}</div>
 			</section>
 		</Layout>
 	);

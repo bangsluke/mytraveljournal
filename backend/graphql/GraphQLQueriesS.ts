@@ -83,6 +83,15 @@ const GET_PERSON_BY_ID = gql`
 	}
 `;
 
+const GET_PERSON_HOLIDAY_COUNT_BY_ID = gql`
+	query GetPersonHolidayCount($nodeId: String!) {
+		personHolidayCount(nodeId: $nodeId) {
+			nodeId
+			holidayCount
+		}
+	}
+`;
+
 const GET_HOLIDAYS = gql`
 	query GetHolidays {
 		holidays {
@@ -135,6 +144,7 @@ const GraphQLQueriesS = {
 	GET_ISLANDS,
 	GET_PEOPLE,
 	GET_PERSON_BY_ID,
+	GET_PERSON_HOLIDAY_COUNT_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,
 	GET_CAPITALS,
