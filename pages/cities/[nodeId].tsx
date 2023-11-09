@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../../backend/graphql/GraphQLQueriesS";
 import Layout from "../../components/Layouts/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { City } from "../../types/types";

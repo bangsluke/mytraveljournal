@@ -12,18 +12,16 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"generategraph": "python backend/generate_neo4j_graph_from_md.py",
-		"backendstart": "cd backend/graphql && node index.js"
+		"generategraph": "python python/generate_neo4j_graph_from_md.py"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.8.1",
-		"@apollo/server": "^4.9.5",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
 		"@mui/icons-material": "^5.14.12",
 		"@mui/material": "^5.14.12",
 		"@types/body-parser": "^1.19.4",
-		"@types/d3-color": "3.1.1",
+		"@types/d3-color": "3.1.2",
 		"axios": "^1.6.0",
 		"graphql": "^16.8.1",
 		"interweave": "^13.1.0",
