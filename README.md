@@ -9,8 +9,6 @@
 - [Getting Started](#getting-started)
   - [Quick Start](#quick-start)
   - [Next.js Start Up](#next-start-up)
-  - [Node.js Start Up (Apollo Server)](#node-start-up)
-  - [Python Start Up](#python-start-up)
 
 ## Set Up
 
@@ -52,7 +50,7 @@ pip install json os markdown2 obsidiantools neomodel geopy
 
 ### Properties Set Up
 
-To set up the properties, navigate to the `backend` directory and open the `properties.properties` file. Set the values to work with your project using the examples below;
+To set up the properties, navigate to the `python` directory and open the `properties.properties` file. Set the values to work with your project using the examples below;
 
 ```bash
 [NEO4J]
@@ -72,11 +70,13 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 
 ### Quick start
 
+<!-- TODO: Update -->
+
 To quickly get started, do the following steps:
 
 1. Start the Neo4j graph database (Neo4j desktop)
-2. In the terminal, start the backend Apollo Server by running: `yarn backendstart` to call the script from `package.json`
-3. In another terminal, start the frontend by running: `yarn dev`
+2. Start up the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal>
+3. In a terminal, start the frontend by running: `yarn dev`
 4. Open [http://localhost:3000](http://localhost:3000)
 
 ### Next Start Up
@@ -94,26 +94,3 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-### Node Start Up
-
-Notes to start up the Apollo Server
-
-Navigate to the `backend\graphql` directory and use the command:
-
-`node index.js`
-
-The apollo server will be running on `http://localhost:4000`. Go to `https://studio.apollographql.com/sandbox/` and connect to the 4000 port to test the apollo server.
-
-### Python Start Up
-
-#### Python API
-
-To start up the flask server, run:
-
-```bash
-cd backend
-python app.py
-```
-
-The `app.py` file is located in the `backend` directory. The server will be running on `http://localhost:5000/api/data`.
