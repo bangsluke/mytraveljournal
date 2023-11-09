@@ -32,8 +32,8 @@ def handle_error(object_name, error_message):
             "error_message": str(e),
             "line_number": traceback.extract_stack()[-2][1]
         }
-        # Set the path to the "errors.json" file in the "backend" folder
-        error_file_path = os.path.join("backend", "errors.json")
+        # Set the path to the "errors.json" file in the "python" folder
+        error_file_path = "errors.json"
         # Check if the file exists and load the existing data
         if os.path.isfile(error_file_path):
             with open(error_file_path, "r") as error_file:
@@ -344,7 +344,7 @@ class DatabaseConnector:
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = True
+    dev_mode = False
     # Define if detailed logs should be printed or not
     detailed_logs = True
 
@@ -371,14 +371,14 @@ if __name__ == '__main__':
     config_file = configparser.ConfigParser()
     config_file.read(config_file_path)
 
-    # TODO: Review if any of the following lines are still needed
+    # Set the database URL
     config.DATABASE_URL = (f'{config_file.get("NEO4J", "N4J.ConnType")}'
                            f'{config_file.get("NEO4J", "N4J.USER")}:'
                            f'{config_file.get("NEO4J", "N4J.PW")}@'
                            f'{config_file.get("NEO4J", "N4J.URL")}/'
                            f'{config_file.get("NEO4J", "N4J.DB")}')
     # Check if the database URL is correct
-    # print("config.DATABASE_URL: ", config.DATABASE_URL)
+    print("config.DATABASE_URL: ", config.DATABASE_URL)
 
     # Get the vault data folder path. If FullPath is not set, use RelativePath
     vault_folder_path = Path(config_file.get("DATA", "DATA.FullPath")) \
