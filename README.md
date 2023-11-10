@@ -66,6 +66,10 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 
 > Note: If a full path is not specified, the relative path will be used.
 
+### Netlify Set Up
+
+- Added Heroku backend URL as an environment variable on Netlify.
+
 ## Getting Started
 
 ### Quick start
