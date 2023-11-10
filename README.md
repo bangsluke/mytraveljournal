@@ -70,7 +70,7 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 
 ### Quick start
 
-<!-- TODO: Update -->
+<!-- TODO: Update when known -->
 
 To quickly get started, do the following steps:
 
