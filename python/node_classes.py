@@ -81,6 +81,7 @@ class Holiday(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     dateYear = StringProperty(required=True)
     dateMonth = StringProperty(required=True)
+    sortDateValue = StringProperty(required=True)
     attendees = ArrayProperty()
     text = StringProperty()
     textFullNoteText = StringProperty()  # All the Obsidian note text

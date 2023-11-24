@@ -26,6 +26,7 @@ export interface Island {
 export interface Holiday {
 	dateYear: string;
 	dateMonth: string;
+	sortDateValue: string;
 	name: string;
 	holidayTitle: string;
 	nodeId: string;

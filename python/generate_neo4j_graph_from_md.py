@@ -303,6 +303,8 @@ class DatabaseConnector:
                 frontmatter = self.vault.get_front_matter(node)
                 text = self.vault.get_readable_text(node)
                 (year, month, name) = self.divide_title(node)
+                # Create a sortable date value for sorting holidays
+                sortDateValue = f"{year:04d}{month:02d}"
                 attendees = self.remove_brackets(frontmatter["attendees"])
                 locations = self.remove_brackets(frontmatter["locations"])
                 coverPhoto = frontmatter["coverPhoto"]
@@ -321,7 +323,7 @@ class DatabaseConnector:
                 nodeId = (Holiday.__name__.lower()+"-"+node).replace(" ", "")
                 # Create the holiday nodes
                 h = Holiday(name=name, nodeId=nodeId, attendees=attendees,
-                            coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
+                            coverPhoto=coverPhoto, dateMonth=month, dateYear=year, sortDateValue=sortDateValue,
                             locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
                 # Connect the attendees to the holiday node
                 self.attend(attendees, h)

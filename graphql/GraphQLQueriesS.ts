@@ -83,6 +83,7 @@ const GET_PERSON_BY_ID = gql`
 				name
 				holidayTitle
 				nodeId
+				sortDateValue
 			}
 		}
 	}
