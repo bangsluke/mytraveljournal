@@ -24,9 +24,6 @@ export default function ContinentsList() {
 
 	return (
 		<div className={styles.dataList}>
-			<h3 className={styles.clickableHeader} onClick={() => router.push({ pathname: `/continents` })}>
-				Continents Visited
-			</h3>
 			<ul>
 				{data.continents.map(({ name, nodeId }: Continent) => (
 					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/continents/${nodeId}` })}>

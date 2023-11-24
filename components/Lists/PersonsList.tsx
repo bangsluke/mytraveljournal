@@ -26,9 +26,6 @@ export default function PersonsList() {
 
 	return (
 		<div className={styles.dataList}>
-			<h3 className={styles.clickableHeader} onClick={() => router.push({ pathname: `/people` })}>
-				Travel Comapanions
-			</h3>
 			<ul>
 				{data.people.map(({ name, nodeId }: Person) => (
 					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/people/${nodeId}` })}>
