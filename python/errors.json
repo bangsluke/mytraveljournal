@@ -1,82 +1,142 @@
 [
     {
+        "object_name": "Untitled",
+        "error_message": "Error in Untitled: 'tags'",
+        "line_number": 134
+    },
+    {
+        "object_name": "See Work - Colleagues",
+        "error_message": "Error in See Work - Colleagues: 'tags'",
+        "line_number": 134
+    },
+    {
+        "object_name": "Test Sync",
+        "error_message": "Error in Test Sync: 'tags'",
+        "line_number": 134
+    },
+    {
+        "object_name": "OpenAI",
+        "error_message": "Error in OpenAI: \"OpenAI\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Microsoft",
+        "error_message": "Error in Microsoft: \"Microsoft\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "RLE",
+        "error_message": "Error in RLE: \"RLE\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
         "object_name": "golf",
         "error_message": "Error in golf: \"golf\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "line_number": 134
     },
     {
         "object_name": "Tags/Work/Tools/DVP",
         "error_message": "Error in Tags/Work/Tools/DVP: \"Tags/Work/Tools/DVP\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "line_number": 134
+    },
+    {
+        "object_name": "Girish Pillutla",
+        "error_message": "Error in Girish Pillutla: \"Girish Pillutla\" does not exist so it cannot have front matter.",
+        "line_number": 134
     },
     {
         "object_name": "hotel",
         "error_message": "Error in hotel: \"hotel\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "line_number": 134
     },
     {
         "object_name": "tennis",
         "error_message": "Error in tennis: \"tennis\" does not exist so it cannot have front matter.",
-        "line_number": 141
-    },
-    {
-        "object_name": "DVP",
-        "error_message": "Error in DVP: \"DVP\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "line_number": 134
     },
     {
         "object_name": "Petra",
         "error_message": "Error in Petra: \"Petra\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "line_number": 134
     },
     {
-        "object_name": "Actify",
-        "error_message": "Error in Actify: \"Actify\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "object_name": "Tags/Coding and Software/Software/Microsoft/Microsoft",
+        "error_message": "Error in Tags/Coding and Software/Software/Microsoft/Microsoft: \"Tags/Coding and Software/Software/Microsoft/Microsoft\" does not exist so it cannot have front matter.",
+        "line_number": 134
     },
     {
-        "object_name": "Acumatica",
-        "error_message": "Error in Acumatica: \"Acumatica\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "object_name": "Tags/Coding and Software/Software/OpenAI/OpenAI",
+        "error_message": "Error in Tags/Coding and Software/Software/OpenAI/OpenAI: \"Tags/Coding and Software/Software/OpenAI/OpenAI\" does not exist so it cannot have front matter.",
+        "line_number": 134
     },
     {
         "object_name": "Tags/Travel/Location/Asia/Jordan/Petra",
         "error_message": "Error in Tags/Travel/Location/Asia/Jordan/Petra: \"Tags/Travel/Location/Asia/Jordan/Petra\" does not exist so it cannot have front matter.",
-        "line_number": 141
+        "line_number": 134
     },
     {
-        "object_name": "Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra",
-        "error_message": "Error in Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra: Expected node of class Location",
-        "line_number": 232
+        "object_name": "Luke Bangs",
+        "error_message": "Error in Luke Bangs: \"Luke Bangs\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "SDP Start Up and Stopping",
+        "error_message": "Error in SDP Start Up and Stopping: \"SDP Start Up and Stopping\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "SDP NeoDash Review",
+        "error_message": "Error in SDP NeoDash Review: \"SDP NeoDash Review\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Approved Tools",
+        "error_message": "Error in Approved Tools: \"Approved Tools\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Tags/Companies/Software Companies/OpenAI",
+        "error_message": "Error in Tags/Companies/Software Companies/OpenAI: \"Tags/Companies/Software Companies/OpenAI\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Tool Ideas",
+        "error_message": "Error in Tool Ideas: \"Tool Ideas\" does not exist so it cannot have front matter.",
+        "line_number": 134
     },
     {
         "object_name": "Africa",
         "error_message": "Error in Africa: 'locatedIn'",
-        "line_number": 232
+        "line_number": 225
     },
     {
         "object_name": "Asia",
         "error_message": "Error in Asia: 'locatedIn'",
-        "line_number": 232
+        "line_number": 225
     },
     {
         "object_name": "Europe",
         "error_message": "Error in Europe: 'locatedIn'",
-        "line_number": 232
+        "line_number": 225
     },
     {
         "object_name": "North America",
         "error_message": "Error in North America: 'locatedIn'",
-        "line_number": 232
+        "line_number": 225
     },
     {
         "object_name": "Oceania",
         "error_message": "Error in Oceania: 'locatedIn'",
-        "line_number": 232
+        "line_number": 225
     },
     {
         "object_name": "South America",
         "error_message": "Error in South America: 'locatedIn'",
-        "line_number": 232
+        "line_number": 225
+    },
+    {
+        "object_name": "Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra",
+        "error_message": "Error in Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra: Expected node of class Location",
+        "line_number": 225
     }
 ]

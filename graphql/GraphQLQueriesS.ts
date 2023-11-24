@@ -68,6 +68,10 @@ const GET_PEOPLE = gql`
 		people {
 			name
 			nodeId
+			aliases
+			attendedHolidays {
+				nodeId
+			}
 		}
 	}
 `;
@@ -78,7 +82,12 @@ const GET_PERSON_BY_ID = gql`
 			name
 			nodeId
 			aliases
-			textBodyText
+			attendedHolidays {
+				name
+				holidayTitle
+				nodeId
+				sortDateValue
+			}
 		}
 	}
 `;

@@ -22,15 +22,19 @@ export default function PersonsList() {
 		);
 	}
 
-	// LogS.log("person data: ", data);
+	LogS.log("person data: ", data);
+
+	// Filter out people with no holidays and then sort by the length of attendedHolidays
+	const sortedAndFilteredPeople = data.people
+		.filter((person: Person) => person.attendedHolidays && person.attendedHolidays.length > 0)
+		.sort((a: Person, b: Person) => b.attendedHolidays.length - a.attendedHolidays.length);
+
+	LogS.log("Sorted and filtered person data: ", sortedAndFilteredPeople);
 
 	return (
 		<div className={styles.dataList}>
-			<h3 className={styles.clickableHeader} onClick={() => router.push({ pathname: `/people` })}>
-				Travel Comapanions
-			</h3>
 			<ul>
-				{data.people.map(({ name, nodeId }: Person) => (
+				{sortedAndFilteredPeople.map(({ name, nodeId }: Person) => (
 					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/people/${nodeId}` })}>
 						<h4>{name}</h4>
 					</li>
