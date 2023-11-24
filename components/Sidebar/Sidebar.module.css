@@ -66,6 +66,7 @@
 	/* Change background color on hover */
 	color: var(--main-accent, #fe395c);
 	font-weight: 700;
+	cursor: pointer;
 }
 
 /* CSS for appending a grey "/" in front of li element on hover */
