@@ -32,18 +32,16 @@ def handle_error(object_name, error_message):
             "error_message": str(e),
             "line_number": traceback.extract_stack()[-2][1]
         }
-        # Set the path to the "errors.json" file in the "backend" folder
-        error_file_path = os.path.join("backend", "errors.json")
         # Check if the file exists and load the existing data
-        if os.path.isfile(error_file_path):
-            with open(error_file_path, "r") as error_file:
+        if os.path.isfile(errors_file_path):
+            with open(errors_file_path, "r") as error_file:
                 error_data = json.load(error_file)
         else:
             error_data = []
         # Append the new error to the list
         error_data.append(error_info)
         # Write the updated data back to the file
-        with open(error_file_path, "w") as error_file:
+        with open(errors_file_path, "w") as error_file:
             json.dump(error_data, error_file, indent=4)
 
 
@@ -51,10 +49,8 @@ def get_error_count():
     """
     Function to count how many collected errors are in the JSON file.
     """
-    # Set the path to the "errors.json" file in the "backend" folder
-    error_file_path = os.path.join("backend", "errors.json")
     try:
-        with open(error_file_path, "r") as file:
+        with open(errors_file_path, "r") as file:
             error_data = json.load(file)
             return len(error_data)
     except FileNotFoundError:
@@ -66,13 +62,10 @@ def clear_errors_file():
     """
     Function to clear the "errors.json" file by removing it if it exists.
     """
-    # Set the path to the "errors.json" file in the "backend" folder
-    error_file_path = os.path.join("backend", "errors.json")
-
     try:
         # Check if the file exists, and if so, remove it
-        if os.path.isfile(error_file_path):
-            os.remove(error_file_path)
+        if os.path.isfile(errors_file_path):
+            os.remove(errors_file_path)
     except Exception as e:
         # Handle any potential errors during file removal
         print(f"Error clearing the errors file: {str(e)}")
@@ -203,9 +196,9 @@ class DatabaseConnector:
                     # Set the capital property to be true if the capital tag exists
                     # TODO: Kevin to review and improve
                     capitalBoolean = False
-                    front_matter = self.vault.get_front_matter(node)
-                    # print(front_matter)
-                    if 'tags' in front_matter and 'capital' in front_matter['tags']:
+                    frontmatter = self.vault.get_front_matter(node)
+                    # print(frontmatter)
+                    if 'tags' in frontmatter and 'capital' in frontmatter['tags']:
                         capitalBoolean = True
                     node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
@@ -225,9 +218,9 @@ class DatabaseConnector:
                 print("         connecting node.name: ", node.name)
             # TODO: Error handling added here. Review
             try:
-                front_matter = self.vault.get_front_matter(node.name)
+                frontmatter = self.vault.get_front_matter(node.name)
                 node.located_in.connect(node_class2.nodes.first_or_none(
-                    name=self.remove_brackets(front_matter['locatedIn'])))
+                    name=self.remove_brackets(frontmatter['locatedIn'])))
             except Exception as error:
                 handle_error(node.name, str(error))
 
@@ -249,12 +242,23 @@ class DatabaseConnector:
         function to create all persons
         """
         for node in self.persons:
-            nodeId = (Person.__name__.lower() +
-                      "-"+node).replace(" ", "")
+            if detailed_logs:
+                print("         Creating node: ", node)
+            nodeId = (Person.__name__.lower() + "-"+node).replace(" ", "")
             node_old = Person.nodes.first_or_none(
                 nodeId=nodeId)
-            if node_old is None:
-                Person(name=node, nodeId=nodeId).save()
+            try:
+                frontmatter = self.vault.get_front_matter(node)
+                #print(frontmatter)
+                try:
+                    aliases = self.remove_brackets(frontmatter["aliases"])
+                    if node_old is None:
+                        Person(name=node, nodeId=nodeId, aliases=aliases).save()
+                except:
+                    if node_old is None:
+                            Person(name=node, nodeId=nodeId).save()
+            except Exception as error:
+                handle_error(node, str(error))
 
     @staticmethod
     def attend(connect_to: List[str], holiday: Holiday, node_type: type[StructuredNode] = Person) -> None:
@@ -299,6 +303,8 @@ class DatabaseConnector:
                 frontmatter = self.vault.get_front_matter(node)
                 text = self.vault.get_readable_text(node)
                 (year, month, name) = self.divide_title(node)
+                # Create a sortable date value for sorting holidays
+                sortDateValue = f"{year:04d}{month:02d}"
                 attendees = self.remove_brackets(frontmatter["attendees"])
                 locations = self.remove_brackets(frontmatter["locations"])
                 coverPhoto = frontmatter["coverPhoto"]
@@ -317,7 +323,7 @@ class DatabaseConnector:
                 nodeId = (Holiday.__name__.lower()+"-"+node).replace(" ", "")
                 # Create the holiday nodes
                 h = Holiday(name=name, nodeId=nodeId, attendees=attendees,
-                            coverPhoto=coverPhoto, dateMonth=month, dateYear=year,
+                            coverPhoto=coverPhoto, dateMonth=month, dateYear=year, sortDateValue=sortDateValue,
                             locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
                 # Connect the attendees to the holiday node
                 self.attend(attendees, h)
@@ -347,6 +353,8 @@ if __name__ == '__main__':
     dev_mode = True
     # Define if detailed logs should be printed or not
     detailed_logs = True
+    # Define the relative path of the errors.json file
+    rel_errors_file_path = r'errors.json'
 
     # Define the relative file path of the config file
     if dev_mode:
@@ -371,14 +379,14 @@ if __name__ == '__main__':
     config_file = configparser.ConfigParser()
     config_file.read(config_file_path)
 
-    # TODO: Review if any of the following lines are still needed
+    # Set the database URL
     config.DATABASE_URL = (f'{config_file.get("NEO4J", "N4J.ConnType")}'
                            f'{config_file.get("NEO4J", "N4J.USER")}:'
                            f'{config_file.get("NEO4J", "N4J.PW")}@'
                            f'{config_file.get("NEO4J", "N4J.URL")}/'
                            f'{config_file.get("NEO4J", "N4J.DB")}')
     # Check if the database URL is correct
-    # print("config.DATABASE_URL: ", config.DATABASE_URL)
+    print("config.DATABASE_URL: ", config.DATABASE_URL)
 
     # Get the vault data folder path. If FullPath is not set, use RelativePath
     vault_folder_path = Path(config_file.get("DATA", "DATA.FullPath")) \
@@ -390,8 +398,10 @@ if __name__ == '__main__':
     db.cypher_query("MATCH (n) DETACH DELETE n")
     print(" Clearing the database using 'MATCH (n) DETACH DELETE n'")
 
+    # Create the full path of the errors.json file
+    errors_file_path = os.path.join(current_script_dir, rel_errors_file_path)
     # Call the function to clear the "errors.json" file
-    print(" Clearing the errors file")
+    print(" Clearing the errors file at '" + errors_file_path + "'")
     clear_errors_file()
 
     # Connect to the vault of data and gather the tags

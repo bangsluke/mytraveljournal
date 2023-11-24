@@ -1,0 +1,105 @@
+node {
+  diameter: 50px;
+  color: #A5ABB6;
+  border-color: #9AA1AC;
+  border-width: 2px;
+  text-color-internal: #FFFFFF;
+  font-size: 8px;
+}
+relationship {
+  color: #A5ABB6;
+  shaft-width: 1px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: "<type>";
+}
+node.* {
+  color: #C990C0;
+  border-color: #b261a5;
+  text-color-internal: #FFFFFF;
+  defaultCaption: "<id>";
+}
+node.Location {
+  color: #1b38f5;
+  border-color: #447666;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+}
+node.Town {
+  color: #F4B084;
+  border-color: #EE8544;
+  text-color-internal: #000000;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 40px;
+}
+node.Person {
+  color: #FFFF00;
+  border-color: #D7D200;
+  text-color-internal: #000000;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 50px;
+}
+node.City {
+  color: #92D050;
+  border-color: #72AF2F;
+  text-color-internal: #000000;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 40px;
+}
+node.Holiday {
+  color: #FFC000;
+  border-color: #C89800;
+  text-color-internal: #000000;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 65px;
+}
+node.County {
+  color: #9BC2E6;
+  border-color: #62A0D8;
+  text-color-internal: #000000;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 65px;
+}
+node.Continent {
+  color: #7030A0;
+  border-color: #421C5E;
+  text-color-internal: #FFFFFF;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 80px;
+}
+node.Country {
+  color: #FF0000;
+  border-color: #9A0000;
+  text-color-internal: #FFFFFF;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 65px;
+}
+node.State {
+  color: #F090EB;
+  border-color: #E852E1;
+  text-color-internal: #000000;
+  defaultCaption: "<id>";
+  caption: "{name}";
+  diameter: 65px;
+}
+node.Island {
+  color: #6976d1;
+  border-color: #5db665;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+}
+node.Team {
+  color: #e610c9;
+  border-color: #da7298;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+}

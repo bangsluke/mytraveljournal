@@ -24,9 +24,6 @@ export default function CitiesList() {
 
 	return (
 		<div className={styles.dataList}>
-			<h3 className={styles.clickableHeader} onClick={() => router.push({ pathname: `/cities` })}>
-				Cities Visited
-			</h3>
 			<ul>
 				{data.cities.map(({ name, nodeId }: City) => (
 					<li key={nodeId} className={styles.clickableListItem}>

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layouts/Layout";
+import AttendedHolidayList from "../../components/Lists/AttendedHolidayList";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
@@ -32,26 +33,25 @@ export default function PersonPage() {
 		);
 
 	// Extract the data into usable variables
-	const { name, aliases, textBodyText }: Person = data.people[0];
+	const { name, aliases, attendedHolidays }: Person = data.people[0];
 
 	console.log("person data: ", data);
+	console.log("attendedHolidays data: ", attendedHolidays);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 
-				<h1>Person Page</h1>
+				<h2>Person Name: {name}</h2>
 
-				<p>{nodeId}</p>
+				<h3>Aliases: {aliases}</h3>
 
-				<h3>Person Name: {name}</h3>
+				<h4>Attended Holiday Count: {attendedHolidays.length}</h4>
 
-				<h4>Aliases : {aliases}</h4>
+				<h4>Holidays been on:</h4>
 
-				<h4>Text: {textBodyText}</h4>
-
-				<div>Holidays been on</div>
+				<AttendedHolidayList holidays={attendedHolidays} />
 			</section>
 		</Layout>
 	);
