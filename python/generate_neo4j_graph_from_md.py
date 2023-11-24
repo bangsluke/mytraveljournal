@@ -32,18 +32,16 @@ def handle_error(object_name, error_message):
             "error_message": str(e),
             "line_number": traceback.extract_stack()[-2][1]
         }
-        # Set the path to the "errors.json" file in the "python" folder
-        error_file_path = "errors.json"
         # Check if the file exists and load the existing data
-        if os.path.isfile(error_file_path):
-            with open(error_file_path, "r") as error_file:
+        if os.path.isfile(errors_file_path):
+            with open(errors_file_path, "r") as error_file:
                 error_data = json.load(error_file)
         else:
             error_data = []
         # Append the new error to the list
         error_data.append(error_info)
         # Write the updated data back to the file
-        with open(error_file_path, "w") as error_file:
+        with open(errors_file_path, "w") as error_file:
             json.dump(error_data, error_file, indent=4)
 
 
@@ -51,10 +49,8 @@ def get_error_count():
     """
     Function to count how many collected errors are in the JSON file.
     """
-    # Set the path to the "errors.json" file in the "backend" folder
-    error_file_path = os.path.join("backend", "errors.json")
     try:
-        with open(error_file_path, "r") as file:
+        with open(errors_file_path, "r") as file:
             error_data = json.load(file)
             return len(error_data)
     except FileNotFoundError:
@@ -66,13 +62,10 @@ def clear_errors_file():
     """
     Function to clear the "errors.json" file by removing it if it exists.
     """
-    # Set the path to the "errors.json" file in the "backend" folder
-    error_file_path = os.path.join("backend", "errors.json")
-
     try:
         # Check if the file exists, and if so, remove it
-        if os.path.isfile(error_file_path):
-            os.remove(error_file_path)
+        if os.path.isfile(errors_file_path):
+            os.remove(errors_file_path)
     except Exception as e:
         # Handle any potential errors during file removal
         print(f"Error clearing the errors file: {str(e)}")
@@ -344,9 +337,11 @@ class DatabaseConnector:
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = False
+    dev_mode = True
     # Define if detailed logs should be printed or not
     detailed_logs = True
+    # Define the relative path of the errors.json file
+    rel_errors_file_path = r'errors.json'
 
     # Define the relative file path of the config file
     if dev_mode:
@@ -390,8 +385,10 @@ if __name__ == '__main__':
     db.cypher_query("MATCH (n) DETACH DELETE n")
     print(" Clearing the database using 'MATCH (n) DETACH DELETE n'")
 
+    # Create the full path of the errors.json file
+    errors_file_path = os.path.join(current_script_dir, rel_errors_file_path)
     # Call the function to clear the "errors.json" file
-    print(" Clearing the errors file")
+    print(" Clearing the errors file at '" + errors_file_path + "'")
     clear_errors_file()
 
     # Connect to the vault of data and gather the tags
