@@ -32,7 +32,7 @@ export default function PersonPage() {
 		);
 
 	// Extract the data into usable variables
-	const { name, aliases, textBodyText }: Person = data.people[0];
+	const { name, aliases }: Person = data.people[0];
 
 	console.log("person data: ", data);
 
@@ -41,17 +41,11 @@ export default function PersonPage() {
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 
-				<h1>Person Page</h1>
+				<h2>Person Name: {name}</h2>
 
-				<p>{nodeId}</p>
+				<h3>Aliases: {aliases}</h3>
 
-				<h3>Person Name: {name}</h3>
-
-				<h4>Aliases : {aliases}</h4>
-
-				<h4>Text: {textBodyText}</h4>
-
-				<div>Holidays been on</div>
+				<h4>Holidays been on: </h4>
 			</section>
 		</Layout>
 	);

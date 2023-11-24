@@ -44,5 +44,4 @@ export interface Person {
 	name: string;
 	nodeId: string;
 	aliases: string[];
-	textBodyText: string;
 }

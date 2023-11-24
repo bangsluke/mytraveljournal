@@ -68,6 +68,7 @@ const GET_PEOPLE = gql`
 		people {
 			name
 			nodeId
+			aliases
 		}
 	}
 `;
@@ -78,7 +79,6 @@ const GET_PERSON_BY_ID = gql`
 			name
 			nodeId
 			aliases
-			textBodyText
 		}
 	}
 `;

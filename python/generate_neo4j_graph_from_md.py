@@ -196,9 +196,9 @@ class DatabaseConnector:
                     # Set the capital property to be true if the capital tag exists
                     # TODO: Kevin to review and improve
                     capitalBoolean = False
-                    front_matter = self.vault.get_front_matter(node)
-                    # print(front_matter)
-                    if 'tags' in front_matter and 'capital' in front_matter['tags']:
+                    frontmatter = self.vault.get_front_matter(node)
+                    # print(frontmatter)
+                    if 'tags' in frontmatter and 'capital' in frontmatter['tags']:
                         capitalBoolean = True
                     node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
@@ -218,9 +218,9 @@ class DatabaseConnector:
                 print("         connecting node.name: ", node.name)
             # TODO: Error handling added here. Review
             try:
-                front_matter = self.vault.get_front_matter(node.name)
+                frontmatter = self.vault.get_front_matter(node.name)
                 node.located_in.connect(node_class2.nodes.first_or_none(
-                    name=self.remove_brackets(front_matter['locatedIn'])))
+                    name=self.remove_brackets(frontmatter['locatedIn'])))
             except Exception as error:
                 handle_error(node.name, str(error))
 
@@ -242,12 +242,23 @@ class DatabaseConnector:
         function to create all persons
         """
         for node in self.persons:
-            nodeId = (Person.__name__.lower() +
-                      "-"+node).replace(" ", "")
+            if detailed_logs:
+                print("         Creating node: ", node)
+            nodeId = (Person.__name__.lower() + "-"+node).replace(" ", "")
             node_old = Person.nodes.first_or_none(
                 nodeId=nodeId)
-            if node_old is None:
-                Person(name=node, nodeId=nodeId).save()
+            try:
+                frontmatter = self.vault.get_front_matter(node)
+                #print(frontmatter)
+                try:
+                    aliases = self.remove_brackets(frontmatter["aliases"])
+                    if node_old is None:
+                        Person(name=node, nodeId=nodeId, aliases=aliases).save()
+                except:
+                    if node_old is None:
+                            Person(name=node, nodeId=nodeId).save()
+            except Exception as error:
+                handle_error(node, str(error))
 
     @staticmethod
     def attend(connect_to: List[str], holiday: Holiday, node_type: type[StructuredNode] = Person) -> None:

@@ -102,5 +102,4 @@ class Person(StructuredNode):
     """
     nodeId = StringProperty()
     name = StringProperty(unique_index=True, required=True)
-    textBodyText = StringProperty()  # All the Obsidian note text
     aliases = StringProperty()
