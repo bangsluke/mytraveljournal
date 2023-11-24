@@ -92,7 +92,7 @@ To quickly get started in development mode, do the following steps:
 1. Start up Neo4j desktop
 2. Start the Neo4j graph database (on Neo4j desktop)
 3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
-4. Start the backend by running: `npm start` in a terminal
+4. Start the backend by running: `npm run dev` in a terminal
 5. Navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
 6. In a second terminal, start the frontend by running: `yarn dev`
 7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
@@ -102,5 +102,6 @@ To quickly get started in development mode, do the following steps:
 To quickly get started in production mode, do the following steps:
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
-2. In a terminal, start the frontend by running: `yarn start`
-3. Open [http://localhost:3000](http://localhost:3000)
+2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
+3. In a terminal, start the frontend by running: `yarn start`
+4. Open [http://localhost:3000](http://localhost:3000)
