@@ -24,9 +24,6 @@ export interface Island {
 }
 
 export interface Holiday {
-	// filename: string;
-	// content: string;
-	// pagePath: string;
 	dateYear: string;
 	dateMonth: string;
 	name: string;
@@ -44,4 +41,5 @@ export interface Person {
 	name: string;
 	nodeId: string;
 	aliases: string[];
+	attendedHolidays: Holiday[];
 }

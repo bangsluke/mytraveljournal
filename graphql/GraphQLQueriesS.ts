@@ -79,6 +79,11 @@ const GET_PERSON_BY_ID = gql`
 			name
 			nodeId
 			aliases
+			attendedHolidays {
+				name
+				holidayTitle
+				nodeId
+			}
 		}
 	}
 `;
