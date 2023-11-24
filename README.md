@@ -6,9 +6,12 @@
   - [Markdown Set Up](#markdown-set-up)
   - [Python Set Up](#python-set-up)
   - [Properties Set Up](#properties-set-up)
+  - [Netlify Set Up](#netlify-set-up)
+  - [Next.js Start Up](#nextjs-start-up)
 - [Getting Started](#getting-started)
   - [Quick Start](#quick-start)
-  - [Next.js Start Up](#next-start-up)
+    - [Development Start](#development-start)
+    - [Production Start](#production-start)
 
 ## Set Up
 
@@ -70,31 +73,34 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 
 - Added Heroku backend URL as an environment variable on Netlify.
 
+### Next.js Start Up
+
+Created using: `npx create-next-app@latest --ts mytraveljournal`
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
 ## Getting Started
 
 ### Quick start
 
 <!-- TODO: Update when known -->
 
-To quickly get started, do the following steps:
+#### Development Start
 
-1. Start the Neo4j graph database (Neo4j desktop)
-2. Start up the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal>
-3. In a terminal, start the frontend by running: `yarn dev`
-4. Open [http://localhost:3000](http://localhost:3000)
+To quickly get started in development mode, do the following steps:
 
-### Next Start Up
+1. Start up Neo4j desktop
+2. Start the Neo4j graph database (on Neo4j desktop)
+3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
+4. Start the backend by running: `npm start` in a terminal
+5. Navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
+6. In a second terminal, start the frontend by running: `yarn dev`
+7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
 
-Created using: `npx create-next-app@latest --ts mytraveljournal`
+#### Production Start
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+To quickly get started in production mode, do the following steps:
 
-First, run the development server:
-
-```bash
-yarn dev
-# or
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
+2. In a terminal, start the frontend by running: `yarn start`
+3. Open [http://localhost:3000](http://localhost:3000)
