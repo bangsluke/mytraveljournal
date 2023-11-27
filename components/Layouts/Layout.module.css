@@ -15,7 +15,7 @@
 	/* Sidebar and main content */
 	grid-template-rows: 100vh;
 	/* Full height */
-	gap: 10px;
+	gap: 0px;
 	/* The gap between the sidebar and the main content */
 	justify-content: center;
 	align-items: flex-start;
