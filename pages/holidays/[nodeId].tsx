@@ -81,28 +81,26 @@ export default function HolidayPage() {
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
 				<Image src={holidayImageURL} alt={`${name} Image`} quality={100} width={375} height={400} className={styles.holidayImage} />
-
 				<div className={styles.holidayImageOverlayContainer}>
 					{/* Holiday Name */}
 					<h3>/ {name}</h3>
-					<h3>{holidayTitle}</h3>
-					<h4>
-						{monthFormatted} {dateYear}
-					</h4>
 				</div>
 			</div>
 
-			<section className={styles.section}>
-				<h1>Holiday Page</h1>
+			<h3>{holidayTitle}</h3>
 
-				<p>{nodeId}</p>
+			<section className={styles.section}>
+				{/* <h1>Holiday Page</h1>
+				<p>{nodeId}</p> */}
+				<h2>
+					{monthFormatted} {dateYear}
+				</h2>
 
 				<h4>Attendees:</h4>
-
 				<AttendeesList stringArray={attendees} />
 			</section>
 
-			<section>
+			<section className={styles.section}>
 				{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
 				<Interweave content={textHtmlContent} />
 			</section>
