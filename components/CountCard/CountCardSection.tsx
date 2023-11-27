@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
+import { Person } from "./../../types/types";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
@@ -75,8 +76,10 @@ const useGetPeopleCount = () => {
 		LogS.error("useGetPeopleCount GraphQL Error: ", error.message), (numberOfItems = 0);
 		return <Toast message={"useGetPeopleCount GraphQL Error: " + error.message} duration={5} />;
 	}
-	numberOfItems = Object.keys(data.people).length; // Else - get the number of items
-	// LogS.log("data from useGetPersonCount", data);
+	// Else - get the number of items and filter out people with no holidays
+	const peopleWithAtLeastOneHoliday = data.people.filter((person: Person) => person.attendedHolidays && person.attendedHolidays.length > 0);
+	// LogS.log("peopleWithAtLeastOneHoliday", peopleWithAtLeastOneHoliday);
+	numberOfItems = peopleWithAtLeastOneHoliday.length;
 	return numberOfItems;
 };
 
