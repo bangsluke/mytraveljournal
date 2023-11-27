@@ -1,17 +1,25 @@
 .holidayImageContainer {
-	position: relative;
-	/* top: calc(-var(--header-height, 80px)); */
-	/* top: -100px; */
-	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-	z-index: 0;
 	height: 60vh;
 	width: 100%;
+	/* Hide parts of the image that overflow */
+	overflow: hidden;
+	/* Needed to position the title text over the image */
+	position: relative;
+	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
+	z-index: 0;
 }
 
 .holidayImage {
-	/* height: 60vh; */
+	height: 100%;
+	/* Full height of the container */
 	width: 100%;
-	height: auto;
+	/* Full width of the container */
+	object-fit: cover;
+	/* Ensures the image covers the area, cropping as needed */
+	object-position: center;
+	/* Centers the image within the container */
+	display: block;
+	/* Remove default image inline behaviors */
 }
 
 .holidayImageOverlayContainer {
