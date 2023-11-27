@@ -103,5 +103,6 @@ To quickly get started in production mode, do the following steps:
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
 2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
-3. In a terminal, start the frontend by running: `yarn start`
-4. Open [http://localhost:3000](http://localhost:3000)
+3. In a terminal, build the frontend by running: `yarn build`
+4. When done, start the frontend by running: `yarn start`
+5. Open [http://localhost:3000](http://localhost:3000)

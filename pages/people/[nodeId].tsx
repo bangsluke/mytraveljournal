@@ -35,8 +35,8 @@ export default function PersonPage() {
 	// Extract the data into usable variables
 	const { name, aliases, attendedHolidays }: Person = data.people[0];
 
-	console.log("person data: ", data);
-	console.log("attendedHolidays data: ", attendedHolidays);
+	// console.log("person data: ", data);
+	// console.log("attendedHolidays data: ", attendedHolidays);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
