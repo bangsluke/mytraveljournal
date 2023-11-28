@@ -52,3 +52,15 @@
 	display: block;
 	padding: 1rem;
 }
+
+.holidayPills {
+	/* background-color: #fe395c; */
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Add gaps to all children elements of the parent element */
+.holidayPills>* {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
