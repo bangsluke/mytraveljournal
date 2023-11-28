@@ -321,10 +321,11 @@ class DatabaseConnector:
                 holidayTitle = extract_text_from_html_tag(
                     r"<h1>(.*?)</h1>", textHtmlContent)  # Grab the holiday title from between the first <h1> and </h1> tags
                 nodeId = (Holiday.__name__.lower()+"-"+node).replace(" ", "")
+                departingAirport = self.remove_brackets(frontmatter["departingAirport"])
                 # Create the holiday nodes
                 h = Holiday(name=name, nodeId=nodeId, attendees=attendees,
                             coverPhoto=coverPhoto, dateMonth=month, dateYear=year, sortDateValue=sortDateValue,
-                            locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent).save()
+                            locations=locations, holidayTitle=holidayTitle, textBodyText=text, textHtmlContent=textHtmlContent, departingAirport=departingAirport).save()
                 # Connect the attendees to the holiday node
                 self.attend(attendees, h)
                 # Connect the locations to the holiday node
@@ -350,7 +351,7 @@ class DatabaseConnector:
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = False
+    dev_mode = True
     # Define if detailed logs should be printed or not
     detailed_logs = True
     # Define the relative path of the errors.json file

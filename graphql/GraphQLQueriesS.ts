@@ -104,6 +104,7 @@ const GET_HOLIDAYS = gql`
 			coverPhoto
 			attendees
 			textHtmlContent
+			departingAirport
 		}
 	}
 `;
@@ -120,6 +121,7 @@ const GET_HOLIDAY_BY_ID = gql`
 			coverPhoto
 			attendees
 			textHtmlContent
+			departingAirport
 		}
 	}
 `;

@@ -34,6 +34,7 @@ export interface Holiday {
 	coverPhoto: string;
 	textHtmlContent: string;
 	attendees: string[];
+	departingAirport: string;
 }
 
 export type HolidayListData = Holiday[];

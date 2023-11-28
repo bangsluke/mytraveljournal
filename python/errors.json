@@ -1,17 +1,7 @@
 [
     {
-        "object_name": "Untitled",
-        "error_message": "Error in Untitled: 'tags'",
-        "line_number": 134
-    },
-    {
         "object_name": "See Work - Colleagues",
         "error_message": "Error in See Work - Colleagues: 'tags'",
-        "line_number": 134
-    },
-    {
-        "object_name": "Test Sync",
-        "error_message": "Error in Test Sync: 'tags'",
         "line_number": 134
     },
     {
@@ -60,6 +50,11 @@
         "line_number": 134
     },
     {
+        "object_name": "Tags/Coding and Software/Software/Microsoft/PowerShell",
+        "error_message": "Error in Tags/Coding and Software/Software/Microsoft/PowerShell: \"Tags/Coding and Software/Software/Microsoft/PowerShell\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
         "object_name": "Tags/Coding and Software/Software/Microsoft/Microsoft",
         "error_message": "Error in Tags/Coding and Software/Software/Microsoft/Microsoft: \"Tags/Coding and Software/Software/Microsoft/Microsoft\" does not exist so it cannot have front matter.",
         "line_number": 134
@@ -97,6 +92,11 @@
     {
         "object_name": "Tags/Companies/Software Companies/OpenAI",
         "error_message": "Error in Tags/Companies/Software Companies/OpenAI: \"Tags/Companies/Software Companies/OpenAI\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Tags/Companies/RLE International/GPMO",
+        "error_message": "Error in Tags/Companies/RLE International/GPMO: \"Tags/Companies/RLE International/GPMO\" does not exist so it cannot have front matter.",
         "line_number": 134
     },
     {

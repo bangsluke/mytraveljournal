@@ -95,6 +95,7 @@ class Holiday(StructuredNode):
     # Photo details
     coverPhoto = StringProperty()
     attended = RelationshipFrom("Person", "ATTENDED")
+    departingAirport = StringProperty()
 
 
 class Person(StructuredNode):

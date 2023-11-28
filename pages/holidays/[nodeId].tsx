@@ -61,7 +61,7 @@ export default function HolidayPage() {
 		);
 
 	// Extract the data into usable variables
-	const { dateYear, dateMonth, name, holidayTitle, coverPhoto, textHtmlContent, attendees }: Holiday = data.holidays[0];
+	const { dateYear, dateMonth, name, holidayTitle, coverPhoto, textHtmlContent, attendees, departingAirport }: Holiday = data.holidays[0];
 	LogS.log("holiday data: ", data);
 	LogS.log("attendees: ", attendees);
 
@@ -89,7 +89,7 @@ export default function HolidayPage() {
 				</div>
 			</div>
 
-			<Pill icon={<FlightTakeoffIcon />} text={"Test Pill"} />
+			<Pill icon={<FlightTakeoffIcon />} text={departingAirport} />
 
 			<h3>{holidayTitle}</h3>
 
