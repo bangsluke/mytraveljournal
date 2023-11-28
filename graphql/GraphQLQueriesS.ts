@@ -102,6 +102,7 @@ const GET_HOLIDAYS = gql`
 			nodeId
 			locations
 			coverPhoto
+			photoAlbum
 			attendees
 			textHtmlContent
 			departingAirport
@@ -119,6 +120,7 @@ const GET_HOLIDAY_BY_ID = gql`
 			nodeId
 			locations
 			coverPhoto
+			photoAlbum
 			attendees
 			textHtmlContent
 			departingAirport

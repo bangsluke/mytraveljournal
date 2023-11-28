@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import Image from "next/image";
@@ -61,7 +62,18 @@ export default function HolidayPage() {
 		);
 
 	// Extract the data into usable variables
-	const { dateYear, dateMonth, name, holidayTitle, coverPhoto, textHtmlContent, attendees, departingAirport }: Holiday = data.holidays[0];
+	const {
+		dateYear,
+		dateMonth,
+		name,
+		holidayTitle,
+		coverPhoto,
+		textHtmlContent,
+		attendees,
+		departingAirport,
+		locations,
+		photoAlbum,
+	}: Holiday = data.holidays[0];
 	LogS.log("holiday data: ", data);
 	LogS.log("attendees: ", attendees);
 
@@ -89,7 +101,10 @@ export default function HolidayPage() {
 				</div>
 			</div>
 
+			{/* TODO: Extract pills into separate logic and filter out if TBC etc */}
 			<Pill icon={<FlightTakeoffIcon />} text={departingAirport} />
+			{/* <Pill icon={<FlightTakeoffIcon />} text={locations} /> */}
+			<Pill icon={<AddAPhotoIcon />} text={photoAlbum} />
 
 			<h3>{holidayTitle}</h3>
 

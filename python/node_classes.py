@@ -94,6 +94,7 @@ class Holiday(StructuredNode):
     travelled_to = RelationshipTo(Location, "TRAVELLED_TO", OneOrMore)
     # Photo details
     coverPhoto = StringProperty()
+    photoAlbum = StringProperty()
     attended = RelationshipFrom("Person", "ATTENDED")
     departingAirport = StringProperty()
 
