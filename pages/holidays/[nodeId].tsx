@@ -1,9 +1,11 @@
 import { useQuery } from "@apollo/client";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import Layout from "../../components/Layouts/Layout";
+import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
@@ -86,6 +88,8 @@ export default function HolidayPage() {
 					<h3>/ {name}</h3>
 				</div>
 			</div>
+
+			<Pill icon={<FlightTakeoffIcon />} text={"Test Pill"} />
 
 			<h3>{holidayTitle}</h3>
 
