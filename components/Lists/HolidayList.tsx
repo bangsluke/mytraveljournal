@@ -27,14 +27,16 @@ export default function HolidayList() {
 	return (
 		<div className={styles.dataList}>
 			<ul>
-				{data.holidays.map(({ name, dateYear, dateMonth, nodeId }: Holiday) => (
-					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${nodeId}` })}>
-						<h4>{name}</h4>
-						<h5>
-							{dateYear} {dateMonth}
-						</h5>
-					</li>
-				))}
+				{data.holidays
+					.sort((a: Holiday, b: Holiday) => b.sortDateValue.localeCompare(a.sortDateValue))
+					.map(({ name, dateYear, dateMonth, nodeId }: Holiday) => (
+						<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${nodeId}` })}>
+							<h4>{name}</h4>
+							<h5>
+								{dateYear} {dateMonth}
+							</h5>
+						</li>
+					))}
 			</ul>
 		</div>
 	);

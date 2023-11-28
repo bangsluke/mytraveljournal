@@ -97,6 +97,7 @@ const GET_HOLIDAYS = gql`
 		holidays {
 			dateYear
 			dateMonth
+			sortDateValue
 			name
 			holidayTitle
 			nodeId
@@ -115,6 +116,7 @@ const GET_HOLIDAY_BY_ID = gql`
 		holidays(where: { nodeId: $nodeId }) {
 			dateYear
 			dateMonth
+			sortDateValue
 			name
 			holidayTitle
 			nodeId
