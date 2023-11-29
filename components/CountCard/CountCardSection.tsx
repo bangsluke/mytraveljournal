@@ -1,4 +1,11 @@
 import { useQuery } from "@apollo/client";
+import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import MapIcon from "@mui/icons-material/Map";
+import PinDropIcon from "@mui/icons-material/PinDrop";
+import PublicIcon from "@mui/icons-material/Public";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
@@ -120,13 +127,91 @@ const useGetCapitalCount = () => {
 export default function CountCardSection() {
 	return (
 		<div id='countCardSection' className={styles.countCardSection}>
-			<CountCard id='1' cardTitle='Holiday Count' countValue={useGetHolidayCount()} pagePath='/holidays' />
-			<CountCard id='2' cardTitle='Continent Count' countValue={useGetContinentCount()} pagePath='/continents' />
-			<CountCard id='3' cardTitle='Countries Count' countValue={useGetCountryCount()} pagePath='/countries' />
-			<CountCard id='4' cardTitle='Cities Count' countValue={useGetCityCount()} pagePath='/cities' />
-			<CountCard id='5' cardTitle='Islands Count' countValue={useGetIslandCount()} pagePath='/islands' />
-			<CountCard id='6' cardTitle='Travel Companion Count' countValue={useGetPeopleCount()} pagePath='/people' />
-			<CountCard id='7' cardTitle='Capitals Count' countValue={useGetCapitalCount()} pagePath='/capitals' />
+			<CountCard
+				id='1'
+				cardTitle='Holiday Count'
+				countValue={useGetHolidayCount()}
+				pagePath='/holidays'
+				backgroundIcon={
+					<FlightTakeoffIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+
+			<CountCard
+				id='2'
+				cardTitle='Continent Count'
+				countValue={useGetContinentCount()}
+				pagePath='/continents'
+				backgroundIcon={
+					<PublicIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='3'
+				cardTitle='Countries Count'
+				countValue={useGetCountryCount()}
+				pagePath='/countries'
+				backgroundIcon={
+					<MapIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='4'
+				cardTitle='Cities Count'
+				countValue={useGetCityCount()}
+				pagePath='/cities'
+				backgroundIcon={
+					<LocationCityIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='5'
+				cardTitle='Islands Count'
+				countValue={useGetIslandCount()}
+				pagePath='/islands'
+				backgroundIcon={
+					<BeachAccessIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='6'
+				cardTitle='Travel Companion Count'
+				countValue={useGetPeopleCount()}
+				pagePath='/people'
+				backgroundIcon={
+					<SupervisorAccountIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='7'
+				cardTitle='Capitals Count'
+				countValue={useGetCapitalCount()}
+				pagePath='/capitals'
+				backgroundIcon={
+					<PinDropIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
 		</div>
 	);
 }

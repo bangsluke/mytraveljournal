@@ -1,4 +1,3 @@
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import styles from "./CountCard.module.css";
@@ -26,13 +25,16 @@ export default function CountCard(props: CountCardProp) {
 
 	return (
 		<div id={id} className={styles.countcard} onClick={() => router.push({ pathname: pagePath })}>
-			<FlightTakeoffIcon
-				className={styles.backgroundIcon}
-				// @ts-ignore
-				fontSize='40'
-			/>
-			<h3>{cardTitle}</h3>
-			<h4>{displayCountValue}</h4>
+			{/* Load in the MUI icon to display behind the card content */}
+			{backgroundIcon && (
+				<div
+					className={styles.backgroundIcon} // @ts-ignore
+					fontSize='40'>
+					{backgroundIcon}
+				</div>
+			)}
+			<h3 className={styles.cardTitle}>{cardTitle}</h3>
+			<h4 className={styles.displayCountValue}>{displayCountValue}</h4>
 		</div>
 	);
 }
