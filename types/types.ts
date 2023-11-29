@@ -32,8 +32,10 @@ export interface Holiday {
 	nodeId: string;
 	locations: string[];
 	coverPhoto: string;
+	photoAlbum: string;
 	textHtmlContent: string;
 	attendees: string[];
+	departingAirport: string;
 }
 
 export type HolidayListData = Holiday[];

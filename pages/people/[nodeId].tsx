@@ -16,7 +16,7 @@ export default function PersonPage() {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PERSON_BY_ID, {
 		variables: { nodeId }, // Pass the variable to the query
 	});
-	LogS.log("data", data);
+	// LogS.log("data", data);
 
 	if (loading) return <p>Loading...</p>;
 	if (error)
@@ -35,8 +35,8 @@ export default function PersonPage() {
 	// Extract the data into usable variables
 	const { name, aliases, attendedHolidays }: Person = data.people[0];
 
-	// console.log("person data: ", data);
-	// console.log("attendedHolidays data: ", attendedHolidays);
+	LogS.log("person data: ", data.people[0]);
+	// LogS.log("attendedHolidays data: ", attendedHolidays);
 
 	return (
 		<Layout NavbarStyle='Opaque'>

@@ -1,9 +1,14 @@
 import { useQuery } from "@apollo/client";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { ReactElement } from "react";
 import Layout from "../../components/Layouts/Layout";
+import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
@@ -59,7 +64,18 @@ export default function HolidayPage() {
 		);
 
 	// Extract the data into usable variables
-	const { dateYear, dateMonth, name, holidayTitle, coverPhoto, textHtmlContent, attendees }: Holiday = data.holidays[0];
+	const {
+		dateYear,
+		dateMonth,
+		name,
+		holidayTitle,
+		coverPhoto,
+		textHtmlContent,
+		attendees,
+		departingAirport,
+		locations,
+		photoAlbum,
+	}: Holiday = data.holidays[0];
 	LogS.log("holiday data: ", data);
 	LogS.log("attendees: ", attendees);
 
@@ -76,6 +92,29 @@ export default function HolidayPage() {
 	// Format the month date
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
 
+	// Create the visible pills for the holiday
+	const properties: { [key: string]: { id: number; text: string | string[]; image: ReactElement } } = {
+		property1: { id: 1, text: monthFormatted + " " + dateYear, image: <CalendarMonthIcon /> },
+		property2: { id: 2, text: locations, image: <LocationOnRoundedIcon /> },
+		property3: { id: 3, text: departingAirport, image: <FlightTakeoffIcon /> },
+		property4: { id: 4, text: photoAlbum, image: <AddAPhotoIcon /> },
+	};
+	LogS.log("properties", properties);
+	const pills = Object.keys(properties).map((property) => {
+		const { text, image, id } = properties[property];
+		// Loop through the array if text is an array
+		if (Array.isArray(text)) {
+			return text.map((element, index) => <Pill key={id + index} icon={image} text={element} />);
+		}
+		// Return nothing if text is null or empty or too long
+		if (text == null || text == "" || text == "TBC" || text.length >= 20) {
+			return null;
+		}
+		if (text && image) {
+			return <Pill key={id} icon={image} text={text} />;
+		}
+	});
+
 	return (
 		<Layout NavbarStyle='Transparent'>
 			{/* Hold the full width image of the holiday */}
@@ -90,12 +129,12 @@ export default function HolidayPage() {
 			<h3>{holidayTitle}</h3>
 
 			<section className={styles.section}>
-				{/* <h1>Holiday Page</h1>
-				<p>{nodeId}</p> */}
-				<h2>
-					{monthFormatted} {dateYear}
-				</h2>
+				<div className={styles.holidayPills}>
+					{/* List the holiday pills */}
+					{pills}
+				</div>
 
+				{/* List the holiday attendees */}
 				<h4>Attendees:</h4>
 				<AttendeesList stringArray={attendees} />
 			</section>

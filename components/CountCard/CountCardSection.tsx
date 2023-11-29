@@ -1,10 +1,32 @@
 import { useQuery } from "@apollo/client";
+import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import MapIcon from "@mui/icons-material/Map";
+import PinDropIcon from "@mui/icons-material/PinDrop";
+import PublicIcon from "@mui/icons-material/Public";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
 import { Person } from "./../../types/types";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
+
+// Get the number of holidays
+const useGetHolidayCount = () => {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
+	let numberOfItems: number | string = 0;
+	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
+	}
+	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
+	LogS.log("data from useGetHolidayCount", data);
+	return numberOfItems;
+};
 
 // Get the number of continents
 const useGetContinentCount = () => {
@@ -83,21 +105,6 @@ const useGetPeopleCount = () => {
 	return numberOfItems;
 };
 
-// Get the number of holidays
-const useGetHolidayCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
-	// LogS.log("data from useGetHolidayCount", data);
-	return numberOfItems;
-};
-
 // Get the number of capitals
 const useGetCapitalCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
@@ -112,7 +119,7 @@ const useGetCapitalCount = () => {
 		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
 	}
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
-	LogS.log("data from useGetCapitalCount", data);
+	// LogS.log("data from useGetCapitalCount", data);
 	return numberOfItems;
 };
 
@@ -120,13 +127,91 @@ const useGetCapitalCount = () => {
 export default function CountCardSection() {
 	return (
 		<div id='countCardSection' className={styles.countCardSection}>
-			<CountCard id='1' cardTitle='Holiday Count' countValue={useGetHolidayCount()} pagePath='/holidays' />
-			<CountCard id='2' cardTitle='Continent Count' countValue={useGetContinentCount()} pagePath='/continents' />
-			<CountCard id='3' cardTitle='Countries Count' countValue={useGetCountryCount()} pagePath='/countries' />
-			<CountCard id='4' cardTitle='Cities Count' countValue={useGetCityCount()} pagePath='/cities' />
-			<CountCard id='5' cardTitle='Islands Count' countValue={useGetIslandCount()} pagePath='/islands' />
-			<CountCard id='6' cardTitle='Travel Companion Count' countValue={useGetPeopleCount()} pagePath='/people' />
-			<CountCard id='7' cardTitle='Capitals Count' countValue={useGetCapitalCount()} pagePath='/capitals' />
+			<CountCard
+				id='1'
+				cardTitle='Holiday Count'
+				countValue={useGetHolidayCount()}
+				pagePath='/holidays'
+				backgroundIcon={
+					<FlightTakeoffIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+
+			<CountCard
+				id='2'
+				cardTitle='Continent Count'
+				countValue={useGetContinentCount()}
+				pagePath='/continents'
+				backgroundIcon={
+					<PublicIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='3'
+				cardTitle='Countries Count'
+				countValue={useGetCountryCount()}
+				pagePath='/countries'
+				backgroundIcon={
+					<MapIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='4'
+				cardTitle='Cities Count'
+				countValue={useGetCityCount()}
+				pagePath='/cities'
+				backgroundIcon={
+					<LocationCityIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='5'
+				cardTitle='Islands Count'
+				countValue={useGetIslandCount()}
+				pagePath='/islands'
+				backgroundIcon={
+					<BeachAccessIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='6'
+				cardTitle='Travel Companion Count'
+				countValue={useGetPeopleCount()}
+				pagePath='/people'
+				backgroundIcon={
+					<SupervisorAccountIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='7'
+				cardTitle='Capitals Count'
+				countValue={useGetCapitalCount()}
+				pagePath='/capitals'
+				backgroundIcon={
+					<PinDropIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
 		</div>
 	);
 }

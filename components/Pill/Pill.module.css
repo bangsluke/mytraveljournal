@@ -1,0 +1,17 @@
+.pill {
+	background-color: var(--secondary-accent-light, grey);
+	display: flex;
+	align-items: center;
+	padding: 0.5rem 1rem;
+	border-radius: 20px;
+	font-size: 14px;
+	width: max-content;
+}
+
+.pillIcon {
+	margin-right: 4px;
+}
+
+.pillText {
+	margin-left: 4px;
+}
