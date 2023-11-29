@@ -352,7 +352,7 @@ class DatabaseConnector:
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = True
+    dev_mode = False
     # Define if detailed logs should be printed or not
     detailed_logs = True
     # Define the relative path of the errors.json file
