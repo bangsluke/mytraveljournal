@@ -22,6 +22,8 @@ export default function CountryList() {
 		);
 	}
 
+	// TODO: Order countries by number of times visited
+
 	return (
 		<div className={styles.dataList}>
 			<ul>

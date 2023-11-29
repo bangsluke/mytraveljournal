@@ -22,6 +22,8 @@ export default function ContinentsList() {
 		);
 	}
 
+	// TODO: Order continents by number of times visited
+
 	return (
 		<div className={styles.dataList}>
 			<ul>

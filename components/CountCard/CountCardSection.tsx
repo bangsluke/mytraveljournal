@@ -13,6 +13,21 @@ import { Person } from "./../../types/types";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
+// Get the number of holidays
+const useGetHolidayCount = () => {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
+	let numberOfItems: number | string = 0;
+	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
+	}
+	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
+	LogS.log("data from useGetHolidayCount", data);
+	return numberOfItems;
+};
+
 // Get the number of continents
 const useGetContinentCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CONTINENTS);
@@ -90,21 +105,6 @@ const useGetPeopleCount = () => {
 	return numberOfItems;
 };
 
-// Get the number of holidays
-const useGetHolidayCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = "Loading..."); // If loading - show loading text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
-	// LogS.log("data from useGetHolidayCount", data);
-	return numberOfItems;
-};
-
 // Get the number of capitals
 const useGetCapitalCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
@@ -119,7 +119,7 @@ const useGetCapitalCount = () => {
 		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
 	}
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
-	LogS.log("data from useGetCapitalCount", data);
+	// LogS.log("data from useGetCapitalCount", data);
 	return numberOfItems;
 };
 
