@@ -8,6 +8,7 @@
 }
 
 .countcard {
+	position: relative;
 	height: 150px;
 	width: 150px;
 	background-color: var(--main-accent, #fe395c);
@@ -45,4 +46,19 @@
 	font-size: 5rem;
 	height: 5rem;
 	line-height: normal;
+}
+
+.backgroundIcon {
+	position: absolute;
+	font-size: 150px;
+	/* Adjust icon size as needed */
+	color: rgba(255, 255, 255, 0.5);
+	/* This makes the icon faded */
+	z-index: 1;
+}
+
+.textContent {
+	position: relative;
+	z-index: 2;
+	/* Additional text styling as needed */
 }
