@@ -50,9 +50,9 @@
 
 .backgroundIcon {
 	position: absolute;
-	font-size: 150px;
+	font-size: 100px;
 	/* Adjust icon size as needed */
-	color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.2);
 	/* This makes the icon faded */
 	z-index: 1;
 }

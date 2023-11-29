@@ -26,7 +26,11 @@ export default function CountCard(props: CountCardProp) {
 
 	return (
 		<div id={id} className={styles.countcard} onClick={() => router.push({ pathname: pagePath })}>
-			<FlightTakeoffIcon className={styles.backgroundIcon} />
+			<FlightTakeoffIcon
+				className={styles.backgroundIcon}
+				// @ts-ignore
+				fontSize='40'
+			/>
 			<h3>{cardTitle}</h3>
 			<h4>{displayCountValue}</h4>
 		</div>
