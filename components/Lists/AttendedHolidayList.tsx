@@ -10,7 +10,8 @@ export default function AttendedHolidayList({ holidays }: AttendedHolidayListPro
 	const router = useRouter(); // Import the Next router
 
 	// Sort the returned holidays by sortDateValue
-	const sortedHolidays = holidays.sort((a, b) => a.sortDateValue.localeCompare(b.sortDateValue));
+	// LogS.log("holidays: ", holidays);
+	const sortedHolidays = [...holidays].sort((a, b) => a.sortDateValue.localeCompare(b.sortDateValue));
 
 	return (
 		<ul>

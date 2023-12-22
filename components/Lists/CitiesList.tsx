@@ -27,8 +27,8 @@ export default function CitiesList() {
 	return (
 		<div className={styles.dataList}>
 			<ul>
-				{data.cities.map(({ name, nodeId }: City) => (
-					<li key={nodeId} className={styles.clickableListItem}>
+				{[...data.cities].map(({ name, nodeId }: City) => (
+					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/cities/${nodeId}` })}>
 						<h4>{name}</h4>
 					</li>
 				))}
