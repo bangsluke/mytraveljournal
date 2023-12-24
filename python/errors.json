@@ -120,16 +120,6 @@
         "line_number": 134
     },
     {
-        "object_name": "Chile",
-        "error_message": "Error in Chile: Service timed out",
-        "line_number": 182
-    },
-    {
-        "object_name": "Peru",
-        "error_message": "Error in Peru: Service timed out",
-        "line_number": 182
-    },
-    {
         "object_name": "Africa",
         "error_message": "Error in Africa: 'locatedIn'",
         "line_number": 225
