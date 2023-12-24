@@ -4,14 +4,30 @@ import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
 import Layout from "../components/Layouts/Layout";
 // import MapChart from "../components/MapChart";
 import { useQuery } from "@apollo/client";
+import { useSession } from "next-auth/react";
+import SignIn from "../components/Authentication/SignIn";
+import Loading from "../components/Loading/Loading";
 import Toast from "../components/Toast/Toast";
 import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import LogS from "../services/LogS";
 import styles from "../styles/Home.module.css";
 
 export default function Home(props: any) {
+	const { data: session, status } = useSession();
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-	if (loading) return <p>Loading...</p>;
+
+	LogS.log("Status and Session: ", status, session);
+
+	// If the users authentication is loading or if the graphql query is loading
+	if (status === "loading" || loading) {
+		return <Loading />;
+	}
+
+	// If the user is not authenticated, show the sign in component
+	if (status === "unauthenticated") {
+		return <SignIn />;
+	}
+
 	if (error) {
 		// If error - show error message, and raise an error toast
 		LogS.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);

@@ -15,6 +15,11 @@
         "line_number": 134
     },
     {
+        "object_name": "Tags/Acronyms and Tool Categories/SPA",
+        "error_message": "Error in Tags/Acronyms and Tool Categories/SPA: \"Tags/Acronyms and Tool Categories/SPA\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
         "object_name": "RLE",
         "error_message": "Error in RLE: \"RLE\" does not exist so it cannot have front matter.",
         "line_number": 134
@@ -27,6 +32,11 @@
     {
         "object_name": "Tags/Work/Tools/DVP",
         "error_message": "Error in Tags/Work/Tools/DVP: \"Tags/Work/Tools/DVP\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Tags/Entertainment/Activities/Spa",
+        "error_message": "Error in Tags/Entertainment/Activities/Spa: \"Tags/Entertainment/Activities/Spa\" does not exist so it cannot have front matter.",
         "line_number": 134
     },
     {
@@ -47,6 +57,11 @@
     {
         "object_name": "Petra",
         "error_message": "Error in Petra: \"Petra\" does not exist so it cannot have front matter.",
+        "line_number": 134
+    },
+    {
+        "object_name": "Vi",
+        "error_message": "Error in Vi: \"Vi\" does not exist so it cannot have front matter.",
         "line_number": 134
     },
     {
@@ -103,6 +118,16 @@
         "object_name": "Tool Ideas",
         "error_message": "Error in Tool Ideas: \"Tool Ideas\" does not exist so it cannot have front matter.",
         "line_number": 134
+    },
+    {
+        "object_name": "Chile",
+        "error_message": "Error in Chile: Service timed out",
+        "line_number": 182
+    },
+    {
+        "object_name": "Peru",
+        "error_message": "Error in Peru: Service timed out",
+        "line_number": 182
     },
     {
         "object_name": "Africa",

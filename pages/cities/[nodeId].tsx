@@ -1,13 +1,15 @@
 import { useQuery } from "@apollo/client";
+import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layouts/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { City } from "../../types/types";
 
-export default function CityPage() {
+function CityPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
@@ -52,3 +54,5 @@ export default function CityPage() {
 		</Layout>
 	);
 }
+
+export default withAuth(CityPage);

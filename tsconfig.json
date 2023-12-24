@@ -18,6 +18,13 @@
 			"react": ["./node_modules/@types/react"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/layout.js"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"components/layout.js",
+		"pages/api/auth/[...nextauth]/route.js",
+		"pages/api/auth/[...nextauth]/options.js"
+	],
 	"exclude": ["node_modules"]
 }

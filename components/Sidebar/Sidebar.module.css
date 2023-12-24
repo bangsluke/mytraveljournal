@@ -102,6 +102,21 @@
 	margin-top: var(--sidebar-spacing, 15px);
 }
 
+.sidebarLoginContent {
+	/* background-color: #555; */
+	position: sticky;
+	/* TODO: Fix the above position so that the sidebar content stays visible while the sidebar is open in static mode */
+	width: 100%;
+	height: max-content;
+	z-index: 11;
+	margin-left: 0;
+	text-align: center;
+}
+
+.sidebarLoginContent>p {
+	font-size: 0.8rem;
+}
+
 /* Style a toggle button that shows for mobile devices */
 
 .toggle-button {
