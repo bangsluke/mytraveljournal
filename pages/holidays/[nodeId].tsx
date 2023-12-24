@@ -4,12 +4,14 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
+import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import Layout from "../../components/Layouts/Layout";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
 import styles from "./Holidays.module.css";
@@ -38,7 +40,7 @@ function AttendeesList({ stringArray }: { stringArray: string[] }): JSX.Element 
 	return <>{linkElements}</>;
 }
 
-export default function HolidayPage() {
+function HolidayPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
@@ -146,3 +148,5 @@ export default function HolidayPage() {
 		</Layout>
 	);
 }
+
+export default withAuth(HolidayPage);

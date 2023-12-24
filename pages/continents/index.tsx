@@ -1,9 +1,11 @@
+import { Session } from "next-auth";
 import Layout from "../../components/Layouts/Layout";
 import ContinentList from "../../components/Lists/ContinentsList";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import withAuth from "../../lib/withAuth";
 import styles from "../../styles/Home.module.css";
 
-export default function ContinentsPage(props: any) {
+function ContinentsPage(props: any, { session }: { session: Session }) {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			{/* Note: Layout wraps component in a main tag */}
@@ -16,3 +18,5 @@ export default function ContinentsPage(props: any) {
 		</Layout>
 	);
 }
+
+export default withAuth(ContinentsPage);

@@ -6,6 +6,7 @@ import Layout from "../components/Layouts/Layout";
 import { useQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import SignIn from "../components/Authentication/SignIn";
+import Loading from "../components/Loading/Loading";
 import Toast from "../components/Toast/Toast";
 import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import LogS from "../services/LogS";
@@ -19,7 +20,7 @@ export default function Home(props: any) {
 
 	// If the users authentication is loading or if the graphql query is loading
 	if (status === "loading" || loading) {
-		return <p>Loading...</p>;
+		return <Loading />;
 	}
 
 	// If the user is not authenticated, show the sign in component

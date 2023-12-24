@@ -1,11 +1,13 @@
+import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Layout from "../components/Layouts/Layout";
+import withAuth from "../lib/withAuth";
 import Error404Image from "../public/images/404Image.webp";
 import styles from "../styles/Home.module.css";
 
 // https://nextjs.org/docs/advanced-features/custom-error-page
-export default function Custom404Page() {
+function Custom404Page({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	return (
 		<Layout NavbarStyle='Opaque'>
@@ -20,3 +22,5 @@ export default function Custom404Page() {
 		</Layout>
 	);
 }
+
+export default withAuth(Custom404Page);

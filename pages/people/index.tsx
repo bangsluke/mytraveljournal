@@ -1,9 +1,11 @@
+import { Session } from "next-auth";
 import Layout from "../../components/Layouts/Layout";
 import PersonsList from "../../components/Lists/PersonsList";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import withAuth from "../../lib/withAuth";
 import styles from "../../styles/Home.module.css";
 
-export default function PersonsPage(props: any) {
+function PersonsPage(props: any, { session }: { session: Session }) {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
@@ -14,3 +16,5 @@ export default function PersonsPage(props: any) {
 		</Layout>
 	);
 }
+
+export default withAuth(PersonsPage);
