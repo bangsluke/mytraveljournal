@@ -63,13 +63,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					{/* Display either a sign in or sign out button based on the session state */}
 					{session ? (
 						<>
-							<p>Signed in as {session.user.email}</p>
+							<p>Signed in as {session?.user?.email}</p>
 							<button onClick={() => signOut()}>Sign out</button>
 						</>
 					) : (
-						<li id={"login"} className={styles.sidebarItem}>
-							<button onClick={() => signIn()}>Sign in</button>
-						</li>
+						<button onClick={() => signIn()}>Sign in</button>
 					)}
 				</div>
 				<div className={styles.verticalText}>bangsluke designs</div>
