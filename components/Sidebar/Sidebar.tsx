@@ -57,22 +57,20 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 								active={router.pathname.startsWith(item.pagePath) ? true : false}
 							/>
 						))}
-						{/* Display either a sign in or sign out button based on the session state */}
-						{session ? (
-							<>
-								<li id={"logout"} className={styles.sidebarItem}>
-									Signed in as {session.user.email}
-								</li>
-								<li id={"logout"} className={styles.sidebarItem} onClick={() => signOut()}>
-									Sign out
-								</li>
-							</>
-						) : (
-							<li id={"login"} className={styles.sidebarItem}>
-								<button onClick={() => signIn()}>Sign in</button>
-							</li>
-						)}
 					</ul>
+				</div>
+				<div className={styles.sidebarLoginContent}>
+					{/* Display either a sign in or sign out button based on the session state */}
+					{session ? (
+						<>
+							<p>Signed in as {session.user.email}</p>
+							<button onClick={() => signOut()}>Sign out</button>
+						</>
+					) : (
+						<li id={"login"} className={styles.sidebarItem}>
+							<button onClick={() => signIn()}>Sign in</button>
+						</li>
+					)}
 				</div>
 				<div className={styles.verticalText}>bangsluke designs</div>
 			</nav>

@@ -44,7 +44,6 @@ export default function Home(props: any) {
 		<Layout NavbarStyle='Opaque'>
 			{/* Initial header for SEO */}
 			<h1 className={styles.hidden}>My Travel Journal</h1>
-			<p>You can view this page because you are signed in.</p>
 			{/* Top section holding the map and count card elements */}
 			<section className={styles.section}>
 				<h2 id={styles.homepageHeader}>Visited Locations</h2>
