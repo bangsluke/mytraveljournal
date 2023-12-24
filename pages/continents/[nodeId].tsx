@@ -1,13 +1,16 @@
 import { useQuery } from "@apollo/client";
+import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layouts/Layout";
+import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { Continent } from "../../types/types";
 
-export default function ContinentPage() {
+function ContinentPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
@@ -16,7 +19,7 @@ export default function ContinentPage() {
 		variables: { nodeId }, // Pass the variable to the query
 	});
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <Loading />;
 	if (error)
 		return (
 			<>
@@ -52,3 +55,5 @@ export default function ContinentPage() {
 		</Layout>
 	);
 }
+
+export default withAuth(ContinentPage);
