@@ -1,6 +1,6 @@
 {
 	"name": "mytraveljournal",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"private": true,
 	"description": "The frontend website for MyTravelJournal",
 	"keywords": [
@@ -41,5 +41,8 @@
 		"eslint-config-next": "12.2.2",
 		"prettier": "^3.0.3",
 		"typescript": "4.7.4"
+	},
+	"engines": {
+		"node": ">=18.17.0"
 	}
 }
