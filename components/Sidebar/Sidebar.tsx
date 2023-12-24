@@ -1,3 +1,4 @@
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import useScreenSize from "../../hooks/useScreenSize";
@@ -13,6 +14,9 @@ interface SidebarProps {
 type SidebarStyle = "static" | "dynamic";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
+	// Return the NextAuth session
+	const { data: session, status } = useSession();
+
 	const screenSize = useScreenSize(); // Get the screen size
 	const sidebarStyle: SidebarStyle = screenSize == "mobile" ? "dynamic" : "static"; // If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
 	// LogS.log("sidebarStyle:", sidebarStyle);
@@ -53,6 +57,21 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 								active={router.pathname.startsWith(item.pagePath) ? true : false}
 							/>
 						))}
+						{/* Display either a sign in or sign out button based on the session state */}
+						{session ? (
+							<>
+								<li id={"logout"} className={styles.sidebarItem}>
+									Signed in as {session.user.email}
+								</li>
+								<li id={"logout"} className={styles.sidebarItem} onClick={() => signOut()}>
+									Sign out
+								</li>
+							</>
+						) : (
+							<li id={"login"} className={styles.sidebarItem}>
+								<button onClick={() => signIn()}>Sign in</button>
+							</li>
+						)}
 					</ul>
 				</div>
 				<div className={styles.verticalText}>bangsluke designs</div>

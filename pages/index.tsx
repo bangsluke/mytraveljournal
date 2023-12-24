@@ -4,14 +4,29 @@ import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
 import Layout from "../components/Layouts/Layout";
 // import MapChart from "../components/MapChart";
 import { useQuery } from "@apollo/client";
+import { useSession } from "next-auth/react";
+import SignIn from "../components/Authentication/SignIn";
 import Toast from "../components/Toast/Toast";
 import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import LogS from "../services/LogS";
 import styles from "../styles/Home.module.css";
 
 export default function Home(props: any) {
+	const { data: session, status } = useSession();
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-	if (loading) return <p>Loading...</p>;
+
+	LogS.log("Status and Session: ", status, session);
+
+	// If the users authentication is loading or if the graphql query is loading
+	if (status === "loading" || loading) {
+		return <p>Loading...</p>;
+	}
+
+	// If the user is not authenticated, show the sign in component
+	if (status === "unauthenticated") {
+		return <SignIn />;
+	}
+
 	if (error) {
 		// If error - show error message, and raise an error toast
 		LogS.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
@@ -29,6 +44,7 @@ export default function Home(props: any) {
 		<Layout NavbarStyle='Opaque'>
 			{/* Initial header for SEO */}
 			<h1 className={styles.hidden}>My Travel Journal</h1>
+			<p>You can view this page because you are signed in.</p>
 			{/* Top section holding the map and count card elements */}
 			<section className={styles.section}>
 				<h2 id={styles.homepageHeader}>Visited Locations</h2>
