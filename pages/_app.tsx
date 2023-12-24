@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import Constants from "../constants/constants";
 import LogS from "../services/LogS";
@@ -46,11 +47,13 @@ client
 		}
 	});
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
-		<ApolloProvider client={client}>
-			<Component {...pageProps} />
-		</ApolloProvider>
+		<SessionProvider session={session}>
+			<ApolloProvider client={client}>
+				<Component {...pageProps} />
+			</ApolloProvider>
+		</SessionProvider>
 	);
 }
 

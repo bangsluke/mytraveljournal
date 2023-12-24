@@ -1,0 +1,15 @@
+.AuthenticationHolder {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
+}
+
+.Logo {
+	height: 100px;
+	width: 100px;
+}
