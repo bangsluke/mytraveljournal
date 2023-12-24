@@ -39,9 +39,6 @@ client
 					nodeId
 					capital
 					timesVisited
-					// linkedHolidays {
-					// 	nodeId
-					// }
 				}
 			}
 		`,

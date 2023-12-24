@@ -122,36 +122,36 @@
     {
         "object_name": "Africa",
         "error_message": "Error in Africa: 'locatedIn'",
-        "line_number": 226
+        "line_number": 225
     },
     {
         "object_name": "Asia",
         "error_message": "Error in Asia: 'locatedIn'",
-        "line_number": 226
+        "line_number": 225
     },
     {
         "object_name": "Europe",
         "error_message": "Error in Europe: 'locatedIn'",
-        "line_number": 226
+        "line_number": 225
     },
     {
         "object_name": "North America",
         "error_message": "Error in North America: 'locatedIn'",
-        "line_number": 226
+        "line_number": 225
     },
     {
         "object_name": "Oceania",
         "error_message": "Error in Oceania: 'locatedIn'",
-        "line_number": 226
+        "line_number": 225
     },
     {
         "object_name": "South America",
         "error_message": "Error in South America: 'locatedIn'",
-        "line_number": 226
+        "line_number": 225
     },
     {
         "object_name": "Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra",
         "error_message": "Error in Tags\\Travel\\Places\\Seven Wonders\\New Wonders\\Petra: Expected node of class Location",
-        "line_number": 226
+        "line_number": 225
     }
 ]

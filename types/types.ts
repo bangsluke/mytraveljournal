@@ -18,7 +18,7 @@ export interface City {
 	nodeId: string;
 	capital: boolean;
 	timesVisited: number;
-	// linkedHolidays: Holiday[];
+	linkedHolidays: Holiday[];
 }
 
 export interface Island {

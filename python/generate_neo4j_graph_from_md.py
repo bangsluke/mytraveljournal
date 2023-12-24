@@ -196,14 +196,13 @@ class DatabaseConnector:
                     # Set the capital property to be true if the capital tag exists
                     # TODO: Kevin to review and improve
                     capitalBoolean = False
-                    timesVisited = 0
                     frontmatter = self.vault.get_front_matter(node)
                     # print(frontmatter)
                     if 'tags' in frontmatter and 'capital' in frontmatter['tags']:
                         capitalBoolean = True
                     node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
-                               capital=capitalBoolean, timesVisited=timesVisited).save()
+                               capital=capitalBoolean).save()
                 else:
                     node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude).save()

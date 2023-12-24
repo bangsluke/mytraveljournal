@@ -13,6 +13,7 @@ class Location(StructuredNode):
     longitude = FloatProperty()
     latitude = FloatProperty()
     located_in = RelationshipTo("Location", "LOCATED_IN")
+    timesVisited = IntegerProperty()
 
 
 class Continent(Location):
@@ -96,8 +97,7 @@ class City(Location):
     Class to represent a city location node.
     """
     capital = BooleanProperty()
-    timesVisited: IntegerProperty()
-    # linkedHolidays = RelationshipFrom(Holiday, "TRAVELLED_TO")
+    linkedHolidays = RelationshipTo(Holiday, "TRAVELLED_TO", OneOrMore)
     # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
     # population = StringProperty()
 
