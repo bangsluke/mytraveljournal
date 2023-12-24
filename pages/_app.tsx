@@ -37,6 +37,11 @@ client
 				cities {
 					name
 					nodeId
+					capital
+					timesVisited
+					// linkedHolidays {
+					// 	nodeId
+					// }
 				}
 			}
 		`,

@@ -41,6 +41,11 @@ const GET_CITIES = gql`
 		cities {
 			name
 			nodeId
+			capital
+			timesVisited: Int @cypher(statement: "MATCH (this)<-[:TRAVELLED_TO]-() RETURN COUNT(*)")
+			// linkedHolidays {
+			// 	nodeId
+			// }
 		}
 	}
 `;
@@ -50,6 +55,11 @@ const GET_CITY_BY_ID = gql`
 		cities(where: { nodeId: $nodeId }) {
 			name
 			nodeId
+			capital
+			timesVisited: Int @cypher(statement: "MATCH (this)<-[:TRAVELLED_TO]-() RETURN COUNT(*)")
+			// linkedHolidays {
+			// 	nodeId
+			// }
 		}
 	}
 `;

@@ -196,13 +196,14 @@ class DatabaseConnector:
                     # Set the capital property to be true if the capital tag exists
                     # TODO: Kevin to review and improve
                     capitalBoolean = False
+                    timesVisited = 0
                     frontmatter = self.vault.get_front_matter(node)
                     # print(frontmatter)
                     if 'tags' in frontmatter and 'capital' in frontmatter['tags']:
                         capitalBoolean = True
                     node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude,
-                               capital=capitalBoolean).save()
+                               capital=capitalBoolean, timesVisited=timesVisited).save()
                 else:
                     node_class(name=node, nodeId=nodeId, level=node_class.__name__,
                                latitude=latitude, longitude=longitude).save()
@@ -352,7 +353,7 @@ class DatabaseConnector:
 if __name__ == '__main__':
 
     # Define if the script should be run in dev mode or production mode
-    dev_mode = False
+    dev_mode = True
     # Define if detailed logs should be printed or not
     detailed_logs = True
     # Define the relative path of the errors.json file

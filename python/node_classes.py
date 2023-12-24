@@ -1,6 +1,6 @@
 from neomodel import (  # https://neomodel.readthedocs.io/en/latest/index.html
-    ArrayProperty, BooleanProperty, FloatProperty, OneOrMore, RelationshipFrom,
-    RelationshipTo, StringProperty, StructuredNode)
+    ArrayProperty, BooleanProperty, FloatProperty, IntegerProperty, OneOrMore,
+    RelationshipFrom, RelationshipTo, StringProperty, StructuredNode)
 
 
 class Location(StructuredNode):
@@ -47,15 +47,6 @@ class State(Location):
     # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
 
 
-class City(Location):
-    # Create the City class as a subclass of Location - https://stackoverflow.com/a/56778266
-    """
-    Class to represent a city location node.
-    """
-    capital = BooleanProperty()
-    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
-    # population = StringProperty()
-
 
 class Town(Location):
     # Create the Town class as a subclass of Location - https://stackoverflow.com/a/56778266
@@ -98,6 +89,17 @@ class Holiday(StructuredNode):
     attended = RelationshipFrom("Person", "ATTENDED")
     departingAirport = StringProperty()
 
+
+class City(Location):
+    # Create the City class as a subclass of Location - https://stackoverflow.com/a/56778266
+    """
+    Class to represent a city location node.
+    """
+    capital = BooleanProperty()
+    timesVisited: IntegerProperty()
+    # linkedHolidays = RelationshipFrom(Holiday, "TRAVELLED_TO")
+    # TODO: Add in "OneOrMore as a third variable below to force a one-to-many relationship"
+    # population = StringProperty()
 
 class Person(StructuredNode):
     """
