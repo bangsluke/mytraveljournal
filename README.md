@@ -73,6 +73,10 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 
 - Added Heroku backend URL as an environment variable on Netlify.
 
+### Authentication Set Up
+
+- Using Next-Auth for all authentication - https://next-auth.js.org/getting-started/example
+
 ### Next.js Start Up
 
 Created using: `npx create-next-app@latest --ts mytraveljournal`
