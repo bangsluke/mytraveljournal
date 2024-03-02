@@ -58,6 +58,7 @@ export const authOptions = {
 	events: {
 		async signIn(message) {
 			/* on successful sign in */
+			LogS.log("Sign In Event: ", message);
 		},
 		async signOut(message) {
 			/* on signout */
