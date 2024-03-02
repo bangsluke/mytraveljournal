@@ -37,6 +37,8 @@ client
 				cities {
 					name
 					nodeId
+					capital
+					timesVisited
 				}
 			}
 		`,

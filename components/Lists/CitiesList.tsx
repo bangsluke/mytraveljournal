@@ -22,12 +22,20 @@ export default function CitiesList() {
 		);
 	}
 
+	LogS.log("cities data: ", data);
+
+	// Filter out cities with no holidays and then sort by the length of timesVisited
+	const sortedAndFilteredCities = data.cities.filter((city: City) => city.timesVisited && city.timesVisited > 0);
+	// .sort((a: City, b: City) => b.timesVisited - a.timesVisited);
+
+	LogS.log("Sorted and filtered city data: ", sortedAndFilteredCities);
+
 	// TODO: Order cities by number of times visited
 
 	return (
 		<div className={styles.dataList}>
 			<ul>
-				{[...data.cities].map(({ name, nodeId }: City) => (
+				{sortedAndFilteredCities.map(({ name, nodeId }: City) => (
 					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/cities/${nodeId}` })}>
 						<h4>{name}</h4>
 					</li>
