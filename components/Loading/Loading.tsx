@@ -5,7 +5,7 @@ import styles from "./Loading.module.css";
 export default function Loading() {
 	return (
 		<div className={styles.LoadingHolder}>
-			<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' className={styles.rotatingLogo} />
+			<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' className={styles.rotatingLogo} priority />
 		</div>
 	);
 }

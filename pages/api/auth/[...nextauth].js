@@ -9,14 +9,6 @@ import GoogleProvider from "next-auth/providers/google";
 export const authOptions = {
 	// Configure one or more authentication providers
 	providers: [
-		// AppleProvider({
-		// 	clientId: process.env.APPLE_ID,
-		// 	clientSecret: process.env.APPLE_SECRET,
-		// }),
-		// FacebookProvider({
-		// 	clientId: process.env.FACEBOOK_ID,
-		// 	clientSecret: process.env.FACEBOOK_SECRET,
-		// }),
 		GithubProvider({
 			clientId: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET,
@@ -25,6 +17,14 @@ export const authOptions = {
 			clientId: process.env.GOOGLE_ID,
 			clientSecret: process.env.GOOGLE_SECRET,
 		}),
+		// AppleProvider({
+		// 	clientId: process.env.APPLE_ID,
+		// 	clientSecret: process.env.APPLE_SECRET,
+		// }),
+		// FacebookProvider({
+		// 	clientId: process.env.FACEBOOK_ID,
+		// 	clientSecret: process.env.FACEBOOK_SECRET,
+		// }),
 		// Passwordless / email sign in
 		// EmailProvider({
 		// 	server: process.env.MAIL_SERVER,
@@ -47,18 +47,25 @@ export const authOptions = {
 	//},
 	// Optional: Specify pages for signing in, signing out, error, verify request, etc. - (https://next-auth.js.org/configuration/options#pages)
 	pages: {
-		// signIn: "/auth/signin", // Displays signin buttons
-		// signOut: "/auth/signout", // Displays signout button
-		// error: "/auth/error", // Error code passed in query string as ?error=
-		// verifyRequest: "/auth/verify-request", // Used for email provider
-		// newUser: null, // If set, new users will be directed here on first sign in
+		//signIn: "/auth/signin", // Displays signin buttons
+		//signOut: "/auth/signout", // Displays signout button
+		//error: "/auth/error", // Error code passed in query string as ?error=
+		//verifyRequest: "/auth/verify-request", // Used for email provider
+		//newUser: null, // If set, new users will be directed here on first sign in
+	},
+
+	callbacks: {
+		async signIn(user, account, profile) {
+			return Promise.resolve(true); // Allow sign-in
+		},
+		// Other callbacks...
 	},
 
 	// Optional: Events - (https://next-auth.js.org/configuration/options#events)
 	events: {
 		async signIn(message) {
 			/* on successful sign in */
-			LogS.log("Sign In Event: ", message);
+			// LogS.log("Sign In Event: ", message);
 		},
 		async signOut(message) {
 			/* on signout */
