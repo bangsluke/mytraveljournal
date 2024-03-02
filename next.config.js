@@ -19,6 +19,14 @@ const nextConfig = {
 			},
 		],
 	},
+	async rewrites() {
+		return [
+			{
+				source: "/api/:path*",
+				destination: `${process.env.NEXT_PUBLIC_APP_BACKEND_URL}/api/:path*`, // Point to your Heroku backend
+			},
+		];
+	},
 };
 
 module.exports = nextConfig;
