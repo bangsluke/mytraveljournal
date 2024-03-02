@@ -33,18 +33,18 @@ export const authOptions = {
 		// ...add more providers here
 	],
 	// Optional: Configure sessions - (https://next-auth.js.org/configuration/options#session)
-	session: {
-		jwt: true, // Use JSON Web Tokens for session
-		maxAge: 30 * 24 * 60 * 60, // Session expiry: 30 days
-	},
+	//session: {
+	//jwt: true, // Use JSON Web Tokens for session
+	//maxAge: 30 * 24 * 60 * 60, // Session expiry: 30 days
+	//},
 	// Optional: Configure JSON Web Tokens - (https://next-auth.js.org/configuration/options#jwt)
-	jwt: {
-		// A secret to encrypt the JWT. Use the same secret as NEXTAUTH_SECRET in your .env file
-		secret: process.env.NEXTAUTH_SECRET,
-		// The maximum age of the NextAuth.js issued JWT in seconds.
-		// Defaults to `session.maxAge`.
-		//maxAge: 60 * 60 * 24 * 30,
-	},
+	//jwt: {
+	// A secret to encrypt the JWT. Use the same secret as NEXTAUTH_SECRET in your .env file
+	//secret: process.env.NEXTAUTH_SECRET,
+	// The maximum age of the NextAuth.js issued JWT in seconds.
+	// Defaults to `session.maxAge`.
+	//maxAge: 60 * 60 * 24 * 30,
+	//},
 	// Optional: Specify pages for signing in, signing out, error, verify request, etc. - (https://next-auth.js.org/configuration/options#pages)
 	pages: {
 		// signIn: "/auth/signin", // Displays signin buttons
