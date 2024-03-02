@@ -4,7 +4,6 @@
 
 - [Set Up](#set-up)
   - [Markdown Set Up](#markdown-set-up)
-  - [Python Set Up](#python-set-up)
   - [Properties Set Up](#properties-set-up)
   - [Netlify Set Up](#netlify-set-up)
   - [Next.js Start Up](#nextjs-start-up)
@@ -43,17 +42,9 @@ To add a cover photo to any holiday note, the field accepts a url link to the im
 
 The easiest way to do this is to use Imgur (<https://imgur.com>) and upload the images you wish to use and then right click on the image and select "Copy image URL". If you paste this copied url into the field, you can use Obsidian to view the image as well as making it available for use on the Travel Site.
 
-### Python Set Up
-
-To install all of the required dependencies, run:
-
-```bash
-pip install json os markdown2 obsidiantools neomodel geopy
-```
-
 ### Properties Set Up
 
-To set up the properties, navigate to the `python` directory and open the `properties.properties` file. Set the values to work with your project using the examples below;
+To set up the properties, navigate to the `python` directory (in the server repo) and open the `properties.properties` file. Set the values to work with your project using the examples below;
 
 ```bash
 [NEO4J]
@@ -107,6 +98,7 @@ To quickly get started in production mode, do the following steps:
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
 2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
-3. In a terminal, build the frontend by running: `yarn build`
-4. When done, start the frontend by running: `yarn start`
-5. Open [http://localhost:3000](http://localhost:3000)
+3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
+4. In a terminal, build the frontend by running: `yarn build`
+5. When done, start the frontend by running: `yarn start`
+6. Open [http://localhost:3000](http://localhost:3000)
