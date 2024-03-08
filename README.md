@@ -1,5 +1,7 @@
 # MyTravelJournal
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/267ef8c1-6dae-4fae-bc37-680c3f02ebfd/deploy-status)](https://app.netlify.com/sites/bangsluke-mytraveljournal/deploys)
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)

@@ -121,7 +121,7 @@ function HolidayPage({ session }: { session: Session }) {
 		<Layout NavbarStyle='Transparent'>
 			{/* Hold the full width image of the holiday */}
 			<div className={styles.holidayImageContainer}>
-				<Image src={holidayImageURL} alt={`${name} Image`} quality={100} width={375} height={400} className={styles.holidayImage} />
+				<Image src={holidayImageURL} unoptimized alt={`${name} Image`} quality={100} width={375} height={400} className={styles.holidayImage} />
 				<div className={styles.holidayImageOverlayContainer}>
 					{/* Holiday Name */}
 					<h3>/ {name}</h3>
