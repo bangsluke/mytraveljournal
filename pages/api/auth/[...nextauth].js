@@ -48,20 +48,20 @@ export const authOptions = {
 
 	// Optional: Specify pages for signing in, signing out, error, verify request, etc. - (https://next-auth.js.org/configuration/options#pages)
 	// TODO: Optionally turn on the below and style the page at pages/auth/signin etc
-	pages: {
-		signIn: "/auth/signin", // Displays signin buttons
-		//signOut: "/auth/signout", // Displays signout button
-		//error: "/auth/error", // Error code passed in query string as ?error=
-		//verifyRequest: "/auth/verify-request", // Used for email provider
-		//newUser: null, // If set, new users will be directed here on first sign in
-	},
+	//pages: {
+	//signIn: "/auth/signin", // Displays signin buttons
+	//signOut: "/auth/signout", // Displays signout button
+	//error: "/auth/error", // Error code passed in query string as ?error=
+	//verifyRequest: "/auth/verify-request", // Used for email provider
+	//newUser: null, // If set, new users will be directed here on first sign in
+	//},
 
 	// Optional: Theme - (https://next-auth.js.org/configuration/options#theme)
 	theme: {
-		colorScheme: "dark", // "auto" | "dark" | "light"
-		brandColor: "#FFF000", // Hex color code
+		//colorScheme: "auto", // "auto" | "dark" | "light"
+		//brandColor: "#FFF000", // Hex color code
 		logo: "https://i.imgur.com/0Fm5UcF.png", // Absolute URL to image
-		buttonText: "#F03FF0", // Hex color code
+		//buttonText: "#F03FF0", // Hex color code
 	},
 
 	//callbacks: {
