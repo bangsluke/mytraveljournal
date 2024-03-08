@@ -2,15 +2,42 @@
 
 ## Table of Contents
 
+- [Getting Started](#getting-started)
+  - [Quick Start](#quick-start)
+    - [Development Start](#development-start)
+    - [Production Start](#production-start)
 - [Set Up](#set-up)
   - [Markdown Set Up](#markdown-set-up)
   - [Properties Set Up](#properties-set-up)
   - [Netlify Set Up](#netlify-set-up)
   - [Next.js Start Up](#nextjs-start-up)
-- [Getting Started](#getting-started)
-  - [Quick Start](#quick-start)
-    - [Development Start](#development-start)
-    - [Production Start](#production-start)
+
+## Getting Started
+
+### Quick start
+
+#### Development Start
+
+To quickly get started in development mode, do the following steps:
+
+1. Start up Neo4j desktop
+2. Start the Neo4j graph database (on Neo4j desktop)
+3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
+4. Start the backend by running: `npm run dev` in a terminal
+5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
+6. Start the frontend by running: `yarn dev`
+7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
+
+#### Production Start
+
+To quickly get started in production mode, do the following steps:
+
+1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
+2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
+3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
+4. In a terminal, build the frontend by running: `yarn build`
+5. When done, start the frontend by running: `yarn start`
+6. Open [http://localhost:3000](http://localhost:3000)
 
 ## Set Up
 
@@ -73,32 +100,3 @@ DATA.FullPath = C:\Users\lbangs\iCloudDrive\iCloud~md~obsidian\Personal Notes # 
 Created using: `npx create-next-app@latest --ts mytraveljournal`
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-### Quick start
-
-<!-- TODO: Update when known -->
-
-#### Development Start
-
-To quickly get started in development mode, do the following steps:
-
-1. Start up Neo4j desktop
-2. Start the Neo4j graph database (on Neo4j desktop)
-3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
-4. Start the backend by running: `npm run dev` in a terminal
-5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
-6. Start the frontend by running: `yarn dev`
-7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
-
-#### Production Start
-
-To quickly get started in production mode, do the following steps:
-
-1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
-2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
-3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
-4. In a terminal, build the frontend by running: `yarn build`
-5. When done, start the frontend by running: `yarn start`
-6. Open [http://localhost:3000](http://localhost:3000)
