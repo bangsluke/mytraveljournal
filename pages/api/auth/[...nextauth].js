@@ -46,43 +46,43 @@ export const authOptions = {
 	//maxAge: 60 * 60 * 24 * 30,
 	//},
 	// Optional: Specify pages for signing in, signing out, error, verify request, etc. - (https://next-auth.js.org/configuration/options#pages)
-	pages: {
-		//signIn: "/auth/signin", // Displays signin buttons
-		//signOut: "/auth/signout", // Displays signout button
-		//error: "/auth/error", // Error code passed in query string as ?error=
-		//verifyRequest: "/auth/verify-request", // Used for email provider
-		//newUser: null, // If set, new users will be directed here on first sign in
-	},
+	//pages: {
+	//signIn: "/auth/signin", // Displays signin buttons
+	//signOut: "/auth/signout", // Displays signout button
+	//error: "/auth/error", // Error code passed in query string as ?error=
+	//verifyRequest: "/auth/verify-request", // Used for email provider
+	//newUser: null, // If set, new users will be directed here on first sign in
+	//},
 
-	callbacks: {
-		async signIn(user, account, profile) {
-			return Promise.resolve(true); // Allow sign-in
-		},
-		// Other callbacks...
-	},
+	//callbacks: {
+	//async signIn(user, account, profile) {
+	//return Promise.resolve(true); // Allow sign-in
+	//},
+	// Other callbacks...
+	//},
 
 	// Optional: Events - (https://next-auth.js.org/configuration/options#events)
-	events: {
-		async signIn(message) {
-			/* on successful sign in */
-			// LogS.log("Sign In Event: ", message);
-		},
-		async signOut(message) {
-			/* on signout */
-		},
-		async createUser(message) {
-			/* user created */
-		},
-		async updateUser(message) {
-			/* user updated - e.g. their email was verified */
-		},
-		async linkAccount(message) {
-			/* account (e.g. Twitter) linked to a user */
-		},
-		async session(message) {
-			/* session is active */
-		},
-	},
+	//events: {
+	// 	async signIn(message) {
+	// 		/* on successful sign in */
+	// 		// LogS.log("Sign In Event: ", message);
+	// 	},
+	// 	async signOut(message) {
+	// 		/* on signout */
+	// 	},
+	// 	async createUser(message) {
+	// 		/* user created */
+	// 	},
+	// 	async updateUser(message) {
+	// 		/* user updated - e.g. their email was verified */
+	// 	},
+	// 	async linkAccount(message) {
+	// 		/* account (e.g. Twitter) linked to a user */
+	// 	},
+	// 	async session(message) {
+	// 		/* session is active */
+	// 	},
+	// },
 
 	// Optional: Debug - https://next-auth.js.org/configuration/options#debug
 	debug: true, // Set debug to true to enable debug messages for authentication and database operations.
