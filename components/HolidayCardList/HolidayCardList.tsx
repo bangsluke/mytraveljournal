@@ -62,6 +62,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					{/* Hold the image to the left of the card details */}
 					<Image
 						src={holidayImageURL}
+						unoptimized={true}
 						alt={`${holiday.name} Image`}
 						height={Constants.HolidayCardImageHeight}
 						width={Constants.HolidayCardImageWidth}
