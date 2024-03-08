@@ -17,6 +17,7 @@ export const authOptions = {
 			clientId: process.env.GOOGLE_ID,
 			clientSecret: process.env.GOOGLE_SECRET,
 		}),
+		// TODO: Add more providers
 		// AppleProvider({
 		// 	clientId: process.env.APPLE_ID,
 		// 	clientSecret: process.env.APPLE_SECRET,
@@ -95,7 +96,7 @@ export const authOptions = {
 	// },
 
 	// Optional: Debug - https://next-auth.js.org/configuration/options#debug
-	debug: true, // Set debug to true to enable debug messages for authentication and database operations.
+	debug: false, // Set debug to true to enable debug messages for authentication and database operations.
 };
 
 export default NextAuth(authOptions);
