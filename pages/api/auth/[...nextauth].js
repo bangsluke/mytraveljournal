@@ -73,6 +73,7 @@ export const authOptions = {
 	// Optional: Callbacks - (https://next-auth.js.org/configuration/callbacks)
 	callbacks: {
 		async signIn(user, account, profile) {
+			// https://next-auth.js.org/configuration/callbacks#sign-in-callback
 			LogS.log("Signed in user.user.email: ", user.user.email);
 			//LogS.log("allowedEmailsList", allowedEmailsList);
 			//LogS.log("Check matches email:", allowedEmailsList.includes(user.user.email));
@@ -82,7 +83,7 @@ export const authOptions = {
 				return true; // Sign-in allowed
 			} else {
 				// return false; // Sign-in denied
-				return "/auth/unauthorized";
+				return "/auth/unauthorized?email=" + user.user.email; // Redirect to unauthorized and pass the email
 			}
 		},
 
