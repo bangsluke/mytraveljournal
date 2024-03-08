@@ -5,6 +5,11 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
+import allowedEmails from "../../../constants/allowedEmails.json"; // List of allowed email addresses
+import LogS from "../../../services/LogS";
+
+const allowedEmailsList = allowedEmails.allowed;
+
 // Define the API routes for Authentication
 export const authOptions = {
 	// Configure one or more authentication providers
@@ -17,6 +22,7 @@ export const authOptions = {
 			clientId: process.env.GOOGLE_ID,
 			clientSecret: process.env.GOOGLE_SECRET,
 		}),
+		// TODO: Add more providers
 		// AppleProvider({
 		// 	clientId: process.env.APPLE_ID,
 		// 	clientSecret: process.env.APPLE_SECRET,
@@ -45,7 +51,9 @@ export const authOptions = {
 	// Defaults to `session.maxAge`.
 	//maxAge: 60 * 60 * 24 * 30,
 	//},
+
 	// Optional: Specify pages for signing in, signing out, error, verify request, etc. - (https://next-auth.js.org/configuration/options#pages)
+	// TODO: Optionally turn on the below and style the page at pages/auth/signin etc
 	//pages: {
 	//signIn: "/auth/signin", // Displays signin buttons
 	//signOut: "/auth/signout", // Displays signout button
@@ -54,12 +62,32 @@ export const authOptions = {
 	//newUser: null, // If set, new users will be directed here on first sign in
 	//},
 
-	//callbacks: {
-	//async signIn(user, account, profile) {
-	//return Promise.resolve(true); // Allow sign-in
-	//},
-	// Other callbacks...
-	//},
+	// Optional: Theme - (https://next-auth.js.org/configuration/options#theme)
+	theme: {
+		//colorScheme: "auto", // "auto" | "dark" | "light"
+		//brandColor: "#FFF000", // Hex color code
+		logo: "https://i.imgur.com/0Fm5UcF.png", // Absolute URL to image
+		//buttonText: "#F03FF0", // Hex color code
+	},
+
+	// Optional: Callbacks - (https://next-auth.js.org/configuration/callbacks)
+	callbacks: {
+		async signIn(user, account, profile) {
+			LogS.log("Signed in user.user.email: ", user.user.email);
+			//LogS.log("allowedEmailsList", allowedEmailsList);
+			//LogS.log("Check matches email:", allowedEmailsList.includes(user.user.email));
+
+			// Check if the user's email is in the list of allowed emails
+			if (user.user.email && allowedEmailsList.includes(user.user.email)) {
+				return true; // Sign-in allowed
+			} else {
+				// return false; // Sign-in denied
+				return "/auth/unauthorized";
+			}
+		},
+
+		// Other callbacks...
+	},
 
 	// Optional: Events - (https://next-auth.js.org/configuration/options#events)
 	//events: {
@@ -86,14 +114,6 @@ export const authOptions = {
 
 	// Optional: Debug - https://next-auth.js.org/configuration/options#debug
 	debug: true, // Set debug to true to enable debug messages for authentication and database operations.
-
-	// Optional: Theme - (https://next-auth.js.org/configuration/options#theme)
-	theme: {
-		colorScheme: "auto", // "auto" | "dark" | "light"
-		brandColor: "#FFF000", // Hex color code
-		logo: "https://i.imgur.com/0Fm5UcF.png", // Absolute URL to image
-		buttonText: "", // Hex color code
-	},
 };
 
 export default NextAuth(authOptions);

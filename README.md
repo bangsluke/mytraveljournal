@@ -91,6 +91,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - Using Next-Auth for all authentication - https://next-auth.js.org/getting-started/example
 
+#### Adding Email Addresses
+
+In order to add a new address to the list of allowed email addresses, add it to the `allowedEmails.json` file in the `mytraveljournal/constants` folder.
+
 > [Back to Table of Contents](#table-of-contents)
 
 ### Netlify Hosting
