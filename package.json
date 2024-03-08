@@ -1,6 +1,6 @@
 {
 	"name": "mytraveljournal",
-	"version": "0.1.1",
+	"version": "1.0.1",
 	"private": true,
 	"description": "The frontend Next.js website for MyTravelJournal",
 	"keywords": [
