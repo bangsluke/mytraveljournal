@@ -5,6 +5,11 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
+import allowedEmails from "../../../constants/allowedEmails.json"; // List of allowed email addresses
+import LogS from "../../../services/LogS";
+
+const allowedEmailsList = allowedEmails.allowed;
+
 // Define the API routes for Authentication
 export const authOptions = {
 	// Configure one or more authentication providers
@@ -65,12 +70,24 @@ export const authOptions = {
 		//buttonText: "#F03FF0", // Hex color code
 	},
 
-	//callbacks: {
-	//async signIn(user, account, profile) {
-	//return Promise.resolve(true); // Allow sign-in
-	//},
-	// Other callbacks...
-	//},
+	// Optional: Callbacks - (https://next-auth.js.org/configuration/callbacks)
+	callbacks: {
+		async signIn(user, account, profile) {
+			LogS.log("Signed in user.user.email: ", user.user.email);
+			//LogS.log("allowedEmailsList", allowedEmailsList);
+			//LogS.log("Check matches email:", allowedEmailsList.includes(user.user.email));
+
+			// Check if the user's email is in the list of allowed emails
+			if (user.user.email && allowedEmailsList.includes(user.user.email)) {
+				return true; // Sign-in allowed
+			} else {
+				// return false; // Sign-in denied
+				return "/auth/unauthorized";
+			}
+		},
+
+		// Other callbacks...
+	},
 
 	// Optional: Events - (https://next-auth.js.org/configuration/options#events)
 	//events: {
@@ -96,7 +113,7 @@ export const authOptions = {
 	// },
 
 	// Optional: Debug - https://next-auth.js.org/configuration/options#debug
-	debug: false, // Set debug to true to enable debug messages for authentication and database operations.
+	debug: true, // Set debug to true to enable debug messages for authentication and database operations.
 };
 
 export default NextAuth(authOptions);

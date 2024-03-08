@@ -8,7 +8,6 @@ export default function SignIn() {
 		<div id={"signin"} className={styles.AuthenticationHolder}>
 			<h1 className={styles.title}>My Travel Journal</h1>
 			<Image src='/images/Logo.png' width={500} height={500} alt='My Travel Journal Logo' className={styles.Logo} priority />
-			<p className={styles.text}>Access Denied</p>
 			<button onClick={() => signIn()}>Sign in</button>
 		</div>
 	);
