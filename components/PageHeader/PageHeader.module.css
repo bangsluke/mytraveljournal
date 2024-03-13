@@ -1,5 +1,6 @@
 .pageHeaderContainer {
 	/* background-color: #0070f3; */
+	background-color: var(--white, #fff);
 	line-height: 5px;
 	width: 100%;
 	text-align: left;
@@ -7,9 +8,20 @@
 	font-size: x-large;
 	display: flex;
 	align-items: center;
+	position: fixed;
+	top: var(--header-height, 80px);
 }
 
 .pageHeader {
 	color: var(--main-accent, #fe395c);
 	margin-left: 8px;
+}
+
+@media only screen and (max-width: 767px) {
+
+	/* Adjust styling for mobile */
+	.pageHeaderContainer {
+		font-size: large;
+	}
+
 }
