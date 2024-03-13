@@ -14,4 +14,17 @@
 
 .pillText {
 	margin-left: 4px;
+	font-size: 14px;
+}
+
+@media only screen and (max-width: 767px) {
+
+	/* Adjust styling for mobile */
+	.pill {
+		font-size: 10px;
+	}
+
+	.pillText {
+		font-size: 10px;
+	}
 }

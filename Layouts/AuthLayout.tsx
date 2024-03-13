@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../components/Authentication/Authentication.module.css";
+import styles from "../pages/auth/Authentication.module.css";
 
 export default function AuthLayout({ children, NavbarStyle }: any) {
 	return (

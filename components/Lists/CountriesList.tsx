@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import { Country } from "../../types/types";
+import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
 
@@ -10,7 +11,7 @@ export default function CountryList() {
 	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <Loading />;
 	if (error) {
 		// If error - show error message, and raise an error toast
 		LogS.error("GraphQLQueriesS.GET_COUNTRIES GraphQL Error: ", error.message);
