@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import Layout from "../../Layouts/Layout";
+import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import withAuth from "../../lib/withAuth";
@@ -51,7 +52,7 @@ function HolidayPage({ session }: { session: Session }) {
 
 	LogS.log("holiday data: ", data);
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <Loading />;
 	if (error)
 		return (
 			<>
@@ -109,7 +110,7 @@ function HolidayPage({ session }: { session: Session }) {
 			return text.map((element, index) => <Pill key={id + index} icon={image} text={element} />);
 		}
 		// Return nothing if text is null or empty or too long
-		if (text == null || text == "" || text == "TBC" || text.length >= 20) {
+		if (text == null || text == "" || text == "TBC" || text == "n/a" || text.length >= 20) {
 			return null;
 		}
 		if (text && image) {
@@ -119,32 +120,46 @@ function HolidayPage({ session }: { session: Session }) {
 
 	return (
 		<Layout NavbarStyle='Transparent'>
-			{/* Hold the full width image of the holiday */}
-			<div className={styles.holidayImageContainer}>
-				<Image src={holidayImageURL} unoptimized alt={`${name} Image`} quality={100} width={375} height={400} className={styles.holidayImage} />
+			{/* Hold all of the content for the holiday page */}
+			<div className={styles.holidayPageContainer}>
+				{/* Hold the full width image of the holiday */}
+				<div className={styles.holidayImageContainer}>
+					<Image
+						src={holidayImageURL}
+						unoptimized
+						alt={`${name} Image`}
+						quality={100}
+						width={375}
+						height={400}
+						className={styles.holidayImage}
+					/>
+				</div>
 				<div className={styles.holidayImageOverlayContainer}>
 					{/* Holiday Name */}
-					<h3>/ {name}</h3>
+					<h3 className={styles.holidayOverlayName}>
+						<span>/</span>
+						<span> {name}</span>
+					</h3>
 				</div>
+
+				<section className={styles.pillsSection}>
+					<div className={styles.holidayPills}>
+						{/* List the holiday pills */}
+						{pills}
+					</div>
+				</section>
+
+				<section className={styles.attendeesSection}>
+					{/* List the holiday attendees */}
+					<h4>Attendees:</h4>
+					<AttendeesList stringArray={attendees} />
+				</section>
+
+				<section className={styles.section}>
+					{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
+					<Interweave content={textHtmlContent} />
+				</section>
 			</div>
-
-			<h3>{holidayTitle}</h3>
-
-			<section className={styles.section}>
-				<div className={styles.holidayPills}>
-					{/* List the holiday pills */}
-					{pills}
-				</div>
-
-				{/* List the holiday attendees */}
-				<h4>Attendees:</h4>
-				<AttendeesList stringArray={attendees} />
-			</section>
-
-			<section className={styles.section}>
-				{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
-				<Interweave content={textHtmlContent} />
-			</section>
 		</Layout>
 	);
 }

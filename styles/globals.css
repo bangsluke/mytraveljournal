@@ -5,6 +5,7 @@
 	--main-accent: #fe395c;
 	--secondary-accent: #BBB;
 	--secondary-accent-light: #ECECEC;
+	--secondary-accent-transparent: rgba(236, 236, 236, 0.7);
 	--white: #FFFFFF;
 	--off-white: #f3f3f3;
 	--sidebar-spacing: 15px;
