@@ -1,35 +1,15 @@
-import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { getServerSession } from "next-auth/next";
-import { getProviders, signIn } from "next-auth/react";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
+import AuthLayout from "../../Layouts/AuthLayout";
+import styles from "./Authentication.module.css";
 
-// TODO: Turn this on in [...nextauth.js] for a custom sign in page
-
-export default function SignIn({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+// Define a sign in component can be used to help the user sign in.
+export default function SignIn() {
 	return (
-		<>
-			{Object.values(providers).map((provider) => (
-				<div key={provider.name}>
-					<button onClick={() => signIn(provider.id)}>Sign in with {provider.name}</button>
-				</div>
-			))}
-		</>
+		<AuthLayout>
+			<h1 className={styles.title}>my travel journal.</h1>
+			<Image src='/images/Logo.png' width={500} height={500} alt='My Travel Journal Logo' className={styles.Logo} priority />
+			<button onClick={() => signIn()}>Sign in</button>
+		</AuthLayout>
 	);
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const session = await getServerSession(context.req, context.res, authOptions);
-
-	// If the user is already logged in, redirect.
-	// Note: Make sure not to redirect to the same page
-	// To avoid an infinite loop!
-	if (session) {
-		return { redirect: { destination: "/" } };
-	}
-
-	const providers = await getProviders();
-
-	return {
-		props: { providers: providers ?? [] },
-	};
 }
