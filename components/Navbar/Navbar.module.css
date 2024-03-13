@@ -48,6 +48,7 @@
 .Navbar_headerContainer {
 	/* background-color: #222; */
 	text-align: left;
+	font-family: var(--font-family, ui-sans-serif);
 }
 
 .Navbar_backContainer {

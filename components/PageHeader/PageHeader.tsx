@@ -6,7 +6,7 @@ export default function PageHeader(props: { PageHeaderTitle: string }) {
 
 	return (
 		<div className={styles.pageHeaderContainer}>
-			<h1>/</h1>
+			<h1>/</h1> {/* Append the "/" before the title */}
 			<h1 className={styles.pageHeader}>{PageHeaderTitle.toLowerCase()}.</h1>
 		</div>
 	);
