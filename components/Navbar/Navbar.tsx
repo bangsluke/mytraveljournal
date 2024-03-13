@@ -34,7 +34,9 @@ export default function Navbar(props: NavbarProps) {
 
 			{/* Display the header if the Navbar is opaque */}
 			{NavbarStyle === "Opaque" ? (
-				<div className={styles.Navbar_headerContainer} onClick={() => router.push({ pathname: "/" })}>
+				<div
+					className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" ? styles.Navbar_headerContainerMobile : null}`}
+					onClick={() => router.push({ pathname: "/" })}>
 					<h1>my travel journal.</h1>
 				</div>
 			) : null}

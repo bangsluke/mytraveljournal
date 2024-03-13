@@ -13,6 +13,8 @@
 }
 
 .NavbarMobile {
+	padding: 0 10px;
+	column-gap: 5px;
 	grid-template-columns: 60px 1fr 35px 35px;
 }
 
@@ -55,6 +57,10 @@
 	text-align: left;
 	font-family: var(--font-family, ui-sans-serif);
 	cursor: pointer;
+}
+
+.Navbar_headerContainerMobile {
+	font-size: 0.8rem;
 }
 
 .Navbar_backContainer {
