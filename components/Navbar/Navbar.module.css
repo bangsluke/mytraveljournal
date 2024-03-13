@@ -5,7 +5,7 @@
 	padding: 0 20px;
 	height: var(--header-height, 80px);
 	width: 100%;
-	color: #f3f3f3;
+	color: var(--off-white, #f3f3f3);
 	display: grid;
 	column-gap: 10px;
 	grid-template-columns: 60px 1fr 35px;
@@ -15,7 +15,7 @@
 .NavbarMobile {
 	padding: 0 10px;
 	column-gap: 5px;
-	grid-template-columns: 60px 1fr 35px 35px;
+	grid-template-columns: 60px 1fr 35px 10px 35px;
 }
 
 .NavbarOffset {
@@ -47,7 +47,7 @@
 }
 
 .Navbar_logo {
-	color: #f3f3f3;
+	color: var(--off-white, #f3f3f3);
 	filter: invert(100);
 	cursor: pointer;
 }
@@ -86,12 +86,21 @@
 	cursor: pointer;
 }
 
+.IconOpaque {
+	color: var(--white, #fff);
+}
+
+.IconOpaque:hover {
+	color: var(--main-accent, red);
+	transition: all 0.3s ease;
+}
+
 .IconCircle {
 	position: absolute;
-	width: 50px;
-	height: 50px;
+	width: 45px;
+	height: 45px;
 	border-radius: 50%;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: var(--hover-icon-background, rgba(0, 0, 0, 0.2));
 	/* Shaded background color */
 	top: 50%;
 	left: 50%;
@@ -102,6 +111,17 @@
 	/* Add transition for smooth effect */
 	opacity: 0;
 	/* Initially hidden */
+}
+
+.IconCircleOpaque {
+	background-color: var(--secondary-accent-light, grey);
+	opacity: 0.7;
+	/* Initially hidden */
+}
+
+.IconCircleOpaque:hover {
+	opacity: 1;
+	/* Show the circle fully on hover */
 }
 
 .Navbar_backContainer:hover .IconCircle {

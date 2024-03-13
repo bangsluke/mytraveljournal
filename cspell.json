@@ -35,15 +35,15 @@
 		"backend/output.json"
 	],
 	"ignoreWords": [
-		"lucide",
 		"Geocoded",
 		"Nominatim",
+		"blockquote",
 		"cafile",
 		"certifi",
 		"geocoders",
 		"geopy",
-		"blockquote",
-		"certifi",
-		"mytraveljournal"
+		"lucide",
+		"mytraveljournal",
+		"travelcard"
 	]
 }
