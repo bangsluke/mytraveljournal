@@ -109,7 +109,7 @@ function HolidayPage({ session }: { session: Session }) {
 			return text.map((element, index) => <Pill key={id + index} icon={image} text={element} />);
 		}
 		// Return nothing if text is null or empty or too long
-		if (text == null || text == "" || text == "TBC" || text.length >= 20) {
+		if (text == null || text == "" || text == "TBC" || text == "n/a" || text.length >= 20) {
 			return null;
 		}
 		if (text && image) {
