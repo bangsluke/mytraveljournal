@@ -35,7 +35,7 @@ const ScrollToTopButton = () => {
 			className={`${styles.scrollToTopButton} ${isVisible ? styles.scrollToTopButtonVisible : null}`}
 			onClick={scrollToTop}
 			title='Scroll to Top Button'>
-			<ChevronUp />
+			<ChevronUp className={styles.scrollToTopButtonIcon} />
 		</button>
 	);
 };

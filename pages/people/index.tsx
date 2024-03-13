@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import Layout from "../../components/Layouts/Layout";
+import Layout from "../../Layouts/Layout";
 import PersonsList from "../../components/Lists/PersonsList";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import withAuth from "../../lib/withAuth";

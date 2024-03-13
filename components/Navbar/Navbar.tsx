@@ -19,7 +19,13 @@ export default function Navbar(props: NavbarProps) {
 	const screenSize = useScreenSize(); // Get the screen size
 
 	// Create a combination of class names for the Navbar based on the Navbar style
-	const NavbarClassNames = `${styles.Navbar} ${NavbarStyle === "Opaque" ? styles.NavbarOpaque : null}`;
+	const NavbarClassNames = `${styles.Navbar} ${NavbarStyle === "Opaque" ? styles.NavbarOpaque : null} ${
+		screenSize === "mobile" ? styles.NavbarMobile : null
+	}`;
+
+	// Create a class name for the icon and icon circles based on the Navbar style
+	const IconClassName = `${styles.Icon} ${NavbarStyle === "Opaque" ? null : styles.IconOpaque}`;
+	const IconCircleClassName = `${styles.IconCircle} ${NavbarStyle === "Opaque" ? null : styles.IconCircleOpaque}`;
 
 	return (
 		<nav id='Navbar' className={NavbarClassNames}>
@@ -28,23 +34,35 @@ export default function Navbar(props: NavbarProps) {
 				<div className={styles.Navbar_logoContainer} onClick={() => router.push({ pathname: "/" })}>
 					<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' className={styles.Navbar_logo} />
 				</div>
-			) : null}
+			) : (
+				<div className={styles.Navbar_logoContainer}></div>
+			)}
 
 			{/* Display the header if the Navbar is opaque */}
 			{NavbarStyle === "Opaque" ? (
-				<div className={styles.Navbar_headerContainer}>
+				<div
+					className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" ? styles.Navbar_headerContainerMobile : null}`}
+					onClick={() => router.push({ pathname: "/" })}>
 					<h1>my travel journal.</h1>
 				</div>
-			) : null}
+			) : (
+				// Display a blank div to push the icons right
+				<div className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" ? styles.Navbar_headerContainerMobile : null}`}></div>
+			)}
 
 			<div className={styles.Navbar_backContainer}>
 				{/* Add a back arrow to navigate the last page */}
-				<ArrowBackSharpIcon sx={{ fontSize: 50 }} onClick={() => router.back()} />
+				<div className={IconCircleClassName}></div>
+				<ArrowBackSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => router.back()} />
 			</div>
 
+			{screenSize === "mobile" ? <div>{/* Add a blank div for mobile to separate the icons */}</div> : null}
+
 			{screenSize === "mobile" ? (
-				<div className={styles.Navbar_menuContainer} onClick={() => toggleSidebar()}>
-					<MenuSharpIcon sx={{ fontSize: 50 }} />
+				<div className={styles.Navbar_menuContainer}>
+					{/* Add a menu icon to toggle the sidebar if the screen is mobile */}
+					<div className={IconCircleClassName}></div>
+					<MenuSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
 				</div>
 			) : null}
 		</nav>

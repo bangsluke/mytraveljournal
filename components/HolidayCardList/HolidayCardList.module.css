@@ -16,7 +16,7 @@
 	/* background-color: yellow; */
 	height: calc(var(--holiday-card-image-height, 300px) + 20px);
 	min-height: 150px;
-	border: 1px solid var(--secondary-accent, #BBB);
+	border: 1px solid var(--secondary-accent-light, #f0f0f0);
 	padding: 10px;
 	/* Add padding to the card */
 	border-radius: var(--card-border-radius, 15px);
@@ -29,7 +29,7 @@
 }
 
 .holidayCard:hover {
-	border: none;
+	border: 1px solid var(--secondary-accent-light, #f0f0f0);
 	background-color: var(--secondary-accent-light, #f0f0f0);
 	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
 }

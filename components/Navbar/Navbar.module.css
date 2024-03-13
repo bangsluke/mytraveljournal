@@ -2,14 +2,20 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	padding: 0 10px;
+	padding: 0 20px;
 	height: var(--header-height, 80px);
 	width: 100%;
-	color: #f3f3f3;
+	color: var(--off-white, #f3f3f3);
 	display: grid;
 	column-gap: 10px;
-	grid-template-columns: 60px 1fr 60px 60px;
+	grid-template-columns: 60px 1fr 35px;
 	z-index: 100;
+}
+
+.NavbarMobile {
+	padding: 0 10px;
+	column-gap: 5px;
+	grid-template-columns: 60px 1fr 35px 10px 35px;
 }
 
 .NavbarOffset {
@@ -41,21 +47,89 @@
 }
 
 .Navbar_logo {
-	color: #f3f3f3;
+	color: var(--off-white, #f3f3f3);
 	filter: invert(100);
+	cursor: pointer;
 }
 
 .Navbar_headerContainer {
 	/* background-color: #222; */
 	text-align: left;
+	font-family: var(--font-family, ui-sans-serif);
+	cursor: pointer;
+}
+
+.Navbar_headerContainerMobile {
+	font-size: 0.8rem;
 }
 
 .Navbar_backContainer {
 	/* background-color: #fafafa; */
 	text-align: right;
+	position: relative;
+	display: inline-block;
 }
 
 .Navbar_menuContainer {
 	/* background-color: #555555; */
 	text-align: right;
+	position: relative;
+	display: inline-block;
+}
+
+.Icon {
+	width: 35px;
+	/* Adjust the width and height of your logo */
+	height: 35px;
+	z-index: 1;
+	/* Ensure the logo is on top of the circle */
+	cursor: pointer;
+}
+
+.IconOpaque {
+	color: var(--white, #fff);
+}
+
+.IconOpaque:hover {
+	color: var(--main-accent, red);
+	transition: all 0.3s ease;
+}
+
+.IconCircle {
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	background-color: var(--hover-icon-background, rgba(0, 0, 0, 0.2));
+	/* Shaded background color */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 0;
+	/* Ensure the circle is behind the logo */
+	transition: all 0.3s ease;
+	/* Add transition for smooth effect */
+	opacity: 0;
+	/* Initially hidden */
+}
+
+.IconCircleOpaque {
+	background-color: var(--secondary-accent-light, grey);
+	opacity: 0.7;
+	/* Initially hidden */
+}
+
+.IconCircleOpaque:hover {
+	opacity: 1;
+	/* Show the circle fully on hover */
+}
+
+.Navbar_backContainer:hover .IconCircle {
+	opacity: 1;
+	/* Show the circle on hover */
+}
+
+.Navbar_menuContainer:hover .IconCircle {
+	opacity: 1;
+	/* Show the circle on hover */
 }

@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import Layout from "../../components/Layouts/Layout";
+import Layout from "../../Layouts/Layout";
 import CitiesList from "../../components/Lists/CitiesList";
 import CountryList from "../../components/Lists/CountriesList";
 import HolidayList from "../../components/Lists/HolidayList";
