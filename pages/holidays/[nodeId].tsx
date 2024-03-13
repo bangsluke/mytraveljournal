@@ -146,7 +146,9 @@ function HolidayPage({ session }: { session: Session }) {
 						{/* List the holiday pills */}
 						{pills}
 					</div>
+				</section>
 
+				<section className={styles.attendeesSection}>
 					{/* List the holiday attendees */}
 					<h4>Attendees:</h4>
 					<AttendeesList stringArray={attendees} />

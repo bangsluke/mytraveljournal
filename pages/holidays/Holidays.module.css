@@ -74,7 +74,7 @@
 .pillsSection {
 	/* background-color: blue; */
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-	padding: 1rem;
+	padding: 1rem 1rem 0rem 1rem;
 }
 
 .holidayPills {
@@ -89,9 +89,35 @@
 	margin-bottom: 10px;
 }
 
+.attendeesSection {
+	/* background-color: blue; */
+	width: 100vw;
+	/* top: calc(calc(var(--header-height, 80px) + 1rem)*-1); */
+	padding: 0rem 1rem 1rem 1rem;
+}
+
+.attendeesSection h4 {
+	/* background-color: #fe395c; */
+	line-height: 1rem;
+}
+
 .section {
+	/* background-color: violet; */
+	width: 100vw;
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
 	top: -3rem;
 	display: block;
-	padding: 1rem;
+	padding: 0rem 1rem 1rem 1rem;
+
+
+
+}
+
+@media only screen and (max-width: 767px) {
+
+	/* Adjust styling for mobile */
+	.holidayImageOverlayContainer h3 {
+		font-size: 1.8rem;
+	}
+
 }
