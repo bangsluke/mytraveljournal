@@ -119,32 +119,41 @@ function HolidayPage({ session }: { session: Session }) {
 
 	return (
 		<Layout NavbarStyle='Transparent'>
-			{/* Hold the full width image of the holiday */}
-			<div className={styles.holidayImageContainer}>
-				<Image src={holidayImageURL} unoptimized alt={`${name} Image`} quality={100} width={375} height={400} className={styles.holidayImage} />
-				<div className={styles.holidayImageOverlayContainer}>
-					{/* Holiday Name */}
-					<h3>/ {name}</h3>
+			{/* Hold all of the content for the holiday page */}
+			<div className={styles.holidayPageContainer}>
+				{/* Hold the full width image of the holiday */}
+				<div className={styles.holidayImageContainer}>
+					<Image
+						src={holidayImageURL}
+						unoptimized
+						alt={`${name} Image`}
+						quality={100}
+						width={375}
+						height={400}
+						className={styles.holidayImage}
+					/>
+					<div className={styles.holidayImageOverlayContainer}>
+						{/* Holiday Name */}
+						<h3>/ {name}</h3>
+					</div>
 				</div>
+
+				<section className={styles.pillsSection}>
+					<div className={styles.holidayPills}>
+						{/* List the holiday pills */}
+						{pills}
+					</div>
+
+					{/* List the holiday attendees */}
+					<h4>Attendees:</h4>
+					<AttendeesList stringArray={attendees} />
+				</section>
+
+				<section className={styles.section}>
+					{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
+					<Interweave content={textHtmlContent} />
+				</section>
 			</div>
-
-			<h3>{holidayTitle}</h3>
-
-			<section className={styles.section}>
-				<div className={styles.holidayPills}>
-					{/* List the holiday pills */}
-					{pills}
-				</div>
-
-				{/* List the holiday attendees */}
-				<h4>Attendees:</h4>
-				<AttendeesList stringArray={attendees} />
-			</section>
-
-			<section className={styles.section}>
-				{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
-				<Interweave content={textHtmlContent} />
-			</section>
 		</Layout>
 	);
 }

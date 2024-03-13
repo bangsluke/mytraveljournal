@@ -1,3 +1,12 @@
+/* Add a full page container */
+.holidayPageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
+}
+
 .holidayImageContainer {
 	height: 60vh;
 	width: 100%;
@@ -5,7 +14,6 @@
 	overflow: hidden;
 	/* Needed to position the title text over the image */
 	position: relative;
-	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
 	z-index: 0;
 }
 
@@ -37,6 +45,7 @@
 .holidayImageOverlayContainer h3 {
 	font-size: 2.5rem;
 	/* Ensure text is displayed on top of the image */
+	/* background-color: var(--secondary-accent-light, grey); */
 }
 
 .clickableList {
@@ -46,10 +55,9 @@
 	color: var(--main-accent, #fe395c);
 }
 
-.section {
+.pillsSection {
+	/* background-color: blue; */
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-	top: -3rem;
-	display: block;
 	padding: 1rem;
 }
 
@@ -63,4 +71,11 @@
 .holidayPills>* {
 	margin-right: 10px;
 	margin-bottom: 10px;
+}
+
+.section {
+	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
+	top: -3rem;
+	display: block;
+	padding: 1rem;
 }
