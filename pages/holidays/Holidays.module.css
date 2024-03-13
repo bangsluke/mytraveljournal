@@ -40,12 +40,28 @@
 	text-align: left;
 	z-index: 1;
 	/* Ensure text is displayed on top of the image */
+	top: 40vh;
 }
 
 .holidayImageOverlayContainer h3 {
-	font-size: 2.5rem;
+	font-size: 2rem;
 	/* Ensure text is displayed on top of the image */
 	/* background-color: var(--secondary-accent-light, grey); */
+	background-color: var(--secondary-accent-transparent, rgba(236, 236, 236, 0.2));
+	padding: 0.5rem 2rem;
+	border-radius: 2.5rem;
+}
+
+.holidayOverlayName::first-letter {
+	color: var(--main-accent, #fe395c);
+}
+
+.holidayOverlayName::after {
+	content: attr(data-content);
+}
+
+.holidayImageOverlayContainer h3:hover {
+	background-color: rgba(236, 236, 236, 0.9);
 }
 
 .clickableList {
