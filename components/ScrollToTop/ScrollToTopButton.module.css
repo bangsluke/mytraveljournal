@@ -22,3 +22,7 @@
 .scrollToTopButtonVisible {
 	opacity: 0.5;
 }
+
+.scrollToTopButtonIcon {
+	color: var(--main-accent, red);
+}
