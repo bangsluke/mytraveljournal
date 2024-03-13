@@ -8,7 +8,7 @@ import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
-import Layout from "../../components/Layouts/Layout";
+import Layout from "../../Layouts/Layout";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import withAuth from "../../lib/withAuth";

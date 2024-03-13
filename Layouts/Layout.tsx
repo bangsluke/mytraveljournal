@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useState } from "react";
-import useScreenSize from "../../hooks/useScreenSize";
-import LogS from "../../services/LogS";
-import Navbar from "../Navbar/Navbar";
-import ScrollToTopButton from "../ScrollToTop/ScrollToTopButton";
-import Sidebar from "../Sidebar/Sidebar";
+import Navbar from "../components/Navbar/Navbar";
+import ScrollToTopButton from "../components/ScrollToTop/ScrollToTopButton";
+import Sidebar from "../components/Sidebar/Sidebar";
+import useScreenSize from "../hooks/useScreenSize";
+import LogS from "../services/LogS";
 import styles from "./Layout.module.css";
 
 export default function Layout({ children, NavbarStyle }: any) {
@@ -24,7 +24,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 	}
 
 	return (
-		<>
+		<html lang='en'>
 			<Head>
 				{/* Site Title */}
 				<title>My Travel Journal</title>
@@ -51,6 +51,6 @@ export default function Layout({ children, NavbarStyle }: any) {
 					Powered by Next.js
 				</a>
 			</footer>
-		</>
+		</html>
 	);
 }

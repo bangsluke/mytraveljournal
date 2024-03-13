@@ -111,6 +111,7 @@
 #homepageHeader {
   text-align: center;
   color: #BBB;
+  font-family: var(--font-family, ui-sans-serif);
 }
 
 .mapContainer {
@@ -123,7 +124,6 @@
 .hidden {
   display: none;
 }
-
 
 .travelcard {
   margin: 2rem auto;
