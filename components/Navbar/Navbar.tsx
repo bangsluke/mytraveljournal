@@ -30,7 +30,9 @@ export default function Navbar(props: NavbarProps) {
 				<div className={styles.Navbar_logoContainer} onClick={() => router.push({ pathname: "/" })}>
 					<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' className={styles.Navbar_logo} />
 				</div>
-			) : null}
+			) : (
+				<div className={styles.Navbar_logoContainer}></div>
+			)}
 
 			{/* Display the header if the Navbar is opaque */}
 			{NavbarStyle === "Opaque" ? (
@@ -39,7 +41,10 @@ export default function Navbar(props: NavbarProps) {
 					onClick={() => router.push({ pathname: "/" })}>
 					<h1>my travel journal.</h1>
 				</div>
-			) : null}
+			) : (
+				// Display a blank div to push the icons right
+				<div className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" ? styles.Navbar_headerContainerMobile : null}`}></div>
+			)}
 
 			<div className={styles.Navbar_backContainer}>
 				{/* Add a back arrow to navigate the last page */}
