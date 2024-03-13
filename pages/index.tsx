@@ -8,9 +8,9 @@ import { useSession } from "next-auth/react";
 import Loading from "../components/Loading/Loading";
 import Toast from "../components/Toast/Toast";
 import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
+import SignIn from "../pages/auth/signin";
 import LogS from "../services/LogS";
 import styles from "../styles/Home.module.css";
-import SignIn from "./auth/SignIn";
 
 export default function Home(props: any) {
 	const { data: session, status } = useSession();
