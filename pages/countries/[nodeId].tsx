@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import Layout from "../../Layouts/Layout";
+import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import withAuth from "../../lib/withAuth";
@@ -18,7 +19,7 @@ function CountryPage({ session }: { session: Session }) {
 		variables: { nodeId }, // Pass the variable to the query
 	});
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <Loading />;
 	if (error)
 		return (
 			<>

@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import Layout from "../../Layouts/Layout";
+import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import withAuth from "../../lib/withAuth";
@@ -51,7 +52,7 @@ function HolidayPage({ session }: { session: Session }) {
 
 	LogS.log("holiday data: ", data);
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <Loading />;
 	if (error)
 		return (
 			<>
