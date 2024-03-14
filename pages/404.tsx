@@ -1,7 +1,7 @@
 import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Layout from "../layouts/Layout";
+// import Layout from "../layouts/Layout";
 import withAuth from "../lib/withAuth";
 import Error404Image from "../public/images/404Image.webp";
 import styles from "../styles/Home.module.css";
@@ -10,7 +10,8 @@ import styles from "../styles/Home.module.css";
 function Custom404Page({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	return (
-		<Layout NavbarStyle='Opaque'>
+		<>
+			{/* <Layout NavbarStyle='Opaque'> */}
 			<Image src={Error404Image} alt='Travel Site Error Logo' width='200' height='200' layout='fixed' priority />
 			<h2 className={styles.ErrorPageHeader}>404 - Page Not Found</h2>
 			<div
@@ -19,7 +20,8 @@ function Custom404Page({ session }: { session: Session }) {
 			>
 				<h4>Click here to go back</h4>
 			</div>
-		</Layout>
+			{/* </Layout> */}
+		</>
 	);
 }
 
