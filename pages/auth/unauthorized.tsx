@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import AuthLayout from "../../layouts/AuthLayout";
 import styles from "../auth/Authentication.module.css";
+import AuthLayout from "./AuthLayout";
 
 export default function UnAuthorized() {
 	const router = useRouter();
