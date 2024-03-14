@@ -64,8 +64,8 @@ export const authOptions = {
 
 	// Optional: Theme - (https://next-auth.js.org/configuration/options#theme)
 	theme: {
-		//colorScheme: "auto", // "auto" | "dark" | "light"
-		//brandColor: "#FFF000", // Hex color code
+		colorScheme: "auto", // "auto" | "dark" | "light"
+		brandColor: "#fe395c", // Hex color code
 		logo: "https://i.imgur.com/0Fm5UcF.png", // Absolute URL to image
 		//buttonText: "#F03FF0", // Hex color code
 	},

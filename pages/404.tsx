@@ -1,7 +1,7 @@
 import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Layout from "../Layouts/Layout";
+import Layout from "../layouts/Layout";
 import withAuth from "../lib/withAuth";
 import Error404Image from "../public/images/404Image.webp";
 import styles from "../styles/Home.module.css";

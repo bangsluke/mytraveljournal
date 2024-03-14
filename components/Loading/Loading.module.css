@@ -1,4 +1,5 @@
 .LoadingHolder {
+	background-color: var(--secondary-accent-light, #f0f0f0);
 	height: 100vh;
 	width: 100vw;
 	display: flex;
@@ -21,4 +22,26 @@
 
 .rotatingLogo {
 	animation: rotate 2s linear infinite;
+}
+
+/* Adjust styling for mobile */
+@media only screen and (max-width: 767px) {
+
+	.rotatingLogo {
+		margin: 0 0 4rem;
+		/* Add a margin at the bottom to push the logo up */
+	}
+
+}
+
+
+/* Style for dark mode */
+@media (prefers-color-scheme: dark) {
+	.LoadingHolder {
+		background-color: var(--background-dark-mode, #161A23);
+	}
+
+	.rotatingLogo {
+		filter: invert(100);
+	}
 }

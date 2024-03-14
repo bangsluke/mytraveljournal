@@ -3,15 +3,24 @@
 	--sidebar-width: 60vw;
 	--sidebar-width-static: 200px;
 	--main-accent: #fe395c;
+	/*rgb(254, 57, 92)*/
 	--secondary-accent: #BBB;
 	--secondary-accent-light: #ECECEC;
+	/*rgb(236, 236, 236) */
 	--secondary-accent-transparent: rgba(236, 236, 236, 0.7);
 	--white: #FFFFFF;
+	/* rgb(255, 255, 255) */
 	--off-white: #f3f3f3;
+	/* rgb(243, 243, 243) */
 	--sidebar-spacing: 15px;
 	--hover-icon-background: rgba(0, 0, 0, 0.2);
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
+	/* Dark mode */
+	--background-dark-mode: #161A23;
+	/* rgb(22,26,35); */
+	--secondary-accent-dark-mode: #0D1019;
+	/* rgb(13,16,25); */
 	/* Images */
 	/* Keep aligned with HolidayCardImageHeight in constants.ts */
 	--holiday-card-image-height: 150px;
