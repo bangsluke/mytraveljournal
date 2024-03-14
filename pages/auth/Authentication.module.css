@@ -14,6 +14,7 @@
 	background-color: var(--white, #FFFFFF);
 	width: 368px;
 	margin: 2rem 0;
+	/* Add a margin at the bottom to push the card up */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -34,4 +35,42 @@
 .Logo {
 	height: 100px;
 	width: 100px;
+}
+
+/* Adjust styling for mobile */
+@media only screen and (max-width: 767px) {
+
+	.card {
+		margin: 2rem 0 4rem;
+		/* Add a margin at the bottom to push the card up */
+	}
+
+}
+
+/* Style to match the NextAuth styling */
+@media only screen and (max-width: 450px) {
+
+	.card {
+		width: 343px;
+	}
+
+}
+
+/* Style for dark mode */
+@media (prefers-color-scheme: dark) {
+	.page {
+		background-color: var(--background-dark-mode, #161A23);
+	}
+
+	.card {
+		background-color: var(--secondary-accent-dark-mode, #0D1019);
+	}
+
+	.title {
+		color: var(--off-white, #f3f3f3)
+	}
+
+	.Logo {
+		filter: invert(100);
+	}
 }

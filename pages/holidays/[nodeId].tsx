@@ -8,10 +8,10 @@ import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
-import Layout from "../../Layouts/Layout";
 import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import Layout from "../../layouts/Layout";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import { Holiday } from "../../types/types";
@@ -134,13 +134,12 @@ function HolidayPage({ session }: { session: Session }) {
 						className={styles.holidayImage}
 					/>
 				</div>
-				<div className={styles.holidayImageOverlayContainer}>
-					{/* Holiday Name */}
-					<h3 className={styles.holidayOverlayName}>
-						<span>/</span>
-						<span> {name}</span>
-					</h3>
-				</div>
+				{/* Holiday Name */}
+				<h3 className={styles.holidayName}>
+					<span>/</span>
+					<span> {name}</span>
+					<span>.</span>
+				</h3>
 
 				<section className={styles.pillsSection}>
 					<div className={styles.holidayPills}>

@@ -1,7 +1,7 @@
 import { Session } from "next-auth";
-import Layout from "../../Layouts/Layout";
 import CountriesList from "../../components/Lists/CountriesList";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import Layout from "../../layouts/Layout";
 import withAuth from "../../lib/withAuth";
 import styles from "../../styles/Home.module.css";
 
