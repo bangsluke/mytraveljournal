@@ -53,7 +53,7 @@ export const authOptions = {
 	//},
 
 	// Optional: Specify pages for signing in, signing out, error, verify request, etc. - (https://next-auth.js.org/configuration/options#pages)
-	// TODO: Optionally turn on the below and style the page at pages/auth/signin etc
+	// TODO: Optionally turn on the below and style the page at pages/auth/signin etc. See delete page in Commit "Deleted custom NextAuth page for sign in" on 14/03/2024
 	//pages: {
 	//signIn: "/auth/signin", // Displays signin buttons
 	//signOut: "/auth/signout", // Displays signout button
