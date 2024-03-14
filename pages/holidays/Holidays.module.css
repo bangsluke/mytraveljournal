@@ -30,38 +30,17 @@
 	/* Remove default image inline behaviors */
 }
 
-.holidayImageOverlayContainer {
-	/* background-color: #fe395c; */
-	position: absolute;
-	height: max-content;
-	bottom: 10%;
-	left: 10px;
-	color: white;
-	text-align: left;
+.holidayName {
 	z-index: 1;
-	/* Ensure text is displayed on top of the image */
-	top: 40vh;
+	font-size: 1.6rem;
+	line-height: 1rem;
+	text-align: left;
+	align-self: flex-start;
+	padding: 0rem 0rem 0rem 1rem;
 }
 
-.holidayImageOverlayContainer h3 {
-	font-size: 2rem;
-	/* Ensure text is displayed on top of the image */
-	/* background-color: var(--secondary-accent-light, grey); */
-	background-color: var(--secondary-accent-transparent, rgba(236, 236, 236, 0.2));
-	padding: 0.5rem 2rem;
-	border-radius: 2.5rem;
-}
-
-.holidayOverlayName::first-letter {
+.holidayName::first-letter {
 	color: var(--main-accent, #fe395c);
-}
-
-.holidayOverlayName::after {
-	content: attr(data-content);
-}
-
-.holidayImageOverlayContainer h3:hover {
-	background-color: rgba(236, 236, 236, 0.9);
 }
 
 .clickableList {
@@ -74,7 +53,7 @@
 .pillsSection {
 	/* background-color: blue; */
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-	padding: 1rem 1rem 0rem 1rem;
+	padding: -rem 1rem 0rem 1rem;
 }
 
 .holidayPills {

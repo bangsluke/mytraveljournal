@@ -134,13 +134,12 @@ function HolidayPage({ session }: { session: Session }) {
 						className={styles.holidayImage}
 					/>
 				</div>
-				<div className={styles.holidayImageOverlayContainer}>
-					{/* Holiday Name */}
-					<h3 className={styles.holidayOverlayName}>
-						<span>/</span>
-						<span> {name}</span>
-					</h3>
-				</div>
+				{/* Holiday Name */}
+				<h3 className={styles.holidayName}>
+					<span>/</span>
+					<span> {name}</span>
+					<span>.</span>
+				</h3>
 
 				<section className={styles.pillsSection}>
 					<div className={styles.holidayPills}>
