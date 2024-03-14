@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import AuthLayout from "../../Layouts/AuthLayout";
+import AuthLayout from "../../layouts/AuthLayout";
 import styles from "./Authentication.module.css";
 
 // Define a sign in component can be used to help the user sign in.
