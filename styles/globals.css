@@ -16,6 +16,11 @@
 	--hover-icon-background: rgba(0, 0, 0, 0.2);
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
+	/* Dark mode */
+	--background-dark-mode: #161A23;
+	/* rgb(22,26,35); */
+	--secondary-accent-dark-mode: #0D1019;
+	/* rgb(13,16,25); */
 	/* Images */
 	/* Keep aligned with HolidayCardImageHeight in constants.ts */
 	--holiday-card-image-height: 150px;
