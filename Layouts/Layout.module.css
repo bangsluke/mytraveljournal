@@ -1,5 +1,6 @@
 .main {
 	/* background-color: aqua; */
+
 	/* Drop the contents of main under header */
 	padding: 0 0;
 	padding-top: var(--header-height, 80px);
