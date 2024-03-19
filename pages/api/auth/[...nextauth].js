@@ -114,7 +114,7 @@ export const authOptions = {
 	// },
 
 	// Optional: Debug - https://next-auth.js.org/configuration/options#debug
-	debug: false, // Set debug to true to enable debug messages for authentication and database operations.
+	debug: process.env.DEBUG_MODE, // Set debug to true to enable debug messages for authentication and database operations.
 };
 
 export default NextAuth(authOptions);
