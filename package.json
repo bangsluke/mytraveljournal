@@ -11,8 +11,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
-		"generategraph": "python python/generate_neo4j_graph_from_md.py"
+		"lint": "next lint"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.9.5",
