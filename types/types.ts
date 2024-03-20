@@ -17,13 +17,19 @@ export interface City {
 	name: string;
 	nodeId: string;
 	capital: boolean;
-	timesVisited: number;
+	linkedHolidays: Holiday[];
+}
+
+export interface Town {
+	name: string;
+	nodeId: string;
 	linkedHolidays: Holiday[];
 }
 
 export interface Island {
 	name: string;
 	nodeId: string;
+	linkedHolidays: Holiday[];
 }
 
 export interface Holiday {

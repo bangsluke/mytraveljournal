@@ -26,7 +26,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 	}
 
 	return (
-		<html lang='en'>
+		<>
 			<Head>
 				{/* Site Title */}
 				<title>My Travel Journal</title>
@@ -53,6 +53,6 @@ export default function Layout({ children, NavbarStyle }: any) {
 					Powered by Next.js
 				</a>
 			</footer>
-		</html>
+		</>
 	);
 }
