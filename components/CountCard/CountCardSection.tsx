@@ -42,6 +42,8 @@ const useGetContinentCount = () => {
 	numberOfItems = Object.keys(data.continents).length; // Else - get the number of items
 	// LogS.log("data from useGetContinentCount", data);
 	return numberOfItems;
+
+	// TODO: Filter out continents not visited
 };
 
 // Get the number of countries
@@ -57,6 +59,8 @@ const useGetCountryCount = () => {
 	numberOfItems = Object.keys(data.countries).length; // Else - get the number of items
 	// LogS.log("data from useGetCountryCount", data);
 	return numberOfItems;
+
+	// TODO: Filter out countries not visited
 };
 
 // Get the number of cities
@@ -72,6 +76,8 @@ const useGetCityCount = () => {
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
 	// LogS.log("data from useGetCityCount", data);
 	return numberOfItems;
+
+	// TODO: Filter out cities not visited
 };
 
 // Get the number of capitals
@@ -90,6 +96,8 @@ const useGetCapitalCount = () => {
 	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
 	// LogS.log("data from useGetCapitalCount", data);
 	return numberOfItems;
+
+	// TODO: Filter out capitals not visited
 };
 
 // Get the number of towns
@@ -106,6 +114,8 @@ const useGetTownCount = () => {
 	numberOfItems = Object.keys(data.towns).length; // Else - get the number of items
 	// LogS.log("data from useGetTownCount", data);
 	return numberOfItems;
+
+	// TODO: Filter out towns not visited
 };
 
 // Get the number of islands
@@ -121,6 +131,8 @@ const useGetIslandCount = () => {
 	numberOfItems = Object.keys(data.islands).length; // Else - get the number of items
 	// LogS.log("data from useGetIslandCount", data);
 	return numberOfItems;
+
+	// TODO: Filter out islands not visited
 };
 
 // Get the number of people
@@ -139,8 +151,6 @@ const useGetPeopleCount = () => {
 	numberOfItems = peopleWithAtLeastOneHoliday.length;
 	return numberOfItems;
 };
-
-// TODO: Filter the counts above to only visited places
 
 // Define a count card section that holds several count card components.
 export default function CountCardSection() {
