@@ -35,7 +35,7 @@ export default function Navbar(props: NavbarProps) {
 					<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' className={styles.Navbar_logo} />
 				</div>
 			) : (
-				<div className={styles.Navbar_logoContainer}></div>
+				<div className={styles.Navbar_logoContainer} onClick={() => router.push({ pathname: "/" })}></div>
 			)}
 
 			{/* Display the header if the Navbar is opaque */}
