@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // import Layout from "../layouts/Layout";
 import withAuth from "../lib/withAuth";
 import Error404Image from "../public/images/404Image.webp";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/404.module.css";
 
 // https://nextjs.org/docs/advanced-features/custom-error-page
 function Custom404Page({ session }: { session: Session }) {
