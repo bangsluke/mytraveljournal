@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-// import AuthLayout from "../../layouts/AuthenticationLayout";
-import styles from "../auth/Authentication.module.css";
+import styles from "./Authentication.module.css";
+import AuthenticationLayout from "./AuthenticationLayout";
 
 export default function UnAuthorized() {
 	const router = useRouter();
@@ -15,13 +15,11 @@ export default function UnAuthorized() {
 
 	// Use the "email" value in your code
 	return (
-		<>
-			{/* <AuthLayout> */}
+		<AuthenticationLayout>
 			<h1 className={styles.title}>Unauthorized</h1>
 			<p>{email} does not have access to this site.</p>
 			<p>To gain access, please contact Luke with your email address to be added.</p>
 			<button onClick={handleGoBack}>Go Back to Home</button>
-			{/* </AuthLayout> */}
-		</>
+		</AuthenticationLayout>
 	);
 }
