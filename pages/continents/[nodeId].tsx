@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import Layout from "../../layouts/Layout";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { Continent } from "../../types/types";
-import Layout from "../Layout";
 
 function ContinentPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
