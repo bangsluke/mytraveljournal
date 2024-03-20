@@ -20,7 +20,7 @@ export default function Home(props: any) {
 
 	// If the users authentication is loading or if the graphql query is loading
 	if (status === "loading" || loading) {
-		return <Loading />;
+		return <Loading BackgroundStyle={"Opaque"} />;
 	}
 
 	// If the user is not authenticated, show the sign in component
