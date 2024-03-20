@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import useScreenSize from "../../hooks/useScreenSize";
@@ -29,11 +30,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	}
 
 	// If the screen is mobile size, add a sidebar back container to be clicked to close the sidebar, otherwise don't
-	let sidebarBackContainerClassName = styles.sidebarBackContainerHidden;
+	let sidebarBlackoutClassName = styles.sidebarBlackoutHidden;
 	if (sidebarStyle == "dynamic") {
-		sidebarBackContainerClassName = `${styles.sidebarBackContainer} ${
-			sidebarOpen ? styles.sidebarBackContainerOpen : styles.sidebarBackContainerClosed
-		}`;
+		sidebarBlackoutClassName = `${styles.sidebarBlackout} ${sidebarOpen ? styles.sidebarBlackoutOpen : styles.sidebarBlackoutClosed}`;
 	}
 
 	// LogS.log("SidebarData", SidebarData); // Log the SidebarData
@@ -41,10 +40,16 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	return (
 		<>
 			<nav className={sideBarClassName}>
+				<div className={styles.sideBarLogoContainer} onClick={() => router.push({ pathname: "/" })}>
+					<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' />
+				</div>
+				{/* Dynamically decide on if to show the close sidebar button */}
 				{sidebarStyle == "dynamic" && (
-					<button className={styles.toggleButton} onClick={toggleSidebar}>
-						Close Sidebar
-					</button>
+					<div className={styles.sidebarCloseButtonContainer}>
+						<button className={styles.toggleButton} onClick={toggleSidebar}>
+							Close Sidebar
+						</button>
+					</div>
 				)}
 				<div className={styles.sidebarContent}>
 					<ul>
@@ -59,6 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 						))}
 					</ul>
 				</div>
+				{/* Provide details to the user on their login email and offer a sign out button */}
 				<div className={styles.sidebarLoginContent}>
 					{/* Display either a sign in or sign out button based on the session state */}
 					{session ? (
@@ -71,7 +77,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					)}
 				</div>
 			</nav>
-			{sidebarStyle == "dynamic" && <div className={sidebarBackContainerClassName} onClick={toggleSidebar}></div>}
+			{/* On mobile, add a blackout container to be clicked to close the sidebar */}
+			{sidebarStyle == "dynamic" && <div className={sidebarBlackoutClassName} onClick={toggleSidebar}></div>}
 		</>
 	);
 };

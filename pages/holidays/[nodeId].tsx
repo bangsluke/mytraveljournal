@@ -132,6 +132,7 @@ function HolidayPage({ session }: { session: Session }) {
 						width={375}
 						height={400}
 						className={styles.holidayImage}
+						priority
 					/>
 				</div>
 				{/* Holiday Name */}
