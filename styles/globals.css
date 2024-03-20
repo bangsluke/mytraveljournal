@@ -16,11 +16,9 @@
 	--hover-icon-background: rgba(0, 0, 0, 0.2);
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
-	/* Dark mode */
-	--background-dark-mode: #161A23;
-	/* rgb(22,26,35); */
-	--secondary-accent-dark-mode: #0D1019;
-	/* rgb(13,16,25); */
+
+	/* TODO: Migrate the dark mode colours to root below */
+
 	/* Images */
 	/* Keep aligned with HolidayCardImageHeight in constants.ts */
 	--holiday-card-image-height: 150px;
@@ -31,6 +29,16 @@
 		BlinkMacSystemFont,
 		Segoe UI,
 		Roboto;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* Dark mode */
+		--background-dark-mode: #161A23;
+		/* rgb(22,26,35); */
+		--secondary-accent-dark-mode: #0D1019;
+		/* rgb(13,16,25); */
+	}
 }
 
 ::-webkit-scrollbar {

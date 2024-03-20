@@ -7,6 +7,8 @@ import ScrollToTopButton from "../ScrollToTop/ScrollToTopButton";
 import Sidebar from "../Sidebar/Sidebar";
 import styles from "./Layout.module.css";
 
+// ! IMPORTANT WARNING: Do not move from Components - causes big build errors if you do
+
 export default function Layout({ children, NavbarStyle }: any) {
 	const screenSize = useScreenSize(); // Get the screen size
 	const [sidebarOpen, setSidebarOpen] = useState(false); // Create a state for toggling the sidebar
