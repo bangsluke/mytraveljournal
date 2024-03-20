@@ -52,7 +52,7 @@ function HolidayPage({ session }: { session: Session }) {
 
 	LogS.log("holiday data: ", data);
 
-	if (loading) return <Loading />;
+	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
 	if (error)
 		return (
 			<>

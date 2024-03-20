@@ -11,7 +11,7 @@ export default function CountryList() {
 	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
-	if (loading) return <Loading />;
+	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
 		LogS.error("GraphQLQueriesS.GET_COUNTRIES GraphQL Error: ", error.message);
