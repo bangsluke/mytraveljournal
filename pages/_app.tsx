@@ -16,6 +16,7 @@ if (DevMode) {
 
 // Define dark mode
 const darkMode = false;
+// TODO: Do something with this?
 
 // Note: All console logs will be printed in the browser console
 if (DevMode) {
@@ -29,7 +30,6 @@ const client = new ApolloClient({
 });
 
 // const client = ...
-
 client
 	.query({
 		query: gql`
