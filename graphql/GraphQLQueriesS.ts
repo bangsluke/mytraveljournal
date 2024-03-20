@@ -42,7 +42,6 @@ const GET_CITIES = gql`
 			name
 			nodeId
 			capital
-			timesVisited
 			linkedHolidays {
 				nodeId
 			}
@@ -56,7 +55,46 @@ const GET_CITY_BY_ID = gql`
 			name
 			nodeId
 			capital
-			timesVisited
+			linkedHolidays {
+				nodeId
+			}
+		}
+	}
+`;
+
+const GET_CAPITALS = gql`
+	query GetCapitals($capitalCheck: Boolean) {
+		cities(where: { capital: $capitalCheck }) {
+			name
+			nodeId
+			capital
+			linkedHolidays {
+				nodeId
+			}
+		}
+	}
+`;
+
+const GET_TOWNS = gql`
+	query GetTowns {
+		towns {
+			name
+			nodeId
+			linkedHolidays {
+				nodeId
+			}
+		}
+	}
+`;
+
+const GET_TOWN_BY_ID = gql`
+	query GetTownById($nodeId: String) {
+		towns(where: { nodeId: $nodeId }) {
+			name
+			nodeId
+			linkedHolidays {
+				nodeId
+			}
 		}
 	}
 `;
@@ -66,6 +104,9 @@ const GET_ISLANDS = gql`
 		islands {
 			name
 			nodeId
+			linkedHolidays {
+				nodeId
+			}
 		}
 	}
 `;
@@ -137,16 +178,6 @@ const GET_HOLIDAY_BY_ID = gql`
 	}
 `;
 
-const GET_CAPITALS = gql`
-	query GetCapitals($capitalCheck: Boolean) {
-		cities(where: { capital: $capitalCheck }) {
-			name
-			nodeId
-			capital
-		}
-	}
-`;
-
 const GraphQLQueriesS = {
 	GET_CONTINENTS,
 	GET_CONTINENT_BY_ID,
@@ -154,12 +185,14 @@ const GraphQLQueriesS = {
 	GET_COUNTRY_BY_ID,
 	GET_CITIES,
 	GET_CITY_BY_ID,
+	GET_CAPITALS,
+	GET_TOWNS,
+	GET_TOWN_BY_ID,
 	GET_ISLANDS,
 	GET_PEOPLE,
 	GET_PERSON_BY_ID,
 	GET_HOLIDAYS,
 	GET_HOLIDAY_BY_ID,
-	GET_CAPITALS,
 };
 
 export default GraphQLQueriesS;

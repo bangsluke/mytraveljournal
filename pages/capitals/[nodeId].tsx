@@ -10,7 +10,7 @@ import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { City } from "../../types/types";
 
-function CityPage({ session }: { session: Session }) {
+function CapitalPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
@@ -36,21 +36,21 @@ function CityPage({ session }: { session: Session }) {
 	LogS.log("data", data);
 
 	// Extract the data into usable variables
-	const { name }: City = data.cities[0];
-	const timesVisited: number = data.cities[0].linkedHolidays.length;
+	const { name }: City = data.capitals[0];
+	const timesVisited: number = data.capitals[0].linkedHolidays.length;
 
-	console.log(data.cities[0].linkedHolidays.length);
+	console.log(data.capitals[0].linkedHolidays.length);
 
-	// LogS.log("city data: ", data);
+	// LogS.log("capital data: ", data);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 
-				<h1>City Page</h1>
+				<h1>Capital Page</h1>
 
-				<h3>City Name: {name}</h3>
+				<h3>Capital Name: {name}</h3>
 				<p>{nodeId}</p>
 
 				<div>Number of times visited: {timesVisited}</div>
@@ -59,4 +59,4 @@ function CityPage({ session }: { session: Session }) {
 	);
 }
 
-export default withAuth(CityPage);
+export default withAuth(CapitalPage);
