@@ -5,11 +5,11 @@ import AttendedHolidayList from "../../components/Lists/AttendedHolidayList";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import Layout from "../../layouts/Layout";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import { Person } from "../../types/types";
-import Layout from "../Layout";
 
 function PersonPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
