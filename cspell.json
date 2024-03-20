@@ -27,23 +27,8 @@
 	// flagWords - list of words to be always considered incorrect
 	// This is useful for offensive words and common spelling errors.
 	// For example "hte" should be "the"
-	"flagWords": [
-		"hte"
-	],
+	"flagWords": ["hte"],
 	// ignorePaths - list of paths to ignore
-	"ignorePaths": [
-		"backend/output.json"
-	],
-	"ignoreWords": [
-		"Geocoded",
-		"Nominatim",
-		"blockquote",
-		"cafile",
-		"certifi",
-		"geocoders",
-		"geopy",
-		"lucide",
-		"mytraveljournal",
-		"travelcard"
-	]
+	"ignorePaths": ["backend/output.json"],
+	"ignoreWords": ["Geocoded", "Nominatim", "blockquote", "cafile", "certifi", "geocoders", "geopy", "mytraveljournal", "travelcard"]
 }
