@@ -1,6 +1,7 @@
 "use client";
+
 // https://levelup.gitconnected.com/smooth-scroll-to-top-button-implementation-in-next-js-13-7d3fa314e2d8
-import { ChevronUp } from "lucide-react";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useEffect, useState } from "react";
 import styles from "./ScrollToTopButton.module.css";
 
@@ -35,7 +36,7 @@ const ScrollToTopButton = () => {
 			className={`${styles.scrollToTopButton} ${isVisible ? styles.scrollToTopButtonVisible : null}`}
 			onClick={scrollToTop}
 			title='Scroll to Top Button'>
-			<ChevronUp className={styles.scrollToTopButtonIcon} />
+			<KeyboardArrowUpIcon className={styles.scrollToTopButtonIcon} />
 		</button>
 	);
 };
