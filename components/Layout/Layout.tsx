@@ -33,16 +33,21 @@ export default function Layout({ children, NavbarStyle }: any) {
 				<meta name='description' content='A journal of my travels with Bry and others.' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+
 			{/* Include the Navbar */}
 			<Navbar NavbarStyle={NavbarStyle} toggleSidebar={toggleSidebar} />
+
+			{/* Include the sidebar */}
+			<Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+
+			{/* Include the scroll to top button */}
 			<ScrollToTopButton />
 
 			{/* Wrap all children in a main tag with a header offset padding value */}
 			<main className={mainClassName}>
-				{/* Include the sidebar */}
-				<Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-				<section className={styles.content}>{children}</section>
+				<section>{children}</section>
 			</main>
+
 			{/* Add a footer at the bottom of every page */}
 			<footer className={styles.footer}>
 				{/* TODO: Actually set up a good footer */}

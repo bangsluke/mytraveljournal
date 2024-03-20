@@ -19,7 +19,7 @@ function CapitalPage({ session }: { session: Session }) {
 		variables: { nodeId }, // Pass the variable to the query
 	});
 
-	if (loading) return <Loading />;
+	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
 	if (error)
 		return (
 			<>

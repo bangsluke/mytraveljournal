@@ -21,7 +21,7 @@ function PersonPage({ session }: { session: Session }) {
 	});
 	// LogS.log("data", data);
 
-	if (loading) return <Loading />;
+	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
 	if (error)
 		return (
 			<>
