@@ -11,7 +11,7 @@ export default function CapitalsList() {
 	const router = useRouter(); // Import the Next router
 
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS);
-	if (loading) return <Loading LoadingStyle={"Transparent"} />;
+	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
 		LogS.error("GraphQLQueriesS.GET_CAPITALS GraphQL Error: ", error.message);
