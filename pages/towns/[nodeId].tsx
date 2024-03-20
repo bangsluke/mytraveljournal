@@ -8,14 +8,14 @@ import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
-import { City } from "../../types/types";
+import { Town } from "../../types/types";
 
-function CityPage({ session }: { session: Session }) {
+function TownPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CITY_BY_ID, {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_TOWN_BY_ID, {
 		variables: { nodeId }, // Pass the variable to the query
 	});
 
@@ -36,21 +36,21 @@ function CityPage({ session }: { session: Session }) {
 	LogS.log("data", data);
 
 	// Extract the data into usable variables
-	const { name }: City = data.cities[0];
-	const timesVisited: number = data.cities[0].linkedHolidays.length;
+	const { name }: Town = data.towns[0];
+	const timesVisited: number = data.towns[0].linkedHolidays.length;
 
-	console.log(data.cities[0].linkedHolidays.length);
+	console.log(data.towns[0].linkedHolidays.length);
 
-	// LogS.log("city data: ", data);
+	// LogS.log("town data: ", data);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 
-				<h1>City Page</h1>
+				<h1>Town Page</h1>
 
-				<h3>City Name: {name}</h3>
+				<h3>Town Name: {name}</h3>
 				<p>{nodeId}</p>
 
 				<div>Number of times visited: {timesVisited}</div>
@@ -59,4 +59,4 @@ function CityPage({ session }: { session: Session }) {
 	);
 }
 
-export default withAuth(CityPage);
+export default withAuth(TownPage);
