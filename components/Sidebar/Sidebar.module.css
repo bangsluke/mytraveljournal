@@ -131,19 +131,6 @@
 	background-color: #777;
 }
 
-/* Style the vertical text down the side of the sidebar */
-
-.verticalText {
-	/* background-color: #777; */
-	writing-mode: vertical-rl;
-	/* Rotate the text to be read vertically */
-	transform: rotate(180deg);
-	/* Rotate the text by 180 degrees for proper orientation */
-	height: 20rem;
-	width: 100%;
-	margin-left: var(--sidebar-spacing, 15px);
-}
-
 
 /* Style a sidebar back container to be clicked to close the sidebar */
 

@@ -70,7 +70,6 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 						<button onClick={() => signIn()}>Sign in</button>
 					)}
 				</div>
-				<div className={styles.verticalText}>bangsluke designs</div>
 			</nav>
 			{sidebarStyle == "dynamic" && <div className={sidebarBackContainerClassName} onClick={toggleSidebar}></div>}
 		</>
