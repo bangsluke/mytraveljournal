@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
+import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import Layout from "../../layouts/Layout";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
