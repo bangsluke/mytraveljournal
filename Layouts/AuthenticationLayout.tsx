@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../pages/auth/Authentication.module.css";
 
-export default function AuthLayout({ children, NavbarStyle }: any) {
+export default function AuthenticationLayout({ children }: any) {
 	return (
 		<>
 			<Head>

@@ -1,7 +1,7 @@
 // import jsonData from "../backend/output.json"; // Adjust the path accordingly
 import CountCardSection from "../components/CountCard/CountCardSection";
 import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
-import Layout from "../layouts/Layout";
+import Layout from "./Layout";
 // import MapChart from "../components/MapChart";
 import { useQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";

@@ -24,7 +24,8 @@
 		"**/*.tsx",
 		"components/layout.js",
 		"pages/api/auth/[...nextauth]/route.js",
-		"pages/api/auth/[...nextauth]/options.js"
+		"pages/api/auth/[...nextauth]/options.js",
+		"layouts/AuthenticationLayout.tsx"
 	],
 	"exclude": ["node_modules"]
 }
