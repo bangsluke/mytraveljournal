@@ -11,24 +11,22 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
-		"generategraph": "python python/generate_neo4j_graph_from_md.py"
+		"lint": "next lint"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.9.5",
-		"@emotion/react": "^11.11.1",
+		"@emotion/react": "^11.11.4",
 		"@emotion/styled": "^11.11.0",
-		"@mui/icons-material": "^5.15.10",
-		"@mui/material": "^5.15.10",
+		"@mui/icons-material": "^5.15.13",
+		"@mui/material": "^5.15.13",
 		"@types/body-parser": "^1.19.4",
 		"@types/d3-color": "3.1.3",
 		"axios": "^1.6.7",
 		"graphql": "^16.8.1",
 		"interweave": "^13.1.0",
 		"lucide-react": "^0.341.0",
-		"next-auth": "^4.24.6",
 		"next": "^14.1.0",
-		"next-auth": "^4.24.5",
+		"next-auth": "^4.24.6",
 		"react": "^18.2.0",
 		"react-dom": "18.2.0",
 		"sharp": "^0.33.2"
@@ -44,6 +42,6 @@
 		"typescript": "4.7.4"
 	},
 	"engines": {
-		"node": ">=18.17.0"
+		"node": ">=20.11.1"
 	}
 }

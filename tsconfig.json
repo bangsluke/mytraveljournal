@@ -16,7 +16,12 @@
 		"incremental": true,
 		"paths": {
 			"react": ["./node_modules/@types/react"]
-		}
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
 	},
 	"include": [
 		"next-env.d.ts",
@@ -24,7 +29,9 @@
 		"**/*.tsx",
 		"components/layout.js",
 		"pages/api/auth/[...nextauth]/route.js",
-		"pages/api/auth/[...nextauth]/options.js"
+		"pages/api/auth/[...nextauth]/options.js",
+		"pages/auth/AuthenticationLayout.tsx",
+		".next/types/**/*.ts"
 	],
 	"exclude": ["node_modules"]
 }
