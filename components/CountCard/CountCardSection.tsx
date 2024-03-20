@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import HouseIcon from "@mui/icons-material/House";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import MapIcon from "@mui/icons-material/Map";
 import PinDropIcon from "@mui/icons-material/PinDrop";
@@ -73,6 +74,40 @@ const useGetCityCount = () => {
 	return numberOfItems;
 };
 
+// Get the number of capitals
+const useGetCapitalCount = () => {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
+		variables: { capitalBoolean: true }, // Pass the variable to the query
+	});
+	// LogS.log("data from useGetCapitalCount", data);
+	let numberOfItems: number | string = 0;
+	if (loading) return (numberOfItems = ""); // If loading - show blank text
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
+	}
+	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
+	// LogS.log("data from useGetCapitalCount", data);
+	return numberOfItems;
+};
+
+// Get the number of towns
+const useGetTownCount = () => {
+	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_TOWNS);
+	// LogS.log("data from useGetTownCount", data);
+	let numberOfItems: number | string = 0;
+	if (loading) return (numberOfItems = ""); // If loading - show blank text
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useGetTownCount GraphQL Error: ", error.message), (numberOfItems = 0);
+		return <Toast message={"useGetTownCount GraphQL Error: " + error.message} duration={5} />;
+	}
+	numberOfItems = Object.keys(data.towns).length; // Else - get the number of items
+	// LogS.log("data from useGetTownCount", data);
+	return numberOfItems;
+};
+
 // Get the number of islands
 const useGetIslandCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_ISLANDS);
@@ -105,23 +140,7 @@ const useGetPeopleCount = () => {
 	return numberOfItems;
 };
 
-// Get the number of capitals
-const useGetCapitalCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
-		variables: { capitalBoolean: true }, // Pass the variable to the query
-	});
-	// LogS.log("data from useGetCapitalCount", data);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
-	// LogS.log("data from useGetCapitalCount", data);
-	return numberOfItems;
-};
+// TODO: Filter the counts above to only visited places
 
 // Define a count card section that holds several count card components.
 export default function CountCardSection() {
@@ -178,6 +197,30 @@ export default function CountCardSection() {
 			/>
 			<CountCard
 				id='5'
+				cardTitle='Capitals Count'
+				countValue={useGetCapitalCount()}
+				pagePath='/capitals'
+				backgroundIcon={
+					<PinDropIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='6'
+				cardTitle='Towns Count'
+				countValue={useGetTownCount()}
+				pagePath='/towns'
+				backgroundIcon={
+					<HouseIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+			<CountCard
+				id='7'
 				cardTitle='Islands Count'
 				countValue={useGetIslandCount()}
 				pagePath='/islands'
@@ -189,24 +232,12 @@ export default function CountCardSection() {
 				}
 			/>
 			<CountCard
-				id='6'
+				id='8'
 				cardTitle='Travel Companion Count'
 				countValue={useGetPeopleCount()}
 				pagePath='/people'
 				backgroundIcon={
 					<SupervisorAccountIcon
-						// @ts-ignore
-						fontSize='40'
-					/>
-				}
-			/>
-			<CountCard
-				id='7'
-				cardTitle='Capitals Count'
-				countValue={useGetCapitalCount()}
-				pagePath='/capitals'
-				backgroundIcon={
-					<PinDropIcon
 						// @ts-ignore
 						fontSize='40'
 					/>

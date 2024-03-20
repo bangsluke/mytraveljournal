@@ -20,6 +20,12 @@ export interface City {
 	linkedHolidays: Holiday[];
 }
 
+export interface Town {
+	name: string;
+	nodeId: string;
+	linkedHolidays: Holiday[];
+}
+
 export interface Island {
 	name: string;
 	nodeId: string;

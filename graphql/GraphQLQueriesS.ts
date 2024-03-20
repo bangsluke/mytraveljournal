@@ -62,6 +62,30 @@ const GET_CITY_BY_ID = gql`
 	}
 `;
 
+const GET_TOWNS = gql`
+	query GetTowns {
+		towns {
+			name
+			nodeId
+			linkedHolidays {
+				nodeId
+			}
+		}
+	}
+`;
+
+const GET_TOWN_BY_ID = gql`
+	query GetTownById($nodeId: String) {
+		towns(where: { nodeId: $nodeId }) {
+			name
+			nodeId
+			linkedHolidays {
+				nodeId
+			}
+		}
+	}
+`;
+
 const GET_ISLANDS = gql`
 	query GetIslands {
 		islands {
@@ -155,6 +179,8 @@ const GraphQLQueriesS = {
 	GET_COUNTRY_BY_ID,
 	GET_CITIES,
 	GET_CITY_BY_ID,
+	GET_TOWNS,
+	GET_TOWN_BY_ID,
 	GET_ISLANDS,
 	GET_PEOPLE,
 	GET_PERSON_BY_ID,
