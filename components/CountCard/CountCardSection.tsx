@@ -10,7 +10,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
-import { Person } from "./../../types/types";
+import { City, Person } from "./../../types/types";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
@@ -25,7 +25,7 @@ const useGetHolidayCount = () => {
 		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
 	}
 	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
-	LogS.log("data from useGetHolidayCount", data);
+	//LogS.log("data from useGetHolidayCount", data);
 	return numberOfItems;
 };
 
@@ -73,11 +73,9 @@ const useGetCityCount = () => {
 		LogS.error("useGetCityCount GraphQL Error: ", error.message), (numberOfItems = 0);
 		return <Toast message={"useGetCityCount GraphQL Error: " + error.message} duration={5} />;
 	}
-	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
+	numberOfItems = Object.keys(data.cities.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0)).length; // Else - get the number of items - filtered to number of visits
 	// LogS.log("data from useGetCityCount", data);
 	return numberOfItems;
-
-	// TODO: Filter out cities not visited
 };
 
 // Get the number of capitals
@@ -85,7 +83,7 @@ const useGetCapitalCount = () => {
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
 		variables: { capitalBoolean: true }, // Pass the variable to the query
 	});
-	// LogS.log("data from useGetCapitalCount", data);
+	LogS.log("data from useGetCapitalCount", data);
 	let numberOfItems: number | string = 0;
 	if (loading) return (numberOfItems = ""); // If loading - show blank text
 	if (error) {
@@ -93,11 +91,11 @@ const useGetCapitalCount = () => {
 		LogS.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0);
 		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
 	}
-	numberOfItems = Object.keys(data.cities).length; // Else - get the number of items
+	numberOfItems = Object.keys(
+		data.cities.filter((city: City) => city.linkedHolidays && city.capital && city.linkedHolidays.length > 0),
+	).length; // Else - get the number of items - filtered to number of visits
 	// LogS.log("data from useGetCapitalCount", data);
 	return numberOfItems;
-
-	// TODO: Filter out capitals not visited
 };
 
 // Get the number of towns

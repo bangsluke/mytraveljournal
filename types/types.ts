@@ -29,6 +29,7 @@ export interface Town {
 export interface Island {
 	name: string;
 	nodeId: string;
+	linkedHolidays: Holiday[];
 }
 
 export interface Holiday {

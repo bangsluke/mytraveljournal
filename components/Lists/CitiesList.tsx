@@ -33,8 +33,6 @@ export default function CitiesList() {
 
 	LogS.log("Sorted and filtered city data: ", sortedAndFilteredCities);
 
-	// TODO: Order cities by number of times visited
-
 	return (
 		<div className={styles.dataList}>
 			<ul>
