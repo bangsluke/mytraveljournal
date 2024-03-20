@@ -26,8 +26,10 @@ export default function CitiesList() {
 	LogS.log("cities data: ", data);
 
 	// Filter out cities with no holidays and then sort by the length of timesVisited
-	const sortedAndFilteredCities = data.cities.filter((city: City) => city.timesVisited && city.timesVisited > 0);
-	// .sort((a: City, b: City) => b.timesVisited - a.timesVisited);
+	//const sortedAndFilteredCities = data.cities;
+	const sortedAndFilteredCities = data.cities
+		.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0)
+		.sort((a: any, b: any) => b.linkedHolidays.length - a.linkedHolidays.length);
 
 	LogS.log("Sorted and filtered city data: ", sortedAndFilteredCities);
 

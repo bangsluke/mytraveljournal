@@ -33,10 +33,13 @@ function CityPage({ session }: { session: Session }) {
 			</>
 		);
 
-	// LogS.log("data", data);
+	LogS.log("data", data);
 
 	// Extract the data into usable variables
 	const { name }: City = data.cities[0];
+	const timesVisited: number = data.cities[0].linkedHolidays.length;
+
+	console.log(data.cities[0].linkedHolidays.length);
 
 	// LogS.log("city data: ", data);
 
@@ -50,7 +53,7 @@ function CityPage({ session }: { session: Session }) {
 				<h3>City Name: {name}</h3>
 				<p>{nodeId}</p>
 
-				<div>Number of times visited:</div>
+				<div>Number of times visited: {timesVisited}</div>
 			</section>
 		</Layout>
 	);

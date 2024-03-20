@@ -17,7 +17,6 @@ export interface City {
 	name: string;
 	nodeId: string;
 	capital: boolean;
-	timesVisited: number;
 	linkedHolidays: Holiday[];
 }
 

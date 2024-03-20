@@ -42,7 +42,6 @@ const GET_CITIES = gql`
 			name
 			nodeId
 			capital
-			timesVisited
 			linkedHolidays {
 				nodeId
 			}
@@ -56,7 +55,9 @@ const GET_CITY_BY_ID = gql`
 			name
 			nodeId
 			capital
-			timesVisited
+			linkedHolidays {
+				nodeId
+			}
 		}
 	}
 `;
