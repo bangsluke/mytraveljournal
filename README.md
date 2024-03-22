@@ -17,6 +17,8 @@
     - [Netlify Environment Variables](#netlify-environment-variables)
       - [GraphQL Endpoint](#graphql-endpoint)
       - [NextAuth](#nextauth)
+  - [GraphQL Set Up](#graphql-set-up)
+    - [Schema and Updates](#schema-and-updates)
 
 ## Getting Started
 
@@ -120,5 +122,21 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
   - Purpose: OAuth credentials for GitHub authentication
 - GOOGLE_ID, GOOGLE_SECRET
   - Purpose: OAuth credentials for Google authentication
+
+> [Back to Table of Contents](#table-of-contents)
+
+### GraphQL Set Up
+
+### Schema and Updates
+
+The GraphQL schema is generated from both the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> and `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>. The files required for this type set up are;
+
+- mytraveljournal
+  - GraphQLQueries.ts (found at mytraveljournal/graphql/GraphQLQueries.ts)
+  - types.ts (found at mytraveljournal/types/types.ts)
+- server-mytraveljournal
+  - types.js (found at server-mytraveljournal/graphql/types.js)
+
+Any updates to nodes types and edges should be done across these three files.
 
 > [Back to Table of Contents](#table-of-contents)
