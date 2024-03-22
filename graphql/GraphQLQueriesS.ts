@@ -1,5 +1,7 @@
 import { gql } from "@apollo/client";
 
+// Test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox
+
 const GET_CONTINENTS = gql`
 	query GetContinents {
 		continents {

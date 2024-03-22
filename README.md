@@ -19,6 +19,7 @@
       - [NextAuth](#nextauth)
   - [GraphQL Set Up](#graphql-set-up)
     - [Schema and Updates](#schema-and-updates)
+    - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
 
 ## Getting Started
 
@@ -138,5 +139,9 @@ The GraphQL schema is generated from both the `mytraveljournal` repo <https://gi
   - types.js (found at server-mytraveljournal/graphql/types.js)
 
 Any updates to nodes types and edges should be done across these three files.
+
+### How to extend the Schema and queries
+
+- Test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox
 
 > [Back to Table of Contents](#table-of-contents)
