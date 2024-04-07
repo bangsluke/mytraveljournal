@@ -32,7 +32,7 @@ To quickly get started in development mode, do the following steps:
 1. Start up Neo4j desktop
 2. Start the Neo4j graph database (on Neo4j desktop)
 3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
-4. Start the backend by running: `npm run dev` in a terminal
+4. Start the backend by running: `npm run dev` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
 5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
 6. Start the frontend by running: `yarn dev`
 7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
@@ -42,7 +42,7 @@ To quickly get started in development mode, do the following steps:
 To quickly get started in production mode, do the following steps:
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
-2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
+2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
 3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
 4. In a terminal, build the frontend by running: `yarn build`
 5. When done, start the frontend by running: `yarn start`
@@ -67,11 +67,10 @@ At the start of each note, I have some "front matter" - the name used in Obsidia
 ```JS
 - tags: #holiday
 - attendees: [[Luke]], [[Bryony]]
-- coverPhoto: TBC
+- coverPhoto: "https://i.imgur.com/QeribGQ.jpeg"
 - photoAlbum: 2023 06 - Dublin
-- whatsAppGroup: TBC
 - locations: [[Dublin]], [[Howth]]
-- departingAirport: TBC
+- departingAirport: [[Gatwick]]
 ```
 
 > Note: If more than one location is added, the script will use the first location.
@@ -130,18 +129,15 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 ### Schema and Updates
 
-The GraphQL schema is generated from both the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> and `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>. The files required for this type set up are;
+The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
 
-- mytraveljournal
-  - GraphQLQueries.ts (found at mytraveljournal/graphql/GraphQLQueries.ts)
-  - types.ts (found at mytraveljournal/types/types.ts)
-- server-mytraveljournal
-  - types.js (found at server-mytraveljournal/graphql/types.js)
+On starting up the server, the front end types are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/resolvers-types.ts`.
 
-Any updates to nodes types and edges should be done across these three files.
+Further to this, there are some front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/GraphQLQueries.ts`. These are manually updated as needed.
 
 ### How to extend the Schema and queries
 
-- Test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox
+- To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the front end types will be updated.
+- To extend the queries, test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox. Then manually update the file `GraphQLQueries.ts` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/GraphQLQueries.ts`.
 
 > [Back to Table of Contents](#table-of-contents)
