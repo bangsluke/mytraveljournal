@@ -41,12 +41,14 @@ To quickly get started in development mode, do the following steps:
 
 To quickly get started in production mode, do the following steps:
 
+> NOTE: Cannot locally run in production mode as the auth callback is to the main site. Don't know how to fix this.
+<!-- TODO: Find a solution -->
+
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
 2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
 3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
-4. In a terminal, build the frontend by running: `yarn build`
-5. When done, start the frontend by running: `yarn start`
-6. Open [http://localhost:3000](http://localhost:3000)
+4. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal` and start the frontend by running: `yarn start` - this will build and start the frontend
+5. Open [http://localhost:3000](http://localhost:3000)
 
 > [Back to Table of Contents](#table-of-contents)
 

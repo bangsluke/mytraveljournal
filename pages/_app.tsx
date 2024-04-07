@@ -9,16 +9,13 @@ import "../styles/globals.css";
 // Get the mode (development or production) from the environment
 const runMode = process.env.NODE_ENV;
 LogS.log("Site running in mode: ", runMode);
-if (runMode === "development") {
-	LogS.warn("Site running in development");
-}
 
 // Define dark mode
 //const darkMode = false; // TODO: Do something with this?
 
 // Note: All console logs will be printed in the browser console
 if (runMode === "development") {
-	LogS.log("NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
+	LogS.log("   NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
 }
 
 // Create an Apollo client
@@ -28,7 +25,7 @@ const client = new ApolloClient({
 });
 
 if (runMode === "development") {
-	LogS.log("Testing GraphQL connection in _app.tsx");
+	LogS.log("   Testing GraphQL connection in _app.tsx");
 	client
 		.query({
 			query: gql`
@@ -46,10 +43,10 @@ if (runMode === "development") {
 			`,
 		})
 		.then((result) => {
-			LogS.log("Tested GraphQL connection successfully in _app.tsx");
+			LogS.log(" ✔ Tested GraphQL connection successfully in _app.tsx");
 		})
 		.catch((error) => {
-			LogS.error("Error in GraphQL test connection in _app.tsx", error);
+			LogS.error(" ❌ Error in GraphQL test connection in _app.tsx", error);
 		});
 }
 
