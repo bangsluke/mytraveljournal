@@ -17,6 +17,9 @@
     - [Netlify Environment Variables](#netlify-environment-variables)
       - [GraphQL Endpoint](#graphql-endpoint)
       - [NextAuth](#nextauth)
+  - [GraphQL Set Up](#graphql-set-up)
+    - [Schema and Updates](#schema-and-updates)
+    - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
 
 ## Getting Started
 
@@ -29,7 +32,7 @@ To quickly get started in development mode, do the following steps:
 1. Start up Neo4j desktop
 2. Start the Neo4j graph database (on Neo4j desktop)
 3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
-4. Start the backend by running: `npm run dev` in a terminal
+4. Start the backend by running: `npm run dev` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
 5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
 6. Start the frontend by running: `yarn dev`
 7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
@@ -38,12 +41,14 @@ To quickly get started in development mode, do the following steps:
 
 To quickly get started in production mode, do the following steps:
 
+> NOTE: Cannot locally run in production mode as the auth callback is to the main site. Don't know how to fix this.
+<!-- TODO: Find a solution -->
+
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
-2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
+2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
 3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
-4. In a terminal, build the frontend by running: `yarn build`
-5. When done, start the frontend by running: `yarn start`
-6. Open [http://localhost:3000](http://localhost:3000)
+4. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal` and start the frontend by running: `yarn start` - this will build and start the frontend
+5. Open [http://localhost:3000](http://localhost:3000)
 
 > [Back to Table of Contents](#table-of-contents)
 
@@ -64,11 +69,10 @@ At the start of each note, I have some "front matter" - the name used in Obsidia
 ```JS
 - tags: #holiday
 - attendees: [[Luke]], [[Bryony]]
-- coverPhoto: TBC
+- coverPhoto: "https://i.imgur.com/QeribGQ.jpeg"
 - photoAlbum: 2023 06 - Dublin
-- whatsAppGroup: TBC
 - locations: [[Dublin]], [[Howth]]
-- departingAirport: TBC
+- departingAirport: [[Gatwick]]
 ```
 
 > Note: If more than one location is added, the script will use the first location.
@@ -120,5 +124,22 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
   - Purpose: OAuth credentials for GitHub authentication
 - GOOGLE_ID, GOOGLE_SECRET
   - Purpose: OAuth credentials for Google authentication
+
+> [Back to Table of Contents](#table-of-contents)
+
+### GraphQL Set Up
+
+### Schema and Updates
+
+The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
+
+On starting up the server, the front end types are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/resolvers-types.ts`. See the site https://www.apollographql.com/docs/apollo-server/workflow/generate-types/ for more information.
+
+Further to this, there are some front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/GraphQLQueries.ts`. These are manually updated as needed.
+
+### How to extend the Schema and queries
+
+- To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the front end types will be updated.
+- To extend the queries, test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox. Then manually update the file `GraphQLQueries.ts` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/GraphQLQueries.ts`.
 
 > [Back to Table of Contents](#table-of-contents)
