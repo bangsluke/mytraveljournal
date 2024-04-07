@@ -133,13 +133,13 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
 
-On starting up the server, the front end types are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/resolvers-types.ts`. See the site https://www.apollographql.com/docs/apollo-server/workflow/generate-types/ for more information.
+On starting up the server, the front end types and back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/frontend-types.ts` and another in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/__generated__/backend-resolvers-types.ts`. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
 
-Further to this, there are some front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/GraphQLQueries.ts`. These are manually updated as needed.
+Further to this, there are some additional front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/GraphQLQueries.ts`. These are manually updated as needed.
 
 ### How to extend the Schema and queries
 
-- To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the front end types will be updated.
-- To extend the queries, test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox. Then manually update the file `GraphQLQueries.ts` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/GraphQLQueries.ts`.
+- To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the types will be updated.
+- To extend the queries, test out making queries by running the server in development mode and going to http://localhost:4000/graphql to use the sandbox. Then manually update the file `GraphQLQueries.ts` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/GraphQLQueries.ts`.
 
 > [Back to Table of Contents](#table-of-contents)

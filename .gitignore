@@ -34,14 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# Python
-properties.properties
-propertiesProduction.properties
-**/__pycache__/
-
-# GraphQL Dependencies
-/backend/graphql/node_modules
-
 # Environment Variables
 .env
 .env.*
