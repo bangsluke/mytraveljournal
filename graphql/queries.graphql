@@ -1,0 +1,173 @@
+# All queries
+
+query GetCardCounts {
+	holidays {
+		name
+		nodeId
+	}
+	continents {
+		name
+		nodeId
+	}
+	countries {
+		name
+		nodeId
+	}
+	cities {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetContinents {
+	continents {
+		name
+		nodeId
+	}
+}
+
+query GetContinentById($nodeId: String) {
+	continents(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+	}
+}
+
+query GetCountries {
+	countries {
+		name
+		nodeId
+	}
+}
+
+query GetCountryById($nodeId: String) {
+	countries(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+	}
+}
+
+query GetCities {
+	cities {
+		name
+		nodeId
+		capital
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetCityById($nodeId: String) {
+	cities(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		capital
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetCapitals($capitalCheck: Boolean) {
+	cities(where: { capital: $capitalCheck }) {
+		name
+		nodeId
+		capital
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetTowns {
+	towns {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetTownById($nodeId: String) {
+	towns(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetIslands {
+	islands {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetPeople {
+	people {
+		name
+		nodeId
+		aliases
+		attendedHolidays {
+			nodeId
+		}
+	}
+}
+
+query GetPeopleById($nodeId: String) {
+	people(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		aliases
+		attendedHolidays {
+			name
+			holidayTitle
+			nodeId
+			sortDateValue
+		}
+	}
+}
+
+query GetHolidays {
+	holidays {
+		dateYear
+		dateMonth
+		sortDateValue
+		name
+		holidayTitle
+		nodeId
+		locations
+		coverPhoto
+		photoAlbum
+		attendees
+		textHtmlContent
+		departingAirport
+	}
+}
+
+query GetHolidayById($nodeId: String) {
+	holidays(where: { nodeId: $nodeId }) {
+		dateYear
+		dateMonth
+		sortDateValue
+		name
+		holidayTitle
+		nodeId
+		locations
+		coverPhoto
+		photoAlbum
+		attendees
+		textHtmlContent
+		departingAirport
+	}
+}

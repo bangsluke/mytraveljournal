@@ -1,7 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import LogS from "../services/LogS";
 import "../styles/globals.css";
 
@@ -24,23 +23,6 @@ const client = new ApolloClient({
 	uri: process.env.NEXT_PUBLIC_APP_BACKEND_URL,
 	cache: new InMemoryCache(),
 });
-
-if (runMode === "development") {
-	LogS.log("   Testing GraphQL connection in 'mytraveljournal/pages/_app.tsx'...");
-
-	const testQuery = GraphQLQueriesS.TEST_QUERY;
-	LogS.log("testQuery: ", testQuery);
-	client
-		.query({
-			query: testQuery,
-		})
-		.then((result) => {
-			LogS.log(" ✔ Tested GraphQL connection successfully in 'mytraveljournal/pages/_app.tsx'");
-		})
-		.catch((error) => {
-			LogS.error(" ❌ Error in GraphQL test connection in 'mytraveljournal/pages/_app.tsx'", error);
-		});
-}
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
