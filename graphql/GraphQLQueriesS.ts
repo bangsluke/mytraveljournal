@@ -2,6 +2,24 @@ import { gql } from "@apollo/client";
 
 // Test out making queries by running the server in development mode and going to http://localhost:4000/ to use the sandbox
 
+// Test query for start up
+
+const TEST_QUERY = gql`
+	query GetLocations {
+		cities {
+			name
+			nodeId
+			capital
+			linkedHolidays {
+				nodeId
+				name
+			}
+		}
+	}
+`;
+
+// All queries
+
 const GET_CONTINENTS = gql`
 	query GetContinents {
 		continents {
@@ -181,6 +199,7 @@ const GET_HOLIDAY_BY_ID = gql`
 `;
 
 const GraphQLQueriesS = {
+	TEST_QUERY,
 	GET_CONTINENTS,
 	GET_CONTINENT_BY_ID,
 	GET_COUNTRIES,

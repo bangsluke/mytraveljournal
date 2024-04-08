@@ -1,6 +1,7 @@
-import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import LogS from "../services/LogS";
 import "../styles/globals.css";
 
@@ -25,28 +26,19 @@ const client = new ApolloClient({
 });
 
 if (runMode === "development") {
-	LogS.log("   Testing GraphQL connection in _app.tsx");
+	LogS.log("   Testing GraphQL connection in 'mytraveljournal/pages/_app.tsx'...");
+
+	const testQuery = GraphQLQueriesS.TEST_QUERY;
+	LogS.log("testQuery: ", testQuery);
 	client
 		.query({
-			query: gql`
-				query GetLocations {
-					cities {
-						name
-						nodeId
-						capital
-						linkedHolidays {
-							nodeId
-							name
-						}
-					}
-				}
-			`,
+			query: testQuery,
 		})
 		.then((result) => {
-			LogS.log(" ✔ Tested GraphQL connection successfully in _app.tsx");
+			LogS.log(" ✔ Tested GraphQL connection successfully in 'mytraveljournal/pages/_app.tsx'");
 		})
 		.catch((error) => {
-			LogS.error(" ❌ Error in GraphQL test connection in _app.tsx", error);
+			LogS.error(" ❌ Error in GraphQL test connection in 'mytraveljournal/pages/_app.tsx'", error);
 		});
 }
 
