@@ -32,9 +32,9 @@ To quickly get started in development mode, do the following steps:
 1. Start up Neo4j desktop
 2. Start the Neo4j graph database (on Neo4j desktop) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
 3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
-4. Start the backend by running: `npm run dev` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
+4. Start the backend by running: `npm run dev` in a terminal - Note: This will generate types from the GraphQL schema in the backend
 5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
-6. Start the frontend by running: `yarn dev`
+6. Start the frontend by running: `yarn dev` - Note: This will generate types from the GraphQL schema in the frontend
 7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
 
 #### Production Start
@@ -45,7 +45,7 @@ To quickly get started in production mode, do the following steps:
 <!-- TODO: Find a solution -->
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
-2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
+2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
 3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
 4. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal` and start the frontend by running: `yarn start` - this will build and start the frontend
 5. Open [http://localhost:3000](http://localhost:3000)
@@ -133,13 +133,21 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
 
-On starting up the server, the front end types and back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/frontend-types.ts` and another in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/__generated__/backend-resolvers-types.ts`. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
+On starting up the server in development mode, the back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate-backend` command. This produces a file in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/__generated__/backend-resolvers-types.ts` which is used to start the server. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
+
+On starting up the front end in development mode, the front end types are generated from the graphql server `localhost:4000/graphql`, using the `npm run generate` command. This produces several files in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/` which can then be used within the front end development.
+
+<!-- TODO: Update this once understanding if using the query.graphql file or the GraphQLQueries.ts file -->
 
 Further to this, there are some additional front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/GraphQLQueries.ts`. These are manually updated as needed.
+
+This keeps the front end up to date with the back end and fully typed.
 
 ### How to extend the Schema and queries
 
 - To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the types will be updated.
 - To extend the queries, test out making queries by running the server in development mode and going to http://localhost:4000/graphql to use the sandbox. Then manually update the file `GraphQLQueries.ts` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/GraphQLQueries.ts`.
+
+<!-- TODO: Update this once understanding if using the query.graphql file or the GraphQLQueries.ts file -->
 
 > [Back to Table of Contents](#table-of-contents)
