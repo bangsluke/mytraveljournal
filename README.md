@@ -30,7 +30,7 @@
 To quickly get started in development mode, do the following steps:
 
 1. Start up Neo4j desktop
-2. Start the Neo4j graph database (on Neo4j desktop)
+2. Start the Neo4j graph database (on Neo4j desktop) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
 3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
 4. Start the backend by running: `npm run dev` in a terminal - Note: This will generate TypeScript code from the GraphQL schema in the front end
 5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
