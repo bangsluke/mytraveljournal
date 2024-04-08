@@ -8,7 +8,8 @@
 		"frontend"
 	],
 	"scripts": {
-		"dev": "next dev",
+		"generate": "graphql-codegen --config graphql/codegen-frontend.ts",
+		"dev": "npm run generate && next dev",
 		"build": "next build",
 		"start": "npm run build && next start",
 		"lint": "next lint"
@@ -31,6 +32,7 @@
 		"sharp": "^0.33.3"
 	},
 	"devDependencies": {
+		"@graphql-codegen/cli": "^5.0.2",
 		"@types/node": "18.0.3",
 		"@types/react": "18.0.15",
 		"@types/react-dom": "18.0.6",
@@ -38,7 +40,7 @@
 		"eslint": "8.19.0",
 		"eslint-config-next": "12.2.2",
 		"prettier": "^3.0.3",
-		"typescript": "4.7.4"
+		"typescript": "^5.4.4"
 	},
 	"engines": {
 		"node": ">=20.11.1"
