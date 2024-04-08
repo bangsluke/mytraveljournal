@@ -8,74 +8,69 @@ import PinDropIcon from "@mui/icons-material/PinDrop";
 import PublicIcon from "@mui/icons-material/Public";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import { City, GetCardCountsDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
-import { City, Person } from "./../../types/types";
+import { Person } from "./../../types/types";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
-// Get the number of holidays
-const useGetHolidayCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetHolidayCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetHolidayCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.holidays).length; // Else - get the number of items
-	//LogS.log("data from useGetHolidayCount", data);
-	return numberOfItems;
+// Define a count type that just returns the name for now
+type CountValue = {
+	name: string;
+	nodeId: string;
 };
 
-// Get the number of continents
-const useGetContinentCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CONTINENTS);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetContinentCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetContinentCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.continents).length; // Else - get the number of items
-	// LogS.log("data from useGetContinentCount", data);
-	return numberOfItems;
-
-	// TODO: Filter out continents not visited
+type CardCountResults = {
+	holidayData: CountValue[] | undefined;
+	holidayCount: number;
+	continentData: CountValue[] | undefined;
+	continentCount: number;
+	countriesData: CountValue[] | undefined;
+	countriesCount: number;
+	citiesData: CountValue[] | undefined;
+	filteredCitiesCount: number;
 };
 
-// Get the number of countries
-const useGetCountryCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_COUNTRIES);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
+const useGetCardCounts = () => {
+	const { loading, error, data } = useQuery(GetCardCountsDocument);
+	let cardCounts: CardCountResults = {
+		holidayData: [],
+		holidayCount: 0,
+		continentData: [],
+		continentCount: 0,
+		countriesData: [],
+		countriesCount: 0,
+		citiesData: [],
+		filteredCitiesCount: 0,
+	};
+	if (loading) return cardCounts; // If loading - show zeros
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useGetCountryCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetCountryCount GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useGetCardCounts GraphQL Error: ", error.message), cardCounts;
+		return <Toast message={"useGetCardCounts GraphQL Error: " + error.message} duration={5} />;
 	}
-	numberOfItems = Object.keys(data.countries).length; // Else - get the number of items
-	// LogS.log("data from useGetCountryCount", data);
-	return numberOfItems;
 
-	// TODO: Filter out countries not visited
-};
+	// Filter out cities not visited
+	const cityData =
+		data?.cities.map((city: any) => ({
+			...city,
+			linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
+		})) ?? [];
 
-// Get the number of cities
-const useGetCityCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CITIES);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetCityCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetCityCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.cities.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0)).length; // Else - get the number of items - filtered to number of visits
-	// LogS.log("data from useGetCityCount", data);
-	return numberOfItems;
+	// Finalise the card counts data
+	cardCounts = {
+		holidayData: data?.holidays ?? [],
+		holidayCount: data?.holidays.length ?? 0,
+		continentData: data?.continents ?? [],
+		continentCount: data?.continents.length ?? 0, // TODO: Filter out continents not visited
+		countriesData: data?.countries ?? [],
+		countriesCount: data?.countries.length ?? 0, // TODO: Filter out countries not visited
+		citiesData: data?.cities ?? [],
+		filteredCitiesCount: cityData.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0).length,
+	};
+	LogS.log("data from useGetCardCounts", cardCounts);
+	return cardCounts;
 };
 
 // Get the number of capitals
@@ -152,12 +147,14 @@ const useGetPeopleCount = () => {
 
 // Define a count card section that holds several count card components.
 export default function CountCardSection() {
+	const countCardData: CardCountResults = useGetCardCounts();
+
 	return (
 		<div id='countCardSection' className={styles.countCardSection}>
 			<CountCard
 				id='1'
 				cardTitle='Holiday Count'
-				countValue={useGetHolidayCount()}
+				countValue={countCardData.holidayCount}
 				pagePath='/holidays'
 				backgroundIcon={
 					<FlightTakeoffIcon
@@ -170,7 +167,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='2'
 				cardTitle='Continent Count'
-				countValue={useGetContinentCount()}
+				countValue={countCardData.continentCount}
 				pagePath='/continents'
 				backgroundIcon={
 					<PublicIcon
@@ -182,7 +179,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='3'
 				cardTitle='Countries Count'
-				countValue={useGetCountryCount()}
+				countValue={countCardData.countriesCount}
 				pagePath='/countries'
 				backgroundIcon={
 					<MapIcon
@@ -194,7 +191,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='4'
 				cardTitle='Cities Count'
-				countValue={useGetCityCount()}
+				countValue={countCardData.filteredCitiesCount}
 				pagePath='/cities'
 				backgroundIcon={
 					<LocationCityIcon
