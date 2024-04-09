@@ -8,7 +8,7 @@ import PinDropIcon from "@mui/icons-material/PinDrop";
 import PublicIcon from "@mui/icons-material/Public";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { City, GetCardCountsDocument } from "../../graphql/__generated__/graphql";
+import { GetCardCountsDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
 import { Person } from "./../../types/types";
@@ -29,7 +29,10 @@ type CardCountResults = {
 	countriesData: CountValue[] | undefined;
 	countriesCount: number;
 	citiesData: CountValue[] | undefined;
+	filteredCitiesData: CountValue[] | undefined;
 	filteredCitiesCount: number;
+	filteredCapitalsData: CountValue[] | undefined;
+	filteredCapitalsCount: number;
 	townsData: CountValue[] | undefined;
 	townsCount: number;
 	islandsData: CountValue[] | undefined;
@@ -46,7 +49,10 @@ const useGetCardCounts = () => {
 		countriesData: [],
 		countriesCount: 0,
 		citiesData: [],
+		filteredCitiesData: [],
 		filteredCitiesCount: 0,
+		filteredCapitalsData: [],
+		filteredCapitalsCount: 0,
 		townsData: [],
 		townsCount: 0,
 		islandsData: [],
@@ -59,12 +65,24 @@ const useGetCardCounts = () => {
 		return <Toast message={"useGetCardCounts GraphQL Error: " + error.message} duration={5} />;
 	}
 
-	// Filter out cities not visited
-	const cityData =
-		data?.cities.map((city: any) => ({
-			...city,
-			linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
-		})) ?? [];
+	// Reduce cities down to visited cities
+	const visitedCitiesData =
+		(data?.cities ?? [])
+			.filter((city: any) => city.linkedHolidays?.length > 0) // Filter out cities not visited
+			.map((city: any) => ({
+				...city,
+				linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
+			})) ?? [];
+
+	// Reduce cities down to visited capitals
+	const visitedCapitalData =
+		(data?.cities ?? [])
+			.filter((city: any) => city.linkedHolidays?.length > 0 && city.capital === true) // Filter out cities not visited and not capitals
+			.map((city: any) => ({
+				...city,
+				linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
+				capital: city.capital ?? false, // Ensure capital is not undefined
+			})) ?? [];
 
 	// Finalise the card counts data
 	cardCounts = {
@@ -75,7 +93,10 @@ const useGetCardCounts = () => {
 		countriesData: data?.countries ?? [],
 		countriesCount: data?.countries.length ?? 0, // TODO: Filter out countries not visited
 		citiesData: data?.cities ?? [],
-		filteredCitiesCount: cityData.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0).length,
+		filteredCitiesData: visitedCitiesData,
+		filteredCitiesCount: visitedCitiesData.length,
+		filteredCapitalsData: visitedCapitalData,
+		filteredCapitalsCount: visitedCapitalData.length,
 		townsData: data?.towns ?? [],
 		townsCount: data?.towns.length ?? 0, // TODO: Filter out towns not visited
 		islandsData: data?.islands ?? [],
@@ -83,26 +104,6 @@ const useGetCardCounts = () => {
 	};
 	LogS.log("data from useGetCardCounts", cardCounts);
 	return cardCounts;
-};
-
-// Get the number of capitals
-const useGetCapitalCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS, {
-		variables: { capitalBoolean: true }, // Pass the variable to the query
-	});
-	LogS.log("data from useGetCapitalCount", data);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetCapitalCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetCapitalCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(
-		data.cities.filter((city: City) => city.linkedHolidays && city.capital && city.linkedHolidays.length > 0),
-	).length; // Else - get the number of items - filtered to number of visits
-	// LogS.log("data from useGetCapitalCount", data);
-	return numberOfItems;
 };
 
 // Get the number of people
@@ -180,7 +181,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='5'
 				cardTitle='Capitals Count'
-				countValue={useGetCapitalCount()}
+				countValue={countCardData.filteredCapitalsCount}
 				pagePath='/capitals'
 				backgroundIcon={
 					<PinDropIcon
