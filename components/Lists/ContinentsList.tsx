@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import { Continent } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
-import { Continent } from "../../types/types";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
