@@ -142,7 +142,7 @@ const useGetCardCounts = () => {
 
 // Define a count card section that holds several count card components.
 export default function CountCardSection() {
-	const countCardData: CardCountResults = useGetCardCounts();
+	const countCardData: any = useGetCardCounts();
 
 	return (
 		<div id='countCardSection' className={styles.countCardSection}>
