@@ -29,6 +29,13 @@ query GetCardCounts {
 		name
 		nodeId
 	}
+	people {
+		name
+		nodeId
+		attendedHolidays {
+			nodeId
+		}
+	}
 }
 
 query GetContinents {

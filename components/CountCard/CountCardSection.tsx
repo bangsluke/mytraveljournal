@@ -7,11 +7,9 @@ import MapIcon from "@mui/icons-material/Map";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import PublicIcon from "@mui/icons-material/Public";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import { GetCardCountsDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Toast from "../Toast/Toast";
-import { Person } from "./../../types/types";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
@@ -37,6 +35,8 @@ type CardCountResults = {
 	townsCount: number;
 	islandsData: CountValue[] | undefined;
 	islandsCount: number;
+	filteredTravelCompanionData: CountValue[] | undefined;
+	filteredTravelCompanionCount: number;
 };
 
 const useGetCardCounts = () => {
@@ -57,6 +57,8 @@ const useGetCardCounts = () => {
 		townsCount: 0,
 		islandsData: [],
 		islandsCount: 0,
+		filteredTravelCompanionData: [],
+		filteredTravelCompanionCount: 0,
 	};
 	if (loading) return cardCounts; // If loading - show zeros
 	if (error) {
@@ -72,6 +74,7 @@ const useGetCardCounts = () => {
 			.map((city: any) => ({
 				...city,
 				linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
+				capital: city.capital ?? false, // Ensure capital is not undefined
 			})) ?? [];
 
 	// Reduce cities down to visited capitals
@@ -83,6 +86,17 @@ const useGetCardCounts = () => {
 				linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
 				capital: city.capital ?? false, // Ensure capital is not undefined
 			})) ?? [];
+
+	// Reduce down travel companion data to those that have been to a holiday
+	const travelledWithCompanionData =
+		(data?.people ?? [])
+			.filter((person: any) => person.attendedHolidays?.length > 0) // Filter out people not travelled with
+			.map((person: any) => ({
+				...person,
+				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
+			})) ?? [];
+
+	// console.log("data", data);
 
 	// Finalise the card counts data
 	cardCounts = {
@@ -101,26 +115,11 @@ const useGetCardCounts = () => {
 		townsCount: data?.towns.length ?? 0, // TODO: Filter out towns not visited
 		islandsData: data?.islands ?? [],
 		islandsCount: data?.islands.length ?? 0, // TODO: Filter out islands not visited
+		filteredTravelCompanionData: travelledWithCompanionData,
+		filteredTravelCompanionCount: travelledWithCompanionData.length,
 	};
 	LogS.log("data from useGetCardCounts", cardCounts);
 	return cardCounts;
-};
-
-// Get the number of people
-const useGetPeopleCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetPeopleCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetPeopleCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	// Else - get the number of items and filter out people with no holidays
-	const peopleWithAtLeastOneHoliday = data.people.filter((person: Person) => person.attendedHolidays && person.attendedHolidays.length > 0);
-	// LogS.log("peopleWithAtLeastOneHoliday", peopleWithAtLeastOneHoliday);
-	numberOfItems = peopleWithAtLeastOneHoliday.length;
-	return numberOfItems;
 };
 
 // Define a count card section that holds several count card components.
@@ -217,7 +216,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='8'
 				cardTitle='Travel Companion Count'
-				countValue={useGetPeopleCount()}
+				countValue={countCardData.filteredTravelCompanionCount}
 				pagePath='/people'
 				backgroundIcon={
 					<SupervisorAccountIcon
