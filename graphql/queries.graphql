@@ -24,10 +24,16 @@ query GetCardCounts {
 	towns {
 		name
 		nodeId
+		linkedHolidays {
+			nodeId
+		}
 	}
 	islands {
 		name
 		nodeId
+		linkedHolidays {
+			nodeId
+		}
 	}
 	people {
 		name

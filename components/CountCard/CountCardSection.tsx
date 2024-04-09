@@ -32,9 +32,9 @@ type CardCountResults = {
 	filteredCapitalsData: CountValue[] | undefined;
 	filteredCapitalsCount: number;
 	townsData: CountValue[] | undefined;
-	townsCount: number;
+	filteredTownsCount: number;
 	islandsData: CountValue[] | undefined;
-	islandsCount: number;
+	filteredIslandsCount: number;
 	filteredTravelCompanionData: CountValue[] | undefined;
 	filteredTravelCompanionCount: number;
 };
@@ -54,9 +54,9 @@ const useGetCardCounts = () => {
 		filteredCapitalsData: [],
 		filteredCapitalsCount: 0,
 		townsData: [],
-		townsCount: 0,
+		filteredTownsCount: 0,
 		islandsData: [],
-		islandsCount: 0,
+		filteredIslandsCount: 0,
 		filteredTravelCompanionData: [],
 		filteredTravelCompanionCount: 0,
 	};
@@ -74,7 +74,6 @@ const useGetCardCounts = () => {
 			.map((city: any) => ({
 				...city,
 				linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
-				capital: city.capital ?? false, // Ensure capital is not undefined
 			})) ?? [];
 
 	// Reduce cities down to visited capitals
@@ -87,6 +86,25 @@ const useGetCardCounts = () => {
 				capital: city.capital ?? false, // Ensure capital is not undefined
 			})) ?? [];
 
+	// Reduce towns down to visited towns
+	const visitedTownsData =
+		(data?.towns ?? [])
+			.filter((town: any) => town.linkedHolidays?.length > 0) // Filter out towns not visited
+			.map((town: any) => ({
+				...town,
+				linkedHolidays: town.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
+				capital: town.capital ?? false, // Ensure capital is not undefined
+			})) ?? [];
+
+	// Reduce islands down to visited islands
+	const visitedIslandsData =
+		(data?.islands ?? [])
+			.filter((island: any) => island.linkedHolidays?.length > 0) // Filter out islands not visited
+			.map((island: any) => ({
+				...island,
+				linkedHolidays: island.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
+			})) ?? [];
+
 	// Reduce down travel companion data to those that have been to a holiday
 	const travelledWithCompanionData =
 		(data?.people ?? [])
@@ -96,7 +114,7 @@ const useGetCardCounts = () => {
 				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
 			})) ?? [];
 
-	// console.log("data", data);
+	console.log("data", data);
 
 	// Finalise the card counts data
 	cardCounts = {
@@ -112,9 +130,9 @@ const useGetCardCounts = () => {
 		filteredCapitalsData: visitedCapitalData,
 		filteredCapitalsCount: visitedCapitalData.length,
 		townsData: data?.towns ?? [],
-		townsCount: data?.towns.length ?? 0, // TODO: Filter out towns not visited
+		filteredTownsCount: visitedTownsData.length,
 		islandsData: data?.islands ?? [],
-		islandsCount: data?.islands.length ?? 0, // TODO: Filter out islands not visited
+		filteredIslandsCount: visitedIslandsData.length,
 		filteredTravelCompanionData: travelledWithCompanionData,
 		filteredTravelCompanionCount: travelledWithCompanionData.length,
 	};
@@ -192,7 +210,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='6'
 				cardTitle='Towns Count'
-				countValue={countCardData.townsCount}
+				countValue={countCardData.filteredTownsCount}
 				pagePath='/towns'
 				backgroundIcon={
 					<HouseIcon
@@ -204,7 +222,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='7'
 				cardTitle='Islands Count'
-				countValue={countCardData.islandsCount}
+				countValue={countCardData.filteredIslandsCount}
 				pagePath='/islands'
 				backgroundIcon={
 					<BeachAccessIcon
