@@ -12,17 +12,17 @@ import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import { Holiday } from "../../graphql/__generated__/graphql";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
-import { Holiday } from "../../types/types";
 import styles from "./Holidays.module.css";
 
 //  Create a function to return a concatenated list of attendees with hyperlinks
-function AttendeesList({ stringArray }: { stringArray: string[] }): JSX.Element {
+function AttendeesList({ stringArray }: { stringArray: string[] | undefined | null }): JSX.Element {
 	const router = useRouter(); // Import the Next router
 
 	// Map through the array and create clickable links
-	const linkElements = stringArray.map((name: string, index: number) => (
+	const linkElements = stringArray?.map((name: string, index: number) => (
 		<React.Fragment key={index}>
 			<h4 className={styles.clickableList} onClick={() => handleLinkClick(name)}>
 				{name}
@@ -96,7 +96,7 @@ function HolidayPage({ session }: { session: Session }) {
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
 
 	// Create the visible pills for the holiday
-	const properties: { [key: string]: { id: number; text: string | string[]; image: ReactElement } } = {
+	const properties: { [key: string]: { id: number; text: string | string[] | null | undefined; image: ReactElement } } = {
 		property1: { id: 1, text: monthFormatted + " " + dateYear, image: <CalendarMonthIcon /> },
 		property2: { id: 2, text: locations, image: <LocationOnRoundedIcon /> },
 		property3: { id: 3, text: departingAirport, image: <FlightTakeoffIcon /> },

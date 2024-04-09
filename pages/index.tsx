@@ -15,6 +15,7 @@ import styles from "../styles/Home.module.css";
 export default function Home(props: any) {
 	const { data: session, status } = useSession();
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
+	const isDevelopmentMode = process.env.NEXT_PUBLIC_DEVELOPMENT_MODE;
 
 	LogS.log("Status and Session: ", status, session);
 
@@ -23,13 +24,18 @@ export default function Home(props: any) {
 		return <Loading BackgroundStyle={"Opaque"} />;
 	}
 
+	// Show a message if teh NextAuth process is skipped due to development mode
+	if (isDevelopmentMode) {
+		LogS.log("NextAuth authentication skipped as in development mode");
+	}
+
 	// If the user is not authenticated, show the sign in component
-	if (status === "unauthenticated") {
+	if (status === "unauthenticated" && !isDevelopmentMode) {
 		return <SignIn />;
 	}
 
+	// If error - show error message, and raise an error toast
 	if (error) {
-		// If error - show error message, and raise an error toast
 		LogS.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
 		return (
 			<>
