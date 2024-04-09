@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import Loading from "../components/Loading/Loading";
 import Toast from "../components/Toast/Toast";
+import Constants from "../constants/constants";
 import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
 import SignIn from "../pages/auth/signin";
 import LogS from "../services/LogS";
@@ -15,22 +16,21 @@ import styles from "../styles/Home.module.css";
 export default function Home(props: any) {
 	const { data: session, status } = useSession();
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-	const isDevelopmentMode = process.env.NEXT_PUBLIC_DEVELOPMENT_MODE;
 
-	LogS.log("Status and Session: ", status, session);
+	LogS.log(" Status and Session: ", status, session);
 
 	// If the users authentication is loading or if the graphql query is loading
 	if (status === "loading" || loading) {
 		return <Loading BackgroundStyle={"Opaque"} />;
 	}
 
-	// Show a message if teh NextAuth process is skipped due to development mode
-	if (isDevelopmentMode) {
-		LogS.log("NextAuth authentication skipped as in development mode");
+	// Show a message if the NextAuth process is skipped due to development mode
+	if (Constants.SkipAuth) {
+		LogS.log(" NextAuth authentication skipped as SkipAuth set to true in Constants.ts");
 	}
 
 	// If the user is not authenticated, show the sign in component
-	if (status === "unauthenticated" && !isDevelopmentMode) {
+	if (status === "unauthenticated" && !Constants.SkipAuth) {
 		return <SignIn />;
 	}
 

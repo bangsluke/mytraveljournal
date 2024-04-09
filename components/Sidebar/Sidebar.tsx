@@ -37,6 +37,13 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 
 	// LogS.log("SidebarData", SidebarData); // Log the SidebarData
 
+	// Get the signed in email
+	let signedInEmail = session?.user?.email;
+	if (signedInEmail == null) {
+		// @ts-ignore
+		signedInEmail = session?.session?.user?.email;
+	}
+
 	return (
 		<>
 			<nav className={sideBarClassName}>
@@ -69,7 +76,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					{/* Display either a sign in or sign out button based on the session state */}
 					{session ? (
 						<>
-							<p>Signed in as {session?.user?.email}</p>
+							<p>Signed in as {signedInEmail}</p>
+							{/* TODO: Style email underlined */}
 							<button onClick={() => signOut()}>Sign out</button>
 						</>
 					) : (
