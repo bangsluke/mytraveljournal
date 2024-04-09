@@ -133,7 +133,7 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
 
-On starting up the server in development mode, the back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate-backend` command. This produces a file in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/__generated__/backend-resolvers-types.ts` which is used to start the server. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
+On starting up the server in development mode, the back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/__generated__/backend-resolvers-types.ts` which is used to start the server. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
 
 On starting up the front end in development mode, the front end types are generated from the graphql server `localhost:4000/graphql`, using the `npm run generate` command. This produces several files in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/` which can then be used within the front end development.
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Constants from "../../constants/constants";
-import { Holiday } from "../../types/types";
+import { Holiday } from "../../graphql/__generated__/graphql";
 import FilterDecade from "./FilterDecade";
 import styles from "./HolidayCardList.module.css";
 
@@ -74,7 +74,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 						{/* Add a top row holding icons and the holiday header */}
 						<div className={styles.holidayCardDetailsTopRow}>
 							<RoomIcon className={styles.holidayCardLocationIcon} />
-							<h3>{holiday.locations[0]}</h3> {/* Return the first location */}
+							<h3>{holiday.locations?.[0]}</h3> {/* Return the first location */}
 							{/* TODO: Add link to Google Maps */}
 							<a href='{props.experience.googleMapsUrl}'>
 								<DirectionsIcon className={styles.holidayCardDirectionsIcon} />

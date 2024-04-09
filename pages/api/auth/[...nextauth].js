@@ -72,6 +72,15 @@ export const authOptions = {
 
 	// Optional: Callbacks - (https://next-auth.js.org/configuration/callbacks)
 	callbacks: {
+		// Callback for skipping NextAuth if in development mode
+		session: async (session, user) => {
+			if (process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === "true") {
+				session.user = { ...session.user, id: user.id };
+			}
+			return Promise.resolve(session);
+		},
+
+		// The sign in call back for checking that the users email is in the list of allowed emails
 		async signIn(user, account, profile) {
 			// https://next-auth.js.org/configuration/callbacks#sign-in-callback
 			LogS.log("Signed in user.user.email: ", user.user.email);

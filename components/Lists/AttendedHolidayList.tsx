@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Holiday } from "../../types/types";
+import { Holiday } from "../../graphql/__generated__/graphql";
 import styles from "./Lists.module.css";
 
 interface AttendedHolidayListProps {
