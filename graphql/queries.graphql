@@ -20,6 +20,14 @@ query GetCardCounts {
 			nodeId
 		}
 	}
+	towns {
+		name
+		nodeId
+	}
+	islands {
+		name
+		nodeId
+	}
 }
 
 query GetContinents {

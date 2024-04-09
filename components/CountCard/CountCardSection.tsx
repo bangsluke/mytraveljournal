@@ -30,6 +30,10 @@ type CardCountResults = {
 	countriesCount: number;
 	citiesData: CountValue[] | undefined;
 	filteredCitiesCount: number;
+	townsData: CountValue[] | undefined;
+	townsCount: number;
+	islandsData: CountValue[] | undefined;
+	islandsCount: number;
 };
 
 const useGetCardCounts = () => {
@@ -43,6 +47,10 @@ const useGetCardCounts = () => {
 		countriesCount: 0,
 		citiesData: [],
 		filteredCitiesCount: 0,
+		townsData: [],
+		townsCount: 0,
+		islandsData: [],
+		islandsCount: 0,
 	};
 	if (loading) return cardCounts; // If loading - show zeros
 	if (error) {
@@ -68,6 +76,10 @@ const useGetCardCounts = () => {
 		countriesCount: data?.countries.length ?? 0, // TODO: Filter out countries not visited
 		citiesData: data?.cities ?? [],
 		filteredCitiesCount: cityData.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0).length,
+		townsData: data?.towns ?? [],
+		townsCount: data?.towns.length ?? 0, // TODO: Filter out towns not visited
+		islandsData: data?.islands ?? [],
+		islandsCount: data?.islands.length ?? 0, // TODO: Filter out islands not visited
 	};
 	LogS.log("data from useGetCardCounts", cardCounts);
 	return cardCounts;
@@ -91,41 +103,6 @@ const useGetCapitalCount = () => {
 	).length; // Else - get the number of items - filtered to number of visits
 	// LogS.log("data from useGetCapitalCount", data);
 	return numberOfItems;
-};
-
-// Get the number of towns
-const useGetTownCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_TOWNS);
-	// LogS.log("data from useGetTownCount", data);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetTownCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetTownCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.towns).length; // Else - get the number of items
-	// LogS.log("data from useGetTownCount", data);
-	return numberOfItems;
-
-	// TODO: Filter out towns not visited
-};
-
-// Get the number of islands
-const useGetIslandCount = () => {
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_ISLANDS);
-	let numberOfItems: number | string = 0;
-	if (loading) return (numberOfItems = ""); // If loading - show blank text
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetIslandCount GraphQL Error: ", error.message), (numberOfItems = 0);
-		return <Toast message={"useGetIslandCount GraphQL Error: " + error.message} duration={5} />;
-	}
-	numberOfItems = Object.keys(data.islands).length; // Else - get the number of items
-	// LogS.log("data from useGetIslandCount", data);
-	return numberOfItems;
-
-	// TODO: Filter out islands not visited
 };
 
 // Get the number of people
@@ -215,7 +192,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='6'
 				cardTitle='Towns Count'
-				countValue={useGetTownCount()}
+				countValue={countCardData.townsCount}
 				pagePath='/towns'
 				backgroundIcon={
 					<HouseIcon
@@ -227,7 +204,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='7'
 				cardTitle='Islands Count'
-				countValue={useGetIslandCount()}
+				countValue={countCardData.islandsCount}
 				pagePath='/islands'
 				backgroundIcon={
 					<BeachAccessIcon
