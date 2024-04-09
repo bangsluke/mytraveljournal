@@ -1472,7 +1472,7 @@ export type Person = {
   attendedHolidaysAggregate?: Maybe<PersonHolidayAttendedHolidaysAggregationSelection>;
   attendedHolidaysConnection: PersonAttendedHolidaysConnection;
   name: Scalars['String']['output'];
-  nodeId?: Maybe<Scalars['String']['output']>;
+  nodeId: Scalars['String']['output'];
 };
 
 
@@ -1502,7 +1502,7 @@ export type PersonAggregateSelection = {
   aliases: StringAggregateSelectionNullable;
   count: Scalars['Int']['output'];
   name: StringAggregateSelectionNonNullable;
-  nodeId: StringAggregateSelectionNullable;
+  nodeId: StringAggregateSelectionNonNullable;
 };
 
 export type PersonAttendedHolidaysAggregateInput = {
@@ -1741,7 +1741,7 @@ export type PersonCreateInput = {
   aliases?: InputMaybe<Scalars['String']['input']>;
   attendedHolidays?: InputMaybe<PersonAttendedHolidaysFieldInput>;
   name: Scalars['String']['input'];
-  nodeId?: InputMaybe<Scalars['String']['input']>;
+  nodeId: Scalars['String']['input'];
 };
 
 export type PersonDeleteInput = {
@@ -1837,7 +1837,7 @@ export type PersonWhere = {
   nodeId?: InputMaybe<Scalars['String']['input']>;
   nodeId_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   nodeId_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
-  nodeId_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  nodeId_IN?: InputMaybe<Array<Scalars['String']['input']>>;
   nodeId_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2507,7 +2507,7 @@ export type UpdateTownsMutationResponse = {
 export type GetCardCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCardCountsQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', name: string, nodeId: string }>, continents: Array<{ __typename?: 'Continent', name: string, nodeId: string }>, countries: Array<{ __typename?: 'Country', name: string, nodeId: string }>, cities: Array<{ __typename?: 'City', name: string, nodeId: string, capital: boolean, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }>, towns: Array<{ __typename?: 'Town', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }>, islands: Array<{ __typename?: 'Island', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }>, people: Array<{ __typename?: 'Person', name: string, nodeId?: string | null, attendedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }> };
+export type GetCardCountsQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', name: string, nodeId: string }>, continents: Array<{ __typename?: 'Continent', name: string, nodeId: string }>, countries: Array<{ __typename?: 'Country', name: string, nodeId: string }>, cities: Array<{ __typename?: 'City', name: string, nodeId: string, capital: boolean, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }>, towns: Array<{ __typename?: 'Town', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }>, islands: Array<{ __typename?: 'Island', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }>, people: Array<{ __typename?: 'Person', name: string, nodeId: string, attendedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }> };
 
 export type GetContinentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2572,14 +2572,14 @@ export type GetIslandsQuery = { __typename?: 'Query', islands: Array<{ __typenam
 export type GetPeopleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPeopleQuery = { __typename?: 'Query', people: Array<{ __typename?: 'Person', name: string, nodeId?: string | null, aliases?: string | null, attendedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }> };
+export type GetPeopleQuery = { __typename?: 'Query', people: Array<{ __typename?: 'Person', name: string, nodeId: string, aliases?: string | null, attendedHolidays: Array<{ __typename?: 'Holiday', nodeId: string }> }> };
 
 export type GetPeopleByIdQueryVariables = Exact<{
   nodeId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetPeopleByIdQuery = { __typename?: 'Query', people: Array<{ __typename?: 'Person', name: string, nodeId?: string | null, aliases?: string | null, attendedHolidays: Array<{ __typename?: 'Holiday', name: string, holidayTitle: string, nodeId: string, sortDateValue: string }> }> };
+export type GetPeopleByIdQuery = { __typename?: 'Query', people: Array<{ __typename?: 'Person', name: string, nodeId: string, aliases?: string | null, attendedHolidays: Array<{ __typename?: 'Holiday', name: string, holidayTitle: string, nodeId: string, sortDateValue: string }> }> };
 
 export type GetHolidaysQueryVariables = Exact<{ [key: string]: never; }>;
 
