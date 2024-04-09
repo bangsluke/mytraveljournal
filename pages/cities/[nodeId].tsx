@@ -5,10 +5,10 @@ import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
+import { City } from "../../graphql/__generated__/graphql";
 import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
-import { City } from "../../types/types";
 
 function CityPage({ session }: { session: Session }) {
 	const router = useRouter(); // Import the Next router
