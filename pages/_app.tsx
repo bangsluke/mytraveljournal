@@ -1,4 +1,8 @@
+// Import styles of packages that you've installed.
+// All packages except `@mantine/hooks` require styles imports
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { MantineProvider, createTheme } from "@mantine/core";
+import "@mantine/core/styles.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import LogS from "../services/LogS";
@@ -9,6 +13,11 @@ import "../styles/globals.css";
 // Get the mode (development or production) from the environment
 const runMode = process.env.NODE_ENV;
 LogS.log("Site running in mode: ", runMode);
+
+const theme = createTheme({
+	/** Put your mantine theme override here */
+	// TODO: Add here?
+});
 
 // Define dark mode
 //const darkMode = false; // TODO: Do something with this?
@@ -28,7 +37,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
 		<SessionProvider session={session}>
 			<ApolloProvider client={client}>
-				<Component {...pageProps} />
+				<MantineProvider theme={theme}>
+					<Component {...pageProps} />
+				</MantineProvider>
 			</ApolloProvider>
 		</SessionProvider>
 	);
