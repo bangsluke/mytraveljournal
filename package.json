@@ -42,7 +42,7 @@
 		"eslint": "8.19.0",
 		"eslint-config-next": "12.2.2",
 		"postcss": "^8.4.38",
-		"postcss-preset-mantine": "^1.13.0",
+		"postcss-preset-mantine": "^1.14.0",
 		"postcss-simple-vars": "^7.0.1",
 		"prettier": "^3.0.3",
 		"typescript": "^5.4.4"

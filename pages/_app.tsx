@@ -16,9 +16,16 @@ LogS.log(" NEXT_PUBLIC_ENV_NAME", process.env.NEXT_PUBLIC_ENV_NAME);
 const runMode = process.env.NODE_ENV;
 LogS.log("Site running in mode: ", runMode);
 
+// https://mantine.dev/theming/theme-object/#usage
 const theme = createTheme({
 	/** Put your mantine theme override here */
 	// TODO: Add here?
+	colors: {
+		// Add your color
+		deepBlue: ["#E9EDFC", "#C1CCF6", "#99ABF0"],
+		// or replace default theme color
+		blue: ["#E9EDFC", "#C1CCF6", "#99ABF0"],
+	},
 });
 
 // Define dark mode
