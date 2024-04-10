@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
 import LogS from "../../services/LogS";
+import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import ScrollToTopButton from "../ScrollToTop/ScrollToTopButton";
 import Sidebar from "../Sidebar/Sidebar";
@@ -49,15 +50,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 			</main>
 
 			{/* Add a footer at the bottom of every page */}
-			<footer className={styles.footer}>
-				{/* TODO: Actually set up a good footer */}
-				<a
-					href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-					target='_blank'
-					rel='noopener noreferrer'>
-					Powered by Next.js
-				</a>
-			</footer>
+			<Footer />
 		</>
 	);
 }

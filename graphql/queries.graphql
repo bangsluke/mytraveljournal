@@ -146,6 +146,23 @@ query GetPeople {
 	}
 }
 
+# Query for the People list page
+query GetPeopleList {
+	people {
+		name
+		nodeId
+		aliases
+		attendedHolidays {
+			nodeId
+			name
+			holidayTitle
+			sortDateValue
+			dateYear
+			dateMonth
+		}
+	}
+}
+
 query GetPeopleById($nodeId: String) {
 	people(where: { nodeId: $nodeId }) {
 		name
