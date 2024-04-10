@@ -1,8 +1,9 @@
-import { CloseButton } from "@mantine/core";
+import { CloseButton, Group } from "@mantine/core";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import useScreenSize from "../../hooks/useScreenSize";
 import styles from "./Sidebar.module.css";
 import { SidebarData } from "./SidebarData";
@@ -86,6 +87,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 						<button onClick={() => signIn()}>Sign in</button>
 					)}
 				</div>
+				<Group justify='center'>
+					<DarkModeToggle></DarkModeToggle>
+				</Group>
 			</nav>
 			{/* On mobile, add a blackout container to be clicked to close the sidebar */}
 			{sidebarStyle == "dynamic" && <div className={sidebarBlackoutClassName} onClick={toggleSidebar}></div>}
