@@ -1,9 +1,11 @@
-import { CloseButton } from "@mantine/core";
+import { CloseButton, Group } from "@mantine/core";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import useScreenSize from "../../hooks/useScreenSize";
+import { ButtonComponent } from "../Button/Button";
 import styles from "./Sidebar.module.css";
 import { SidebarData } from "./SidebarData";
 import SidebarItem from "./SidebarItem";
@@ -54,9 +56,6 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 				{/* Dynamically decide on if to show the close sidebar button */}
 				{sidebarStyle == "dynamic" && (
 					<div className={styles.sidebarCloseButtonContainer}>
-						<button className={styles.toggleButton} onClick={toggleSidebar}>
-							Close Sidebar
-						</button>
 						<CloseButton onClick={toggleSidebar} size='lg' aria-label='Close sidebar' />
 					</div>
 				)}
@@ -74,18 +73,19 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					</ul>
 				</div>
 				{/* Provide details to the user on their login email and offer a sign out button */}
-				<div className={styles.sidebarLoginContent}>
+				<Group justify='center' className={styles.sidebarLoginContent}>
 					{/* Display either a sign in or sign out button based on the session state */}
 					{session ? (
 						<>
 							<p>Signed in as {signedInEmail}</p>
 							{/* TODO: Style email underlined */}
-							<button onClick={() => signOut()}>Sign out</button>
+							<ButtonComponent Text='Sign out' onClick={() => signOut()} />
 						</>
 					) : (
-						<button onClick={() => signIn()}>Sign in</button>
+						<ButtonComponent Text='Sign in' onClick={() => signIn()} />
 					)}
-				</div>
+					<DarkModeToggle></DarkModeToggle>
+				</Group>
 			</nav>
 			{/* On mobile, add a blackout container to be clicked to close the sidebar */}
 			{sidebarStyle == "dynamic" && <div className={sidebarBlackoutClassName} onClick={toggleSidebar}></div>}
