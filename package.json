@@ -20,6 +20,7 @@
 		"@emotion/styled": "^11.11.0",
 		"@mantine/core": "^7.7.1",
 		"@mantine/hooks": "^7.7.1",
+		"@mantinex/dev-icons": "^1.0.2",
 		"@mui/icons-material": "^5.15.13",
 		"@mui/material": "^5.15.13",
 		"@types/body-parser": "^1.19.4",
