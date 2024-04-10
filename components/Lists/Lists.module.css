@@ -1,13 +1,14 @@
+/* Define a full width table with an offset to sit below the header. */
 .dataList {
 	width: 100%;
 	/* background-color: #0070f3; */
 	margin-top: 60px;
 }
 
-.clickableHeader {
-	cursor: pointer;
-	text-decoration: underline;
+.leftAlign {
+	text-align: left;
 }
+
 
 .clickableListItem {
 	/* list-style: none; */

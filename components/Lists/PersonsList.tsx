@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, Table, Text, rem } from "@mantine/core";
+import { ActionIcon, Anchor, ScrollArea, Table, Text, Tooltip, rem } from "@mantine/core";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import { useRouter } from "next/router";
+import Constants from "../../constants/constants";
 import { GetPeopleListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
@@ -19,8 +20,6 @@ export default function PersonsList() {
 		LogS.error("useGetPeopleList GraphQL Error: ", error.message);
 		return <Toast message={"useGetPeopleList GraphQL Error: " + error.message} duration={5} />;
 	}
-
-	console.log("Initial data", data);
 
 	// Filter out people with no holidays and then sort by the length of attendedHolidays
 	let sortedAndFilteredPeople = data?.people
@@ -43,12 +42,20 @@ export default function PersonsList() {
 		};
 	});
 
-	LogS.log("Sorted and filtered person data: ", sortedAndFilteredPeople);
+	// Get the height of the scrollable area
+	const windowHeight = window.innerHeight;
+	const scrollHeight = windowHeight - Constants.headerHeight;
 
+	// Map the sorted and filtered people to create the table rows
 	const rows = sortedAndFilteredPeople?.map((person: any) => (
 		<Table.Tr key={person.name} className={styles.rowHighlight}>
 			<Table.Td>
-				<Anchor component='button' size='sm' fw={500} onClick={() => router.push({ pathname: `/people/${person.nodeId}` })}>
+				<Anchor
+					component='button'
+					size='sm'
+					fw={500}
+					onClick={() => router.push({ pathname: `/people/${person.nodeId}` })}
+					className={styles.leftAlign}>
 					{person.name}
 				</Anchor>
 			</Table.Td>
@@ -58,7 +65,11 @@ export default function PersonsList() {
 				</Text>
 			</Table.Td>
 			<Table.Td>
-				<Anchor component='button' size='sm' onClick={() => router.push({ pathname: `/holidays/${person.lastHoliday.nodeId}` })}>
+				<Anchor
+					component='button'
+					size='sm'
+					onClick={() => router.push({ pathname: `/holidays/${person.lastHoliday.nodeId}` })}
+					className={styles.leftAlign}>
 					{person.lastHoliday.name}
 				</Anchor>
 			</Table.Td>
@@ -74,18 +85,22 @@ export default function PersonsList() {
 	));
 
 	return (
-		<Table.ScrollContainer minWidth={300}>
-			<Table verticalSpacing='sm'>
-				<Table.Thead>
-					<Table.Tr>
-						<Table.Th>Name</Table.Th>
-						<Table.Th>Holiday Count</Table.Th>
-						<Table.Th>Last Holiday</Table.Th>
-						<Table.Th />
-					</Table.Tr>
-				</Table.Thead>
-				<Table.Tbody>{rows}</Table.Tbody>
-			</Table>
-		</Table.ScrollContainer>
+		<ScrollArea h={scrollHeight} className={styles.dataList}>
+			<Table.ScrollContainer minWidth={300}>
+				<Table verticalSpacing='sm'>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Name</Table.Th>
+							<Tooltip label='Holiday Count' withArrow>
+								<Table.Th>Count</Table.Th>
+							</Tooltip>
+							<Table.Th>Last Holiday</Table.Th>
+							<Table.Th />
+						</Table.Tr>
+					</Table.Thead>
+					<Table.Tbody>{rows}</Table.Tbody>
+				</Table>
+			</Table.ScrollContainer>
+		</ScrollArea>
 	);
 }
