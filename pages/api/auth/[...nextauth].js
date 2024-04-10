@@ -4,8 +4,8 @@ import NextAuth from "next-auth";
 // import FacebookProvider from "next-auth/providers/facebook";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-
 import allowedEmails from "../../../constants/allowedEmails.json"; // List of allowed email addresses
+import Constants from "../../../constants/constants";
 import LogS from "../../../services/LogS";
 
 const allowedEmailsList = allowedEmails.allowed;
@@ -74,7 +74,7 @@ export const authOptions = {
 	callbacks: {
 		// Callback for skipping NextAuth if in development mode
 		session: async (session, user) => {
-			if (process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === "true") {
+			if (Constants.SkipAuth) {
 				session.user = { ...session.user, id: user.id };
 			}
 			return Promise.resolve(session);
