@@ -1,0 +1,9 @@
+.githubButton {
+	background-color: light-dark(#24292F, var(--mantine-color-dark-9));
+	color: #fff;
+
+	@mixin hover {
+		color: #fff;
+		background-color: light-dark(#505459, var(--mantine-color-dark-9));
+	}
+}

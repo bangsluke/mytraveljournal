@@ -2,8 +2,8 @@ import { Session } from "next-auth";
 import Layout from "../../components/Layout/Layout";
 import CountriesList from "../../components/Lists/CountriesList";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import withAuth from "../../lib/withAuth";
 import styles from "../../styles/Home.module.css";
+import withAuth from "../api/auth/withAuth";
 
 function CountriesPage(props: any, { session }: { session: Session }) {
 	return (

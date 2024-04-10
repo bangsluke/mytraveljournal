@@ -25,9 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
-
 # vercel
 .vercel
 
@@ -37,6 +34,8 @@ yarn-error.log*
 # Environment Variables
 .env
 .env.*
+# local env files
+.env*.local
 
 # Neo4j Aura Details
 Neo4j-29909dfd-Created-2023-10-09.txt
