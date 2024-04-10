@@ -114,6 +114,7 @@
 
 .sidebarLoginContent {
 	/* background-color: #555; */
+	padding: 0 10%;
 	position: sticky;
 	/* TODO: Fix the above position so that the sidebar content stays visible while the sidebar is open in static mode */
 	width: 100%;
@@ -132,19 +133,8 @@
 	height: 40px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-}
-
-.toggle-button {
-	background-color: #555;
-	color: white;
-	padding: var(--sidebar-spacing, 15px);
-	border: none;
-	cursor: pointer;
-}
-
-.toggle-button:hover {
-	background-color: #777;
+	justify-content: flex-end;
+	padding: 0 10%;
 }
 
 
