@@ -1,3 +1,4 @@
+import { CloseButton } from "@mantine/core";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -56,6 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 						<button className={styles.toggleButton} onClick={toggleSidebar}>
 							Close Sidebar
 						</button>
+						<CloseButton onClick={toggleSidebar} size='lg' aria-label='Close sidebar' />
 					</div>
 				)}
 				<div className={styles.sidebarContent}>
