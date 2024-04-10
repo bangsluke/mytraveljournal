@@ -29,16 +29,16 @@ export default function PersonsList() {
 
 	// Map the sorted and filtered people to add the holiday count
 	sortedAndFilteredPeople = sortedAndFilteredPeople?.map((person) => {
+		let lastHoliday = person.attendedHolidays.reduce((prev, current) => {
+			return prev.sortDateValue > current.sortDateValue ? prev : current;
+		});
+
 		return {
 			...person,
 			holidayCount: person.attendedHolidays.length,
 			lastHoliday: {
-				name: person.attendedHolidays.reduce((prev, current) => {
-					return prev.sortDateValue > current.sortDateValue ? prev : current;
-				}).name,
-				nodeId: person.attendedHolidays.reduce((prev, current) => {
-					return prev.sortDateValue > current.sortDateValue ? prev : current;
-				}).nodeId,
+				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
+				nodeId: lastHoliday.nodeId,
 			},
 		};
 	});
