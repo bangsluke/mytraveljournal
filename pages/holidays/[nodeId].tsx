@@ -13,8 +13,8 @@ import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import { Holiday } from "../../graphql/__generated__/graphql";
-import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
+import withAuth from "../api/auth/withAuth";
 import styles from "./Holidays.module.css";
 
 //  Create a function to return a concatenated list of attendees with hyperlinks

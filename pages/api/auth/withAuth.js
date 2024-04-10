@@ -1,6 +1,6 @@
 import { signIn, useSession } from "next-auth/react";
-import Loading from "../components/Loading/Loading";
-import Constants from "../constants/constants";
+import Loading from "../../../components/Loading/Loading";
+import Constants from "../../../constants/constants";
 
 const withAuth = (WrappedComponent) => {
 	return function AuthenticatedComponent(props) {

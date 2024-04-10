@@ -4,8 +4,8 @@ import CitiesList from "../../components/Lists/CitiesList";
 import CountryList from "../../components/Lists/CountriesList";
 import HolidayList from "../../components/Lists/HolidayList";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import withAuth from "../../lib/withAuth";
 import styles from "../../styles/Home.module.css";
+import withAuth from "../api/auth/withAuth";
 
 function ListsPage(props: any, { session }: { session: Session }) {
 	return (

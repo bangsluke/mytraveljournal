@@ -1,9 +1,9 @@
 import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import withAuth from "../lib/withAuth";
 import styles from "../pages/auth/Authentication.module.css";
 import Error404Image from "../public/images/404Image.webp";
+import withAuth from "./api/auth/withAuth";
 import AuthenticationLayout from "./auth/AuthenticationLayout";
 
 // https://nextjs.org/docs/advanced-features/custom-error-page
