@@ -14,3 +14,7 @@
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+.rowHighlight:hover {
+	background-color: #f0f0f0;
+}
