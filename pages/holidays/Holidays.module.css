@@ -70,7 +70,7 @@
 .pillsSection {
 	/* background-color: blue; */
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-	padding: -rem 1rem 0rem 1rem;
+	padding: 0rem 1rem 0rem 1rem;
 }
 
 .holidayPills {

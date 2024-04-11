@@ -95,7 +95,7 @@ function HolidayPage({ session }: { session: Session }) {
 	// Format the month date
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
 
-	// Create the visible pills for the holiday
+	// Gather the data fro the pills for the holiday
 	const properties: { [key: string]: { id: number; text: string | string[] | null | undefined; image: ReactElement } } = {
 		property1: { id: 1, text: monthFormatted + " " + dateYear, image: <CalendarMonthIcon /> },
 		property2: { id: 2, text: locations, image: <LocationOnRoundedIcon /> },
@@ -103,6 +103,8 @@ function HolidayPage({ session }: { session: Session }) {
 		property4: { id: 4, text: photoAlbum, image: <AddAPhotoIcon /> },
 	};
 	LogS.log("properties", properties);
+
+	// Define the pills for the holiday
 	const pills = Object.keys(properties).map((property) => {
 		const { text, image, id } = properties[property];
 		// Loop through the array if text is an array
