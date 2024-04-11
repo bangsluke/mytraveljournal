@@ -8,12 +8,13 @@ interface CountCardProp {
 	countValue: number | string | JSX.Element;
 	pagePath: string;
 	backgroundIcon?: ReactElement;
+	enabledBoolean: boolean;
 }
 
 // Define a count card component that holds a string title and a number.
 export default function CountCard(props: CountCardProp) {
 	const router = useRouter(); // Import the Next router
-	const { id, cardTitle, countValue, pagePath, backgroundIcon } = props; // Extract the props
+	const { id, cardTitle, countValue, pagePath, backgroundIcon, enabledBoolean } = props; // Extract the props
 
 	// Error handling for if countValue returns an element
 	let displayCountValue;
@@ -23,8 +24,21 @@ export default function CountCard(props: CountCardProp) {
 		displayCountValue = countValue;
 	}
 
+	let cardStyles = styles.countcard;
+	if (!enabledBoolean) {
+		cardStyles = styles.disabledCard;
+	}
+
 	return (
-		<div id={id} className={styles.countcard} onClick={() => router.push({ pathname: pagePath })}>
+		<div
+			id={id}
+			className={cardStyles}
+			// Add an onClick if the card is enabled
+			onClick={() => {
+				if (enabledBoolean) {
+					router.push({ pathname: pagePath });
+				}
+			}}>
 			{/* Load in the MUI icon to display behind the card content */}
 			{backgroundIcon && (
 				<div
