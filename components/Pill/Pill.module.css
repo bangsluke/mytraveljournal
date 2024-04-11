@@ -8,13 +8,25 @@
 	width: max-content;
 }
 
+.pill:hover {
+	background-color: var(--secondary-accent, grey);
+}
+
 .pillIcon {
 	margin-right: 4px;
+}
+
+.pill:hover .pillIcon {
+	background-color: var(--secondary-accent, grey);
 }
 
 .pillText {
 	margin-left: 4px;
 	font-size: 14px;
+}
+
+.pill:hover .pillText {
+	background-color: var(--secondary-accent, grey);
 }
 
 @media only screen and (max-width: 767px) {
