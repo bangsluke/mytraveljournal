@@ -139,7 +139,7 @@ function HolidayPage({ session }: { session: Session }) {
 				</div>
 				{/* Holiday Name */}
 				<h3 className={styles.holidayName}>
-					<span>/</span>
+					<span className={styles.firstLetter}>/</span>
 					<span> {name}</span>
 					<span>.</span>
 				</h3>

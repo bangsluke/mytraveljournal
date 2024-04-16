@@ -50,14 +50,16 @@
 .holidayName {
 	z-index: 1;
 	font-size: 1.6rem;
-	line-height: 1rem;
+	line-height: 1.6rem;
 	text-align: left;
 	align-self: flex-start;
-	padding: 0rem 0rem 0rem 1rem;
+	margin: 0;
+	padding: 0rem 0rem 2rem 1rem;
+	color: var(--main-accent, #fe395c);
 }
 
-.holidayName::first-letter {
-	color: var(--main-accent, #fe395c);
+.holidayName>.firstLetter {
+	color: var(--secondary-accent, #BBB);
 }
 
 .clickableList {

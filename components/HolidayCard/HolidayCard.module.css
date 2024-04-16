@@ -1,0 +1,67 @@
+/* Modified from https: //ui.mantine.dev/category/article-cards/#article-card-image */
+
+.card {
+	height: rem(440px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(20%);
+	border-radius: var(--card-border-radius, 15px);
+	/* background-image: url(https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80); */
+}
+
+.card:hover {
+	filter: grayscale(0%);
+}
+
+/* Style the div around the text content */
+.textContent {
+	text-align: right;
+	padding: var(--mantine-spacing-xs);
+	border-radius: var(--card-border-radius, 15px);
+	background-color: var(--white, #fff);
+	opacity: 0.5;
+}
+
+.date {
+	color: var(--primary-color, #fe395c);
+	opacity: 1;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.titleContainer {
+	display: flex;
+}
+
+.markerIcon {
+	color: var(#AAA, #BBB);
+}
+
+.title {
+	font-family:
+		var(--mantine-font-family);
+	font-weight: 900;
+	color: var(--secondary-accent, #BBB);
+	opacity: 1;
+	line-height: 1.2;
+	font-size: rem(32px);
+	margin-top: var(--mantine-spacing-xs);
+	text-align: right;
+	z-index: 5;
+}
+
+.infoIcon {
+	color: var(--secondary-accent, #BBB);
+}
+
+.button {
+	text-align: right;
+}
+
+.button :hover {
+	color: var(--main-accent, #fe395c);
+}
