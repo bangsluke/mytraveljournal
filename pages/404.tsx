@@ -16,8 +16,12 @@ function Custom404Page({ session }: { session: Session }) {
 				<h1 className={styles.title}>my travel journal.</h1>
 				<Image src={Error404Image} alt='Travel Site Error Logo' width='100' height='100' layout='fixed' priority />
 				<h2 className={styles.title}>404 - Page Not Found</h2>
+				<p className={styles.text}>
+					The page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you
+					think this is an error contact support.
+				</p>
 				{/* Go back to the last visited page */}
-				<ButtonComponent Text={"Click here to go back"} onClick={() => router.back()} />
+				<ButtonComponent Text={"Click here to go back"} onClick={() => router.back()} fullWidth={false} />
 			</AuthenticationLayout>
 		</>
 	);

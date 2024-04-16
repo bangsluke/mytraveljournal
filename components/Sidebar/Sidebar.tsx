@@ -79,10 +79,10 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 						<>
 							<p>Signed in as {signedInEmail}</p>
 							{/* TODO: Style email underlined */}
-							<ButtonComponent Text='Sign out' onClick={() => signOut()} />
+							<ButtonComponent Text='Sign out' onClick={() => signOut()} fullWidth={true} />
 						</>
 					) : (
-						<ButtonComponent Text='Sign in' onClick={() => signIn()} />
+						<ButtonComponent Text='Sign in' onClick={() => signIn()} fullWidth={true} />
 					)}
 					<DarkModeToggle></DarkModeToggle>
 				</Group>
