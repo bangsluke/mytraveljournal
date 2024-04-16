@@ -12,11 +12,15 @@ if (process.env.NODE_ENV === "production") {
 	SkipAuth = false;
 }
 
+// Define the colors used across the tool
+const mainAccent = "#fe395c";
+
 const Constants = {
 	headerHeight,
 	HolidayCardImageHeight,
 	HolidayCardImageWidth,
 	SkipAuth,
+	mainAccent,
 };
 
 export default Constants;

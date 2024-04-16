@@ -2,9 +2,11 @@ import { ActionIcon, Container, Group, rem, Text, Tooltip } from "@mantine/core"
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import classes from "./Footer.module.css";
 
 export default function Footer() {
+	const router = useRouter(); // Import the Next router
 	const footerIconsHeight = 25;
 
 	return (
@@ -17,6 +19,7 @@ export default function Footer() {
 						height={footerIconsHeight}
 						alt='My Travel Journal Logo'
 						className={classes.siteLogo}
+						onClick={() => router.push({ pathname: "/" })}
 					/>
 					<Text fz='sm' fw={200}>
 						@bangsluke

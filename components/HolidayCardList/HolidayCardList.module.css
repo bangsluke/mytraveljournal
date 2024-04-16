@@ -1,6 +1,11 @@
 .filter {
 	/* background-color: yellow; */
 	padding-top: 2rem;
+	text-align: center;
+}
+
+.filterButton {
+	margin-left: 20px;
 }
 
 .holidayCardList {
@@ -10,149 +15,4 @@
 	flex-direction: column;
 	gap: 10px;
 	width: 100%;
-}
-
-.holidayCard {
-	/* background-color: yellow; */
-	height: calc(var(--holiday-card-image-height, 300px) + 20px);
-	min-height: 150px;
-	border: 1px solid var(--secondary-accent-light, #f0f0f0);
-	padding: 10px;
-	/* Add padding to the card */
-	border-radius: var(--card-border-radius, 15px);
-	width: 98%;
-	margin: 0px auto 10px auto;
-	display: grid;
-	column-gap: 10px;
-	grid-template-columns: 30% 70%;
-	grid-template-rows: 130px;
-}
-
-.holidayCard:hover {
-	border: 1px solid var(--secondary-accent-light, #f0f0f0);
-	background-color: var(--secondary-accent-light, #f0f0f0);
-	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-}
-
-.holidayCardImage {
-	object-fit: cover;
-	border-radius: var(--holiday-card-image-border-radius, 10px);
-	padding: 0px;
-}
-
-/* Style the div holding all the holiday details. */
-.holidayCardDetails {
-	/* background-color: blue; */
-	/* height: max-content; */
-	height: var(--holiday-card-image-height, 300px);
-	/* max-height: var(--holiday-card-image-height, 300px); */
-	overflow-y: none;
-	width: calc(100% - 10px);
-	margin: 0px;
-	display: grid;
-	row-gap: 0px;
-	grid-template-columns: 1fr;
-	grid-template-rows: 30px var(--holiday-card-image-height, 300px);
-	justify-content: flex-start;
-	/* Center Horizontally */
-}
-
-/* Style the top row holding the icon, location and link to Google Maps */
-.holidayCardDetailsTopRow {
-	/* background-color: aquamarine; */
-	height: 30px;
-	width: max-content;
-	display: flex;
-	justify-content: flex-start;
-	/* Position Horizontally */
-	align-items: flex-start;
-	/* Position Vertically */
-}
-
-/* Style the location icon */
-.holidayCardLocationIcon {
-	color: var(--main-accent, red);
-	font-size: 25px;
-}
-
-/* Style the header text in the top row */
-.holidayCardDetails h3 {
-	text-transform: uppercase;
-	font-style: italic;
-	font-size: 12px;
-	font-weight: 200;
-	line-height: 0;
-	padding-top: 14px;
-	margin: 0px 10px 0px 5px;
-}
-
-.holidayCardDetails a {
-	font-size: 10px;
-	font-weight: 200;
-	color: var(--accent-grey, grey);
-}
-
-.holidayCardDirectionsIcon {
-	line-height: 0;
-	display: block;
-}
-
-.holidayCardDirectionsText {
-	line-height: 0;
-	margin-top: -18px;
-	display: none;
-}
-
-/* Style the holiday text container */
-.holidayCardDetailsText {
-	/* background-color: yellowgreen; */
-	top: 0;
-	padding: 10px 0px 0px 5px;
-	/* Add a small padding to left of the text */
-	height: calc(100% - 30px);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	/* Position Horizontally */
-	align-items: space-between;
-	/* Position Vertically */
-	font-size: 14px;
-}
-
-/* Style the holiday title */
-.holidayCardDetailsText>h2 {
-	/* background-color: yellow; */
-	font-size: 20px;
-	font-weight: 600;
-	line-height: 20px;
-	height: 20px;
-	margin: 0;
-	padding: 0;
-}
-
-/* Style the holiday dates */
-.holidayCardDates {
-	/* background-color: blue; */
-	font-weight: 600;
-	line-height: 14px;
-	margin: 20px 0px;
-	padding: 0;
-}
-
-/* Style the holiday subtitle */
-.holidayCardDetailsText>h3 {
-	/* background-color: red; */
-	font-weight: 400;
-	line-height: 14px;
-	text-transform: none;
-	margin: 0;
-	padding: 0;
-}
-
-/* Create a horizontal line separator that goes across the div. */
-.separator {
-	width: 100%;
-	height: 1px;
-	background: var(--secondary-accent, grey);
-	/* margin: 10px auto 20px auto; */
 }

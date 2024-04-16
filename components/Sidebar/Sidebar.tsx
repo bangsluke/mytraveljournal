@@ -73,16 +73,16 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					</ul>
 				</div>
 				{/* Provide details to the user on their login email and offer a sign out button */}
-				<Group justify='center' className={styles.sidebarLoginContent}>
+				<Group justify='center' align='center' wrap='wrap' className={styles.sidebarLoginContent}>
 					{/* Display either a sign in or sign out button based on the session state */}
 					{session ? (
 						<>
 							<p>Signed in as {signedInEmail}</p>
 							{/* TODO: Style email underlined */}
-							<ButtonComponent Text='Sign out' onClick={() => signOut()} />
+							<ButtonComponent Text='Sign out' onClick={() => signOut()} fullWidth={false} />
 						</>
 					) : (
-						<ButtonComponent Text='Sign in' onClick={() => signIn()} />
+						<ButtonComponent Text='Sign in' onClick={() => signIn()} fullWidth={false} />
 					)}
 					<DarkModeToggle></DarkModeToggle>
 				</Group>

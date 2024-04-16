@@ -32,9 +32,25 @@
 	line-height: 1rem;
 }
 
+.errorTitle {
+	font-size: 120px;
+	font: bold;
+	font-family: var(--font-family, ui-sans-serif);
+	line-height: 0rem;
+	color: var(--primary-accent, #fe395c);
+	padding: 0;
+	margin: 50px;
+	text-align: center;
+}
+
 .Logo {
 	height: 100px;
 	width: 100px;
+}
+
+.text {
+	font-size: 14px;
+	color: var(--secondary-accent, #BBB);
 }
 
 /* Adjust styling for mobile */
