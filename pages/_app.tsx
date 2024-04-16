@@ -24,7 +24,7 @@ const theme = createTheme({
 	fontFamily: "Open Sans, sans-serif",
 	white: "#FFFFFF",
 	black: "#000000",
-	// TODO: Add here?
+	// TODO: Add here? https://mantine.dev/theming/theme-object/
 	colors: {
 		// Add your color
 		primary: [
