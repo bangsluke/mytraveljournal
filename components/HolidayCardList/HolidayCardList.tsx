@@ -17,7 +17,13 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
 
 	// Define the selectedDecade state
-	const [selectedDecade, setSelectedDecade] = useState("All");
+	const [selectedDecade, setSelectedDecade] = useState<string>("All");
+
+	// Define the onDecadeChange handler
+	const onDecadeChange = (newDate: string) => {
+		// console.log("Selected Decade: ", newDate);
+		setSelectedDecade(newDate);
+	};
 
 	// LogS.log("Original data from HolidayCardList: ", data);
 
@@ -102,7 +108,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	return (
 		<>
 			{/* // TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
-			<FilterDecade selectedDecade={selectedDecade} onDecadeChange={(e) => setSelectedDecade(e.target.value)} />
+			<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
 			<div className={styles.holidayCardList}>{holidayElements}</div>
 		</>
 	);

@@ -1,6 +1,11 @@
 .filter {
 	/* background-color: yellow; */
 	padding-top: 2rem;
+	text-align: center;
+}
+
+.filterButton {
+	margin-left: 20px;
 }
 
 .holidayCardList {
