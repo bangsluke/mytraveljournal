@@ -6,6 +6,8 @@ interface AttendedHolidayListProps {
 	holidays: Holiday[];
 }
 
+// TODO: Update the below to be a nicer looking list
+
 export default function AttendedHolidayList({ holidays }: AttendedHolidayListProps) {
 	const router = useRouter(); // Import the Next router
 
