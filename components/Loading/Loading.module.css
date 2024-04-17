@@ -39,7 +39,7 @@
 @media only screen and (max-width: 767px) {
 
 	.rotatingLogo {
-		margin: 0 0 4rem;
+		margin: 0 0 1rem 0;
 		/* Add a margin at the bottom to push the logo up */
 	}
 
