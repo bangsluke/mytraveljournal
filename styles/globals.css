@@ -18,12 +18,10 @@
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
 
+	--section-divider-spacing: 20px;
+
 	/* TODO: Migrate the dark mode colours to root below */
 
-	/* Images */
-	/* Keep aligned with HolidayCardImageHeight in constants.ts */
-	--holiday-card-image-height: 150px;
-	--holiday-card-image-border-radius: 10px;
 	--font-family: ui-sans-serif,
 		system-ui,
 		-apple-system,
