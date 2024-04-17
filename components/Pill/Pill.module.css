@@ -29,9 +29,9 @@
 	background-color: var(--secondary-accent, grey);
 }
 
-@media only screen and (max-width: 767px) {
 
-	/* Adjust styling for mobile */
+/* Mobiles */
+@media only screen and (max-width: 767px) {
 	.pill {
 		font-size: 10px;
 	}

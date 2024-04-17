@@ -163,7 +163,7 @@
 	left: calc(var(--sidebar-width-mobile, 300px) * -1);
 }
 
-/* Phones */
+/* Mobiles */
 @media only screen and (max-width: 767px) {
 	.sidebarDynamic {
 		width: var(--sidebar-width-mobile, 200px);
@@ -182,7 +182,7 @@
 	}
 }
 
-/* Portrait phones */
+/* Portrait mobiles */
 @media only screen and (max-width: 767px) and (orientation: portrait) {
 	.sidebarDynamic {
 		width: var(--sidebar-width-mobile, 200px);

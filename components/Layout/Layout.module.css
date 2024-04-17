@@ -25,7 +25,7 @@
 	width: 100vw;
 }
 
-/* Phones */
+/* Mobiles */
 @media only screen and (max-width: 767px) {
 	.main {
 		/* background-color: #FFF000; */
@@ -33,7 +33,7 @@
 	}
 }
 
-/* Portrait phones */
+/* Portrait mobiles */
 @media only screen and (max-width: 767px) and (orientation: portrait) {
 	.main {
 		/* background-color: #FF0000; */

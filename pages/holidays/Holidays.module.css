@@ -108,11 +108,9 @@
 	padding: 0rem 1rem 1rem 1rem;
 }
 
+/* Mobiles */
 @media only screen and (max-width: 767px) {
-
-	/* Adjust styling for mobile */
 	.holidayImageOverlayContainer h3 {
 		font-size: 1.8rem;
 	}
-
 }

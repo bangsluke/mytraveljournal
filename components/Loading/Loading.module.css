@@ -35,16 +35,13 @@
 	animation: rotate 2s linear infinite;
 }
 
-/* Adjust styling for mobile */
+/* Mobiles */
 @media only screen and (max-width: 767px) {
-
 	.rotatingLogo {
 		margin: 0 0 1rem 0;
 		/* Add a margin at the bottom to push the logo up */
 	}
-
 }
-
 
 /* Style for dark mode */
 @media (prefers-color-scheme: dark) {
