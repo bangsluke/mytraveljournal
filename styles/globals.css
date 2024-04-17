@@ -1,8 +1,12 @@
 :root {
+	/* Dimensions */
 	--header-height: 80px;
 	--sidebar-width-mobile: 60vw;
 	--sidebar-width-tablet: 30vw;
 	--sidebar-width-static: 200px;
+	--footer-height: 60px;
+
+	/* Colours */
 	--main-accent: #fe395c;
 	/*rgb(254, 57, 92)*/
 	--secondary-accent: #BBB;
@@ -70,6 +74,7 @@ body {
 		Droid Sans,
 		Helvetica Neue,
 		sans-serif;
+	height: 100%;
 }
 
 a {

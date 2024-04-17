@@ -1,12 +1,19 @@
+.contentFooterContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
 .main {
+	flex-grow: 1;
 	/* background-color: aqua; */
 	/* Drop the contents of main under header */
 	padding: 0 0;
 	padding-top: var(--header-height, 80px);
 	margin: 0;
 	left: var(--sidebar-width-static, 200px);
-	min-height: 100vh;
-	height: max-content;
+	/* min-height: 100vh; */
+	min-height: 100%;
 	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
