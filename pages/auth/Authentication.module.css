@@ -53,14 +53,12 @@
 	color: var(--secondary-accent, #BBB);
 }
 
-/* Adjust styling for mobile */
+/* Mobiles */
 @media only screen and (max-width: 767px) {
-
 	.card {
 		margin: 2rem 0 4rem;
 		/* Add a margin at the bottom to push the card up */
 	}
-
 }
 
 /* Style to match the NextAuth styling */

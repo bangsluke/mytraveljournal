@@ -1,6 +1,16 @@
 .footer {
+	height: var(--footer-height, 60px);
 	margin-top: rem(120px);
 	border-top: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+	z-index: 200;
+	position: relative;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+}
+
+.text {
+	color: var(--text, #333);
 }
 
 .inner {
@@ -19,6 +29,7 @@
 	/* height: 20px; */
 	/* width: 20px; */
 	filter: grayscale(100%);
+	cursor: pointer;
 }
 
 .techStackLogo {

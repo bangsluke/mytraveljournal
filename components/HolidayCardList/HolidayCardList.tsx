@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Holiday } from "../../graphql/__generated__/graphql";
-import HolidayCard from "../HolidayCard/HolidayCard";
 import FilterDecade from "./FilterDecade";
+import HolidayCard from "./HolidayCard";
 import styles from "./HolidayCardList.module.css";
 
 // Define the HolidayCardList component props
@@ -84,11 +84,16 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	});
 
 	return (
-		<>
-			{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
-			<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
+		<div className={styles.holidayCardListContainer}>
+			<div className={styles.headerFilterContainer}>
+				<h2 className={styles.holidayHeader}>holidays.</h2>
+				<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
+				{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
+			</div>
+
+			{/* Display the holiday card list */}
 			<div className={styles.holidayCardList}>{holidayElements}</div>
-		</>
+		</div>
 	);
 };
 

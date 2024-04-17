@@ -1,7 +1,12 @@
 :root {
+	/* Dimensions */
 	--header-height: 80px;
-	--sidebar-width: 60vw;
+	--sidebar-width-mobile: 60vw;
+	--sidebar-width-tablet: 30vw;
 	--sidebar-width-static: 200px;
+	--footer-height: 60px;
+
+	/* Colours */
 	--main-accent: #fe395c;
 	/*rgb(254, 57, 92)*/
 	--secondary-accent: #BBB;
@@ -12,17 +17,19 @@
 	/* rgb(255, 255, 255) */
 	--off-white: #f3f3f3;
 	/* rgb(243, 243, 243) */
+
+	--text: #222;
+	/* rgb(34, 34, 34) */
+
 	--sidebar-spacing: 15px;
 	--hover-icon-background: rgba(0, 0, 0, 0.2);
 	--hover-message-background: rgba(0, 0, 0, 0.7);
 	--card-border-radius: 15px;
 
+	--section-divider-spacing: 20px;
+
 	/* TODO: Migrate the dark mode colours to root below */
 
-	/* Images */
-	/* Keep aligned with HolidayCardImageHeight in constants.ts */
-	--holiday-card-image-height: 150px;
-	--holiday-card-image-border-radius: 10px;
 	--font-family: ui-sans-serif,
 		system-ui,
 		-apple-system,
@@ -67,6 +74,7 @@ body {
 		Droid Sans,
 		Helvetica Neue,
 		sans-serif;
+	height: 100%;
 }
 
 a {

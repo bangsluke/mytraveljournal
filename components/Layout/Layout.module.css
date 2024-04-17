@@ -1,15 +1,20 @@
+.contentFooterContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
 .main {
+	flex-grow: 1;
 	/* background-color: aqua; */
 	/* Drop the contents of main under header */
 	padding: 0 0;
 	padding-top: var(--header-height, 80px);
 	margin: 0;
-	min-height: 100vh;
-	min-width: 100vw;
-}
-
-.mainStatic {
-	/* background-color: #0070f3; */
+	left: var(--sidebar-width-static, 200px);
+	/* min-height: 100vh; */
+	min-height: 100%;
+	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
 	/* Sidebar and main content */
@@ -22,6 +27,43 @@
 }
 
 .mainDynamic {
-	/* background-color: #FFF000; */
+	/* background-color: cadetblue; */
 	padding-top: var(--header-height, 80px);
+	left: 0;
+	width: 100vw;
+}
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+	.main {
+		/* background-color: #FFF000; */
+		min-width: 100vw;
+	}
+}
+
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.main {
+		/* background-color: #FF0000; */
+		left: 0;
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	.main {
+		/* background-color: #F11FF0; */
+		min-width: 100vw;
+		left: 0;
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+
+	.main {
+		/* background-color: aqua; */
+		width: 85vw;
+	}
 }

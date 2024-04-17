@@ -1,32 +1,24 @@
 /* Style the full sidebar */
+
+/* Style the static sidebar */
 .sidebar {
 	position: fixed;
-	/* top: var(--header-height, 80px); */
-	/* padding-top: var(--header-height, 80px); */
-	width: var(--sidebar-width, 200px);
+	/* position: absolute; */
+	top: 0;
+	width: var(--sidebar-width-static, 300px);
 	height: 100vh;
 	background-color: #FFF;
-	opacity: 0.95;
+	opacity: 1;
 	transition: left 0.3s ease-in-out;
-	z-index: 10;
+	z-index: 100;
 	/* Add a right grey border */
 	border-right: var(--secondary-accent, #BBB) 2px solid;
 }
 
-.sidebarStatic {
-	position: relative;
-	top: 0;
-	width: var(--sidebar-width-static, 300px);
-	opacity: 1;
-}
-
-.sideBarLogoContainer {
-	height: var(--header-height, 80px);
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	margin-left: 20px;
+/* Style the dynamic sidebar */
+.sidebarDynamic {
+	opacity: 0.95;
+	width: var(--sidebar-width, 200px);
 }
 
 .sidebarOpen {
@@ -36,6 +28,15 @@
 .sidebarClosed {
 	left: -300px;
 	/* Start off-screen */
+}
+
+.sideBarLogoContainer {
+	height: var(--header-height, 80px);
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin-left: 20px;
 }
 
 .sidebarContent {
@@ -53,7 +54,6 @@
 	margin: 0;
 }
 
-
 /* Modify the styles for SidebarItem */
 .sidebarItem {
 	list-style: none;
@@ -62,7 +62,7 @@
 	/* Add padding for better spacing */
 	text-decoration: none;
 	/* Remove underline for links */
-	color: black;
+	color: var(--text, #333);
 	/* Set link color */
 	/* display: block; */
 	position: relative;
@@ -137,17 +137,17 @@
 	padding: 0 10%;
 }
 
-
 /* Style a sidebar blackout container to be clicked to close the sidebar */
 .sidebarBlackout {
-	/* background-color: #FF00F0; */
 	opacity: 0;
+	/* background-color: #000;
+	opacity: 1; */
 	position: fixed;
 	top: 0;
 	height: 100vh;
-	width: calc(100vw - var(--sidebar-width, 300px));
+	width: calc(100vw - var(--sidebar-width-mobile, 300px));
 	transition: left 0.3s ease-in-out;
-	z-index: 2;
+	z-index: 90;
 }
 
 .sidebarBlackoutHidden {
@@ -155,9 +155,77 @@
 }
 
 .sidebarBlackoutOpen {
-	left: var(--sidebar-width, 300px);
+	left: var(--sidebar-width-mobile, 300px);
 }
 
 .sidebarBlackoutClosed {
-	left: calc(var(--sidebar-width, 300px) * -1);
+	left: calc(var(--sidebar-width-mobile, 300px) * -1);
+	visibility: hidden;
+}
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+	.sidebarDynamic {
+		width: var(--sidebar-width-tablet, 200px);
+	}
+
+	.sidebarBlackout {
+		width: calc(100vw - var(--sidebar-width-tablet, 300px));
+	}
+
+	.sidebarBlackoutOpen {
+		left: var(--sidebar-width-tablet, 300px);
+	}
+
+	.sidebarBlackoutClosed {
+		left: calc(var(--sidebar-width-tablet, 300px) * -1);
+	}
+}
+
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.sidebarDynamic {
+		width: var(--sidebar-width-mobile, 200px);
+	}
+
+	.sidebarBlackout {
+		width: calc(100vw - var(--sidebar-width-mobile, 300px));
+	}
+
+	.sidebarBlackoutOpen {
+		left: var(--sidebar-width-mobile, 300px);
+	}
+
+	.sidebarBlackoutClosed {
+		left: calc(var(--sidebar-width-mobile, 300px) * -1);
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	.sidebarDynamic {
+		width: var(--sidebar-width-tablet, 200px);
+	}
+
+	.sidebarBlackout {
+		width: calc(100vw - var(--sidebar-width-tablet, 300px));
+	}
+
+	.sidebarBlackoutOpen {
+		left: var(--sidebar-width-tablet, 300px);
+	}
+
+	.sidebarBlackoutClosed {
+		left: calc(var(--sidebar-width-tablet, 300px) * -1);
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+
+	.sidebarDynamic {
+		width: var(--sidebar-width-static, 200px);
+	}
+
 }
