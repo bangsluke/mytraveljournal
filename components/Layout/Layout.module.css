@@ -5,7 +5,8 @@
 	padding-top: var(--header-height, 80px);
 	margin: 0;
 	left: var(--sidebar-width-static, 200px);
-	min-height: 80vh;
+	min-height: 100vh;
+	height: max-content;
 	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;

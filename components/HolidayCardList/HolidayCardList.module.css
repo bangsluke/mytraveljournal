@@ -17,7 +17,7 @@
 .holidayHeader {
 	/* background-color: green; */
 	text-align: center;
-	color: #BBB;
+	color: var(--text, #333);
 	font-family: var(--font-family, ui-sans-serif);
 	line-height: normal;
 
@@ -30,7 +30,7 @@
 }
 
 .filterLabel {
-	color: #BBB;
+	color: var(--text, #333);
 }
 
 .filterButton {
@@ -72,8 +72,7 @@
 	text-align: right;
 	padding: var(--mantine-spacing-xs);
 	border-radius: var(--card-border-radius, 15px);
-	background-color: var(--white, #fff);
-	opacity: 0.5;
+	background-color: rgba(255, 255, 255, 0.7)
 }
 
 .date {
@@ -95,13 +94,13 @@
 	font-family:
 		var(--mantine-font-family);
 	font-weight: 900;
-	color: var(--secondary-accent, #BBB);
+	color: var(--white, #FFFFFF);
 	opacity: 1;
 	line-height: 1.2;
 	font-size: rem(32px);
 	margin-top: var(--mantine-spacing-xs);
 	text-align: right;
-	z-index: 5;
+	z-index: 15;
 }
 
 .infoIcon {

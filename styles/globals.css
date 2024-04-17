@@ -13,6 +13,10 @@
 	/* rgb(255, 255, 255) */
 	--off-white: #f3f3f3;
 	/* rgb(243, 243, 243) */
+
+	--text: #222;
+	/* rgb(34, 34, 34) */
+
 	--sidebar-spacing: 15px;
 	--hover-icon-background: rgba(0, 0, 0, 0.2);
 	--hover-message-background: rgba(0, 0, 0, 0.7);

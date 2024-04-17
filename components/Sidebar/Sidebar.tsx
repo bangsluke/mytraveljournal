@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import useScreenSize from "../../hooks/useScreenSize";
-import LogS from "../../services/LogS";
 import { ButtonComponent } from "../Button/Button";
 import styles from "./Sidebar.module.css";
 import { SidebarData } from "./SidebarData";
@@ -36,9 +35,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 		sidebarBlackoutClassName = `${styles.sidebarBlackout} ${sidebarOpen ? styles.sidebarBlackoutOpen : styles.sidebarBlackoutClosed}`;
 	}
 	// Log the sidebar styles
-	LogS.log("sidebarStyle:", sidebarStyle);
-	LogS.log("sideBarClassName:", sideBarClassName);
-	LogS.log("sidebarBlackoutClassName:", sidebarBlackoutClassName);
+	// LogS.log("sidebarStyle:", sidebarStyle);
+	// LogS.log("sideBarClassName:", sideBarClassName);
+	// LogS.log("sidebarBlackoutClassName:", sidebarBlackoutClassName);
 
 	// LogS.log("SidebarData", SidebarData); // Log the SidebarData
 
@@ -52,6 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	return (
 		<>
 			<nav className={sideBarClassName}>
+				{/* Display the logo */}
 				<div className={styles.sideBarLogoContainer} onClick={() => router.push({ pathname: "/" })}>
 					<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' />
 				</div>
@@ -89,7 +89,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					<DarkModeToggle></DarkModeToggle>
 				</Group>
 			</nav>
-			{/* On mobile, add a blackout container to be clicked to close the sidebar */}
+
+			{/* On mobile and tablet, add a blackout container to be clicked to close the sidebar */}
 			{sidebarStyle == "dynamic" && <div className={sidebarBlackoutClassName} onClick={toggleSidebar}></div>}
 		</>
 	);

@@ -54,7 +54,6 @@
 	margin: 0;
 }
 
-
 /* Modify the styles for SidebarItem */
 .sidebarItem {
 	list-style: none;
@@ -63,7 +62,7 @@
 	/* Add padding for better spacing */
 	text-decoration: none;
 	/* Remove underline for links */
-	color: black;
+	color: var(--text, #333);
 	/* Set link color */
 	/* display: block; */
 	position: relative;
@@ -140,9 +139,9 @@
 
 /* Style a sidebar blackout container to be clicked to close the sidebar */
 .sidebarBlackout {
-	/* opacity: 0;
-	background-color: #000; */
-	opacity: 1;
+	opacity: 0;
+	/* background-color: #000;
+	opacity: 1; */
 	position: fixed;
 	top: 0;
 	height: 100vh;
@@ -161,24 +160,25 @@
 
 .sidebarBlackoutClosed {
 	left: calc(var(--sidebar-width-mobile, 300px) * -1);
+	visibility: hidden;
 }
 
 /* Mobiles */
 @media only screen and (max-width: 767px) {
 	.sidebarDynamic {
-		width: var(--sidebar-width-mobile, 200px);
+		width: var(--sidebar-width-tablet, 200px);
 	}
 
 	.sidebarBlackout {
-		width: calc(100vw - var(--sidebar-width-mobile, 300px));
+		width: calc(100vw - var(--sidebar-width-tablet, 300px));
 	}
 
 	.sidebarBlackoutOpen {
-		left: var(--sidebar-width-mobile, 300px);
+		left: var(--sidebar-width-tablet, 300px);
 	}
 
 	.sidebarBlackoutClosed {
-		left: calc(var(--sidebar-width-mobile, 300px) * -1);
+		left: calc(var(--sidebar-width-tablet, 300px) * -1);
 	}
 }
 
