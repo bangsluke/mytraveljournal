@@ -1,12 +1,11 @@
 .main {
-	background-color: aqua;
+	/* background-color: aqua; */
 	/* Drop the contents of main under header */
 	padding: 0 0;
 	padding-top: var(--header-height, 80px);
 	margin: 0;
+	left: var(--sidebar-width-static, 200px);
 	min-height: 100vh;
-	min-width: 100vw;
-	position: relative;
 	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -20,6 +19,43 @@
 }
 
 .mainDynamic {
-	background-color: #FFF000;
+	/* background-color: cadetblue; */
 	padding-top: var(--header-height, 80px);
+	left: 0;
+	width: 100vw;
+}
+
+/* Phones */
+@media only screen and (max-width: 767px) {
+	.main {
+		/* background-color: #FFF000; */
+		min-width: 100vw;
+	}
+}
+
+/* Portrait phones */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.main {
+		/* background-color: #FF0000; */
+		left: 0;
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	.main {
+		/* background-color: #F11FF0; */
+		min-width: 100vw;
+		left: 0;
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+
+	.main {
+		/* background-color: aqua; */
+		width: 85vw;
+	}
 }
