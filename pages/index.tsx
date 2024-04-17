@@ -53,7 +53,7 @@ export default function Home(props: any) {
 			<h1 className={styles.hidden}>My Travel Journal</h1>
 			{/* Top section holding the map and count card elements */}
 			<section className={styles.section}>
-				<h2 id={styles.homepageHeader}>Visited Locations</h2>
+				<h2 id={styles.homepageHeader}>Travel Stats</h2>
 
 				{/* <div className={styles.mapContainer}>
 					<MapChart />
