@@ -9,7 +9,7 @@
 	display: grid;
 	column-gap: 10px;
 	grid-template-columns: 60px 1fr 35px;
-	z-index: 100;
+	z-index: 150;
 }
 
 .NavbarMobile {

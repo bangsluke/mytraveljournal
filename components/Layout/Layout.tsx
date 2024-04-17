@@ -21,7 +21,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 	};
 
 	// If the screen is mobile size, make the main layout dynamic (a dynamic sidebar), otherwise make the main layout permanent and static
-	let mainClassName = `${styles.main} ${styles.mainStatic}`;
+	let mainClassName = `${styles.main}`;
 	if (screenSize == "mobile") {
 		mainClassName = `${styles.main} ${styles.mainDynamic}`;
 	}
