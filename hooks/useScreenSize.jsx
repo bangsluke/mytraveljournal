@@ -7,7 +7,7 @@ const useScreenSize = () => {
 		const width = window.innerWidth;
 		if (width < 576) {
 			setScreenSize("mobile");
-		} else if (width >= 576 && width < 992) {
+		} else if (width >= 576 && width < 1023) {
 			setScreenSize("tablet");
 		} else {
 			setScreenSize("desktop");

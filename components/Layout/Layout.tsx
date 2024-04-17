@@ -21,7 +21,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 	};
 
 	// If the screen is mobile size, make the main layout dynamic (a dynamic sidebar), otherwise make the main layout permanent and static
-	let mainClassName = `${styles.main} ${styles.mainStatic}`;
+	let mainClassName = `${styles.main}`;
 	if (screenSize == "mobile") {
 		mainClassName = `${styles.main} ${styles.mainDynamic}`;
 	}
@@ -44,13 +44,16 @@ export default function Layout({ children, NavbarStyle }: any) {
 			{/* Include the scroll to top button */}
 			<ScrollToTopButton />
 
-			{/* Wrap all children in a main tag with a header offset padding value */}
-			<main className={mainClassName}>
-				<section>{children}</section>
-			</main>
+			{/* Wrap the content and footer in a div to control the footer position */}
+			<div className={styles.contentFooterContainer}>
+				{/* Wrap all children in a main tag with a header offset padding value */}
+				<main className={mainClassName}>
+					<section>{children}</section>
+				</main>
 
-			{/* Add a footer at the bottom of every page */}
-			<Footer />
+				{/* Add a footer at the bottom of every page */}
+				<Footer />
+			</div>
 		</>
 	);
 }

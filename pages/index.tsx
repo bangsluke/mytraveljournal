@@ -5,6 +5,7 @@ import Layout from "../components/Layout/Layout";
 // import MapChart from "../components/MapChart";
 import { useQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
+import Divider from "../components/Divider/Divider";
 import Loading from "../components/Loading/Loading";
 import Toast from "../components/Toast/Toast";
 import Constants from "../constants/constants";
@@ -53,7 +54,7 @@ export default function Home(props: any) {
 			<h1 className={styles.hidden}>My Travel Journal</h1>
 			{/* Top section holding the map and count card elements */}
 			<section className={styles.section}>
-				<h2 id={styles.homepageHeader}>Visited Locations</h2>
+				<h2 id={styles.homepageHeader}>travel stats.</h2>
 
 				{/* <div className={styles.mapContainer}>
 					<MapChart />
@@ -61,6 +62,9 @@ export default function Home(props: any) {
 
 				<CountCardSection />
 			</section>
+
+			{/* Divider to visually separate the sections */}
+			<Divider />
 
 			{/* Bottom section holds the holiday cards */}
 			<section className={styles.section}>

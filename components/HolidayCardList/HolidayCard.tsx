@@ -1,7 +1,7 @@
 import { Button, Paper, Text, Title, Tooltip } from "@mantine/core";
 import InfoIcon from "@mui/icons-material/Info";
 import RoomIcon from "@mui/icons-material/Room";
-import styles from "./HolidayCard.module.css";
+import styles from "./HolidayCardList.module.css";
 
 // Modified from https: //ui.mantine.dev/category/article-cards/#article-card-image
 
@@ -33,14 +33,7 @@ export default function HolidayCard(props: HolidayCardProps) {
 					</Title>
 				</div>
 			</div>
-			<Tooltip
-				label={tooltipString}
-				// width={220}
-				position='top-end'
-				withArrow
-				// transition='fade'
-				// transitionDuration={200}
-				transitionProps={{ transition: "pop-bottom-right" }}>
+			<Tooltip label={tooltipString} position='top-end' withArrow transitionProps={{ transition: "pop-bottom-right" }}>
 				<InfoIcon className={styles.infoIcon}></InfoIcon>
 			</Tooltip>
 			<Button variant='white' color='dark' className={styles.button} onClick={clickHoliday}>

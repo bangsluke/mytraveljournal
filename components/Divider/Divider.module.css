@@ -1,0 +1,7 @@
+.divider {
+	width: 90%;
+	height: 1px;
+	opacity: 0.8;
+	background-color: var(--secondary-accent, #BBB);
+	margin: var(--section-divider-spacing, 20px) auto;
+}

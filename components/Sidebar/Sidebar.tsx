@@ -18,29 +18,30 @@ interface SidebarProps {
 type SidebarStyle = "static" | "dynamic";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
-	// Return the NextAuth session
-	const { data: session, status } = useSession();
-
-	const screenSize = useScreenSize(); // Get the screen size
-	const sidebarStyle: SidebarStyle = screenSize == "mobile" ? "dynamic" : "static"; // If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
-	// LogS.log("sidebarStyle:", sidebarStyle);
+	const { data: session } = useSession(); // Return the NextAuth session
 	const router = useRouter(); // Import the Next router
 
+	// Define the styles for the sidebar based on the screen size
+	const screenSize = useScreenSize(); // Get the screen size
+	const sidebarStyle: SidebarStyle = screenSize == "desktop" ? "static" : "dynamic"; // If the screen is desktop size, make the sidebar static, otherwise make the sidebar dynamic
 	// If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
-	let sideBarClassName = `${styles.sidebar} ${styles.sidebarStatic}`;
+	let sideBarClassName = `${styles.sidebar}`;
 	if (sidebarStyle == "dynamic") {
-		sideBarClassName = `${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
+		sideBarClassName = `${styles.sidebar} ${styles.sidebarDynamic} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
 	}
-
 	// If the screen is mobile size, add a sidebar back container to be clicked to close the sidebar, otherwise don't
 	let sidebarBlackoutClassName = styles.sidebarBlackoutHidden;
 	if (sidebarStyle == "dynamic") {
 		sidebarBlackoutClassName = `${styles.sidebarBlackout} ${sidebarOpen ? styles.sidebarBlackoutOpen : styles.sidebarBlackoutClosed}`;
 	}
+	// Log the sidebar styles
+	// LogS.log("sidebarStyle:", sidebarStyle);
+	// LogS.log("sideBarClassName:", sideBarClassName);
+	// LogS.log("sidebarBlackoutClassName:", sidebarBlackoutClassName);
 
 	// LogS.log("SidebarData", SidebarData); // Log the SidebarData
 
-	// Get the signed in email
+	// Get the signed in email for displaying in the sidebar
 	let signedInEmail = session?.user?.email;
 	if (signedInEmail == null) {
 		// @ts-ignore
@@ -50,6 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	return (
 		<>
 			<nav className={sideBarClassName}>
+				{/* Display the logo */}
 				<div className={styles.sideBarLogoContainer} onClick={() => router.push({ pathname: "/" })}>
 					<Image src='/images/Logo.png' width={50} height={50} alt='My Travel Journal Logo' />
 				</div>
@@ -87,7 +89,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					<DarkModeToggle></DarkModeToggle>
 				</Group>
 			</nav>
-			{/* On mobile, add a blackout container to be clicked to close the sidebar */}
+
+			{/* On mobile and tablet, add a blackout container to be clicked to close the sidebar */}
 			{sidebarStyle == "dynamic" && <div className={sidebarBlackoutClassName} onClick={toggleSidebar}></div>}
 		</>
 	);

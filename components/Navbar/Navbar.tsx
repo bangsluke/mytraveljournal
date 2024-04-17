@@ -20,7 +20,7 @@ export default function Navbar(props: NavbarProps) {
 
 	// Create a combination of class names for the Navbar based on the Navbar style
 	const NavbarClassNames = `${styles.Navbar} ${NavbarStyle === "Opaque" ? styles.NavbarOpaque : null} ${
-		screenSize === "mobile" ? styles.NavbarMobile : null
+		screenSize === "mobile" || screenSize === "tablet" ? styles.NavbarMobile : null
 	}`;
 
 	// Create a class name for the icon and icon circles based on the Navbar style
@@ -41,13 +41,14 @@ export default function Navbar(props: NavbarProps) {
 			{/* Display the header if the Navbar is opaque */}
 			{NavbarStyle === "Opaque" ? (
 				<div
-					className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" ? styles.Navbar_headerContainerMobile : null}`}
+					className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" || screenSize === "tablet" ? styles.Navbar_headerContainerMobile : null}`}
 					onClick={() => router.push({ pathname: "/" })}>
 					<h1>my travel journal.</h1>
 				</div>
 			) : (
 				// Display a blank div to push the icons right
-				<div className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" ? styles.Navbar_headerContainerMobile : null}`}></div>
+				<div
+					className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" || screenSize === "tablet" ? styles.Navbar_headerContainerMobile : null}`}></div>
 			)}
 
 			<div className={styles.Navbar_backContainer}>
@@ -56,11 +57,13 @@ export default function Navbar(props: NavbarProps) {
 				<ArrowBackSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => router.back()} />
 			</div>
 
-			{screenSize === "mobile" ? <div>{/* Add a blank div for mobile to separate the icons */}</div> : null}
+			{screenSize === "mobile" || screenSize === "tablet" ? (
+				<div>{/* Add a blank div for mobile and tablet to separate the icons */}</div>
+			) : null}
 
-			{screenSize === "mobile" ? (
+			{screenSize === "mobile" || screenSize === "tablet" ? (
 				<div className={styles.Navbar_menuContainer}>
-					{/* Add a menu icon to toggle the sidebar if the screen is mobile */}
+					{/* Add a menu icon to toggle the sidebar if the screen is mobile or tablet */}
 					<div className={IconCircleClassName}></div>
 					<MenuSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
 				</div>
