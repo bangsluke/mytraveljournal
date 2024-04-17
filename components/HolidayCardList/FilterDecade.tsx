@@ -27,7 +27,7 @@ const FilterDecade: React.FC<FilterDecadeProps> = ({ selectedDecade, onDecadeCha
 
 	return (
 		<div className={styles.filter}>
-			<label>Filter by Decade: </label>
+			<label className={styles.filterLabel}>Filter by Decade: </label>
 			<Menu transitionProps={{ transition: "pop-top-right" }} position='top' width={220} withinPortal trigger='click-hover'>
 				<Menu.Target>
 					<Button

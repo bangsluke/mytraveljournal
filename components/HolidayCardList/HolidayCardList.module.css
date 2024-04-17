@@ -1,7 +1,37 @@
-.filter {
+.holidayCardListContainer {
 	/* background-color: yellow; */
+	padding: 0;
+	margin: 0;
+}
+
+.headerFilterContainer {
+	/* background-color: red; */
+	display: flex;
+	flex-direction: row;
+	gap: 5rem;
+	align-items: center;
+	justify-content: center;
+	height: max-content;
 	padding-top: 2rem;
+}
+
+.holidayHeader {
+	/* background-color: green; */
 	text-align: center;
+	color: #BBB;
+	font-family: var(--font-family, ui-sans-serif);
+	line-height: normal;
+
+}
+
+.filter {
+	width: 40%;
+	/* background-color: yellow; */
+	text-align: center;
+}
+
+.filterLabel {
+	color: #BBB;
 }
 
 .filterButton {
@@ -15,4 +45,151 @@
 	flex-direction: column;
 	gap: 10px;
 	width: 100%;
+	height: max-content;
+}
+
+/* Modified from https: //ui.mantine.dev/category/article-cards/#article-card-image */
+
+.card {
+	height: rem(440px);
+	width: rem(350px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(40%);
+	border-radius: var(--card-border-radius, 15px);
+	/* background-image: url(https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80); */
+}
+
+.card:hover {
+	filter: grayscale(0%);
+}
+
+/* Style the div around the text content */
+.textContent {
+	text-align: right;
+	padding: var(--mantine-spacing-xs);
+	border-radius: var(--card-border-radius, 15px);
+	background-color: var(--white, #fff);
+	opacity: 0.5;
+}
+
+.date {
+	color: var(--primary-color, #fe395c);
+	opacity: 1;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.titleContainer {
+	display: flex;
+}
+
+.markerIcon {
+	color: var(#AAA, #BBB);
+}
+
+.title {
+	font-family:
+		var(--mantine-font-family);
+	font-weight: 900;
+	color: var(--secondary-accent, #BBB);
+	opacity: 1;
+	line-height: 1.2;
+	font-size: rem(32px);
+	margin-top: var(--mantine-spacing-xs);
+	text-align: right;
+	z-index: 5;
+}
+
+.infoIcon {
+	color: var(--secondary-accent, #BBB);
+}
+
+.button {
+	text-align: right;
+}
+
+.button :hover {
+	color: var(--main-accent, #fe395c);
+}
+
+
+
+
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+	.holidayCardListContainer {
+		padding: 0 10px;
+	}
+
+	.filterLabel {
+		font-size: small;
+	}
+
+	.card {
+		filter: grayscale(20%);
+		/* Reduce the amount of greyscale on mobile where the card can't be hovered */
+	}
+}
+
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.holidayCardListContainer {
+		padding: 0 10px;
+	}
+
+	.filterLabel {
+		font-size: small;
+	}
+
+	.card {
+		filter: grayscale(20%);
+		/* Reduce the amount of greyscale on mobile where the card can't be hovered */
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	.filterLabel {
+		font-size: medium;
+	}
+
+	.holidayCardList {
+		/* Flex the container to hold multiple holidays */
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+		row-gap: 10px;
+		column-gap: 20px;
+	}
+
+	.card {
+		filter: grayscale(20%);
+		/* Reduce the amount of greyscale on tablet where the card can't be hovered */
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+
+	.filterLabel {
+		font-size: large;
+	}
+
+	.holidayCardList {
+		/* Flex the container to hold multiple holidays */
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+		row-gap: 30px;
+		column-gap: 20px;
+	}
 }
