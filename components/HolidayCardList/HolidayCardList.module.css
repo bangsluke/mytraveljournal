@@ -42,7 +42,7 @@
 	padding-top: 2rem;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 20px;
 	width: 100%;
 	height: max-content;
 }
@@ -164,7 +164,7 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: flex-start;
-		row-gap: 10px;
+		row-gap: 20px;
 		column-gap: 20px;
 	}
 
