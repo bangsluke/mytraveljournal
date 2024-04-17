@@ -19,6 +19,8 @@ interface SidebarProps {
 type SidebarStyle = "static" | "dynamic";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
+	// TODO: Fix the vertical scroll of the sidebar
+
 	const { data: session } = useSession(); // Return the NextAuth session
 	const router = useRouter(); // Import the Next router
 
