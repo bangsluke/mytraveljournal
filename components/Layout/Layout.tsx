@@ -45,14 +45,16 @@ export default function Layout({ children, NavbarStyle }: any) {
 			<ScrollToTopButton />
 
 			{/* Wrap the content and footer in a div to control the footer position */}
-			<div className={styles.contentFooterContainer}>
+			<div className={styles.fullPageContainer}>
 				{/* Wrap all children in a main tag with a header offset padding value */}
 				<main className={mainClassName}>
 					<section>{children}</section>
 				</main>
 
 				{/* Add a footer at the bottom of every page */}
-				<Footer />
+				<footer className={styles.footer}>
+					<Footer />
+				</footer>
 			</div>
 		</>
 	);

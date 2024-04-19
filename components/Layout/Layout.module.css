@@ -1,25 +1,20 @@
-.contentFooterContainer {
+/* Hold the contents of main and the footer */
+.fullPageContainer {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	/* min-height: 100vh; */
+	height: 100%;
 }
 
 .main {
-	flex-grow: 1;
 	/* background-color: aqua; */
+	flex: 1;
 	/* Drop the contents of main under header */
-	padding: 0 0;
-	padding-top: var(--header-height, 80px);
+	padding: var(--header-height, 80px) 0 0 0;
 	margin: 0;
 	left: var(--sidebar-width-static, 200px);
-	/* min-height: 100vh; */
-	min-height: 100%;
-	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
-	/* Sidebar and main content */
-	grid-template-rows: 100vh;
-	/* Full height */
 	gap: 0px;
 	/* The gap between the sidebar and the main content */
 	justify-content: center;
@@ -28,9 +23,13 @@
 
 .mainDynamic {
 	/* background-color: cadetblue; */
-	padding-top: var(--header-height, 80px);
 	left: 0;
 	width: 100vw;
+}
+
+.footer {
+	background-color: chartreuse;
+	flex: none;
 }
 
 /* Mobiles */
