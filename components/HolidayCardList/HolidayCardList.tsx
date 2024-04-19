@@ -22,17 +22,19 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 
 	// Define the selectedDecade state
 	const [selectedDecade, setSelectedDecade] = useState<string>("All");
+
+	// Define a sort order state
+	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld");
+
 	// Define the onDecadeChange handler
 	const onDecadeChange = (newDate: string) => {
 		// console.log("Selected Decade: ", newDate);
 		setSelectedDecade(newDate);
 	};
 
-	// Define a sort order state
-	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld");
 	// Define the onSortOrderChange handler
 	const onSortOrderChange = (newOrder: SortOrder) => {
-		console.log("Selected Sort Order: ", newOrder);
+		// console.log("Selected Sort Order: ", newOrder);
 		setSortOrder(newOrder);
 	};
 
