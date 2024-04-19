@@ -9,21 +9,15 @@ import Divider from "../components/Divider/Divider";
 import Loading from "../components/Loading/Loading";
 import Toast from "../components/Toast/Toast";
 import Constants from "../constants/constants";
-import GraphQLQueriesS from "../graphql/GraphQLQueriesS";
+import { GetHolidaysDocument } from "../graphql/__generated__/graphql";
 import SignIn from "../pages/auth/signin";
 import LogS from "../services/LogS";
 import styles from "../styles/Home.module.css";
 
-export default function Home(props: any) {
+export default function Home() {
+	// Get the users authentication status and session
 	const { data: session, status } = useSession();
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
-
 	LogS.log(" Status and Session: ", status, session);
-
-	// If the users authentication is loading or if the graphql query is loading
-	if (status === "loading" || loading) {
-		return <Loading BackgroundStyle={"Opaque"} />;
-	}
 
 	// Show a message if the NextAuth process is skipped due to development mode
 	if (Constants.SkipAuth) {
@@ -35,15 +29,13 @@ export default function Home(props: any) {
 		return <SignIn />;
 	}
 
-	// If error - show error message, and raise an error toast
+	// Get the list of holidays
+	const { loading, error, data } = useQuery(GetHolidaysDocument);
+	if (status === "loading" || loading) return <Loading BackgroundStyle={"Opaque"} />;
 	if (error) {
-		LogS.error("GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: ", error.message);
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<Toast message={"GraphQLQueriesS.GET_HOLIDAYS GraphQL Error: " + error.message} duration={5} />
-			</>
-		);
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetHolidaysDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetHolidaysDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	LogS.log("holiday data: ", data);
@@ -70,7 +62,7 @@ export default function Home(props: any) {
 			<section className={styles.section}>
 				{/* <HolidayCardList data={jsonData} /> */}
 				{/* TODO: Previously used jsonData from output file, "../backend/output.json". Switched to using GraphQL query data from holiday nodes. Either need updated jsonData file from Python code, or better data on the holiday nodes */}
-				<HolidayCardList data={data.holidays} />
+				<HolidayCardList data={data?.holidays} />
 			</section>
 		</Layout>
 	);

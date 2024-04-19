@@ -1,5 +1,4 @@
-import { Button, Paper, Text, Title, Tooltip } from "@mantine/core";
-import InfoIcon from "@mui/icons-material/Info";
+import { Badge, Button, Group, Paper, Text, Title } from "@mantine/core";
 import RoomIcon from "@mui/icons-material/Room";
 import styles from "./HolidayCardList.module.css";
 
@@ -7,21 +6,19 @@ import styles from "./HolidayCardList.module.css";
 
 interface HolidayCardProps {
 	holidayName: string;
+	holidayTags: string[];
 	holidayDate: string;
 	holidayImageURL: string;
 	clickHoliday: () => void;
-	holidayInfoTooltip: any;
 }
 
 export default function HolidayCard(props: HolidayCardProps) {
-	const { holidayName, holidayDate, holidayImageURL, clickHoliday, holidayInfoTooltip } = props; // Destructure the props
-
-	// Set up the tooltip string
-	const tooltipString = JSON.stringify(holidayInfoTooltip, null, 2);
-	// console.log("tooltipString: ", tooltipString);
+	const { holidayName, holidayTags, holidayDate, holidayImageURL, clickHoliday } = props; // Destructure the props
 
 	return (
+		// Hold the full Card, image and all
 		<Paper shadow='md' p='xl' radius='md' className={styles.card} style={{ backgroundImage: `url(${holidayImageURL})` }}>
+			{/* Hold the top title and details */}
 			<div className={styles.textContent}>
 				<Text className={styles.date} size='xs'>
 					{holidayDate}
@@ -33,12 +30,19 @@ export default function HolidayCard(props: HolidayCardProps) {
 					</Title>
 				</div>
 			</div>
-			<Tooltip label={tooltipString} position='top-end' withArrow transitionProps={{ transition: "pop-bottom-right" }}>
-				<InfoIcon className={styles.infoIcon}></InfoIcon>
-			</Tooltip>
-			<Button variant='white' color='dark' className={styles.button} onClick={clickHoliday}>
-				View holiday
-			</Button>
+			{/* Hold the bottom tags and button */}
+			<Group className={styles.cardBottomItemsContainer}>
+				<Group className={styles.tagsContainer}>
+					{holidayTags.map((tag) => (
+						<Badge key={tag} className={styles.tag} size='lg' radius='lg'>
+							{tag}
+						</Badge>
+					))}
+				</Group>
+				<Button variant='white' color='dark' className={styles.button} onClick={clickHoliday}>
+					View holiday
+				</Button>
+			</Group>
 		</Paper>
 	);
 }

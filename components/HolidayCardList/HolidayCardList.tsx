@@ -1,13 +1,14 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Holiday } from "../../graphql/__generated__/graphql";
+import filterTags from "../../services/FilterTagsS";
 import FilterDecade from "./FilterDecade";
 import HolidayCard from "./HolidayCard";
 import styles from "./HolidayCardList.module.css";
 
 // Define the HolidayCardList component props
 interface HolidayListProps {
-	data: Holiday[];
+	data?: Holiday[];
 }
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
@@ -25,7 +26,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// LogS.log("Original data from HolidayCardList: ", data);
 
 	// Filter holidays based on the selected decade
-	const filteredHolidaysData = data.filter((holiday) => {
+	const filteredHolidaysData = data?.filter((holiday) => {
 		if (selectedDecade === "All") {
 			return true; // Show all holidays
 		}
@@ -37,7 +38,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 
 	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
 
-	const holidayElements = filteredHolidaysData.map((holiday, index) => {
+	const holidayElements = filteredHolidaysData?.map((holiday, index) => {
 		// Define the holiday image URL
 		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
@@ -48,6 +49,11 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		}
 		// LogS.log("holidayImageURL: ", holidayImageURL);
 
+		// Define the holiday tags
+		console.log("holiday.tags: ", holiday.tags);
+		const displayHolidayTags = filterTags(holiday?.tags);
+		console.log("displayHolidayTags", displayHolidayTags);
+
 		// Format the month date and then full date
 		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
 		const dateFormatted = monthFormatted + " " + holiday.dateYear;
@@ -57,28 +63,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			router.push({ pathname: "/holidays/" + holiday.nodeId });
 		};
 
-		// Create information for the tooltip
-		const holidayInfoTooltip = {
-			name: holiday.name,
-			date: dateFormatted,
-			attendees: holiday.attendees,
-			locations: holiday.locations,
-			departingAirport: holiday.departingAirport,
-			photoAlbum: holiday.photoAlbum,
-		};
-
-		// console.log("holiday", holiday);
-		// LogS.log("holiday.locations: ", holiday.locations[0]);
-		// LogS.log("holiday.nodeId", holiday.nodeId);
-
 		return (
 			<HolidayCard
 				key={index}
 				holidayName={holiday.name}
+				holidayTags={displayHolidayTags}
 				holidayDate={dateFormatted}
 				holidayImageURL={holidayImageURL}
 				clickHoliday={holidayClickHandler}
-				holidayInfoTooltip={holidayInfoTooltip}
 			/>
 		);
 	});
