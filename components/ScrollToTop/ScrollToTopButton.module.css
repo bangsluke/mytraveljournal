@@ -1,6 +1,6 @@
 .scrollToTopButton {
 	position: fixed;
-	bottom: 2rem;
+	bottom: 4rem;
 	right: 2rem;
 	padding: 0.5rem;
 	transition-property: opacity;
@@ -21,7 +21,7 @@
 }
 
 .scrollToTopButtonVisible {
-	opacity: 0.5;
+	opacity: 0.6;
 }
 
 .scrollToTopButtonIcon {

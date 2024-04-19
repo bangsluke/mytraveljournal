@@ -55,7 +55,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	align-items: flex-end;
+	align-items: center;
 	background-size: cover;
 	background-position: center;
 	filter: grayscale(40%);
@@ -103,12 +103,25 @@
 	z-index: 15;
 }
 
+.cardBottomItemsContainer {
+	width: 110%;
+	/* background-color: aquamarine; */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.tagsContainer {
+	display: flex;
+}
+
 .infoIcon {
 	color: var(--secondary-accent, #BBB);
 }
 
 .button {
-	text-align: right;
+	justify-self: flex-end;
 }
 
 .button :hover {

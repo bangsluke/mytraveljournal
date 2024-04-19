@@ -36,7 +36,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 			</Head>
 
 			{/* Include the Navbar */}
-			<Navbar NavbarStyle={NavbarStyle} toggleSidebar={toggleSidebar} />
+			<Navbar NavbarStyle={NavbarStyle} toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
 
 			{/* Include the sidebar */}
 			<Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />

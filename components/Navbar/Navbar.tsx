@@ -1,4 +1,5 @@
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
+import CloseIcon from "@mui/icons-material/Close";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -10,12 +11,13 @@ export type Transparency = "Transparent" | "Opaque";
 interface NavbarProps {
 	NavbarStyle: Transparency;
 	toggleSidebar: () => void;
+	sidebarOpen: boolean;
 }
 
 // Define a nav bar component that holds the logo and the page name.
 export default function Navbar(props: NavbarProps) {
 	const router = useRouter(); // Import the Next router
-	const { NavbarStyle, toggleSidebar } = props; // Extract the props
+	const { NavbarStyle, toggleSidebar, sidebarOpen } = props; // Extract the props
 	const screenSize = useScreenSize(); // Get the screen size
 
 	// Create a combination of class names for the Navbar based on the Navbar style
@@ -51,21 +53,25 @@ export default function Navbar(props: NavbarProps) {
 					className={`${styles.Navbar_headerContainer} ${screenSize === "mobile" || screenSize === "tablet" ? styles.Navbar_headerContainerMobile : null}`}></div>
 			)}
 
+			{/* Add a back arrow to navigate the last page */}
 			<div className={styles.Navbar_backContainer}>
-				{/* Add a back arrow to navigate the last page */}
 				<div className={IconCircleClassName}></div>
 				<ArrowBackSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => router.back()} />
 			</div>
 
-			{screenSize === "mobile" || screenSize === "tablet" ? (
-				<div>{/* Add a blank div for mobile and tablet to separate the icons */}</div>
-			) : null}
+			{/* Add a blank div for mobile and tablet to separate the icons */}
+			{screenSize === "mobile" || screenSize === "tablet" ? <div></div> : null}
 
+			{/* Add a menu icon to toggle the sidebar if the screen is mobile or tablet */}
 			{screenSize === "mobile" || screenSize === "tablet" ? (
 				<div className={styles.Navbar_menuContainer}>
-					{/* Add a menu icon to toggle the sidebar if the screen is mobile or tablet */}
 					<div className={IconCircleClassName}></div>
-					<MenuSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
+					{/* If the sidebar is open, display the close icon, otherwise display the menu icon */}
+					{sidebarOpen ? (
+						<CloseIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
+					) : (
+						<MenuSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
+					)}
 				</div>
 			) : null}
 		</nav>
