@@ -26,20 +26,17 @@ const FilterDecade: React.FC<FilterDecadeProps> = ({ selectedDecade, onDecadeCha
 	));
 
 	return (
-		<div className={styles.filter}>
-			<label className={styles.filterLabel}>Filter by Decade: </label>
-			<Menu transitionProps={{ transition: "pop-top-right" }} position='top' width={220} withinPortal trigger='click-hover'>
-				<Menu.Target>
-					<Button
-						rightSection={<KeyboardArrowDownIcon style={{ width: rem(18), height: rem(18) }} />}
-						color={theme.colors.primary[1]}
-						className={styles.filterButton}>
-						{selectedDecade}
-					</Button>
-				</Menu.Target>
-				<Menu.Dropdown>{DecadesDropdownOptions}</Menu.Dropdown>
-			</Menu>
-		</div>
+		<Menu transitionProps={{ transition: "pop-top-right" }} position='top' width={220} withinPortal trigger='click-hover'>
+			<Menu.Target>
+				<Button
+					rightSection={<KeyboardArrowDownIcon style={{ width: rem(18), height: rem(18) }} />}
+					color={theme.colors.primary[1]}
+					className={styles.filterButton}>
+					{selectedDecade}
+				</Button>
+			</Menu.Target>
+			<Menu.Dropdown>{DecadesDropdownOptions}</Menu.Dropdown>
+		</Menu>
 	);
 };
 

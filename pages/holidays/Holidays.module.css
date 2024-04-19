@@ -83,6 +83,8 @@
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
 	padding: 0rem 1rem 0rem 1rem;
 	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 }
 
@@ -90,6 +92,14 @@
 	/* background-color: #fe395c; */
 	display: flex;
 	flex-wrap: wrap;
+}
+
+.tagPills {
+	/* background-color: greenyellow; */
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 /* Add gaps to all children elements of the parent element */

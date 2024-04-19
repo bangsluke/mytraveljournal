@@ -4,14 +4,15 @@
 	margin: 0;
 }
 
-.headerFilterContainer {
-	/* background-color: red; */
+.headerContainer {
+	/* background-color: blue; */
+	width: 100%;
 	display: flex;
 	flex-direction: row;
-	gap: 5rem;
+	justify-content: space-between;
 	align-items: center;
-	justify-content: center;
 	height: 40px;
+	padding: 0 10px;
 }
 
 .holidayHeader {
@@ -20,21 +21,31 @@
 	color: var(--text, #333);
 	font-family: var(--font-family, ui-sans-serif);
 	line-height: normal;
-
 }
 
-.filter {
-	width: 40%;
-	/* background-color: yellow; */
-	text-align: center;
+.headerFilterContainer {
+	/* background-color: red; */
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: flex-end;
+	height: 40px;
 }
+
 
 .filterLabel {
 	color: var(--text, #333);
 }
 
 .filterButton {
-	margin-left: 20px;
+	height: var(--button-height, 40px);
+	margin-left: 10px;
+}
+
+.sortButton {
+	height: var(--button-height, 40px);
+	width: var(--button-height, 40px);
 }
 
 .holidayCardList {
@@ -167,6 +178,10 @@
 /* Tablets */
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
 
+	.headerContainer {
+		padding: 0 40px;
+	}
+
 	.filterLabel {
 		font-size: medium;
 	}
@@ -190,8 +205,12 @@
 /* Desktops */
 @media only screen and (min-width: 1024px) {
 
+	.headerContainer {
+		padding: 0 60px;
+	}
+
 	.filterLabel {
-		font-size: large;
+		font-size: medium;
 	}
 
 	.holidayCardList {
