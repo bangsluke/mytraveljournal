@@ -7,7 +7,7 @@ import styles from "./HolidayCardList.module.css";
 
 // Define the HolidayCardList component props
 interface HolidayListProps {
-	data: Holiday[];
+	data?: Holiday[];
 }
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
@@ -25,7 +25,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// LogS.log("Original data from HolidayCardList: ", data);
 
 	// Filter holidays based on the selected decade
-	const filteredHolidaysData = data.filter((holiday) => {
+	const filteredHolidaysData = data?.filter((holiday) => {
 		if (selectedDecade === "All") {
 			return true; // Show all holidays
 		}
@@ -37,7 +37,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 
 	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
 
-	const holidayElements = filteredHolidaysData.map((holiday, index) => {
+	const holidayElements = filteredHolidaysData?.map((holiday, index) => {
 		// Define the holiday image URL
 		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 		let holidayImageURL = "";
@@ -60,6 +60,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		// Create information for the tooltip
 		const holidayInfoTooltip = {
 			name: holiday.name,
+			tags: holiday.tags,
 			date: dateFormatted,
 			attendees: holiday.attendees,
 			locations: holiday.locations,
@@ -75,6 +76,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			<HolidayCard
 				key={index}
 				holidayName={holiday.name}
+				holidayTags={holiday.tags}
 				holidayDate={dateFormatted}
 				holidayImageURL={holidayImageURL}
 				clickHoliday={holidayClickHandler}

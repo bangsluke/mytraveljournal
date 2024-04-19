@@ -7,6 +7,7 @@ import styles from "./HolidayCardList.module.css";
 
 interface HolidayCardProps {
 	holidayName: string;
+	holidayTags: string[];
 	holidayDate: string;
 	holidayImageURL: string;
 	clickHoliday: () => void;
@@ -14,7 +15,7 @@ interface HolidayCardProps {
 }
 
 export default function HolidayCard(props: HolidayCardProps) {
-	const { holidayName, holidayDate, holidayImageURL, clickHoliday, holidayInfoTooltip } = props; // Destructure the props
+	const { holidayName, holidayTags, holidayDate, holidayImageURL, clickHoliday, holidayInfoTooltip } = props; // Destructure the props
 
 	// Set up the tooltip string
 	const tooltipString = JSON.stringify(holidayInfoTooltip, null, 2);
@@ -32,6 +33,11 @@ export default function HolidayCard(props: HolidayCardProps) {
 						{holidayName}
 					</Title>
 				</div>
+				{holidayTags.map((tag) => (
+					<Text className={styles.tag} key={tag}>
+						{tag}
+					</Text>
+				))}
 			</div>
 			<Tooltip label={tooltipString} position='top-end' withArrow transitionProps={{ transition: "pop-bottom-right" }}>
 				<InfoIcon className={styles.infoIcon}></InfoIcon>

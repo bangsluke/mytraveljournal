@@ -177,14 +177,16 @@ query GetPeopleById($nodeId: String) {
 	}
 }
 
+# Query for all holidays data
 query GetHolidays {
 	holidays {
+		name
+		nodeId
+		tags
 		dateYear
 		dateMonth
 		sortDateValue
-		name
 		holidayTitle
-		nodeId
 		locations
 		coverPhoto
 		photoAlbum
@@ -196,12 +198,13 @@ query GetHolidays {
 
 query GetHolidayById($nodeId: String) {
 	holidays(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		tags
 		dateYear
 		dateMonth
 		sortDateValue
-		name
 		holidayTitle
-		nodeId
 		locations
 		coverPhoto
 		photoAlbum

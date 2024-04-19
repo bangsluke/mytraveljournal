@@ -17,8 +17,8 @@ export default function PersonsList() {
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useGetPeopleList GraphQL Error: ", error.message);
-		return <Toast message={"useGetPeopleList GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useQuery(GetPeopleListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetPeopleListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	// Filter out people with no holidays and then sort by the length of attendedHolidays

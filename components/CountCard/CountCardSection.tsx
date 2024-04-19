@@ -114,7 +114,7 @@ const useGetCardCounts = () => {
 				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
 			})) ?? [];
 
-	console.log("data", data);
+	// console.log("CountCardSectiondata", data);
 
 	// Finalise the card counts data
 	cardCounts = {
@@ -136,7 +136,7 @@ const useGetCardCounts = () => {
 		filteredTravelCompanionData: travelledWithCompanionData,
 		filteredTravelCompanionCount: travelledWithCompanionData.length,
 	};
-	LogS.log("data from useGetCardCounts", cardCounts);
+	// LogS.log("data from useGetCardCounts", cardCounts);
 	return cardCounts;
 };
 
