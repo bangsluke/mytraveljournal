@@ -4,7 +4,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
-import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
@@ -41,7 +40,7 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 	return <>{linkElements}</>;
 }
 
-function HolidayPage({ session }: { session: Session }) {
+function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
