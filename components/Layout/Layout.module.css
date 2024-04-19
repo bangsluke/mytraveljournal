@@ -7,12 +7,13 @@
 }
 
 .main {
-	/* background-color: aqua; */
+	background-color: aqua;
 	flex: 1;
 	/* Drop the contents of main under header */
 	padding: var(--header-height, 80px) 0 0 0;
 	margin: 0;
-	left: var(--sidebar-width-static, 200px);
+	left: 0;
+	padding-left: var(--sidebar-width-static, 200px);
 	display: grid;
 	grid-template-columns: auto 1fr;
 	gap: 0px;
@@ -23,13 +24,8 @@
 
 .mainDynamic {
 	/* background-color: cadetblue; */
-	left: 0;
+	padding-left: 0;
 	width: 100vw;
-}
-
-.footer {
-	background-color: chartreuse;
-	flex: none;
 }
 
 /* Mobiles */

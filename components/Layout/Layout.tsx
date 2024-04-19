@@ -20,9 +20,9 @@ export default function Layout({ children, NavbarStyle }: any) {
 		setSidebarOpen((prevState) => !prevState);
 	};
 
-	// If the screen is mobile size, make the main layout dynamic (a dynamic sidebar), otherwise make the main layout permanent and static
+	// If the screen is mobile or tablet size, make the main layout dynamic (a dynamic sidebar), otherwise make the main layout permanent and static
 	let mainClassName = `${styles.main}`;
-	if (screenSize == "mobile") {
+	if (screenSize == "mobile" || screenSize == "tablet") {
 		mainClassName = `${styles.main} ${styles.mainDynamic}`;
 	}
 
@@ -51,10 +51,8 @@ export default function Layout({ children, NavbarStyle }: any) {
 					<section>{children}</section>
 				</main>
 
-				{/* Add a footer at the bottom of every page */}
-				<footer className={styles.footer}>
-					<Footer />
-				</footer>
+				{/* Include the footer */}
+				<Footer />
 			</div>
 		</>
 	);
