@@ -1,5 +1,6 @@
 /* Footer set at the bottom in Layout.tsx - https: //philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
 .footer {
+	/* background-color: aqua; */
 	height: var(--footer-height, 60px);
 	margin-top: rem(30px);
 	border-top: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
@@ -15,6 +16,7 @@
 }
 
 .inner {
+	/* background-color: yellow; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -42,5 +44,32 @@
 .links {
 	@media (max-width: var(--mantine-breakpoint-xs)) {
 		margin-top: var(--mantine-spacing-md);
+	}
+}
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+	/* .inner {
+		} */
+}
+
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	/* .inner {
+		} */
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	/* .inner {
+	} */
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+	.inner {
+		/* Add padding on left to center align the footer content for desktop */
+		padding-left: var(--sidebar-width-static, 200px);
 	}
 }
