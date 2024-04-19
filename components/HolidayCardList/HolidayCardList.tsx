@@ -1,3 +1,5 @@
+import { ActionIcon } from "@mantine/core";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Holiday } from "../../graphql/__generated__/graphql";
@@ -11,16 +13,25 @@ interface HolidayListProps {
 	data?: Holiday[];
 }
 
+type SortOrder = "OldToNew" | "NewToOld";
+
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
 
 	// Define the selectedDecade state
 	const [selectedDecade, setSelectedDecade] = useState<string>("All");
-
 	// Define the onDecadeChange handler
 	const onDecadeChange = (newDate: string) => {
 		// console.log("Selected Decade: ", newDate);
 		setSelectedDecade(newDate);
+	};
+
+	// Define a sort order state
+	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld");
+	// Define the onSortOrderChange handler
+	const onSortOrderChange = (newOrder: SortOrder) => {
+		console.log("Selected Sort Order: ", newOrder);
+		setSortOrder(newOrder);
 	};
 
 	// LogS.log("Original data from HolidayCardList: ", data);
@@ -38,48 +49,63 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 
 	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
 
-	const holidayElements = filteredHolidaysData?.map((holiday, index) => {
-		// Define the holiday image URL
-		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
-		let holidayImageURL = "";
-		if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
-			holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
-		} else {
-			holidayImageURL = holiday.coverPhoto;
-		}
-		// LogS.log("holidayImageURL: ", holidayImageURL);
+	// Define the holiday elements
+	const holidayElements = filteredHolidaysData
+		// First sort the holidays by sortDateValue
+		?.sort((a, b) => {
+			if (sortOrder === "NewToOld") {
+				return parseInt(b.sortDateValue) - parseInt(a.sortDateValue);
+			} else {
+				return parseInt(a.sortDateValue) - parseInt(b.sortDateValue);
+			}
+		})
+		// Then map the sorted holidays to create the holiday elements
+		?.map((holiday, index) => {
+			// Define the holiday image URL
+			// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
+			let holidayImageURL = "";
+			if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
+				holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
+			} else {
+				holidayImageURL = holiday.coverPhoto;
+			}
+			// LogS.log("holidayImageURL: ", holidayImageURL);
 
-		// Define the holiday tags
-		// console.log("holiday.tags: ", holiday.tags);
-		const displayHolidayTags = filterTags(holiday?.tags, "topLevel");
-		// console.log("displayHolidayTags", displayHolidayTags);
+			// Define the holiday tags
+			// console.log("holiday.tags: ", holiday.tags);
+			const displayHolidayTags = filterTags(holiday?.tags, "topLevel");
+			// console.log("displayHolidayTags", displayHolidayTags);
 
-		// Format the month date and then full date
-		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
-		const dateFormatted = monthFormatted + " " + holiday.dateYear;
+			// Format the month date and then full date
+			const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
+			const dateFormatted = monthFormatted + " " + holiday.dateYear;
 
-		// Create an event handler for the holiday card button
-		const holidayClickHandler = () => {
-			router.push({ pathname: "/holidays/" + holiday.nodeId });
-		};
+			// Create an event handler for the holiday card button
+			const holidayClickHandler = () => {
+				router.push({ pathname: "/holidays/" + holiday.nodeId });
+			};
 
-		return (
-			<HolidayCard
-				key={index}
-				holidayName={holiday.name}
-				holidayTags={displayHolidayTags}
-				holidayDate={dateFormatted}
-				holidayImageURL={holidayImageURL}
-				clickHoliday={holidayClickHandler}
-			/>
-		);
-	});
+			return (
+				<HolidayCard
+					key={index}
+					holidayName={holiday.name}
+					holidayTags={displayHolidayTags}
+					holidayDate={dateFormatted}
+					holidayImageURL={holidayImageURL}
+					clickHoliday={holidayClickHandler}
+				/>
+			);
+		});
 
 	return (
 		<div className={styles.holidayCardListContainer}>
 			<div className={styles.headerFilterContainer}>
 				<h2 className={styles.holidayHeader}>holidays.</h2>
+
 				<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
+				<ActionIcon variant='filled' onClick={() => onSortOrderChange(sortOrder === "OldToNew" ? "NewToOld" : "OldToNew")}>
+					<SwapVertIcon />
+				</ActionIcon>
 				{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
 			</div>
 
