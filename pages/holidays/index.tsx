@@ -1,11 +1,10 @@
-import { Session } from "next-auth";
 import Layout from "../../components/Layout/Layout";
 import HolidayList from "../../components/Lists/HolidayList";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import styles from "../../styles/Home.module.css";
 import withAuth from "../api/auth/withAuth";
 
-function HolidaysPage(props: any, { session }: { session: Session }) {
+function HolidaysPage() {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
