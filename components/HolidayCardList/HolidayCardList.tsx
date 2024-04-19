@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Holiday } from "../../graphql/__generated__/graphql";
+import filterTags from "../../services/FilterTagsS";
 import FilterDecade from "./FilterDecade";
 import HolidayCard from "./HolidayCard";
 import styles from "./HolidayCardList.module.css";
@@ -48,6 +49,11 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		}
 		// LogS.log("holidayImageURL: ", holidayImageURL);
 
+		// Define the holiday tags
+		console.log("holiday.tags: ", holiday.tags);
+		const displayHolidayTags = filterTags(holiday?.tags);
+		console.log("displayHolidayTags", displayHolidayTags);
+
 		// Format the month date and then full date
 		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
 		const dateFormatted = monthFormatted + " " + holiday.dateYear;
@@ -76,7 +82,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			<HolidayCard
 				key={index}
 				holidayName={holiday.name}
-				holidayTags={holiday.tags}
+				holidayTags={displayHolidayTags}
 				holidayDate={dateFormatted}
 				holidayImageURL={holidayImageURL}
 				clickHoliday={holidayClickHandler}
