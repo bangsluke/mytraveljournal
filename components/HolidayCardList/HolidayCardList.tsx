@@ -50,9 +50,9 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		// LogS.log("holidayImageURL: ", holidayImageURL);
 
 		// Define the holiday tags
-		console.log("holiday.tags: ", holiday.tags);
-		const displayHolidayTags = filterTags(holiday?.tags);
-		console.log("displayHolidayTags", displayHolidayTags);
+		// console.log("holiday.tags: ", holiday.tags);
+		const displayHolidayTags = filterTags(holiday?.tags, "topLevel");
+		// console.log("displayHolidayTags", displayHolidayTags);
 
 		// Format the month date and then full date
 		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });

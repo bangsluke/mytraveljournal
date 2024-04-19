@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { Badge } from "@mantine/core";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -10,8 +11,9 @@ import React, { ReactElement } from "react";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { Holiday } from "../../graphql/__generated__/graphql";
+import Toast from "../../components/Toast/Toast";
+import { GetHolidayByIdDocument, Holiday } from "../../graphql/__generated__/graphql";
+import filterTags from "../../services/FilterTagsS";
 import LogS from "../../services/LogS";
 import withAuth from "../api/auth/withAuth";
 import styles from "./Holidays.module.css";
@@ -43,41 +45,27 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
-	LogS.log("nodeId: ", nodeId);
+	// LogS.log("nodeId: ", nodeId);
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAY_BY_ID, {
+	// Get the list of people
+	const { loading, error, data } = useQuery(GetHolidayByIdDocument, {
+		// @ts-ignore
 		variables: { nodeId }, // Pass the variable to the query
 	});
+	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetHolidayByIdDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetHolidayByIdDocument) GraphQL Error: " + error.message} duration={5} />;
+	}
 
 	LogS.log("holiday data: ", data);
 
-	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
-	if (error)
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<div
-					className={styles.ErrorMessageDiv}
-					onClick={() => router.back()} // Go back to the last visited page
-				>
-					<h4>Click here to go back</h4>
-				</div>
-			</>
-		);
-
 	// Extract the data into usable variables
-	const {
-		dateYear,
-		dateMonth,
-		name,
-		holidayTitle,
-		coverPhoto,
-		textHtmlContent,
-		attendees,
-		departingAirport,
-		locations,
-		photoAlbum,
-	}: Holiday = data.holidays[0];
+	// @ts-ignore
+	const { dateYear, dateMonth, name, coverPhoto, textHtmlContent, attendees, departingAirport, locations, photoAlbum }: Holiday =
+		// @ts-ignore
+		data.holidays[0];
 	LogS.log("holiday data: ", data);
 	LogS.log("attendees: ", attendees);
 
@@ -94,7 +82,10 @@ function HolidayPage() {
 	// Format the month date
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
 
-	// Gather the data fro the pills for the holiday
+	// Define the holiday tags
+	const displayHolidayTags = filterTags(data?.holidays[0]?.tags, "secondaryLevel");
+
+	// Gather the data for the pills for the holiday
 	const properties: { [key: string]: { id: number; text: string | string[] | null | undefined; image: ReactElement } } = {
 		property1: { id: 1, text: monthFormatted + " " + dateYear, image: <CalendarMonthIcon /> },
 		property2: { id: 2, text: locations, image: <LocationOnRoundedIcon /> },
@@ -150,6 +141,13 @@ function HolidayPage() {
 						<div className={styles.holidayPills}>
 							{/* List the holiday pills */}
 							{pills}
+						</div>
+						<div className={styles.tagPills}>
+							{displayHolidayTags.map((tag) => (
+								<Badge key={tag} className={styles.tag} size='lg' radius='lg'>
+									{tag}
+								</Badge>
+							))}
 						</div>
 					</section>
 
