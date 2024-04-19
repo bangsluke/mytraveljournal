@@ -114,7 +114,7 @@ const useGetCardCounts = () => {
 				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
 			})) ?? [];
 
-	// console.log("CountCardSectiondata", data);
+	// console.log("CountCardSection data", data);
 
 	// Finalise the card counts data
 	cardCounts = {

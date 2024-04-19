@@ -1,5 +1,4 @@
-import { Badge, Button, Group, Paper, Text, Title, Tooltip } from "@mantine/core";
-import InfoIcon from "@mui/icons-material/Info";
+import { Badge, Button, Group, Paper, Text, Title } from "@mantine/core";
 import RoomIcon from "@mui/icons-material/Room";
 import styles from "./HolidayCardList.module.css";
 
@@ -11,15 +10,10 @@ interface HolidayCardProps {
 	holidayDate: string;
 	holidayImageURL: string;
 	clickHoliday: () => void;
-	holidayInfoTooltip: any;
 }
 
 export default function HolidayCard(props: HolidayCardProps) {
-	const { holidayName, holidayTags, holidayDate, holidayImageURL, clickHoliday, holidayInfoTooltip } = props; // Destructure the props
-
-	// Set up the tooltip string
-	const tooltipString = JSON.stringify(holidayInfoTooltip, null, 2);
-	// console.log("tooltipString: ", tooltipString);
+	const { holidayName, holidayTags, holidayDate, holidayImageURL, clickHoliday } = props; // Destructure the props
 
 	return (
 		// Hold the full Card, image and all
@@ -38,15 +32,12 @@ export default function HolidayCard(props: HolidayCardProps) {
 			</div>
 			{/* Hold the bottom tags and button */}
 			<Group className={styles.cardBottomItemsContainer}>
-				<Group className={styles.tagsAndInfoContainer}>
+				<Group className={styles.tagsContainer}>
 					{holidayTags.map((tag) => (
 						<Badge key={tag} className={styles.tag} size='lg' radius='lg'>
 							{tag}
 						</Badge>
 					))}
-					<Tooltip label={tooltipString} position='top-end' withArrow transitionProps={{ transition: "pop-bottom-right" }}>
-						<InfoIcon className={styles.infoIcon}></InfoIcon>
-					</Tooltip>
 				</Group>
 				<Button variant='white' color='dark' className={styles.button} onClick={clickHoliday}>
 					View holiday

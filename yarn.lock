@@ -1322,10 +1322,10 @@
   resolved "https://registry.yarnpkg.com/@kamilkisiela/fast-url-parser/-/fast-url-parser-1.1.4.tgz#9d68877a489107411b953c54ea65d0658b515809"
   integrity sha512-gbkePEBupNydxCelHCESvFSFM8XPh1Zs/OAVRW/rKpEqPAl5PbOM90Si8mv9bvnR53uPD2s/FiRxdvSejpRJew==
 
-"@mantine/core@^7.7.1":
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.7.1.tgz#1c294d53d409934a87fac7c578671353327a0b1a"
-  integrity sha512-SdPzjvqvEK7uHFuVD3a8w3OZyQVoCwIXLSUfOtRNouDMQgsq6Ac7QjKXBBOk3wNweOWFVOU1vATLHobSmow0lQ==
+"@mantine/core@^7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.8.0.tgz#b4bbd82ea2f1a25f5fb3d11ae5583cf80ecd8383"
+  integrity sha512-19RKuNdJ/s8pZjy2w2rvTsl4ybi/XM6vf+Kc0WY7kpLFCvdG+/UxNi1MuJF8t2Zs0QSFeb/H5yZQNe0XPbegHw==
   dependencies:
     "@floating-ui/react" "^0.26.9"
     clsx "2.1.0"

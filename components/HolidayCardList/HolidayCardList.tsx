@@ -63,21 +63,6 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			router.push({ pathname: "/holidays/" + holiday.nodeId });
 		};
 
-		// Create information for the tooltip
-		const holidayInfoTooltip = {
-			name: holiday.name,
-			tags: holiday.tags,
-			date: dateFormatted,
-			attendees: holiday.attendees,
-			locations: holiday.locations,
-			departingAirport: holiday.departingAirport,
-			photoAlbum: holiday.photoAlbum,
-		};
-
-		// console.log("holiday", holiday);
-		// LogS.log("holiday.locations: ", holiday.locations[0]);
-		// LogS.log("holiday.nodeId", holiday.nodeId);
-
 		return (
 			<HolidayCard
 				key={index}
@@ -86,7 +71,6 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 				holidayDate={dateFormatted}
 				holidayImageURL={holidayImageURL}
 				clickHoliday={holidayClickHandler}
-				holidayInfoTooltip={holidayInfoTooltip}
 			/>
 		);
 	});
