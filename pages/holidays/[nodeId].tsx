@@ -136,30 +136,34 @@ function HolidayPage() {
 						priority
 					/>
 				</div>
-				{/* Holiday Name */}
-				<h3 className={styles.holidayName}>
-					<span className={styles.firstLetter}>/</span>
-					<span> {name}</span>
-					<span>.</span>
-				</h3>
 
-				<section className={styles.pillsSection}>
-					<div className={styles.holidayPills}>
-						{/* List the holiday pills */}
-						{pills}
-					</div>
-				</section>
+				{/* Hold all of the content below the image */}
+				<div className={styles.holidayContentContainer}>
+					{/* Holiday Name */}
+					<h3 className={styles.holidayName}>
+						<span className={styles.firstLetter}>/</span>
+						<span> {name}</span>
+						<span>.</span>
+					</h3>
 
-				<section className={styles.attendeesSection}>
-					{/* List the holiday attendees */}
-					<h4>Attendees:</h4>
-					<AttendeesList stringArray={attendees} />
-				</section>
+					<section className={styles.pillsSection}>
+						<div className={styles.holidayPills}>
+							{/* List the holiday pills */}
+							{pills}
+						</div>
+					</section>
 
-				<section className={styles.section}>
-					{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
-					<Interweave content={textHtmlContent} />
-				</section>
+					<section className={styles.attendeesSection}>
+						{/* List the holiday attendees */}
+						<h4>Attendees:</h4>
+						<AttendeesList stringArray={attendees} />
+					</section>
+
+					<section className={styles.textSection}>
+						{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
+						<Interweave content={textHtmlContent} />
+					</section>
+				</div>
 			</div>
 		</Layout>
 	);
