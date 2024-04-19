@@ -4,7 +4,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
-import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
@@ -41,7 +40,7 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 	return <>{linkElements}</>;
 }
 
-function HolidayPage({ session }: { session: Session }) {
+function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
@@ -137,30 +136,34 @@ function HolidayPage({ session }: { session: Session }) {
 						priority
 					/>
 				</div>
-				{/* Holiday Name */}
-				<h3 className={styles.holidayName}>
-					<span className={styles.firstLetter}>/</span>
-					<span> {name}</span>
-					<span>.</span>
-				</h3>
 
-				<section className={styles.pillsSection}>
-					<div className={styles.holidayPills}>
-						{/* List the holiday pills */}
-						{pills}
-					</div>
-				</section>
+				{/* Hold all of the content below the image */}
+				<div className={styles.holidayContentContainer}>
+					{/* Holiday Name */}
+					<h3 className={styles.holidayName}>
+						<span className={styles.firstLetter}>/</span>
+						<span> {name}</span>
+						<span>.</span>
+					</h3>
 
-				<section className={styles.attendeesSection}>
-					{/* List the holiday attendees */}
-					<h4>Attendees:</h4>
-					<AttendeesList stringArray={attendees} />
-				</section>
+					<section className={styles.pillsSection}>
+						<div className={styles.holidayPills}>
+							{/* List the holiday pills */}
+							{pills}
+						</div>
+					</section>
 
-				<section className={styles.section}>
-					{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
-					<Interweave content={textHtmlContent} />
-				</section>
+					<section className={styles.attendeesSection}>
+						{/* List the holiday attendees */}
+						<h4>Attendees:</h4>
+						<AttendeesList stringArray={attendees} />
+					</section>
+
+					<section className={styles.textSection}>
+						{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
+						<Interweave content={textHtmlContent} />
+					</section>
+				</div>
 			</div>
 		</Layout>
 	);

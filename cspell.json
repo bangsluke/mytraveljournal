@@ -45,6 +45,7 @@
 		"geocoders",
 		"geopy",
 		"mytraveljournal",
+		"philipwalton",
 		"travelcard"
 	]
 }
