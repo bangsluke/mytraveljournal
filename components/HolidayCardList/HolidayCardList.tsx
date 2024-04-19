@@ -1,8 +1,9 @@
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, Group, Text, rem } from "@mantine/core";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Holiday } from "../../graphql/__generated__/graphql";
+import useScreenSize from "../../hooks/useScreenSize";
 import filterTags from "../../services/FilterTagsS";
 import FilterDecade from "./FilterDecade";
 import HolidayCard from "./HolidayCard";
@@ -17,6 +18,7 @@ type SortOrder = "OldToNew" | "NewToOld";
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
+	const screenSize = useScreenSize(); // Get the screen size
 
 	// Define the selectedDecade state
 	const [selectedDecade, setSelectedDecade] = useState<string>("All");
@@ -35,6 +37,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	};
 
 	// LogS.log("Original data from HolidayCardList: ", data);
+
+	// Define the filter text based on the screen size
+	let filterText = "Controls:";
+	if (screenSize === "tablet") {
+		filterText = "Filters and Sort:";
+	} else if (screenSize === "desktop") {
+		filterText = "Filter by Decade, Type and Sort:";
+	}
 
 	// Filter holidays based on the selected decade
 	const filteredHolidaysData = data?.filter((holiday) => {
@@ -98,15 +108,23 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		});
 
 	return (
+		// Hold the full list of holidays and header
 		<div className={styles.holidayCardListContainer}>
-			<div className={styles.headerFilterContainer}>
+			{/* Hold the header and filters and sort */}
+			<div className={styles.headerContainer}>
 				<h2 className={styles.holidayHeader}>holidays.</h2>
 
-				<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
-				<ActionIcon variant='filled' onClick={() => onSortOrderChange(sortOrder === "OldToNew" ? "NewToOld" : "OldToNew")}>
-					<SwapVertIcon />
-				</ActionIcon>
-				{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
+				<Group className={styles.headerFilterContainer}>
+					<Text className={styles.filterLabel}>{filterText}</Text>
+					<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
+					<ActionIcon
+						variant='filled'
+						onClick={() => onSortOrderChange(sortOrder === "OldToNew" ? "NewToOld" : "OldToNew")}
+						className={styles.sortButton}>
+						<SwapVertIcon style={{ width: rem(18), height: rem(18) }} />
+					</ActionIcon>
+					{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
+				</Group>
 			</div>
 
 			{/* Display the holiday card list */}
