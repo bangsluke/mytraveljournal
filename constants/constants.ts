@@ -11,10 +11,17 @@ if (process.env.NODE_ENV === "production") {
 // Define the colors used across the tool
 const mainAccent = "#fe395c";
 
+// Define some tags that are allowed at the top level (Holiday List Level)
+let AllowedTopLevelTags = ["work", "family", "UK", "skiing"];
+// Define some tags that are allowed at the secondary level (Holiday Page Level)
+let AllowedSecondLevelTags = [...AllowedTopLevelTags, "wedding", "golf", "sport"];
+
 const Constants = {
 	headerHeight,
 	SkipAuth,
 	mainAccent,
+	AllowedTopLevelTags,
+	AllowedSecondLevelTags,
 };
 
 export default Constants;
