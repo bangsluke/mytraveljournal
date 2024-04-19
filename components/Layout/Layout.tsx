@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
-import LogS from "../../services/LogS";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import ScrollToTopButton from "../ScrollToTop/ScrollToTopButton";
@@ -16,7 +15,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 
 	// Create a function to toggle the sidebar open and close
 	const toggleSidebar = () => {
-		LogS.log("toggleSidebar called from Layout to be", !sidebarOpen);
+		// LogS.log("toggleSidebar called from Layout to be", !sidebarOpen);
 		setSidebarOpen((prevState) => !prevState);
 	};
 
