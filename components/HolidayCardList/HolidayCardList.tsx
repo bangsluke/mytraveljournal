@@ -110,8 +110,9 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		<div className={styles.holidayCardListContainer}>
 			{/* Hold the header and filters and sort */}
 			<div className={styles.headerContainer}>
+				{/* Hold the header text */}
 				<h2 className={styles.holidayHeader}>holidays.</h2>
-
+				{/* Hold the filter and controls container */}
 				<Group className={styles.headerFilterContainer}>
 					<Text className={styles.filterLabel}>{filterText}</Text>
 					<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
@@ -123,6 +124,8 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					</ActionIcon>
 					{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
 				</Group>
+				{/* Add a horrible header background container to keep a full width white background */}
+				<div className={styles.headerContainerBackground}></div>
 			</div>
 
 			{/* Display the holiday card list */}

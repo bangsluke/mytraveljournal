@@ -7,9 +7,13 @@
 	--footer-height: 60px;
 	--button-height: 36px;
 	--icon-height: 40px;
-
+	--sidebar-spacing: 15px;
+	--card-border-radius: 15px;
+	--section-divider-spacing: 20px;
 
 	/* Colours */
+	--background: #fafafa;
+	/* rgb(250, 250, 250) */
 	--main-accent: #fe395c;
 	/*rgb(254, 57, 92)*/
 	--secondary-accent: #BBB;
@@ -18,18 +22,15 @@
 	--secondary-accent-transparent: rgba(236, 236, 236, 0.7);
 	--white: #FFFFFF;
 	/* rgb(255, 255, 255) */
-	--off-white: #f3f3f3;
-	/* rgb(243, 243, 243) */
+	--off-white: #fafafa;
+	/* rgb(250, 250, 250) */
 
 	--text: #222;
 	/* rgb(34, 34, 34) */
 
-	--sidebar-spacing: 15px;
 	--hover-icon-background: rgba(0, 0, 0, 0.2);
 	--hover-message-background: rgba(0, 0, 0, 0.7);
-	--card-border-radius: 15px;
 
-	--section-divider-spacing: 20px;
 
 	/* TODO: Migrate the dark mode colours to root below */
 
@@ -78,6 +79,7 @@ body {
 		Helvetica Neue,
 		sans-serif;
 	height: 100%;
+	background-color: var(--background, #f3f3f3);
 }
 
 a {
