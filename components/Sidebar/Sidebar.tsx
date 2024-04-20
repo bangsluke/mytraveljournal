@@ -20,9 +20,9 @@ type SidebarStyle = "static" | "dynamic";
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	const { data: session } = useSession(); // Return the NextAuth session
 	const router = useRouter(); // Import the Next router
+	const screenSize = useScreenSize(); // Get the screen size
 
 	// Define the styles for the sidebar based on the screen size
-	const screenSize = useScreenSize(); // Get the screen size
 	const sidebarStyle: SidebarStyle = screenSize == "desktop" ? "static" : "dynamic"; // If the screen is desktop size, make the sidebar static, otherwise make the sidebar dynamic
 	// If the screen is mobile size, make the sidebar dynamic, otherwise make the sidebar permanent and static
 	let sideBarClassName = `${styles.sidebar}`;
