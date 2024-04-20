@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	// TODO: Change below back to true
-	swcMinify: false,
+	swcMinify: true,
 
 	images: {
 		formats: ["image/avif", "image/webp"],
