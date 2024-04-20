@@ -49,7 +49,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	}
 
 	return (
+		// Hold the sidebar along with the blackout in a fragment
 		<>
+			{/* Hold the sidebar content */}
 			<nav className={sideBarClassName}>
 				{/* Display the logo */}
 				<div className={styles.sideBarLogoContainer} onClick={() => router.push({ pathname: "/" })}>
