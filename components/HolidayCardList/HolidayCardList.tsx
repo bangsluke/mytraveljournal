@@ -19,12 +19,8 @@ type SortOrder = "OldToNew" | "NewToOld";
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
 	const screenSize = useScreenSize(); // Get the screen size
-
-	// Define the selectedDecade state
-	const [selectedDecade, setSelectedDecade] = useState<string>("All");
-
-	// Define a sort order state
-	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld");
+	const [selectedDecade, setSelectedDecade] = useState<string>("All"); // Define the selectedDecade state
+	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld"); // Define a sort order state
 
 	// Define the onDecadeChange handler
 	const onDecadeChange = (newDate: string) => {

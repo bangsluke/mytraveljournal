@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import styles from "./ScrollToTopButton.module.css";
 
 const ScrollToTopButton = () => {
-	const [isVisible, setIsVisible] = useState(false);
+	const [isVisible, setIsVisible] = useState(false); // Set a visible state
 
 	useEffect(() => {
 		const toggleVisibility = () => {
