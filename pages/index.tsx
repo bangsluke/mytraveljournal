@@ -19,6 +19,15 @@ export default function Home() {
 	const { data: session, status } = useSession();
 	// LogS.log(" Status and Session: ", status, session);
 
+	// Get the list of holidays
+	const { loading, error, data } = useQuery(GetHolidaysDocument);
+	if (status === "loading" || loading) return <Loading BackgroundStyle={"Opaque"} />;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetHolidaysDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetHolidaysDocument) GraphQL Error: " + error.message} duration={5} />;
+	}
+
 	// Show a message if the NextAuth process is skipped due to development mode
 	if (Constants.SkipAuth) {
 		LogS.log(" NextAuth authentication skipped as SkipAuth set to true in Constants.ts");
@@ -27,15 +36,6 @@ export default function Home() {
 	// If the user is not authenticated, show the sign in component
 	if (status === "unauthenticated" && !Constants.SkipAuth) {
 		return <SignIn />;
-	}
-
-	// Get the list of holidays
-	const { loading, error, data } = useQuery(GetHolidaysDocument);
-	if (status === "loading" || loading) return <Loading BackgroundStyle={"Opaque"} />;
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetHolidaysDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetHolidaysDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	// LogS.log("holiday data: ", data);
