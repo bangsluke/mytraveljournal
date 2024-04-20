@@ -10,6 +10,7 @@ import styles from "./Lists.module.css";
 export default function HolidayList() {
 	const router = useRouter(); // Import the Next router
 
+	// Get the holiday data
 	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAYS);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
