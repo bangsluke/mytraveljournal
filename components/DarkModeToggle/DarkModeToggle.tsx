@@ -4,7 +4,7 @@ import { ActionIcon, Group, useComputedColorScheme, useMantineColorScheme } from
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import cx from "clsx";
-import classes from "./DarkModeToggle.module.css";
+import styles from "./DarkModeToggle.module.css";
 
 export default function DarkModeToggle() {
 	const { setColorScheme } = useMantineColorScheme();
@@ -15,10 +15,11 @@ export default function DarkModeToggle() {
 			<ActionIcon
 				onClick={() => setColorScheme(computedColorScheme === "light" ? "dark" : "light")}
 				variant='default'
-				size='xl'
-				aria-label='Toggle color scheme'>
-				<LightModeIcon className={cx(classes.icon, classes.light)} />
-				<DarkModeIcon className={cx(classes.icon, classes.dark)} />
+				// size='xl'
+				aria-label='Toggle color scheme'
+				className={styles.button}>
+				<LightModeIcon className={cx(styles.icon, styles.light)} />
+				<DarkModeIcon className={cx(styles.icon, styles.dark)} />
 			</ActionIcon>
 		</Group>
 	);

@@ -1,8 +1,13 @@
 /* From https: //ui.mantine.dev/category/buttons/#action-toggle */
 
+.button {
+	height: var(--button-height, 36px);
+	width: var(--button-height, 36px);
+}
+
 .icon {
-	width: rem(22px);
-	height: rem(22px);
+	height: var(--icon-height, 40px);
+	width: var(--icon-height, 40px);
 }
 
 .dark {

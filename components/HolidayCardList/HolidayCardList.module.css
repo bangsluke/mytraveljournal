@@ -6,13 +6,30 @@
 
 .headerContainer {
 	/* background-color: blue; */
-	width: 100%;
+	background-color: var(--background, #fafafa);
+	position: sticky;
+	top: var(--header-height, 80px);
+	z-index: 90;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	height: 40px;
+	height: calc(var(--button-height, 40px) + 20px);
 	padding: 0 10px;
+	margin: 0 auto;
+}
+
+/* Add a horrible header background container to keep a full width white background */
+.headerContainerBackground {
+	background-color: var(--background, #fafafa);
+	/* background-color: red; */
+	position: absolute;
+	top: 0;
+	left: -20px;
+	z-index: 80;
+	width: 110vw;
+	height: calc(var(--button-height, 40px) + 20px);
+
 }
 
 .holidayHeader {
@@ -21,6 +38,7 @@
 	color: var(--text, #333);
 	font-family: var(--font-family, ui-sans-serif);
 	line-height: normal;
+	z-index: 90;
 }
 
 .headerFilterContainer {
@@ -31,6 +49,7 @@
 	align-items: center;
 	justify-content: flex-end;
 	height: 40px;
+	z-index: 90;
 }
 
 
@@ -50,9 +69,11 @@
 
 .holidayCardList {
 	/* background-color: aqua; */
-	padding-top: 2rem;
+	padding-top: 1rem;
+	padding: 1rem auto 0 auto;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 20px;
 	width: 100%;
 	height: max-content;
@@ -207,6 +228,7 @@
 
 	.headerContainer {
 		padding: 0 60px;
+		left: 200px;
 	}
 
 	.filterLabel {

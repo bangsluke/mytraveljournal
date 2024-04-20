@@ -17,7 +17,16 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
 	// Get the users authentication status and session
 	const { data: session, status } = useSession();
-	LogS.log(" Status and Session: ", status, session);
+	// LogS.log(" Status and Session: ", status, session);
+
+	// Get the list of holidays
+	const { loading, error, data } = useQuery(GetHolidaysDocument);
+	if (status === "loading" || loading) return <Loading BackgroundStyle={"Opaque"} />;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetHolidaysDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetHolidaysDocument) GraphQL Error: " + error.message} duration={5} />;
+	}
 
 	// Show a message if the NextAuth process is skipped due to development mode
 	if (Constants.SkipAuth) {
@@ -29,16 +38,7 @@ export default function Home() {
 		return <SignIn />;
 	}
 
-	// Get the list of holidays
-	const { loading, error, data } = useQuery(GetHolidaysDocument);
-	if (status === "loading" || loading) return <Loading BackgroundStyle={"Opaque"} />;
-	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetHolidaysDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetHolidaysDocument) GraphQL Error: " + error.message} duration={5} />;
-	}
-
-	LogS.log("holiday data: ", data);
+	// LogS.log("holiday data: ", data);
 
 	return (
 		<Layout NavbarStyle='Opaque'>

@@ -19,12 +19,8 @@ type SortOrder = "OldToNew" | "NewToOld";
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
 	const screenSize = useScreenSize(); // Get the screen size
-
-	// Define the selectedDecade state
-	const [selectedDecade, setSelectedDecade] = useState<string>("All");
-
-	// Define a sort order state
-	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld");
+	const [selectedDecade, setSelectedDecade] = useState<string>("All"); // Define the selectedDecade state
+	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld"); // Define a sort order state
 
 	// Define the onDecadeChange handler
 	const onDecadeChange = (newDate: string) => {
@@ -114,8 +110,9 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		<div className={styles.holidayCardListContainer}>
 			{/* Hold the header and filters and sort */}
 			<div className={styles.headerContainer}>
+				{/* Hold the header text */}
 				<h2 className={styles.holidayHeader}>holidays.</h2>
-
+				{/* Hold the filter and controls container */}
 				<Group className={styles.headerFilterContainer}>
 					<Text className={styles.filterLabel}>{filterText}</Text>
 					<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
@@ -127,6 +124,8 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					</ActionIcon>
 					{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
 				</Group>
+				{/* Add a horrible header background container to keep a full width white background */}
+				<div className={styles.headerContainerBackground}></div>
 			</div>
 
 			{/* Display the holiday card list */}
