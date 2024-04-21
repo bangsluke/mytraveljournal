@@ -1,6 +1,6 @@
 /* Hold the contents of main and the footer */
 .fullPageContainer {
-	background-color: purple;
+	/* background-color: purple; */
 	/* position: fixed; */
 	display: flex;
 	flex-direction: column;
