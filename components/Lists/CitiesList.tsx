@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { City } from "../../graphql/__generated__/graphql";
+import { City, GetCitiesDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,28 +9,24 @@ import styles from "./Lists.module.css";
 export default function CitiesList() {
 	const router = useRouter(); // Import the Next router
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CITIES);
+	// Get the list of cities
+	const { loading, error, data } = useQuery(GetCitiesDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("GraphQLQueriesS.GET_CITIES GraphQL Error: ", error.message);
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<Toast message={"GraphQLQueriesS.GET_CITIES GraphQL Error: " + error.message} duration={5} />
-			</>
-		);
+		LogS.error("useQuery(GetCitiesDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetCitiesDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
-	LogS.log("cities data: ", data);
+	// LogS.log("CitiesList: cities data: ", data);
 
 	// Filter out cities with no holidays and then sort by the length of timesVisited
 	//const sortedAndFilteredCities = data.cities;
-	const sortedAndFilteredCities = data.cities
-		.filter((city: City) => city.linkedHolidays && city.linkedHolidays.length > 0)
+	const sortedAndFilteredCities: any = data?.cities
+		.filter((city: any) => city.linkedHolidays && city.linkedHolidays.length > 0)
 		.sort((a: any, b: any) => b.linkedHolidays.length - a.linkedHolidays.length);
 
-	LogS.log("Sorted and filtered city data: ", sortedAndFilteredCities);
+	LogS.log("CitiesList: Sorted and filtered city data: ", sortedAndFilteredCities);
 
 	return (
 		<div className={styles.dataList}>
