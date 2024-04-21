@@ -1,20 +1,21 @@
 import { useQuery } from "@apollo/client";
+import { Badge } from "@mantine/core";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
-import { Session } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { Holiday } from "../../graphql/__generated__/graphql";
-import withAuth from "../../lib/withAuth";
+import Toast from "../../components/Toast/Toast";
+import { GetHolidayByIdDocument, Holiday } from "../../graphql/__generated__/graphql";
+import filterTags from "../../services/FilterTagsS";
 import LogS from "../../services/LogS";
+import withAuth from "../api/auth/withAuth";
 import styles from "./Holidays.module.css";
 
 //  Create a function to return a concatenated list of attendees with hyperlinks
@@ -41,44 +42,30 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 	return <>{linkElements}</>;
 }
 
-function HolidayPage({ session }: { session: Session }) {
+function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
-	LogS.log("nodeId: ", nodeId);
+	// LogS.log("nodeId: ", nodeId);
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_HOLIDAY_BY_ID, {
+	// Get the list of people
+	const { loading, error, data } = useQuery(GetHolidayByIdDocument, {
+		// @ts-ignore
 		variables: { nodeId }, // Pass the variable to the query
 	});
+	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetHolidayByIdDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetHolidayByIdDocument) GraphQL Error: " + error.message} duration={5} />;
+	}
 
 	LogS.log("holiday data: ", data);
 
-	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
-	if (error)
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<div
-					className={styles.ErrorMessageDiv}
-					onClick={() => router.back()} // Go back to the last visited page
-				>
-					<h4>Click here to go back</h4>
-				</div>
-			</>
-		);
-
 	// Extract the data into usable variables
-	const {
-		dateYear,
-		dateMonth,
-		name,
-		holidayTitle,
-		coverPhoto,
-		textHtmlContent,
-		attendees,
-		departingAirport,
-		locations,
-		photoAlbum,
-	}: Holiday = data.holidays[0];
+	// @ts-ignore
+	const { dateYear, dateMonth, name, coverPhoto, textHtmlContent, attendees, departingAirport, locations, photoAlbum }: Holiday =
+		// @ts-ignore
+		data.holidays[0];
 	LogS.log("holiday data: ", data);
 	LogS.log("attendees: ", attendees);
 
@@ -95,7 +82,10 @@ function HolidayPage({ session }: { session: Session }) {
 	// Format the month date
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
 
-	// Create the visible pills for the holiday
+	// Define the holiday tags
+	const displayHolidayTags = filterTags(data?.holidays[0]?.tags, "secondaryLevel");
+
+	// Gather the data for the pills for the holiday
 	const properties: { [key: string]: { id: number; text: string | string[] | null | undefined; image: ReactElement } } = {
 		property1: { id: 1, text: monthFormatted + " " + dateYear, image: <CalendarMonthIcon /> },
 		property2: { id: 2, text: locations, image: <LocationOnRoundedIcon /> },
@@ -103,6 +93,8 @@ function HolidayPage({ session }: { session: Session }) {
 		property4: { id: 4, text: photoAlbum, image: <AddAPhotoIcon /> },
 	};
 	LogS.log("properties", properties);
+
+	// Define the pills for the holiday
 	const pills = Object.keys(properties).map((property) => {
 		const { text, image, id } = properties[property];
 		// Loop through the array if text is an array
@@ -135,30 +127,41 @@ function HolidayPage({ session }: { session: Session }) {
 						priority
 					/>
 				</div>
-				{/* Holiday Name */}
-				<h3 className={styles.holidayName}>
-					<span>/</span>
-					<span> {name}</span>
-					<span>.</span>
-				</h3>
 
-				<section className={styles.pillsSection}>
-					<div className={styles.holidayPills}>
-						{/* List the holiday pills */}
-						{pills}
-					</div>
-				</section>
+				{/* Hold all of the content below the image */}
+				<div className={styles.holidayContentContainer}>
+					{/* Holiday Name */}
+					<h3 className={styles.holidayName}>
+						<span className={styles.firstLetter}>/</span>
+						<span> {name}</span>
+						<span>.</span>
+					</h3>
 
-				<section className={styles.attendeesSection}>
-					{/* List the holiday attendees */}
-					<h4>Attendees:</h4>
-					<AttendeesList stringArray={attendees} />
-				</section>
+					<section className={styles.pillsSection}>
+						<div className={styles.holidayPills}>
+							{/* List the holiday pills */}
+							{pills}
+						</div>
+						<div className={styles.tagPills}>
+							{displayHolidayTags.map((tag) => (
+								<Badge key={tag} className={styles.tag} size='lg' radius='lg'>
+									{tag}
+								</Badge>
+							))}
+						</div>
+					</section>
 
-				<section className={styles.section}>
-					{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
-					<Interweave content={textHtmlContent} />
-				</section>
+					<section className={styles.attendeesSection}>
+						{/* List the holiday attendees */}
+						<h4>Attendees:</h4>
+						<AttendeesList stringArray={attendees} />
+					</section>
+
+					<section className={styles.textSection}>
+						{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
+						<Interweave content={textHtmlContent} />
+					</section>
+				</div>
 			</div>
 		</Layout>
 	);

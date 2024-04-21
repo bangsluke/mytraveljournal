@@ -1,5 +1,6 @@
 /* Add a full page container */
 .holidayPageContainer {
+	/* background-color: red; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -8,6 +9,8 @@
 }
 
 .holidayImageContainer {
+	/* background-color: blue; */
+	position: absolute;
 	height: 60vh;
 	width: 100%;
 	/* Hide parts of the image that overflow */
@@ -17,30 +20,55 @@
 	z-index: 0;
 }
 
+/* Add a white blur to the bottom edge of the image */
+.holidayImageContainer::before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 10%;
+	/* Adjust the height to control the blur/fade effect */
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), white);
+	/* Fading effect to white */
+	/* filter: blur(10px); */
+	/* Add blur effect */
+	z-index: 1;
+}
+
 .holidayImage {
 	height: 100%;
 	/* Full height of the container */
+	/* Make full width of the parent container */
 	width: 100%;
-	/* Full width of the container */
 	object-fit: cover;
 	/* Ensures the image covers the area, cropping as needed */
 	object-position: center top;
 	/* Centers the image within the container */
 	display: block;
 	/* Remove default image inline behaviors */
+	z-index: 2;
+}
+
+.holidayContentContainer {
+	/* background-color: red; */
+	/* Have no side padding for mobile - add in media queries for larger screens */
+	padding: 0;
 }
 
 .holidayName {
 	z-index: 1;
 	font-size: 1.6rem;
-	line-height: 1rem;
+	line-height: 1.6rem;
 	text-align: left;
 	align-self: flex-start;
-	padding: 0rem 0rem 0rem 1rem;
+	margin: 0;
+	padding: 1rem 0rem 2rem 1rem;
+	color: var(--main-accent, #fe395c);
 }
 
-.holidayName::first-letter {
-	color: var(--main-accent, #fe395c);
+.holidayName>.firstLetter {
+	color: var(--secondary-accent, #BBB);
 }
 
 .clickableList {
@@ -53,13 +81,25 @@
 .pillsSection {
 	/* background-color: blue; */
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
-	padding: -rem 1rem 0rem 1rem;
+	padding: 0rem 1rem 0rem 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 .holidayPills {
 	/* background-color: #fe395c; */
 	display: flex;
 	flex-wrap: wrap;
+}
+
+.tagPills {
+	/* background-color: greenyellow; */
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 /* Add gaps to all children elements of the parent element */
@@ -70,7 +110,8 @@
 
 .attendeesSection {
 	/* background-color: blue; */
-	width: 100vw;
+	/* Make full width of the parent container */
+	width: 100%;
 	/* top: calc(calc(var(--header-height, 80px) + 1rem)*-1); */
 	padding: 0rem 1rem 1rem 1rem;
 }
@@ -80,20 +121,36 @@
 	line-height: 1rem;
 }
 
-.section {
+.textSection {
 	/* background-color: violet; */
-	width: 100vw;
+	/* Make full width of the parent container */
+	width: 100%;
 	top: calc(calc(var(--header-height, 80px) + 1rem)*-1);
 	top: -3rem;
 	display: block;
 	padding: 0rem 1rem 1rem 1rem;
 }
 
+/* Mobiles */
 @media only screen and (max-width: 767px) {
-
-	/* Adjust styling for mobile */
 	.holidayImageOverlayContainer h3 {
 		font-size: 1.8rem;
 	}
+}
 
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+	.holidayContentContainer {
+		padding: 0 20px;
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+	.holidayContentContainer {
+		padding: 0 60px;
+	}
 }

@@ -114,7 +114,7 @@ const useGetCardCounts = () => {
 				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
 			})) ?? [];
 
-	console.log("data", data);
+	// console.log("CountCardSection data", data);
 
 	// Finalise the card counts data
 	cardCounts = {
@@ -136,7 +136,7 @@ const useGetCardCounts = () => {
 		filteredTravelCompanionData: travelledWithCompanionData,
 		filteredTravelCompanionCount: travelledWithCompanionData.length,
 	};
-	LogS.log("data from useGetCardCounts", cardCounts);
+	// LogS.log("data from useGetCardCounts", cardCounts);
 	return cardCounts;
 };
 
@@ -151,6 +151,7 @@ export default function CountCardSection() {
 				cardTitle='Holiday Count'
 				countValue={countCardData.holidayCount}
 				pagePath='/holidays'
+				enabledBoolean={true}
 				backgroundIcon={
 					<FlightTakeoffIcon
 						// @ts-ignore
@@ -161,9 +162,24 @@ export default function CountCardSection() {
 
 			<CountCard
 				id='2'
+				cardTitle='Travel Companion Count'
+				countValue={countCardData.filteredTravelCompanionCount}
+				pagePath='/people'
+				enabledBoolean={true}
+				backgroundIcon={
+					<SupervisorAccountIcon
+						// @ts-ignore
+						fontSize='40'
+					/>
+				}
+			/>
+
+			<CountCard
+				id='3'
 				cardTitle='Continent Count'
 				countValue={countCardData.continentCount}
 				pagePath='/continents'
+				enabledBoolean={false}
 				backgroundIcon={
 					<PublicIcon
 						// @ts-ignore
@@ -172,10 +188,11 @@ export default function CountCardSection() {
 				}
 			/>
 			<CountCard
-				id='3'
+				id='4'
 				cardTitle='Countries Count'
 				countValue={countCardData.countriesCount}
 				pagePath='/countries'
+				enabledBoolean={true}
 				backgroundIcon={
 					<MapIcon
 						// @ts-ignore
@@ -184,10 +201,11 @@ export default function CountCardSection() {
 				}
 			/>
 			<CountCard
-				id='4'
+				id='5'
 				cardTitle='Cities Count'
 				countValue={countCardData.filteredCitiesCount}
 				pagePath='/cities'
+				enabledBoolean={true}
 				backgroundIcon={
 					<LocationCityIcon
 						// @ts-ignore
@@ -196,10 +214,11 @@ export default function CountCardSection() {
 				}
 			/>
 			<CountCard
-				id='5'
+				id='6'
 				cardTitle='Capitals Count'
 				countValue={countCardData.filteredCapitalsCount}
 				pagePath='/capitals'
+				enabledBoolean={false}
 				backgroundIcon={
 					<PinDropIcon
 						// @ts-ignore
@@ -208,10 +227,11 @@ export default function CountCardSection() {
 				}
 			/>
 			<CountCard
-				id='6'
+				id='7'
 				cardTitle='Towns Count'
 				countValue={countCardData.filteredTownsCount}
 				pagePath='/towns'
+				enabledBoolean={false}
 				backgroundIcon={
 					<HouseIcon
 						// @ts-ignore
@@ -220,24 +240,13 @@ export default function CountCardSection() {
 				}
 			/>
 			<CountCard
-				id='7'
+				id='8'
 				cardTitle='Islands Count'
 				countValue={countCardData.filteredIslandsCount}
 				pagePath='/islands'
+				enabledBoolean={false}
 				backgroundIcon={
 					<BeachAccessIcon
-						// @ts-ignore
-						fontSize='40'
-					/>
-				}
-			/>
-			<CountCard
-				id='8'
-				cardTitle='Travel Companion Count'
-				countValue={countCardData.filteredTravelCompanionCount}
-				pagePath='/people'
-				backgroundIcon={
-					<SupervisorAccountIcon
 						// @ts-ignore
 						fontSize='40'
 					/>

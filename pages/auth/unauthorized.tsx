@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { ButtonComponent } from "../../components/Button/Button";
 import styles from "./Authentication.module.css";
 import AuthenticationLayout from "./AuthenticationLayout";
 
@@ -19,7 +20,7 @@ export default function UnAuthorized() {
 			<h1 className={styles.title}>Unauthorized</h1>
 			<p>{email} does not have access to this site.</p>
 			<p>To gain access, please contact Luke with your email address to be added.</p>
-			<button onClick={handleGoBack}>Go Back to Home</button>
+			<ButtonComponent Text={"Go Back to Home"} onClick={handleGoBack} fullWidth={false} />
 		</AuthenticationLayout>
 	);
 }

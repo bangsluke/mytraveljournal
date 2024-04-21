@@ -1,158 +1,247 @@
-.filter {
+.holidayCardListContainer {
 	/* background-color: yellow; */
-	padding-top: 2rem;
+	padding: 0;
+	margin: 0;
+}
+
+.headerContainer {
+	/* background-color: blue; */
+	background-color: var(--background, #fafafa);
+	position: sticky;
+	top: var(--header-height, 80px);
+	z-index: 90;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	height: calc(var(--button-height, 40px) + 20px);
+	padding: 0 10px;
+	margin: 0 auto;
+}
+
+/* Add a horrible header background container to keep a full width white background */
+.headerContainerBackground {
+	background-color: var(--background, #fafafa);
+	/* background-color: red; */
+	position: absolute;
+	top: 0;
+	left: -20px;
+	z-index: 80;
+	width: 110vw;
+	height: calc(var(--button-height, 40px) + 20px);
+
+}
+
+.holidayHeader {
+	/* background-color: green; */
+	text-align: center;
+	color: var(--text, #333);
+	font-family: var(--font-family, ui-sans-serif);
+	line-height: normal;
+	z-index: 90;
+}
+
+.headerFilterContainer {
+	/* background-color: red; */
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: flex-end;
+	height: 40px;
+	z-index: 90;
+}
+
+
+.filterLabel {
+	color: var(--text, #333);
+}
+
+.filterButton {
+	height: var(--button-height, 40px);
+	margin-left: 10px;
+}
+
+.sortButton {
+	height: var(--button-height, 40px);
+	width: var(--button-height, 40px);
 }
 
 .holidayCardList {
 	/* background-color: aqua; */
-	padding-top: 2rem;
+	padding-top: 1rem;
+	padding: 1rem auto 0 auto;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	align-items: center;
+	gap: 20px;
 	width: 100%;
+	height: max-content;
 }
 
-.holidayCard {
-	/* background-color: yellow; */
-	height: calc(var(--holiday-card-image-height, 300px) + 20px);
-	min-height: 150px;
-	border: 1px solid var(--secondary-accent-light, #f0f0f0);
-	padding: 10px;
-	/* Add padding to the card */
+/* Modified from https: //ui.mantine.dev/category/article-cards/#article-card-image */
+
+.card {
+	height: rem(440px);
+	width: rem(350px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(40%);
 	border-radius: var(--card-border-radius, 15px);
-	width: 98%;
-	margin: 0px auto 10px auto;
-	display: grid;
-	column-gap: 10px;
-	grid-template-columns: 30% 70%;
-	grid-template-rows: 130px;
+	/* background-image: url(https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80); */
 }
 
-.holidayCard:hover {
-	border: 1px solid var(--secondary-accent-light, #f0f0f0);
-	background-color: var(--secondary-accent-light, #f0f0f0);
-	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+.card:hover {
+	filter: grayscale(0%);
 }
 
-.holidayCardImage {
-	object-fit: cover;
-	border-radius: var(--holiday-card-image-border-radius, 10px);
-	padding: 0px;
+/* Style the div around the text content */
+.textContent {
+	text-align: right;
+	padding: var(--mantine-spacing-xs);
+	border-radius: var(--card-border-radius, 15px);
+	background-color: rgba(255, 255, 255, 0.7)
 }
 
-/* Style the div holding all the holiday details. */
-.holidayCardDetails {
-	/* background-color: blue; */
-	/* height: max-content; */
-	height: var(--holiday-card-image-height, 300px);
-	/* max-height: var(--holiday-card-image-height, 300px); */
-	overflow-y: none;
-	width: calc(100% - 10px);
-	margin: 0px;
-	display: grid;
-	row-gap: 0px;
-	grid-template-columns: 1fr;
-	grid-template-rows: 30px var(--holiday-card-image-height, 300px);
-	justify-content: flex-start;
-	/* Center Horizontally */
-}
-
-/* Style the top row holding the icon, location and link to Google Maps */
-.holidayCardDetailsTopRow {
-	/* background-color: aquamarine; */
-	height: 30px;
-	width: max-content;
-	display: flex;
-	justify-content: flex-start;
-	/* Position Horizontally */
-	align-items: flex-start;
-	/* Position Vertically */
-}
-
-/* Style the location icon */
-.holidayCardLocationIcon {
-	color: var(--main-accent, red);
-	font-size: 25px;
-}
-
-/* Style the header text in the top row */
-.holidayCardDetails h3 {
+.date {
+	color: var(--primary-color, #fe395c);
+	opacity: 1;
+	font-weight: 700;
 	text-transform: uppercase;
-	font-style: italic;
-	font-size: 12px;
-	font-weight: 200;
-	line-height: 0;
-	padding-top: 14px;
-	margin: 0px 10px 0px 5px;
 }
 
-.holidayCardDetails a {
-	font-size: 10px;
-	font-weight: 200;
-	color: var(--accent-grey, grey);
-}
-
-.holidayCardDirectionsIcon {
-	line-height: 0;
-	display: block;
-}
-
-.holidayCardDirectionsText {
-	line-height: 0;
-	margin-top: -18px;
-	display: none;
-}
-
-/* Style the holiday text container */
-.holidayCardDetailsText {
-	/* background-color: yellowgreen; */
-	top: 0;
-	padding: 10px 0px 0px 5px;
-	/* Add a small padding to left of the text */
-	height: calc(100% - 30px);
+.titleContainer {
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	/* Position Horizontally */
-	align-items: space-between;
-	/* Position Vertically */
-	font-size: 14px;
 }
 
-/* Style the holiday title */
-.holidayCardDetailsText>h2 {
-	/* background-color: yellow; */
-	font-size: 20px;
-	font-weight: 600;
-	line-height: 20px;
-	height: 20px;
-	margin: 0;
-	padding: 0;
+.markerIcon {
+	color: var(#AAA, #BBB);
 }
 
-/* Style the holiday dates */
-.holidayCardDates {
-	/* background-color: blue; */
-	font-weight: 600;
-	line-height: 14px;
-	margin: 20px 0px;
-	padding: 0;
+.title {
+	font-family:
+		var(--mantine-font-family);
+	font-weight: 900;
+	color: var(--white, #FFFFFF);
+	opacity: 1;
+	line-height: 1.2;
+	font-size: rem(32px);
+	margin-top: var(--mantine-spacing-xs);
+	text-align: right;
+	z-index: 15;
 }
 
-/* Style the holiday subtitle */
-.holidayCardDetailsText>h3 {
-	/* background-color: red; */
-	font-weight: 400;
-	line-height: 14px;
-	text-transform: none;
-	margin: 0;
-	padding: 0;
+.cardBottomItemsContainer {
+	width: 110%;
+	/* background-color: aquamarine; */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
-/* Create a horizontal line separator that goes across the div. */
-.separator {
-	width: 100%;
-	height: 1px;
-	background: var(--secondary-accent, grey);
-	/* margin: 10px auto 20px auto; */
+.tagsContainer {
+	display: flex;
+}
+
+.infoIcon {
+	color: var(--secondary-accent, #BBB);
+}
+
+.button {
+	justify-self: flex-end;
+}
+
+.button :hover {
+	color: var(--main-accent, #fe395c);
+}
+
+
+
+
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+	.holidayCardListContainer {
+		padding: 0 10px;
+	}
+
+	.filterLabel {
+		font-size: small;
+	}
+
+	.card {
+		filter: grayscale(20%);
+		/* Reduce the amount of greyscale on mobile where the card can't be hovered */
+	}
+}
+
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.holidayCardListContainer {
+		padding: 0 10px;
+	}
+
+	.filterLabel {
+		font-size: small;
+	}
+
+	.card {
+		filter: grayscale(20%);
+		/* Reduce the amount of greyscale on mobile where the card can't be hovered */
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	.headerContainer {
+		padding: 0 40px;
+	}
+
+	.filterLabel {
+		font-size: medium;
+	}
+
+	.holidayCardList {
+		/* Flex the container to hold multiple holidays */
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+		row-gap: 20px;
+		column-gap: 20px;
+	}
+
+	.card {
+		filter: grayscale(20%);
+		/* Reduce the amount of greyscale on tablet where the card can't be hovered */
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+
+	.headerContainer {
+		padding: 0 60px;
+		left: 200px;
+	}
+
+	.filterLabel {
+		font-size: medium;
+	}
+
+	.holidayCardList {
+		/* Flex the container to hold multiple holidays */
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+		row-gap: 30px;
+		column-gap: 20px;
+	}
 }

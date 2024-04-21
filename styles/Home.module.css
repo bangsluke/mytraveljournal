@@ -3,13 +3,14 @@
 }
 
 .section {
+  width: 100%;
   padding: 0 10px;
   z-index: 1;
 }
 
 #homepageHeader {
   text-align: center;
-  color: #BBB;
+  color: var(--text, #333);
   font-family: var(--font-family, ui-sans-serif);
 }
 

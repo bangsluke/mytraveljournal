@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout/Layout";
 import AttendedHolidayList from "../../components/Lists/AttendedHolidayList";
@@ -7,11 +6,11 @@ import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
 import { Person } from "../../graphql/__generated__/graphql";
-import withAuth from "../../lib/withAuth";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
+import withAuth from "../api/auth/withAuth";
 
-function PersonPage({ session }: { session: Session }) {
+function PersonPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);

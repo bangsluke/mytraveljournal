@@ -8,8 +8,16 @@
 	width: max-content;
 }
 
+.pill:hover {
+	background-color: var(--secondary-accent, grey);
+}
+
 .pillIcon {
 	margin-right: 4px;
+}
+
+.pill:hover .pillIcon {
+	background-color: var(--secondary-accent, grey);
 }
 
 .pillText {
@@ -17,9 +25,13 @@
 	font-size: 14px;
 }
 
-@media only screen and (max-width: 767px) {
+.pill:hover .pillText {
+	background-color: var(--secondary-accent, grey);
+}
 
-	/* Adjust styling for mobile */
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
 	.pill {
 		font-size: 10px;
 	}

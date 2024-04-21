@@ -1,28 +1,51 @@
-import DirectionsIcon from "@mui/icons-material/Directions";
-import RoomIcon from "@mui/icons-material/Room";
-import Image from "next/image";
+import { ActionIcon, Group, Text, rem } from "@mantine/core";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Constants from "../../constants/constants";
 import { Holiday } from "../../graphql/__generated__/graphql";
+import useScreenSize from "../../hooks/useScreenSize";
+import filterTags from "../../services/FilterTagsS";
 import FilterDecade from "./FilterDecade";
+import HolidayCard from "./HolidayCard";
 import styles from "./HolidayCardList.module.css";
 
 // Define the HolidayCardList component props
 interface HolidayListProps {
-	data: Holiday[];
+	data?: Holiday[];
 }
+
+type SortOrder = "OldToNew" | "NewToOld";
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
+	const screenSize = useScreenSize(); // Get the screen size
+	const [selectedDecade, setSelectedDecade] = useState<string>("All"); // Define the selectedDecade state
+	const [sortOrder, setSortOrder] = useState<SortOrder>("NewToOld"); // Define a sort order state
 
-	// Define the selectedDecade state
-	const [selectedDecade, setSelectedDecade] = useState("All");
+	// Define the onDecadeChange handler
+	const onDecadeChange = (newDate: string) => {
+		// console.log("Selected Decade: ", newDate);
+		setSelectedDecade(newDate);
+	};
+
+	// Define the onSortOrderChange handler
+	const onSortOrderChange = (newOrder: SortOrder) => {
+		// console.log("Selected Sort Order: ", newOrder);
+		setSortOrder(newOrder);
+	};
 
 	// LogS.log("Original data from HolidayCardList: ", data);
 
+	// Define the filter text based on the screen size
+	let filterText = "Controls:";
+	if (screenSize === "tablet") {
+		filterText = "Filters and Sort:";
+	} else if (screenSize === "desktop") {
+		filterText = "Filter by Decade, Type and Sort:";
+	}
+
 	// Filter holidays based on the selected decade
-	const filteredHolidaysData = data.filter((holiday) => {
+	const filteredHolidaysData = data?.filter((holiday) => {
 		if (selectedDecade === "All") {
 			return true; // Show all holidays
 		}
@@ -34,77 +57,80 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 
 	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
 
-	const holidayElements = filteredHolidaysData.map((holiday, index) => {
-		// Define the holiday image URL
-		// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
-		let holidayImageURL = "";
-		if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
-			holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
-		} else {
-			holidayImageURL = holiday.coverPhoto;
-		}
-		// LogS.log("holidayImageURL: ", holidayImageURL);
+	// Define the holiday elements
+	const holidayElements = filteredHolidaysData
+		// First sort the holidays by sortDateValue
+		?.sort((a, b) => {
+			if (sortOrder === "NewToOld") {
+				return parseInt(b.sortDateValue) - parseInt(a.sortDateValue);
+			} else {
+				return parseInt(a.sortDateValue) - parseInt(b.sortDateValue);
+			}
+		})
+		// Then map the sorted holidays to create the holiday elements
+		?.map((holiday, index) => {
+			// Define the holiday image URL
+			// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
+			let holidayImageURL = "";
+			if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
+				holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
+			} else {
+				holidayImageURL = holiday.coverPhoto;
+			}
+			// LogS.log("holidayImageURL: ", holidayImageURL);
 
-		// Format the month date
-		const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
+			// Define the holiday tags
+			// console.log("holiday.tags: ", holiday.tags);
+			const displayHolidayTags = filterTags(holiday?.tags, "topLevel");
+			// console.log("displayHolidayTags", displayHolidayTags);
 
-		// LogS.log("holiday.locations: ", holiday.locations[0]);
-		// LogS.log("holiday.nodeId", holiday.nodeId);
+			// Format the month date and then full date
+			const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
+			const dateFormatted = monthFormatted + " " + holiday.dateYear;
 
-		return (
-			<div key={index}>
-				<div
-					key={holiday.nodeId}
-					onClick={() => {
-						router.push({ pathname: "/holidays/" + holiday.nodeId });
-					}}
-					className={styles.holidayCard}>
-					{/* Hold the image to the left of the card details */}
-					<Image
-						src={holidayImageURL}
-						unoptimized={true}
-						alt={`${holiday.name} Image`}
-						height={Constants.HolidayCardImageHeight}
-						width={Constants.HolidayCardImageWidth}
-						quality={80}
-						className={styles.holidayCardImage}
-					/>
-					{/* Hold the card details to the right of the image */}
-					<div className={styles.holidayCardDetails}>
-						{/* Add a top row holding icons and the holiday header */}
-						<div className={styles.holidayCardDetailsTopRow}>
-							<RoomIcon className={styles.holidayCardLocationIcon} />
-							<h3>{holiday.locations?.[0]}</h3> {/* Return the first location */}
-							{/* TODO: Add link to Google Maps */}
-							<a href='{props.experience.googleMapsUrl}'>
-								<DirectionsIcon className={styles.holidayCardDirectionsIcon} />
-								{/* TODO: Consider displaying the below text on certain size screens */}
-								<p className={styles.holidayCardDirectionsText}>View on Google Maps</p>
-							</a>
-						</div>
+			// Create an event handler for the holiday card button
+			const holidayClickHandler = () => {
+				router.push({ pathname: "/holidays/" + holiday.nodeId });
+			};
 
-						{/* Hold the main contents of the card including title and description details */}
-						<div className={styles.holidayCardDetailsText}>
-							<h2>{holiday.name}</h2> {/* Return the holiday name */}
-							{/* Display the dates */}
-							<p className={styles.holidayCardDates}>
-								{monthFormatted} {holiday.dateYear}
-							</p>
-							{holiday.holidayTitle ? <h3>{holiday.holidayTitle}</h3> : null} {/* Return the holiday title */}
-						</div>
-					</div>
-				</div>
-				<div className={styles.separator}></div>
-			</div>
-		);
-	});
+			return (
+				<HolidayCard
+					key={index}
+					holidayName={holiday.name}
+					holidayTags={displayHolidayTags}
+					holidayDate={dateFormatted}
+					holidayImageURL={holidayImageURL}
+					clickHoliday={holidayClickHandler}
+				/>
+			);
+		});
 
 	return (
-		<>
-			{/* // TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
-			<FilterDecade selectedDecade={selectedDecade} onDecadeChange={(e) => setSelectedDecade(e.target.value)} />
+		// Hold the full list of holidays and header
+		<div className={styles.holidayCardListContainer}>
+			{/* Hold the header and filters and sort */}
+			<div className={styles.headerContainer}>
+				{/* Hold the header text */}
+				<h2 className={styles.holidayHeader}>holidays.</h2>
+				{/* Hold the filter and controls container */}
+				<Group className={styles.headerFilterContainer}>
+					<Text className={styles.filterLabel}>{filterText}</Text>
+					<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
+					<ActionIcon
+						variant='filled'
+						onClick={() => onSortOrderChange(sortOrder === "OldToNew" ? "NewToOld" : "OldToNew")}
+						className={styles.sortButton}>
+						<SwapVertIcon style={{ width: rem(18), height: rem(18) }} />
+					</ActionIcon>
+					{/* TODO: Once the holiday data is better defined, update this to have a filter for stuff like dates */}
+				</Group>
+				{/* Add a horrible header background container to keep a full width white background */}
+				<div className={styles.headerContainerBackground}></div>
+			</div>
+
+			{/* Display the holiday card list */}
 			<div className={styles.holidayCardList}>{holidayElements}</div>
-		</>
+		</div>
 	);
 };
 

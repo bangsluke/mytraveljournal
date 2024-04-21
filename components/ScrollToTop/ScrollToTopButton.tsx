@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import styles from "./ScrollToTopButton.module.css";
 
 const ScrollToTopButton = () => {
-	const [isVisible, setIsVisible] = useState(false);
+	const [isVisible, setIsVisible] = useState(false); // Set a visible state
 
 	useEffect(() => {
 		const toggleVisibility = () => {
 			// if the user scrolls down, show the button
-			window.scrollY > 500 ? setIsVisible(true) : setIsVisible(false);
+			window.scrollY > 800 ? setIsVisible(true) : setIsVisible(false);
 		};
 		// listen for scroll events
 		window.addEventListener("scroll", toggleVisibility);

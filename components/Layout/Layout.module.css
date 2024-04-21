@@ -1,43 +1,82 @@
-.main {
-	/* background-color: aqua; */
-	/* Drop the contents of main under header */
-	padding: 0 0;
-	padding-top: var(--header-height, 80px);
+/* Hold the contents of main and the footer */
+.fullPageContainer {
+	/* background-color: purple; */
+	/* position: fixed; */
+	display: flex;
+	flex-direction: column;
+	/* min-height: 100vh; */
+	/* top: 0; */
+	/* left: 0; */
 	margin: 0;
-	min-height: 100vh;
-	min-width: 100vw;
+	padding: 0;
+	/* padding-left: 10vw; */
+	/* height: 100vh; */
+	width: 100%;
+	/* width: 100vw; */
+	align-items: center;
+	justify-content: center;
+
 }
 
-.mainStatic {
-	/* background-color: #0070f3; */
+.main {
+	/* background-color: aqua; */
+	/* Flex the main content to keep the footer set at the bottom - https: //philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
+	flex: 1;
+	position: static;
+	/* Drop the contents of main under header */
+	padding: var(--header-height, 80px) 0 0 0;
+	/* margin: 0 var(--sidebar-width-static, 200px) 0 0; */
+	left: 0;
 	display: grid;
 	grid-template-columns: auto 1fr;
-	/* Sidebar and main content */
-	grid-template-rows: 100vh;
-	/* Full height */
 	gap: 0px;
 	/* The gap between the sidebar and the main content */
 	justify-content: center;
 	align-items: flex-start;
+	align-self: center;
+	height: max-content;
+	overflow-y: scroll;
 }
 
 .mainDynamic {
-	/* background-color: #FFF000; */
-	padding-top: var(--header-height, 80px);
+	/* background-color: cadetblue; */
+	width: 100vw;
 }
 
-.footer {
-	display: flex;
-	flex: 1;
-	padding: 2rem 0;
-	border-top: 1px solid #eaeaea;
-	justify-content: center;
-	align-items: center;
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+	.main {
+		/* background-color: #FFF000; */
+		min-width: 100vw;
+	}
 }
 
-.footer a {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 1;
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.main {
+		/* background-color: #FF0000; */
+		left: 0;
+		min-width: 100vw;
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+	.main {
+		/* background-color: #F11FF0; */
+		min-width: 100vw;
+		left: 0;
+	}
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+
+	.main {
+		/* background-color: lightblue; */
+		width: calc(100vw - var(--sidebar-width-static, 200px));
+		margin-left: var(--sidebar-width-static, 200px);
+		align-self: center;
+	}
 }

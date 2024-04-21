@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
+import { ActionIcon, Anchor, ScrollArea, Table, Text, Tooltip, rem } from "@mantine/core";
+import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { Person } from "../../graphql/__generated__/graphql";
+import Constants from "../../constants/constants";
+import { GetPeopleListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,37 +12,95 @@ import styles from "./Lists.module.css";
 export default function PersonsList() {
 	const router = useRouter(); // Import the Next router
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_PEOPLE);
+	// Get the list of people
+	const { loading, error, data } = useQuery(GetPeopleListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("GraphQLQueriesS.GET_PEOPLE GraphQL Error: ", error.message);
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<Toast message={"GraphQLQueriesS.GET_PEOPLE GraphQL Error: " + error.message} duration={5} />
-			</>
-		);
+		LogS.error("useQuery(GetPeopleListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetPeopleListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
-	LogS.log("person data: ", data);
-
 	// Filter out people with no holidays and then sort by the length of attendedHolidays
-	const sortedAndFilteredPeople = data.people
-		.filter((person: Person) => person.attendedHolidays && person.attendedHolidays.length > 0)
-		.sort((a: Person, b: Person) => b.attendedHolidays.length - a.attendedHolidays.length);
+	let sortedAndFilteredPeople = data?.people
+		.filter((person) => person.attendedHolidays && person.attendedHolidays.length > 0)
+		.sort((a, b) => b.attendedHolidays.length - a.attendedHolidays.length);
 
-	LogS.log("Sorted and filtered person data: ", sortedAndFilteredPeople);
+	// Map the sorted and filtered people to add the holiday count
+	sortedAndFilteredPeople = sortedAndFilteredPeople?.map((person) => {
+		let lastHoliday = person.attendedHolidays.reduce((prev, current) => {
+			return prev.sortDateValue > current.sortDateValue ? prev : current;
+		});
+
+		return {
+			...person,
+			holidayCount: person.attendedHolidays.length,
+			lastHoliday: {
+				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
+				nodeId: lastHoliday.nodeId,
+			},
+		};
+	});
+
+	// Get the height of the scrollable area
+	const windowHeight = window.innerHeight;
+	const scrollHeight = windowHeight - Constants.headerHeight;
+
+	// Map the sorted and filtered people to create the table rows
+	const rows = sortedAndFilteredPeople?.map((person: any) => (
+		<Table.Tr key={person.name} className={styles.rowHighlight}>
+			<Table.Td>
+				<Anchor
+					component='button'
+					size='sm'
+					fw={500}
+					onClick={() => router.push({ pathname: `/people/${person.nodeId}` })}
+					className={styles.leftAlign}>
+					{person.name}
+				</Anchor>
+			</Table.Td>
+			<Table.Td>
+				<Text fz='md' fw={500} onClick={() => router.push({ pathname: `/people/${person.nodeId}` })}>
+					{person.holidayCount}
+				</Text>
+			</Table.Td>
+			<Table.Td>
+				<Anchor
+					component='button'
+					size='sm'
+					onClick={() => router.push({ pathname: `/holidays/${person.lastHoliday.nodeId}` })}
+					className={styles.leftAlign}>
+					{person.lastHoliday.name}
+				</Anchor>
+			</Table.Td>
+			<Table.Td>
+				<ActionIcon variant='subtle' color='gray'>
+					<ArrowForwardSharpIcon
+						style={{ width: rem(16), height: rem(16) }}
+						onClick={() => router.push({ pathname: `/people/${person.nodeId}` })}
+					/>
+				</ActionIcon>
+			</Table.Td>
+		</Table.Tr>
+	));
 
 	return (
-		<div className={styles.dataList}>
-			<ul>
-				{sortedAndFilteredPeople.map(({ name, nodeId }: Person) => (
-					<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/people/${nodeId}` })}>
-						<h4>{name}</h4>
-					</li>
-				))}
-			</ul>
-		</div>
+		<ScrollArea h={scrollHeight} className={styles.dataList}>
+			<Table.ScrollContainer minWidth={300}>
+				<Table verticalSpacing='sm'>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Name</Table.Th>
+							<Tooltip label='Holiday Count' withArrow>
+								<Table.Th>Count</Table.Th>
+							</Tooltip>
+							<Table.Th>Last Holiday</Table.Th>
+							<Table.Th />
+						</Table.Tr>
+					</Table.Thead>
+					<Table.Tbody>{rows}</Table.Tbody>
+				</Table>
+			</Table.ScrollContainer>
+		</ScrollArea>
 	);
 }

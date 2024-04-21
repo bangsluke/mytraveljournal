@@ -1,4 +1,8 @@
+// Import styles of packages that you've installed.
+// All packages except `@mantine/hooks` require styles imports
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { MantineProvider, createTheme } from "@mantine/core";
+import "@mantine/core/styles.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import Constants from "../constants/constants";
@@ -11,6 +15,35 @@ import "../styles/globals.css";
 LogS.log(" NEXT_PUBLIC_ENV_NAME", process.env.NEXT_PUBLIC_ENV_NAME);
 const runMode = process.env.NODE_ENV;
 LogS.log("Site running in mode: ", runMode);
+
+console.log("Constants.mainAccent", Constants.mainAccent);
+
+// https://mantine.dev/theming/theme-object/#usage
+const theme = createTheme({
+	/** Put your mantine theme override here */
+	fontFamily: "Open Sans, sans-serif",
+	white: "#FFFFFF",
+	black: "#000000",
+	// TODO: Add here? https://mantine.dev/theming/theme-object/
+	colors: {
+		// Add your color
+		primary: [
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+			Constants.mainAccent,
+		],
+		// or replace default theme color
+		// blue: ["#E9EDFC", "#C1CCF6", "#99ABF0"],
+	},
+	primaryColor: "primary",
+});
 
 // Define dark mode
 //const darkMode = false; // TODO: Do something with this?
@@ -31,7 +64,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
 		<SessionProvider session={session}>
 			<ApolloProvider client={client}>
-				<Component {...pageProps} />
+				<MantineProvider theme={theme} defaultColorScheme='light'>
+					<Component {...pageProps} />
+				</MantineProvider>
 			</ApolloProvider>
 		</SessionProvider>
 	);

@@ -10,6 +10,7 @@
 	align-items: center;
 	position: fixed;
 	top: var(--header-height, 80px);
+	z-index: 5;
 }
 
 .pageHeader {
@@ -17,11 +18,9 @@
 	margin-left: 8px;
 }
 
-/* Adjust styling for mobile */
+/* Mobiles */
 @media only screen and (max-width: 767px) {
-
 	.pageHeaderContainer {
 		font-size: large;
 	}
-
 }

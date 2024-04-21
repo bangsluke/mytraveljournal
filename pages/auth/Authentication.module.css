@@ -32,19 +32,33 @@
 	line-height: 1rem;
 }
 
+.errorTitle {
+	font-size: 120px;
+	font: bold;
+	font-family: var(--font-family, ui-sans-serif);
+	line-height: 0rem;
+	color: var(--primary-accent, #fe395c);
+	padding: 0;
+	margin: 50px;
+	text-align: center;
+}
+
 .Logo {
 	height: 100px;
 	width: 100px;
 }
 
-/* Adjust styling for mobile */
-@media only screen and (max-width: 767px) {
+.text {
+	font-size: 14px;
+	color: var(--secondary-accent, #BBB);
+}
 
+/* Mobiles */
+@media only screen and (max-width: 767px) {
 	.card {
 		margin: 2rem 0 4rem;
 		/* Add a margin at the bottom to push the card up */
 	}
-
 }
 
 /* Style to match the NextAuth styling */
