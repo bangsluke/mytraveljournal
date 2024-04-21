@@ -11,7 +11,7 @@
 }
 
 .card {
-	background-color: var(--white, #FFFFFF);
+	background-color: var(--background, #fafafa);
 	width: 368px;
 	margin: 2rem 0;
 	/* Add a margin at the bottom to push the card up */
