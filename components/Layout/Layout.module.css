@@ -1,19 +1,28 @@
 /* Hold the contents of main and the footer */
 .fullPageContainer {
-	/* background-color: purple; */
+	background-color: purple;
+	/* position: fixed; */
 	display: flex;
 	flex-direction: column;
 	/* min-height: 100vh; */
-	height: 100%;
+	/* top: 0; */
+	/* left: 0; */
+	margin: 0;
+	padding: 0;
+	/* padding-left: 10vw; */
+	/* height: 100vh; */
+	width: 100%;
+	/* width: 100vw; */
 	align-items: center;
 	justify-content: center;
+
 }
 
 .main {
 	/* background-color: aqua; */
 	/* Flex the main content to keep the footer set at the bottom - https: //philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
 	flex: 1;
-	position: inherit;
+	position: static;
 	/* Drop the contents of main under header */
 	padding: var(--header-height, 80px) 0 0 0;
 	/* margin: 0 var(--sidebar-width-static, 200px) 0 0; */
@@ -25,6 +34,8 @@
 	justify-content: center;
 	align-items: flex-start;
 	align-self: center;
+	height: max-content;
+	overflow-y: scroll;
 }
 
 .mainDynamic {
@@ -45,6 +56,7 @@
 	.main {
 		/* background-color: #FF0000; */
 		left: 0;
+		min-width: 100vw;
 	}
 }
 
