@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { City, GetCapitalsDocument } from "../../graphql/__generated__/graphql";
+import { City, GetCapitalsListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,26 +10,13 @@ export default function CapitalsList() {
 	const router = useRouter(); // Import the Next router
 
 	// Get the list of capitals
-	const { loading, error, data } = useQuery(GetCapitalsDocument);
+	const { loading, error, data } = useQuery(GetCapitalsListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetCapitalsDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetCapitalsDocument) GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useQuery(GetCapitalsListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetCapitalsListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-
-	// const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CAPITALS);
-	// if (loading) return <Loading BackgroundStyle={"Transparent"} />;
-	// if (error) {
-	// 	// If error - show error message, and raise an error toast
-	// 	LogS.error("GraphQLQueriesS.GET_CAPITALS GraphQL Error: ", error.message);
-	// 	return (
-	// 		<>
-	// 			<p>Error : {error.message}</p>
-	// 			<Toast message={"GraphQLQueriesS.GET_CAPITALS GraphQL Error: " + error.message} duration={5} />
-	// 		</>
-	// 	);
-	// }
 
 	LogS.log("CapitalsList: capitals data: ", data);
 

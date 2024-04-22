@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Continent, GetContinentsDocument } from "../../graphql/__generated__/graphql";
+import { Continent, GetContinentsListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,12 +10,12 @@ export default function ContinentsList() {
 	const router = useRouter(); // Import the Next router
 
 	// Get the list of continents
-	const { loading, error, data } = useQuery(GetContinentsDocument);
+	const { loading, error, data } = useQuery(GetContinentsListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetContinentsDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetContinentsDocument) GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useQuery(GetContinentsListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetContinentsListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	LogS.log("ContinentsList: continents data: ", data);

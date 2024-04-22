@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Country, GetCountriesDocument } from "../../graphql/__generated__/graphql";
+import { Country, GetCountriesListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,12 +10,12 @@ export default function CountryList() {
 	const router = useRouter(); // Import the Next router
 
 	// Get the list of countries
-	const { loading, error, data } = useQuery(GetCountriesDocument);
+	const { loading, error, data } = useQuery(GetCountriesListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetCountriesDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetCountriesDocument) GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useQuery(GetCountriesListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetCountriesListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	// TODO: Order countries by number of times visited

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { City, GetCitiesDocument } from "../../graphql/__generated__/graphql";
+import { City, GetCitiesListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,12 +10,12 @@ export default function CitiesList() {
 	const router = useRouter(); // Import the Next router
 
 	// Get the list of cities
-	const { loading, error, data } = useQuery(GetCitiesDocument);
+	const { loading, error, data } = useQuery(GetCitiesListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetCitiesDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetCitiesDocument) GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useQuery(GetCitiesListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetCitiesListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	// LogS.log("CitiesList: cities data: ", data);
