@@ -3,39 +3,32 @@ import { useRouter } from "next/router";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { Continent } from "../../graphql/__generated__/graphql";
+import Toast from "../../components/Toast/Toast";
+import { GetContinentByIdDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import withAuth from "../api/auth/withAuth";
 
 function ContinentPage() {
 	const router = useRouter(); // Import the Next router
-	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
+	const { nodeId }: any = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_CONTINENT_BY_ID, {
-		variables: { nodeId }, // Pass the variable to the query
+	// Get the continent by Id
+	const { loading, error, data } = useQuery(GetContinentByIdDocument, {
+		variables: { nodeId }, // Pass the variable to the query);
 	});
+	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
+	if (error) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetContinentByIdDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetContinentByIdDocument) GraphQL Error: " + error.message} duration={5} />;
+	}
 
-	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
-	if (error)
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<div
-					className={styles.ErrorMessageDiv}
-					onClick={() => router.back()} // Go back to the last visited page
-				>
-					<h4>Click here to go back</h4>
-				</div>
-			</>
-		);
-
-	// LogS.log("data", data);
+	LogS.log("Continent [nodeId]: data", data);
 
 	// Extract the data into usable variables
-	const { name }: Continent = data.continents[0];
+	const { name }: any = data?.continents[0];
 
 	// LogS.log("continent data: ", data);
 

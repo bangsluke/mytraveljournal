@@ -1,6 +1,6 @@
 .pageHeaderContainer {
 	/* background-color: #0070f3; */
-	background-color: var(--white, #fff);
+	background-color: var(--background, #fafafa);
 	line-height: 5px;
 	width: 100%;
 	text-align: left;
