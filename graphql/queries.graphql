@@ -222,7 +222,7 @@ query GetPeople {
 	}
 }
 
-query GetPeopleById($nodeId: String) {
+query GetPersonById($nodeId: String) {
 	people(where: { nodeId: $nodeId }) {
 		name
 		nodeId
