@@ -137,17 +137,13 @@ On starting up the server in development mode, the back end types and resolvers 
 
 On starting up the front end in development mode, the front end types are generated from the graphql server `localhost:4000/graphql`, using the `npm run generate` command. This produces several files in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/` which can then be used within the front end development.
 
-<!-- TODO: Update this once understanding if using the query.graphql file or the GraphQLQueries.ts file -->
-
-Further to this, there are some additional front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/GraphQLQueries.ts`. These are manually updated as needed.
+Further to this, there are some additional front end queries that are stored in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/queries.graphql`. These are manually updated as needed and used to make queries in the front end on front end start up.
 
 This keeps the front end up to date with the back end and fully typed.
 
 ### How to extend the Schema and queries
 
 - To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the types will be updated.
-- To extend the queries, test out making queries by running the server in development mode and going to http://localhost:4000/graphql to use the sandbox. Then manually update the file `GraphQLQueries.ts` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/GraphQLQueries.ts`.
-
-<!-- TODO: Update this once understanding if using the query.graphql file or the GraphQLQueries.ts file -->
+- To extend the queries, test out making queries by running the server in development mode and going to `http://localhost:4000/graphql` to use the sandbox. Then manually update the file `queries.graphql` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/queries.graphql`.
 
 > [Back to Table of Contents](#table-of-contents)
