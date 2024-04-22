@@ -35,6 +35,7 @@
 	align-items: flex-start;
 	align-self: center;
 	height: max-content;
+	min-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 80px));
 	overflow-y: scroll;
 }
 

@@ -29,7 +29,7 @@
 	right: 0;
 	height: 10%;
 	/* Adjust the height to control the blur/fade effect */
-	background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), white);
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), var(--background, #fafafa));
 	/* Fading effect to white */
 	/* filter: blur(10px); */
 	/* Add blur effect */

@@ -7,7 +7,7 @@
 	top: 0;
 	width: var(--sidebar-width-static, 300px);
 	height: 100vh;
-	background-color: #FFF;
+	background-color: var(--background, #fafafa);
 	opacity: 1;
 	transition: left 0.3s ease-in-out;
 	z-index: 100;
