@@ -18,5 +18,36 @@
   margin: auto;
   height: 210px;
   width: 95%;
-  background-color: #EAEAEA;
+}
+
+/* Mobiles */
+@media only screen and (max-width: 767px) {
+  .section {
+    /* background-color: #FFF000; */
+    padding: 0 10px;
+  }
+}
+
+/* Portrait mobiles */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  .section {
+    /* background-color: #FF0000; */
+    padding: 0 10px;
+  }
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .section {
+    /* background-color: #F11FF0; */
+    padding: 0 20px;
+  }
+}
+
+/* Desktops */
+@media only screen and (min-width: 1024px) {
+  .section {
+    /* background-color: lightgreen; */
+    padding: 0 30px;
+  }
 }
