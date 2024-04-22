@@ -44,6 +44,8 @@ query GetCardCounts {
 	}
 }
 
+# Continents
+
 query GetContinents {
 	continents {
 		name
@@ -58,6 +60,16 @@ query GetContinentById($nodeId: String) {
 	}
 }
 
+# Query for the Continents list page
+query GetContinentsList {
+	continents {
+		name
+		nodeId
+	}
+}
+
+# Countries
+
 query GetCountries {
 	countries {
 		name
@@ -71,6 +83,16 @@ query GetCountryById($nodeId: String) {
 		nodeId
 	}
 }
+
+# Query for the Countries list page
+query GetCountriesList {
+	countries {
+		name
+		nodeId
+	}
+}
+
+# Cities
 
 query GetCities {
 	cities {
@@ -94,6 +116,20 @@ query GetCityById($nodeId: String) {
 	}
 }
 
+# Query for the Cities list page
+query GetCitiesList {
+	cities {
+		name
+		nodeId
+		capital
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+# Capitals
+
 query GetCapitals($capitalCheck: Boolean) {
 	cities(where: { capital: $capitalCheck }) {
 		name
@@ -104,6 +140,20 @@ query GetCapitals($capitalCheck: Boolean) {
 		}
 	}
 }
+
+# Query for the Capital list page
+query GetCapitalsList($capitalCheck: Boolean) {
+	cities(where: { capital: $capitalCheck }) {
+		name
+		nodeId
+		capital
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+# Towns
 
 query GetTowns {
 	towns {
@@ -125,6 +175,19 @@ query GetTownById($nodeId: String) {
 	}
 }
 
+# Query for the Town list page
+query GetTownsList {
+	towns {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+# Islands
+
 query GetIslands {
 	islands {
 		name
@@ -135,6 +198,19 @@ query GetIslands {
 	}
 }
 
+# Query for the Islands list page
+query GetIslandsList {
+	islands {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+		}
+	}
+}
+
+# People
+
 query GetPeople {
 	people {
 		name
@@ -142,6 +218,20 @@ query GetPeople {
 		aliases
 		attendedHolidays {
 			nodeId
+		}
+	}
+}
+
+query GetPersonById($nodeId: String) {
+	people(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		aliases
+		attendedHolidays {
+			name
+			holidayTitle
+			nodeId
+			sortDateValue
 		}
 	}
 }
@@ -163,19 +253,7 @@ query GetPeopleList {
 	}
 }
 
-query GetPeopleById($nodeId: String) {
-	people(where: { nodeId: $nodeId }) {
-		name
-		nodeId
-		aliases
-		attendedHolidays {
-			name
-			holidayTitle
-			nodeId
-			sortDateValue
-		}
-	}
-}
+# Holidays
 
 # Query for all holidays data
 query GetHolidays {
@@ -198,6 +276,25 @@ query GetHolidays {
 
 query GetHolidayById($nodeId: String) {
 	holidays(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		tags
+		dateYear
+		dateMonth
+		sortDateValue
+		holidayTitle
+		locations
+		coverPhoto
+		photoAlbum
+		attendees
+		textHtmlContent
+		departingAirport
+	}
+}
+
+# Query for the Holidays list page
+query GetHolidaysList {
+	holidays {
 		name
 		nodeId
 		tags

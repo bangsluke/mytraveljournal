@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import GraphQLQueriesS from "../../graphql/GraphQLQueriesS";
-import { Town } from "../../graphql/__generated__/graphql";
+import { GetTownsListDocument, Town } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
@@ -10,25 +9,21 @@ import styles from "./Lists.module.css";
 export default function TownsList() {
 	const router = useRouter(); // Import the Next router
 
-	const { loading, error, data } = useQuery(GraphQLQueriesS.GET_TOWNS);
+	// Get the list of towns
+	const { loading, error, data } = useQuery(GetTownsListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("GraphQLQueriesS.GET_TOWNS GraphQL Error: ", error.message);
-		return (
-			<>
-				<p>Error : {error.message}</p>
-				<Toast message={"GraphQLQueriesS.GET_TOWNS GraphQL Error: " + error.message} duration={5} />
-			</>
-		);
+		LogS.error("useQuery(GetTownsListDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetTownsListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
 	LogS.log("towns data: ", data);
 
 	// Filter out towns with no holidays and then sort by the length of timesVisited
 	//const sortedAndFilteredTowns = data.towns;
-	const sortedAndFilteredTowns = data.towns
-		.filter((town: Town) => town.linkedHolidays && town.linkedHolidays.length > 0)
+	const sortedAndFilteredTowns: any = data?.towns
+		.filter((town: any) => town.linkedHolidays && town.linkedHolidays.length > 0)
 		.sort((a: any, b: any) => b.linkedHolidays.length - a.linkedHolidays.length);
 
 	LogS.log("Sorted and filtered town data: ", sortedAndFilteredTowns);
