@@ -77,7 +77,7 @@ function HolidayPage() {
 	} else {
 		holidayImageURL = coverPhoto;
 	}
-	LogS.log("holidayImageURL: ", holidayImageURL);
+	// LogS.log("holidayImageURL: ", holidayImageURL);
 
 	// Format the month date
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
@@ -110,6 +110,8 @@ function HolidayPage() {
 		}
 	});
 
+	LogS.log("textHtmlContent", textHtmlContent);
+
 	return (
 		<Layout NavbarStyle='Transparent'>
 			{/* Hold all of the content for the holiday page */}
@@ -137,6 +139,7 @@ function HolidayPage() {
 						<span>.</span>
 					</h3>
 
+					{/* Hold the pills and tags */}
 					<section className={styles.pillsSection}>
 						<div className={styles.holidayPills}>
 							{/* List the holiday pills */}
@@ -151,12 +154,14 @@ function HolidayPage() {
 						</div>
 					</section>
 
+					{/* Hold the attendees list of links */}
 					<section className={styles.attendeesSection}>
 						{/* List the holiday attendees */}
 						<h4>Attendees:</h4>
 						<AttendeesList stringArray={attendees} />
 					</section>
 
+					{/* Hold the parsed Markdown body text */}
 					<section className={styles.textSection}>
 						{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
 						<Interweave content={textHtmlContent} />
