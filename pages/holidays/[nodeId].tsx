@@ -4,10 +4,11 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
-import { Interweave } from "interweave"; // https://github.com/milesj/interweave/
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import Pill from "../../components/Pill/Pill";
@@ -42,6 +43,28 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 	return <>{linkElements}</>;
 }
 
+interface MyRendererProps {
+	children: string;
+}
+
+// Custom renderer with custom replace rules
+const MyRenderer: React.FC<MyRendererProps> = ({ children }) => {
+	return (
+		<Markdown
+			remarkPlugins={[remarkGfm]} // Include the GitHub Flavored Markdown plugin
+			children={children // Add custom rules for replacing text
+				.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!bigback] Link back to [[Personal Home|Home]]"
+				.replace(/> \[!back\] Link back to \[\[Travel\]\]/g, "") // Remove "> [!back] Link back to [[Travel]]"
+				.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
+				.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
+					// Replace [[ with <a>
+					const slug = label.toLowerCase().replace(/\s+/g, "-");
+					return `<a href="/${slug}">${label}</a>`;
+				})}
+		/>
+	);
+};
+
 function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
@@ -59,25 +82,25 @@ function HolidayPage() {
 		return <Toast message={"useQuery(GetHolidayByIdDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
-	LogS.log("holiday data: ", data);
+	// LogS.log("holiday data: ", data);
 
 	// Extract the data into usable variables
 	// @ts-ignore
-	const { dateYear, dateMonth, name, coverPhoto, textHtmlContent, attendees, departingAirport, locations, photoAlbum }: Holiday =
+	const { dateYear, dateMonth, name, coverPhoto, fullText, readableText, attendees, departingAirport, locations, photoAlbum }: Holiday =
 		// @ts-ignore
 		data.holidays[0];
 	LogS.log("holiday data: ", data);
-	LogS.log("attendees: ", attendees);
+	// LogS.log("attendees: ", attendees);
 
 	// Define the holiday image URL
-	LogS.log("coverPhoto: ", coverPhoto);
+	// LogS.log("coverPhoto: ", coverPhoto);
 	let holidayImageURL = "";
 	if (coverPhoto == null || coverPhoto == "" || coverPhoto == "TBC") {
 		holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
 	} else {
 		holidayImageURL = coverPhoto;
 	}
-	LogS.log("holidayImageURL: ", holidayImageURL);
+	// LogS.log("holidayImageURL: ", holidayImageURL);
 
 	// Format the month date
 	const monthFormatted = new Date(2000, parseInt(dateMonth) - 1).toLocaleString("default", { month: "long" });
@@ -92,7 +115,7 @@ function HolidayPage() {
 		property3: { id: 3, text: departingAirport, image: <FlightTakeoffIcon /> },
 		property4: { id: 4, text: photoAlbum, image: <AddAPhotoIcon /> },
 	};
-	LogS.log("properties", properties);
+	// LogS.log("properties", properties);
 
 	// Define the pills for the holiday
 	const pills = Object.keys(properties).map((property) => {
@@ -109,6 +132,8 @@ function HolidayPage() {
 			return <Pill key={id} icon={image} text={text} />;
 		}
 	});
+
+	// LogS.log("fullText", fullText);
 
 	return (
 		<Layout NavbarStyle='Transparent'>
@@ -137,6 +162,7 @@ function HolidayPage() {
 						<span>.</span>
 					</h3>
 
+					{/* Hold the pills and tags */}
 					<section className={styles.pillsSection}>
 						<div className={styles.holidayPills}>
 							{/* List the holiday pills */}
@@ -151,15 +177,17 @@ function HolidayPage() {
 						</div>
 					</section>
 
+					{/* Hold the attendees list of links */}
 					<section className={styles.attendeesSection}>
 						{/* List the holiday attendees */}
 						<h4>Attendees:</h4>
 						<AttendeesList stringArray={attendees} />
 					</section>
 
+					{/* Hold the parsed Markdown body text */}
 					<section className={styles.textSection}>
-						{/* Use the Interweave library to render the HTML content - https://github.com/milesj/interweave/ */}
-						<Interweave content={textHtmlContent} />
+						{/* Add a custom react-markdown wrapper around the received text */}
+						<MyRenderer>{fullText}</MyRenderer>
 					</section>
 				</div>
 			</div>
