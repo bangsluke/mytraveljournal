@@ -258,37 +258,43 @@ query GetPeopleList {
 # Query for all holidays data
 query GetHolidays {
 	holidays {
-		name
 		nodeId
+		name
+		holidayTitle
 		tags
 		dateYear
 		dateMonth
 		sortDateValue
-		holidayTitle
+		fullText
+		readableText
 		locations
+		# travelled_to
+		departingAirport
 		coverPhoto
 		photoAlbum
 		attendees
-		textHtmlContent
-		departingAirport
+		# attended
 	}
 }
 
 query GetHolidayById($nodeId: String) {
 	holidays(where: { nodeId: $nodeId }) {
-		name
 		nodeId
+		name
+		holidayTitle
 		tags
 		dateYear
 		dateMonth
 		sortDateValue
-		holidayTitle
+		fullText
+		readableText
 		locations
+		# travelled_to
+		departingAirport
 		coverPhoto
 		photoAlbum
 		attendees
-		textHtmlContent
-		departingAirport
+		# attended
 	}
 }
 
@@ -306,7 +312,6 @@ query GetHolidaysList {
 		coverPhoto
 		photoAlbum
 		attendees
-		textHtmlContent
 		departingAirport
 	}
 }
