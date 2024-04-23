@@ -43,8 +43,12 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 	return <>{linkElements}</>;
 }
 
+interface MyRendererProps {
+	children: string;
+}
+
 // Custom renderer with custom replace rules
-const MyRenderer = ({ children }) => {
+const MyRenderer: React.FC<MyRendererProps> = ({ children }) => {
 	return (
 		<Markdown
 			remarkPlugins={[remarkGfm]} // Include the GitHub Flavored Markdown plugin
@@ -52,7 +56,7 @@ const MyRenderer = ({ children }) => {
 				.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!bigback] Link back to [[Personal Home|Home]]"
 				.replace(/> \[!back\] Link back to \[\[Travel\]\]/g, "") // Remove "> [!back] Link back to [[Travel]]"
 				.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
-				.replace(/\[\[(.*?)\]\]/g, (_, label) => {
+				.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 					// Replace [[ with <a>
 					const slug = label.toLowerCase().replace(/\s+/g, "-");
 					return `<a href="/${slug}">${label}</a>`;
