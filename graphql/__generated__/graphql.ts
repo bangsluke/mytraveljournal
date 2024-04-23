@@ -154,12 +154,13 @@ export type CityHolidayLinkedHolidaysNodeAggregateSelection = {
   dateMonth: StringAggregateSelectionNonNullable;
   dateYear: StringAggregateSelectionNonNullable;
   departingAirport: StringAggregateSelectionNullable;
+  fullText: StringAggregateSelectionNonNullable;
   holidayTitle: StringAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   nodeId: StringAggregateSelectionNonNullable;
   photoAlbum: StringAggregateSelectionNullable;
+  readableText: StringAggregateSelectionNonNullable;
   sortDateValue: StringAggregateSelectionNonNullable;
-  textHtmlContent: StringAggregateSelectionNonNullable;
 };
 
 export type CityLinkedHolidaysAggregateInput = {
@@ -279,6 +280,21 @@ export type CityLinkedHolidaysNodeAggregationWhereInput = {
   departingAirport_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   holidayTitle_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -339,6 +355,21 @@ export type CityLinkedHolidaysNodeAggregationWhereInput = {
   photoAlbum_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -354,21 +385,6 @@ export type CityLinkedHolidaysNodeAggregationWhereInput = {
   sortDateValue_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type CityLinkedHolidaysRelationship = {
@@ -632,6 +648,12 @@ export type CreateIslandsMutationResponse = {
   islands: Array<Island>;
 };
 
+export type CreateLocationsMutationResponse = {
+  __typename?: 'CreateLocationsMutationResponse';
+  info: CreateInfo;
+  locations: Array<Location>;
+};
+
 export type CreateMoviesMutationResponse = {
   __typename?: 'CreateMoviesMutationResponse';
   info: CreateInfo;
@@ -664,14 +686,15 @@ export type Holiday = {
   dateMonth: Scalars['String']['output'];
   dateYear: Scalars['String']['output'];
   departingAirport?: Maybe<Scalars['String']['output']>;
+  fullText: Scalars['String']['output'];
   holidayTitle: Scalars['String']['output'];
   locations?: Maybe<Array<Scalars['String']['output']>>;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
   photoAlbum?: Maybe<Scalars['String']['output']>;
+  readableText: Scalars['String']['output'];
   sortDateValue: Scalars['String']['output'];
   tags?: Maybe<Array<Scalars['String']['output']>>;
-  textHtmlContent: Scalars['String']['output'];
 };
 
 export type HolidayAggregateSelection = {
@@ -681,12 +704,13 @@ export type HolidayAggregateSelection = {
   dateMonth: StringAggregateSelectionNonNullable;
   dateYear: StringAggregateSelectionNonNullable;
   departingAirport: StringAggregateSelectionNullable;
+  fullText: StringAggregateSelectionNonNullable;
   holidayTitle: StringAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   nodeId: StringAggregateSelectionNonNullable;
   photoAlbum: StringAggregateSelectionNullable;
+  readableText: StringAggregateSelectionNonNullable;
   sortDateValue: StringAggregateSelectionNonNullable;
-  textHtmlContent: StringAggregateSelectionNonNullable;
 };
 
 export type HolidayConnectWhere = {
@@ -699,14 +723,15 @@ export type HolidayCreateInput = {
   dateMonth: Scalars['String']['input'];
   dateYear: Scalars['String']['input'];
   departingAirport?: InputMaybe<Scalars['String']['input']>;
+  fullText: Scalars['String']['input'];
   holidayTitle: Scalars['String']['input'];
   locations?: InputMaybe<Array<Scalars['String']['input']>>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
   photoAlbum?: InputMaybe<Scalars['String']['input']>;
+  readableText: Scalars['String']['input'];
   sortDateValue: Scalars['String']['input'];
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
-  textHtmlContent: Scalars['String']['input'];
 };
 
 export type HolidayEdge = {
@@ -728,12 +753,13 @@ export type HolidaySort = {
   dateMonth?: InputMaybe<SortDirection>;
   dateYear?: InputMaybe<SortDirection>;
   departingAirport?: InputMaybe<SortDirection>;
+  fullText?: InputMaybe<SortDirection>;
   holidayTitle?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   nodeId?: InputMaybe<SortDirection>;
   photoAlbum?: InputMaybe<SortDirection>;
+  readableText?: InputMaybe<SortDirection>;
   sortDateValue?: InputMaybe<SortDirection>;
-  textHtmlContent?: InputMaybe<SortDirection>;
 };
 
 export type HolidayUpdateInput = {
@@ -744,6 +770,7 @@ export type HolidayUpdateInput = {
   dateMonth?: InputMaybe<Scalars['String']['input']>;
   dateYear?: InputMaybe<Scalars['String']['input']>;
   departingAirport?: InputMaybe<Scalars['String']['input']>;
+  fullText?: InputMaybe<Scalars['String']['input']>;
   holidayTitle?: InputMaybe<Scalars['String']['input']>;
   locations?: InputMaybe<Array<Scalars['String']['input']>>;
   locations_POP?: InputMaybe<Scalars['Int']['input']>;
@@ -751,11 +778,11 @@ export type HolidayUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
   photoAlbum?: InputMaybe<Scalars['String']['input']>;
+  readableText?: InputMaybe<Scalars['String']['input']>;
   sortDateValue?: InputMaybe<Scalars['String']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   tags_POP?: InputMaybe<Scalars['Int']['input']>;
   tags_PUSH?: InputMaybe<Array<Scalars['String']['input']>>;
-  textHtmlContent?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type HolidayWhere = {
@@ -784,6 +811,11 @@ export type HolidayWhere = {
   departingAirport_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
   departingAirport_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   departingAirport_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  fullText?: InputMaybe<Scalars['String']['input']>;
+  fullText_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  fullText_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  fullText_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  fullText_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
   holidayTitle?: InputMaybe<Scalars['String']['input']>;
   holidayTitle_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   holidayTitle_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -806,6 +838,11 @@ export type HolidayWhere = {
   photoAlbum_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
   photoAlbum_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   photoAlbum_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  readableText?: InputMaybe<Scalars['String']['input']>;
+  readableText_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  readableText_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  readableText_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  readableText_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
   sortDateValue?: InputMaybe<Scalars['String']['input']>;
   sortDateValue_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   sortDateValue_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -813,11 +850,6 @@ export type HolidayWhere = {
   sortDateValue_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   tags_INCLUDES?: InputMaybe<Scalars['String']['input']>;
-  textHtmlContent?: InputMaybe<Scalars['String']['input']>;
-  textHtmlContent_CONTAINS?: InputMaybe<Scalars['String']['input']>;
-  textHtmlContent_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
-  textHtmlContent_IN?: InputMaybe<Array<Scalars['String']['input']>>;
-  textHtmlContent_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type HolidaysConnection = {
@@ -907,12 +939,13 @@ export type IslandHolidayLinkedHolidaysNodeAggregateSelection = {
   dateMonth: StringAggregateSelectionNonNullable;
   dateYear: StringAggregateSelectionNonNullable;
   departingAirport: StringAggregateSelectionNullable;
+  fullText: StringAggregateSelectionNonNullable;
   holidayTitle: StringAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   nodeId: StringAggregateSelectionNonNullable;
   photoAlbum: StringAggregateSelectionNullable;
+  readableText: StringAggregateSelectionNonNullable;
   sortDateValue: StringAggregateSelectionNonNullable;
-  textHtmlContent: StringAggregateSelectionNonNullable;
 };
 
 export type IslandLinkedHolidaysAggregateInput = {
@@ -1032,6 +1065,21 @@ export type IslandLinkedHolidaysNodeAggregationWhereInput = {
   departingAirport_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   holidayTitle_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -1092,6 +1140,21 @@ export type IslandLinkedHolidaysNodeAggregationWhereInput = {
   photoAlbum_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -1107,21 +1170,6 @@ export type IslandLinkedHolidaysNodeAggregationWhereInput = {
   sortDateValue_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type IslandLinkedHolidaysRelationship = {
@@ -1206,6 +1254,71 @@ export type IslandsConnection = {
   totalCount: Scalars['Int']['output'];
 };
 
+export type Location = {
+  __typename?: 'Location';
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+};
+
+export type LocationAggregateSelection = {
+  __typename?: 'LocationAggregateSelection';
+  count: Scalars['Int']['output'];
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
+};
+
+export type LocationCreateInput = {
+  name: Scalars['String']['input'];
+  nodeId: Scalars['String']['input'];
+};
+
+export type LocationEdge = {
+  __typename?: 'LocationEdge';
+  cursor: Scalars['String']['output'];
+  node: Location;
+};
+
+export type LocationOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  /** Specify one or more LocationSort objects to sort Locations by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<LocationSort>>;
+};
+
+/** Fields to sort Locations by. The order in which sorts are applied is not guaranteed when specifying many fields in one LocationSort object. */
+export type LocationSort = {
+  name?: InputMaybe<SortDirection>;
+  nodeId?: InputMaybe<SortDirection>;
+};
+
+export type LocationUpdateInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type LocationWhere = {
+  AND?: InputMaybe<Array<LocationWhere>>;
+  NOT?: InputMaybe<LocationWhere>;
+  OR?: InputMaybe<Array<LocationWhere>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+  nodeId_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  nodeId_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  nodeId_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  nodeId_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type LocationsConnection = {
+  __typename?: 'LocationsConnection';
+  edges: Array<LocationEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
 export type Movie = {
   __typename?: 'Movie';
   title?: Maybe<Scalars['String']['output']>;
@@ -1269,6 +1382,7 @@ export type Mutation = {
   createCountries: CreateCountriesMutationResponse;
   createHolidays: CreateHolidaysMutationResponse;
   createIslands: CreateIslandsMutationResponse;
+  createLocations: CreateLocationsMutationResponse;
   createMovies: CreateMoviesMutationResponse;
   createPeople: CreatePeopleMutationResponse;
   createTowns: CreateTownsMutationResponse;
@@ -1278,6 +1392,7 @@ export type Mutation = {
   deleteCountries: DeleteInfo;
   deleteHolidays: DeleteInfo;
   deleteIslands: DeleteInfo;
+  deleteLocations: DeleteInfo;
   deleteMovies: DeleteInfo;
   deletePeople: DeleteInfo;
   deleteTowns: DeleteInfo;
@@ -1287,6 +1402,7 @@ export type Mutation = {
   updateCountries: UpdateCountriesMutationResponse;
   updateHolidays: UpdateHolidaysMutationResponse;
   updateIslands: UpdateIslandsMutationResponse;
+  updateLocations: UpdateLocationsMutationResponse;
   updateMovies: UpdateMoviesMutationResponse;
   updatePeople: UpdatePeopleMutationResponse;
   updateTowns: UpdateTownsMutationResponse;
@@ -1320,6 +1436,11 @@ export type MutationCreateHolidaysArgs = {
 
 export type MutationCreateIslandsArgs = {
   input: Array<IslandCreateInput>;
+};
+
+
+export type MutationCreateLocationsArgs = {
+  input: Array<LocationCreateInput>;
 };
 
 
@@ -1367,6 +1488,11 @@ export type MutationDeleteHolidaysArgs = {
 export type MutationDeleteIslandsArgs = {
   delete?: InputMaybe<IslandDeleteInput>;
   where?: InputMaybe<IslandWhere>;
+};
+
+
+export type MutationDeleteLocationsArgs = {
+  where?: InputMaybe<LocationWhere>;
 };
 
 
@@ -1428,6 +1554,12 @@ export type MutationUpdateIslandsArgs = {
   disconnect?: InputMaybe<IslandDisconnectInput>;
   update?: InputMaybe<IslandUpdateInput>;
   where?: InputMaybe<IslandWhere>;
+};
+
+
+export type MutationUpdateLocationsArgs = {
+  update?: InputMaybe<LocationUpdateInput>;
+  where?: InputMaybe<LocationWhere>;
 };
 
 
@@ -1629,6 +1761,21 @@ export type PersonAttendedHolidaysNodeAggregationWhereInput = {
   departingAirport_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   holidayTitle_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -1689,6 +1836,21 @@ export type PersonAttendedHolidaysNodeAggregationWhereInput = {
   photoAlbum_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -1704,21 +1866,6 @@ export type PersonAttendedHolidaysNodeAggregationWhereInput = {
   sortDateValue_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type PersonAttendedHolidaysRelationship = {
@@ -1777,12 +1924,13 @@ export type PersonHolidayAttendedHolidaysNodeAggregateSelection = {
   dateMonth: StringAggregateSelectionNonNullable;
   dateYear: StringAggregateSelectionNonNullable;
   departingAirport: StringAggregateSelectionNullable;
+  fullText: StringAggregateSelectionNonNullable;
   holidayTitle: StringAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   nodeId: StringAggregateSelectionNonNullable;
   photoAlbum: StringAggregateSelectionNullable;
+  readableText: StringAggregateSelectionNonNullable;
   sortDateValue: StringAggregateSelectionNonNullable;
-  textHtmlContent: StringAggregateSelectionNonNullable;
 };
 
 export type PersonOptions = {
@@ -1869,6 +2017,9 @@ export type Query = {
   islands: Array<Island>;
   islandsAggregate: IslandAggregateSelection;
   islandsConnection: IslandsConnection;
+  locations: Array<Location>;
+  locationsAggregate: LocationAggregateSelection;
+  locationsConnection: LocationsConnection;
   movies: Array<Movie>;
   moviesAggregate: MovieAggregateSelection;
   moviesConnection: MoviesConnection;
@@ -1997,6 +2148,25 @@ export type QueryIslandsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<IslandSort>>>;
   where?: InputMaybe<IslandWhere>;
+};
+
+
+export type QueryLocationsArgs = {
+  options?: InputMaybe<LocationOptions>;
+  where?: InputMaybe<LocationWhere>;
+};
+
+
+export type QueryLocationsAggregateArgs = {
+  where?: InputMaybe<LocationWhere>;
+};
+
+
+export type QueryLocationsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<LocationSort>>>;
+  where?: InputMaybe<LocationWhere>;
 };
 
 
@@ -2149,12 +2319,13 @@ export type TownHolidayLinkedHolidaysNodeAggregateSelection = {
   dateMonth: StringAggregateSelectionNonNullable;
   dateYear: StringAggregateSelectionNonNullable;
   departingAirport: StringAggregateSelectionNullable;
+  fullText: StringAggregateSelectionNonNullable;
   holidayTitle: StringAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   nodeId: StringAggregateSelectionNonNullable;
   photoAlbum: StringAggregateSelectionNullable;
+  readableText: StringAggregateSelectionNonNullable;
   sortDateValue: StringAggregateSelectionNonNullable;
-  textHtmlContent: StringAggregateSelectionNonNullable;
 };
 
 export type TownLinkedHolidaysAggregateInput = {
@@ -2274,6 +2445,21 @@ export type TownLinkedHolidaysNodeAggregationWhereInput = {
   departingAirport_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   departingAirport_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   holidayTitle_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   holidayTitle_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -2334,6 +2520,21 @@ export type TownLinkedHolidaysNodeAggregationWhereInput = {
   photoAlbum_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   photoAlbum_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
   sortDateValue_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
@@ -2349,21 +2550,6 @@ export type TownLinkedHolidaysNodeAggregationWhereInput = {
   sortDateValue_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
   sortDateValue_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  textHtmlContent_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  textHtmlContent_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type TownLinkedHolidaysRelationship = {
@@ -2491,6 +2677,12 @@ export type UpdateIslandsMutationResponse = {
   __typename?: 'UpdateIslandsMutationResponse';
   info: UpdateInfo;
   islands: Array<Island>;
+};
+
+export type UpdateLocationsMutationResponse = {
+  __typename?: 'UpdateLocationsMutationResponse';
+  info: UpdateInfo;
+  locations: Array<Location>;
 };
 
 export type UpdateMoviesMutationResponse = {
@@ -2628,19 +2820,19 @@ export type GetPeopleListQuery = { __typename?: 'Query', people: Array<{ __typen
 export type GetHolidaysQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHolidaysQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', name: string, nodeId: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, holidayTitle: string, locations?: Array<string> | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null, textHtmlContent: string, departingAirport?: string | null }> };
+export type GetHolidaysQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, holidayTitle: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, fullText: string, readableText: string, locations?: Array<string> | null, departingAirport?: string | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null }> };
 
 export type GetHolidayByIdQueryVariables = Exact<{
   nodeId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetHolidayByIdQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', name: string, nodeId: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, holidayTitle: string, locations?: Array<string> | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null, textHtmlContent: string, departingAirport?: string | null }> };
+export type GetHolidayByIdQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, holidayTitle: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, fullText: string, readableText: string, locations?: Array<string> | null, departingAirport?: string | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null }> };
 
 export type GetHolidaysListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHolidaysListQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', name: string, nodeId: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, holidayTitle: string, locations?: Array<string> | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null, textHtmlContent: string, departingAirport?: string | null }> };
+export type GetHolidaysListQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', name: string, nodeId: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, holidayTitle: string, locations?: Array<string> | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null, departingAirport?: string | null }> };
 
 
 export const GetCardCountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCardCounts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"continents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"capital"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"towns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"islands"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]}}]} as unknown as DocumentNode<GetCardCountsQuery, GetCardCountsQueryVariables>;
@@ -2663,6 +2855,6 @@ export const GetIslandsListDocument = {"kind":"Document","definitions":[{"kind":
 export const GetPeopleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeople"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]}}]} as unknown as DocumentNode<GetPeopleQuery, GetPeopleQueryVariables>;
 export const GetPersonByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPersonById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}}]}}]}}]}}]} as unknown as DocumentNode<GetPersonByIdQuery, GetPersonByIdQueryVariables>;
 export const GetPeopleListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeopleList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}}]}}]}}]}}]} as unknown as DocumentNode<GetPeopleListQuery, GetPeopleListQueryVariables>;
-export const GetHolidaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}},{"kind":"Field","name":{"kind":"Name","value":"textHtmlContent"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysQuery, GetHolidaysQueryVariables>;
-export const GetHolidayByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidayById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}},{"kind":"Field","name":{"kind":"Name","value":"textHtmlContent"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}}]}}]}}]} as unknown as DocumentNode<GetHolidayByIdQuery, GetHolidayByIdQueryVariables>;
-export const GetHolidaysListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidaysList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}},{"kind":"Field","name":{"kind":"Name","value":"textHtmlContent"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysListQuery, GetHolidaysListQueryVariables>;
+export const GetHolidaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"fullText"}},{"kind":"Field","name":{"kind":"Name","value":"readableText"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysQuery, GetHolidaysQueryVariables>;
+export const GetHolidayByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidayById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"fullText"}},{"kind":"Field","name":{"kind":"Name","value":"readableText"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}}]}}]}}]} as unknown as DocumentNode<GetHolidayByIdQuery, GetHolidayByIdQueryVariables>;
+export const GetHolidaysListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidaysList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysListQuery, GetHolidaysListQueryVariables>;
