@@ -7,13 +7,12 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
+import MarkdownRenderer from "../../components/MarkdownRenderer/MarkdownRenderer";
 import Pill from "../../components/Pill/Pill";
 import Toast from "../../components/Toast/Toast";
-import { GetHolidayByIdDocument, Holiday } from "../../graphql/__generated__/graphql";
+import { GetHolidayByIdDocument, GetPossibleHyperlinksDocument, Holiday } from "../../graphql/__generated__/graphql";
 import filterTags from "../../services/FilterTagsS";
 import LogS from "../../services/LogS";
 import withAuth from "../api/auth/withAuth";
@@ -43,38 +42,25 @@ function AttendeesList({ stringArray }: { stringArray: string[] | undefined | nu
 	return <>{linkElements}</>;
 }
 
-interface MyRendererProps {
-	children: string;
-}
-
-// Custom renderer with custom replace rules
-const MyRenderer: React.FC<MyRendererProps> = ({ children }) => {
-	return (
-		<Markdown
-			remarkPlugins={[remarkGfm]} // Include the GitHub Flavored Markdown plugin
-			children={children // Add custom rules for replacing text
-				.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!bigback] Link back to [[Personal Home|Home]]"
-				.replace(/> \[!back\] Link back to \[\[Travel\]\]/g, "") // Remove "> [!back] Link back to [[Travel]]"
-				.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
-				.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
-					// Replace [[ with <a>
-					const slug = label.toLowerCase().replace(/\s+/g, "-");
-					return `<a href="/${slug}">${label}</a>`;
-				})}
-		/>
-	);
-};
-
 function HolidayPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId } = router.query; // Use the same variable name as the [nodeId] file name
 	// LogS.log("nodeId: ", nodeId);
 
-	// Get the list of people
+	// Get the holiday data by ID
 	const { loading, error, data } = useQuery(GetHolidayByIdDocument, {
 		// @ts-ignore
 		variables: { nodeId }, // Pass the variable to the query
 	});
+
+	// Get the possible hyperlinks data for the markdown parsing
+	const {
+		loading: possibleHyperlinksLoading,
+		error: possibleHyperlinksError,
+		data: possibleHyperlinksData,
+	} = useQuery(GetPossibleHyperlinksDocument);
+
+	// Deal with the holiday data
 	if (loading) return <Loading BackgroundStyle={"Opaque"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
@@ -84,9 +70,19 @@ function HolidayPage() {
 
 	// LogS.log("holiday data: ", data);
 
-	// Extract the data into usable variables
+	// Deal with the possible hyperlinks data
+	if (possibleHyperlinksLoading) return <Loading BackgroundStyle={"Opaque"} />;
+	if (possibleHyperlinksError) {
+		// If error - show error message, and raise an error toast
+		LogS.error("useQuery(GetHolidayByIdDocument) GraphQL Error: ", possibleHyperlinksError.message);
+		return <Toast message={"useQuery(GetHolidayByIdDocument) GraphQL Error: " + possibleHyperlinksError.message} duration={5} />;
+	}
+
+	LogS.log("possibleHyperlinksData: ", possibleHyperlinksData);
+
+	// Extract the holiday data into usable variables
 	// @ts-ignore
-	const { dateYear, dateMonth, name, coverPhoto, fullText, readableText, attendees, departingAirport, locations, photoAlbum }: Holiday =
+	const { dateYear, dateMonth, name, coverPhoto, fullText, attendees, departingAirport, locations, photoAlbum }: Holiday =
 		// @ts-ignore
 		data.holidays[0];
 	LogS.log("holiday data: ", data);
@@ -187,7 +183,7 @@ function HolidayPage() {
 					{/* Hold the parsed Markdown body text */}
 					<section className={styles.textSection}>
 						{/* Add a custom react-markdown wrapper around the received text */}
-						<MyRenderer>{fullText}</MyRenderer>
+						<MarkdownRenderer possibleHyperlinks={possibleHyperlinksData}>{fullText}</MarkdownRenderer>
 					</section>
 				</div>
 			</div>
