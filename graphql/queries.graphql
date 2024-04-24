@@ -315,3 +315,35 @@ query GetHolidaysList {
 		departingAirport
 	}
 }
+
+# High level query for Holiday page to find possible hyperlinks to around the site
+query GetPossibleHyperlinks {
+	holidays {
+		name
+		nodeId
+	}
+	continents {
+		name
+		nodeId
+	}
+	countries {
+		name
+		nodeId
+	}
+	cities {
+		name
+		nodeId
+	}
+	towns {
+		name
+		nodeId
+	}
+	islands {
+		name
+		nodeId
+	}
+	people {
+		name
+		nodeId
+	}
+}
