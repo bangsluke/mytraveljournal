@@ -10,9 +10,8 @@ interface MyRendererProps {
 const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, children }) => {
 	// Create a function to test if a string is a possible link
 	function searchForText(data: any, search_text: string) {
-		const results = [];
-		const categories = ["holidays", "continents", "countries", "cities", "towns", "islands", "people"];
-
+		const results = []; // Create an empty array
+		const categories = ["holidays", "continents", "countries", "cities", "towns", "islands", "people"]; // Define the categories that could contain links
 		for (const category of categories) {
 			for (const item of data[category] || []) {
 				if (item.name.toLowerCase() === search_text.toLowerCase()) {
@@ -37,10 +36,10 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 				.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 					// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property
 					// console.log("Received label: ", label);
-
 					let LabelLongName: string = ""; // Initially set up a LabelLongName that will be returned
 					let LabelShortName: string | null = null; // Initially set up a LabelShortName that will be returned
 					if (label.includes("|")) {
+						// Check if the label contains a "|"
 						const [fullName, shortName] = label.split("|").map((item) => item.trim());
 						LabelLongName = fullName;
 						LabelShortName = shortName;
@@ -48,24 +47,27 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 						LabelLongName = label;
 						LabelShortName = null;
 					}
-
 					// console.log("LabelLongName: ", LabelLongName, ", LabelShortName: ", LabelShortName);
 
-					const results = searchForText(possibleHyperlinks, LabelLongName);
-					for (const result of results) {
-						// console.log(`__typename: ${result.__typename}, nodeId: ${result.nodeId}`);
-					}
+					const results = searchForText(possibleHyperlinks, LabelLongName); // Search for the possible hyperlinks
 					// console.log("results: ", results);
 					if (results.length === 0) {
-						return LabelLongName;
+						return LabelLongName; // Return the original label with no link if no results
 					} else if (results.length >= 0) {
-						// Define the a tag href path that should be followed when clicked
+						// Define the a hyperlink path that should be followed when clicked
 						let routeName = results[0].__typename.toLowerCase();
 						if (routeName === "person") {
 							routeName = "people";
+						} else if (routeName === "city") {
+							routeName = "cities";
+						} else if (routeName === "country") {
+							routeName = "countries";
+						} else if (routeName === "town") {
+							routeName = "towns";
 						}
 						const pageName = results[0].nodeId.replace(/\s+/g, "-");
-						return `<a href="/${routeName + "/" + pageName}">${LabelShortName ? LabelShortName : LabelLongName}</a>`;
+						// Return the link in Markdown format so that it can correctly be rendered by react-markdown
+						return `[${LabelShortName ? LabelShortName : LabelLongName}](/${routeName + "/" + pageName})`;
 					} else {
 						console.log("label: ", LabelLongName + " not found");
 						return LabelLongName;

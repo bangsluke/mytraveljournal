@@ -84,7 +84,7 @@ body {
 }
 
 a {
-	color: #125622;
+	color: var(--main-accent, #fe395c);
 	text-decoration: none;
 }
 
