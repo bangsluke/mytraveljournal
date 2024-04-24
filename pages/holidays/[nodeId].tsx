@@ -129,7 +129,7 @@ function HolidayPage() {
 		}
 	});
 
-	// LogS.log("fullText", fullText);
+	LogS.log("fullText", fullText);
 
 	return (
 		<Layout NavbarStyle='Transparent'>

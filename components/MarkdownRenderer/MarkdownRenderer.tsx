@@ -36,7 +36,7 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 				.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 				.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 					// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property
-					console.log("Received label: ", label);
+					// console.log("Received label: ", label);
 
 					let LabelLongName: string = ""; // Initially set up a LabelLongName that will be returned
 					let LabelShortName: string | null = null; // Initially set up a LabelShortName that will be returned
@@ -49,13 +49,13 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 						LabelShortName = null;
 					}
 
-					console.log("LabelLongName: ", LabelLongName, ", LabelShortName: ", LabelShortName);
+					// console.log("LabelLongName: ", LabelLongName, ", LabelShortName: ", LabelShortName);
 
 					const results = searchForText(possibleHyperlinks, LabelLongName);
 					for (const result of results) {
-						console.log(`__typename: ${result.__typename}, nodeId: ${result.nodeId}`);
+						// console.log(`__typename: ${result.__typename}, nodeId: ${result.nodeId}`);
 					}
-					console.log("results: ", results);
+					// console.log("results: ", results);
 					if (results.length === 0) {
 						return LabelLongName;
 					} else if (results.length >= 0) {
@@ -65,7 +65,7 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 							routeName = "people";
 						}
 						const pageName = results[0].nodeId.replace(/\s+/g, "-");
-						return `<a href="/${routeName + "/" + pageName}">${LabelLongName}</a>`;
+						return `<a href="/${routeName + "/" + pageName}">${LabelShortName ? LabelShortName : LabelLongName}</a>`;
 					} else {
 						console.log("label: ", LabelLongName + " not found");
 						return LabelLongName;
