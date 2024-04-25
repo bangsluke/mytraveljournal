@@ -21,9 +21,11 @@ export default function Footer() {
 						className={classes.siteLogo}
 						onClick={() => router.push({ pathname: "/" })}
 					/>
-					<Text fz='sm' fw={200} className={classes.text}>
-						@bangsluke
-					</Text>
+					<Link href='mailto:bangsluke@gmail.com' target='_blank'>
+						<Text fz='sm' fw={200} className={classes.text}>
+							@bangsluke
+						</Text>
+					</Link>
 				</Group>
 				<Group gap={2} className={classes.links} justify='flex-end' wrap='nowrap'>
 					<Text fz='xs' fw={200} className={classes.text}>

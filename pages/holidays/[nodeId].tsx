@@ -67,7 +67,6 @@ function HolidayPage() {
 		LogS.error("useQuery(GetHolidayByIdDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetHolidayByIdDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-
 	// LogS.log("holiday data: ", data);
 
 	// Deal with the possible hyperlinks data
@@ -77,15 +76,14 @@ function HolidayPage() {
 		LogS.error("useQuery(GetHolidayByIdDocument) GraphQL Error: ", possibleHyperlinksError.message);
 		return <Toast message={"useQuery(GetHolidayByIdDocument) GraphQL Error: " + possibleHyperlinksError.message} duration={5} />;
 	}
-
-	LogS.log("possibleHyperlinksData: ", possibleHyperlinksData);
+	// LogS.log("possibleHyperlinksData: ", possibleHyperlinksData);
 
 	// Extract the holiday data into usable variables
 	// @ts-ignore
 	const { dateYear, dateMonth, name, coverPhoto, fullText, attendees, departingAirport, locations, photoAlbum }: Holiday =
 		// @ts-ignore
 		data.holidays[0];
-	LogS.log("holiday data: ", data);
+	LogS.log("holiday data: ", data?.holidays[0]);
 	// LogS.log("attendees: ", attendees);
 
 	// Define the holiday image URL
@@ -129,7 +127,7 @@ function HolidayPage() {
 		}
 	});
 
-	LogS.log("fullText", fullText);
+	// LogS.log("fullText", fullText);
 
 	return (
 		<Layout NavbarStyle='Transparent'>

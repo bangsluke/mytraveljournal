@@ -20,6 +20,7 @@ export default function PersonsList() {
 		LogS.error("useQuery(GetPeopleListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetPeopleListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
+	LogS.log("PersonsList: person data: ", data);
 
 	// Filter out people with no holidays and then sort by the length of attendedHolidays
 	let sortedAndFilteredPeople = data?.people
@@ -60,7 +61,7 @@ export default function PersonsList() {
 				</Anchor>
 			</Table.Td>
 			<Table.Td>
-				<Text fz='md' fw={500} onClick={() => router.push({ pathname: `/people/${person.nodeId}` })}>
+				<Text fz='md' fw={500}>
 					{person.holidayCount}
 				</Text>
 			</Table.Td>
