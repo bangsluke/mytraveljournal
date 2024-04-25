@@ -84,6 +84,9 @@ export type City = {
   linkedHolidays: Array<Holiday>;
   linkedHolidaysAggregate?: Maybe<CityHolidayLinkedHolidaysAggregationSelection>;
   linkedHolidaysConnection: CityLinkedHolidaysConnection;
+  locatedIn: Array<Country>;
+  locatedInAggregate?: Maybe<CityCountryLocatedInAggregationSelection>;
+  locatedInConnection: CityLocatedInConnection;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
 };
@@ -110,6 +113,28 @@ export type CityLinkedHolidaysConnectionArgs = {
   where?: InputMaybe<CityLinkedHolidaysConnectionWhere>;
 };
 
+
+export type CityLocatedInArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<CountryOptions>;
+  where?: InputMaybe<CountryWhere>;
+};
+
+
+export type CityLocatedInAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<CountryWhere>;
+};
+
+
+export type CityLocatedInConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<CityLocatedInConnectionSort>>;
+  where?: InputMaybe<CityLocatedInConnectionWhere>;
+};
+
 export type CityAggregateSelection = {
   __typename?: 'CityAggregateSelection';
   count: Scalars['Int']['output'];
@@ -119,21 +144,37 @@ export type CityAggregateSelection = {
 
 export type CityConnectInput = {
   linkedHolidays?: InputMaybe<Array<CityLinkedHolidaysConnectFieldInput>>;
+  locatedIn?: InputMaybe<Array<CityLocatedInConnectFieldInput>>;
+};
+
+export type CityCountryLocatedInAggregationSelection = {
+  __typename?: 'CityCountryLocatedInAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<CityCountryLocatedInNodeAggregateSelection>;
+};
+
+export type CityCountryLocatedInNodeAggregateSelection = {
+  __typename?: 'CityCountryLocatedInNodeAggregateSelection';
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
 };
 
 export type CityCreateInput = {
   capital: Scalars['Boolean']['input'];
   linkedHolidays?: InputMaybe<CityLinkedHolidaysFieldInput>;
+  locatedIn?: InputMaybe<CityLocatedInFieldInput>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
 };
 
 export type CityDeleteInput = {
   linkedHolidays?: InputMaybe<Array<CityLinkedHolidaysDeleteFieldInput>>;
+  locatedIn?: InputMaybe<Array<CityLocatedInDeleteFieldInput>>;
 };
 
 export type CityDisconnectInput = {
   linkedHolidays?: InputMaybe<Array<CityLinkedHolidaysDisconnectFieldInput>>;
+  locatedIn?: InputMaybe<Array<CityLocatedInDisconnectFieldInput>>;
 };
 
 export type CityEdge = {
@@ -176,6 +217,7 @@ export type CityLinkedHolidaysAggregateInput = {
 };
 
 export type CityLinkedHolidaysConnectFieldInput = {
+  connect?: InputMaybe<Array<HolidayConnectInput>>;
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']['input'];
   where?: InputMaybe<HolidayConnectWhere>;
@@ -204,10 +246,12 @@ export type CityLinkedHolidaysCreateFieldInput = {
 };
 
 export type CityLinkedHolidaysDeleteFieldInput = {
+  delete?: InputMaybe<HolidayDeleteInput>;
   where?: InputMaybe<CityLinkedHolidaysConnectionWhere>;
 };
 
 export type CityLinkedHolidaysDisconnectFieldInput = {
+  disconnect?: InputMaybe<HolidayDisconnectInput>;
   where?: InputMaybe<CityLinkedHolidaysConnectionWhere>;
 };
 
@@ -406,6 +450,117 @@ export type CityLinkedHolidaysUpdateFieldInput = {
   where?: InputMaybe<CityLinkedHolidaysConnectionWhere>;
 };
 
+export type CityLocatedInAggregateInput = {
+  AND?: InputMaybe<Array<CityLocatedInAggregateInput>>;
+  NOT?: InputMaybe<CityLocatedInAggregateInput>;
+  OR?: InputMaybe<Array<CityLocatedInAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<CityLocatedInNodeAggregationWhereInput>;
+};
+
+export type CityLocatedInConnectFieldInput = {
+  connect?: InputMaybe<Array<CountryConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<CountryConnectWhere>;
+};
+
+export type CityLocatedInConnection = {
+  __typename?: 'CityLocatedInConnection';
+  edges: Array<CityLocatedInRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type CityLocatedInConnectionSort = {
+  node?: InputMaybe<CountrySort>;
+};
+
+export type CityLocatedInConnectionWhere = {
+  AND?: InputMaybe<Array<CityLocatedInConnectionWhere>>;
+  NOT?: InputMaybe<CityLocatedInConnectionWhere>;
+  OR?: InputMaybe<Array<CityLocatedInConnectionWhere>>;
+  node?: InputMaybe<CountryWhere>;
+};
+
+export type CityLocatedInCreateFieldInput = {
+  node: CountryCreateInput;
+};
+
+export type CityLocatedInDeleteFieldInput = {
+  delete?: InputMaybe<CountryDeleteInput>;
+  where?: InputMaybe<CityLocatedInConnectionWhere>;
+};
+
+export type CityLocatedInDisconnectFieldInput = {
+  disconnect?: InputMaybe<CountryDisconnectInput>;
+  where?: InputMaybe<CityLocatedInConnectionWhere>;
+};
+
+export type CityLocatedInFieldInput = {
+  connect?: InputMaybe<Array<CityLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<CityLocatedInCreateFieldInput>>;
+};
+
+export type CityLocatedInNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CityLocatedInNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<CityLocatedInNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<CityLocatedInNodeAggregationWhereInput>>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CityLocatedInRelationship = {
+  __typename?: 'CityLocatedInRelationship';
+  cursor: Scalars['String']['output'];
+  node: Country;
+};
+
+export type CityLocatedInUpdateConnectionInput = {
+  node?: InputMaybe<CountryUpdateInput>;
+};
+
+export type CityLocatedInUpdateFieldInput = {
+  connect?: InputMaybe<Array<CityLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<CityLocatedInCreateFieldInput>>;
+  delete?: InputMaybe<Array<CityLocatedInDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<CityLocatedInDisconnectFieldInput>>;
+  update?: InputMaybe<CityLocatedInUpdateConnectionInput>;
+  where?: InputMaybe<CityLocatedInConnectionWhere>;
+};
+
 export type CityOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -415,6 +570,7 @@ export type CityOptions = {
 
 export type CityRelationInput = {
   linkedHolidays?: InputMaybe<Array<CityLinkedHolidaysCreateFieldInput>>;
+  locatedIn?: InputMaybe<Array<CityLocatedInCreateFieldInput>>;
 };
 
 /** Fields to sort Cities by. The order in which sorts are applied is not guaranteed when specifying many fields in one CitySort object. */
@@ -427,6 +583,7 @@ export type CitySort = {
 export type CityUpdateInput = {
   capital?: InputMaybe<Scalars['Boolean']['input']>;
   linkedHolidays?: InputMaybe<Array<CityLinkedHolidaysUpdateFieldInput>>;
+  locatedIn?: InputMaybe<Array<CityLocatedInUpdateFieldInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -453,6 +610,23 @@ export type CityWhere = {
   linkedHolidays_SINGLE?: InputMaybe<HolidayWhere>;
   /** Return Cities where some of the related Holidays match this filter */
   linkedHolidays_SOME?: InputMaybe<HolidayWhere>;
+  locatedInAggregate?: InputMaybe<CityLocatedInAggregateInput>;
+  /** Return Cities where all of the related CityLocatedInConnections match this filter */
+  locatedInConnection_ALL?: InputMaybe<CityLocatedInConnectionWhere>;
+  /** Return Cities where none of the related CityLocatedInConnections match this filter */
+  locatedInConnection_NONE?: InputMaybe<CityLocatedInConnectionWhere>;
+  /** Return Cities where one of the related CityLocatedInConnections match this filter */
+  locatedInConnection_SINGLE?: InputMaybe<CityLocatedInConnectionWhere>;
+  /** Return Cities where some of the related CityLocatedInConnections match this filter */
+  locatedInConnection_SOME?: InputMaybe<CityLocatedInConnectionWhere>;
+  /** Return Cities where all of the related Countries match this filter */
+  locatedIn_ALL?: InputMaybe<CountryWhere>;
+  /** Return Cities where none of the related Countries match this filter */
+  locatedIn_NONE?: InputMaybe<CountryWhere>;
+  /** Return Cities where one of the related Countries match this filter */
+  locatedIn_SINGLE?: InputMaybe<CountryWhere>;
+  /** Return Cities where some of the related Countries match this filter */
+  locatedIn_SOME?: InputMaybe<CountryWhere>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -478,6 +652,10 @@ export type ContinentAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
   nodeId: StringAggregateSelectionNonNullable;
+};
+
+export type ContinentConnectWhere = {
+  node: ContinentWhere;
 };
 
 export type ContinentCreateInput = {
@@ -549,8 +727,58 @@ export type CountriesConnection = {
 
 export type Country = {
   __typename?: 'Country';
+  locatedIn: Array<Continent>;
+  locatedInAggregate?: Maybe<CountryContinentLocatedInAggregationSelection>;
+  locatedInConnection: CountryLocatedInConnection;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
+  placesLocatedIn: Array<Location>;
+  placesLocatedInAggregate?: Maybe<CountryLocationPlacesLocatedInAggregationSelection>;
+  placesLocatedInConnection: CountryPlacesLocatedInConnection;
+};
+
+
+export type CountryLocatedInArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<ContinentOptions>;
+  where?: InputMaybe<ContinentWhere>;
+};
+
+
+export type CountryLocatedInAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<ContinentWhere>;
+};
+
+
+export type CountryLocatedInConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<CountryLocatedInConnectionSort>>;
+  where?: InputMaybe<CountryLocatedInConnectionWhere>;
+};
+
+
+export type CountryPlacesLocatedInArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<LocationOptions>;
+  where?: InputMaybe<LocationWhere>;
+};
+
+
+export type CountryPlacesLocatedInAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<LocationWhere>;
+};
+
+
+export type CountryPlacesLocatedInConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<CountryPlacesLocatedInConnectionSort>>;
+  where?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
 };
 
 export type CountryAggregateSelection = {
@@ -560,15 +788,169 @@ export type CountryAggregateSelection = {
   nodeId: StringAggregateSelectionNonNullable;
 };
 
+export type CountryConnectInput = {
+  locatedIn?: InputMaybe<Array<CountryLocatedInConnectFieldInput>>;
+  placesLocatedIn?: InputMaybe<Array<CountryPlacesLocatedInConnectFieldInput>>;
+};
+
+export type CountryConnectWhere = {
+  node: CountryWhere;
+};
+
+export type CountryContinentLocatedInAggregationSelection = {
+  __typename?: 'CountryContinentLocatedInAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<CountryContinentLocatedInNodeAggregateSelection>;
+};
+
+export type CountryContinentLocatedInNodeAggregateSelection = {
+  __typename?: 'CountryContinentLocatedInNodeAggregateSelection';
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
+};
+
 export type CountryCreateInput = {
+  locatedIn?: InputMaybe<CountryLocatedInFieldInput>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
+  placesLocatedIn?: InputMaybe<CountryPlacesLocatedInFieldInput>;
+};
+
+export type CountryDeleteInput = {
+  locatedIn?: InputMaybe<Array<CountryLocatedInDeleteFieldInput>>;
+  placesLocatedIn?: InputMaybe<Array<CountryPlacesLocatedInDeleteFieldInput>>;
+};
+
+export type CountryDisconnectInput = {
+  locatedIn?: InputMaybe<Array<CountryLocatedInDisconnectFieldInput>>;
+  placesLocatedIn?: InputMaybe<Array<CountryPlacesLocatedInDisconnectFieldInput>>;
 };
 
 export type CountryEdge = {
   __typename?: 'CountryEdge';
   cursor: Scalars['String']['output'];
   node: Country;
+};
+
+export type CountryLocatedInAggregateInput = {
+  AND?: InputMaybe<Array<CountryLocatedInAggregateInput>>;
+  NOT?: InputMaybe<CountryLocatedInAggregateInput>;
+  OR?: InputMaybe<Array<CountryLocatedInAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<CountryLocatedInNodeAggregationWhereInput>;
+};
+
+export type CountryLocatedInConnectFieldInput = {
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<ContinentConnectWhere>;
+};
+
+export type CountryLocatedInConnection = {
+  __typename?: 'CountryLocatedInConnection';
+  edges: Array<CountryLocatedInRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type CountryLocatedInConnectionSort = {
+  node?: InputMaybe<ContinentSort>;
+};
+
+export type CountryLocatedInConnectionWhere = {
+  AND?: InputMaybe<Array<CountryLocatedInConnectionWhere>>;
+  NOT?: InputMaybe<CountryLocatedInConnectionWhere>;
+  OR?: InputMaybe<Array<CountryLocatedInConnectionWhere>>;
+  node?: InputMaybe<ContinentWhere>;
+};
+
+export type CountryLocatedInCreateFieldInput = {
+  node: ContinentCreateInput;
+};
+
+export type CountryLocatedInDeleteFieldInput = {
+  where?: InputMaybe<CountryLocatedInConnectionWhere>;
+};
+
+export type CountryLocatedInDisconnectFieldInput = {
+  where?: InputMaybe<CountryLocatedInConnectionWhere>;
+};
+
+export type CountryLocatedInFieldInput = {
+  connect?: InputMaybe<Array<CountryLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<CountryLocatedInCreateFieldInput>>;
+};
+
+export type CountryLocatedInNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CountryLocatedInNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<CountryLocatedInNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<CountryLocatedInNodeAggregationWhereInput>>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CountryLocatedInRelationship = {
+  __typename?: 'CountryLocatedInRelationship';
+  cursor: Scalars['String']['output'];
+  node: Continent;
+};
+
+export type CountryLocatedInUpdateConnectionInput = {
+  node?: InputMaybe<ContinentUpdateInput>;
+};
+
+export type CountryLocatedInUpdateFieldInput = {
+  connect?: InputMaybe<Array<CountryLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<CountryLocatedInCreateFieldInput>>;
+  delete?: InputMaybe<Array<CountryLocatedInDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<CountryLocatedInDisconnectFieldInput>>;
+  update?: InputMaybe<CountryLocatedInUpdateConnectionInput>;
+  where?: InputMaybe<CountryLocatedInConnectionWhere>;
+};
+
+export type CountryLocationPlacesLocatedInAggregationSelection = {
+  __typename?: 'CountryLocationPlacesLocatedInAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<CountryLocationPlacesLocatedInNodeAggregateSelection>;
+};
+
+export type CountryLocationPlacesLocatedInNodeAggregateSelection = {
+  __typename?: 'CountryLocationPlacesLocatedInNodeAggregateSelection';
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
 };
 
 export type CountryOptions = {
@@ -578,6 +960,122 @@ export type CountryOptions = {
   sort?: InputMaybe<Array<CountrySort>>;
 };
 
+export type CountryPlacesLocatedInAggregateInput = {
+  AND?: InputMaybe<Array<CountryPlacesLocatedInAggregateInput>>;
+  NOT?: InputMaybe<CountryPlacesLocatedInAggregateInput>;
+  OR?: InputMaybe<Array<CountryPlacesLocatedInAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<CountryPlacesLocatedInNodeAggregationWhereInput>;
+};
+
+export type CountryPlacesLocatedInConnectFieldInput = {
+  connect?: InputMaybe<Array<LocationConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<LocationConnectWhere>;
+};
+
+export type CountryPlacesLocatedInConnection = {
+  __typename?: 'CountryPlacesLocatedInConnection';
+  edges: Array<CountryPlacesLocatedInRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type CountryPlacesLocatedInConnectionSort = {
+  node?: InputMaybe<LocationSort>;
+};
+
+export type CountryPlacesLocatedInConnectionWhere = {
+  AND?: InputMaybe<Array<CountryPlacesLocatedInConnectionWhere>>;
+  NOT?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+  OR?: InputMaybe<Array<CountryPlacesLocatedInConnectionWhere>>;
+  node?: InputMaybe<LocationWhere>;
+};
+
+export type CountryPlacesLocatedInCreateFieldInput = {
+  node: LocationCreateInput;
+};
+
+export type CountryPlacesLocatedInDeleteFieldInput = {
+  delete?: InputMaybe<LocationDeleteInput>;
+  where?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+};
+
+export type CountryPlacesLocatedInDisconnectFieldInput = {
+  disconnect?: InputMaybe<LocationDisconnectInput>;
+  where?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+};
+
+export type CountryPlacesLocatedInFieldInput = {
+  connect?: InputMaybe<Array<CountryPlacesLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<CountryPlacesLocatedInCreateFieldInput>>;
+};
+
+export type CountryPlacesLocatedInNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CountryPlacesLocatedInNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<CountryPlacesLocatedInNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<CountryPlacesLocatedInNodeAggregationWhereInput>>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CountryPlacesLocatedInRelationship = {
+  __typename?: 'CountryPlacesLocatedInRelationship';
+  cursor: Scalars['String']['output'];
+  node: Location;
+};
+
+export type CountryPlacesLocatedInUpdateConnectionInput = {
+  node?: InputMaybe<LocationUpdateInput>;
+};
+
+export type CountryPlacesLocatedInUpdateFieldInput = {
+  connect?: InputMaybe<Array<CountryPlacesLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<CountryPlacesLocatedInCreateFieldInput>>;
+  delete?: InputMaybe<Array<CountryPlacesLocatedInDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<CountryPlacesLocatedInDisconnectFieldInput>>;
+  update?: InputMaybe<CountryPlacesLocatedInUpdateConnectionInput>;
+  where?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+};
+
+export type CountryRelationInput = {
+  locatedIn?: InputMaybe<Array<CountryLocatedInCreateFieldInput>>;
+  placesLocatedIn?: InputMaybe<Array<CountryPlacesLocatedInCreateFieldInput>>;
+};
+
 /** Fields to sort Countries by. The order in which sorts are applied is not guaranteed when specifying many fields in one CountrySort object. */
 export type CountrySort = {
   name?: InputMaybe<SortDirection>;
@@ -585,14 +1083,33 @@ export type CountrySort = {
 };
 
 export type CountryUpdateInput = {
+  locatedIn?: InputMaybe<Array<CountryLocatedInUpdateFieldInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
+  placesLocatedIn?: InputMaybe<Array<CountryPlacesLocatedInUpdateFieldInput>>;
 };
 
 export type CountryWhere = {
   AND?: InputMaybe<Array<CountryWhere>>;
   NOT?: InputMaybe<CountryWhere>;
   OR?: InputMaybe<Array<CountryWhere>>;
+  locatedInAggregate?: InputMaybe<CountryLocatedInAggregateInput>;
+  /** Return Countries where all of the related CountryLocatedInConnections match this filter */
+  locatedInConnection_ALL?: InputMaybe<CountryLocatedInConnectionWhere>;
+  /** Return Countries where none of the related CountryLocatedInConnections match this filter */
+  locatedInConnection_NONE?: InputMaybe<CountryLocatedInConnectionWhere>;
+  /** Return Countries where one of the related CountryLocatedInConnections match this filter */
+  locatedInConnection_SINGLE?: InputMaybe<CountryLocatedInConnectionWhere>;
+  /** Return Countries where some of the related CountryLocatedInConnections match this filter */
+  locatedInConnection_SOME?: InputMaybe<CountryLocatedInConnectionWhere>;
+  /** Return Countries where all of the related Continents match this filter */
+  locatedIn_ALL?: InputMaybe<ContinentWhere>;
+  /** Return Countries where none of the related Continents match this filter */
+  locatedIn_NONE?: InputMaybe<ContinentWhere>;
+  /** Return Countries where one of the related Continents match this filter */
+  locatedIn_SINGLE?: InputMaybe<ContinentWhere>;
+  /** Return Countries where some of the related Continents match this filter */
+  locatedIn_SOME?: InputMaybe<ContinentWhere>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -603,6 +1120,23 @@ export type CountryWhere = {
   nodeId_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
   nodeId_IN?: InputMaybe<Array<Scalars['String']['input']>>;
   nodeId_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  placesLocatedInAggregate?: InputMaybe<CountryPlacesLocatedInAggregateInput>;
+  /** Return Countries where all of the related CountryPlacesLocatedInConnections match this filter */
+  placesLocatedInConnection_ALL?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+  /** Return Countries where none of the related CountryPlacesLocatedInConnections match this filter */
+  placesLocatedInConnection_NONE?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+  /** Return Countries where one of the related CountryPlacesLocatedInConnections match this filter */
+  placesLocatedInConnection_SINGLE?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+  /** Return Countries where some of the related CountryPlacesLocatedInConnections match this filter */
+  placesLocatedInConnection_SOME?: InputMaybe<CountryPlacesLocatedInConnectionWhere>;
+  /** Return Countries where all of the related Locations match this filter */
+  placesLocatedIn_ALL?: InputMaybe<LocationWhere>;
+  /** Return Countries where none of the related Locations match this filter */
+  placesLocatedIn_NONE?: InputMaybe<LocationWhere>;
+  /** Return Countries where one of the related Locations match this filter */
+  placesLocatedIn_SINGLE?: InputMaybe<LocationWhere>;
+  /** Return Countries where some of the related Locations match this filter */
+  placesLocatedIn_SOME?: InputMaybe<LocationWhere>;
 };
 
 export type CreateActorsMutationResponse = {
@@ -695,6 +1229,31 @@ export type Holiday = {
   readableText: Scalars['String']['output'];
   sortDateValue: Scalars['String']['output'];
   tags?: Maybe<Array<Scalars['String']['output']>>;
+  travelled_to: Array<Location>;
+  travelled_toAggregate?: Maybe<HolidayLocationTravelled_ToAggregationSelection>;
+  travelled_toConnection: HolidayTravelled_ToConnection;
+};
+
+
+export type HolidayTravelled_ToArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<LocationOptions>;
+  where?: InputMaybe<LocationWhere>;
+};
+
+
+export type HolidayTravelled_ToAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<LocationWhere>;
+};
+
+
+export type HolidayTravelled_ToConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<HolidayTravelled_ToConnectionSort>>;
+  where?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
 };
 
 export type HolidayAggregateSelection = {
@@ -711,6 +1270,10 @@ export type HolidayAggregateSelection = {
   photoAlbum: StringAggregateSelectionNullable;
   readableText: StringAggregateSelectionNonNullable;
   sortDateValue: StringAggregateSelectionNonNullable;
+};
+
+export type HolidayConnectInput = {
+  travelled_to?: InputMaybe<Array<HolidayTravelled_ToConnectFieldInput>>;
 };
 
 export type HolidayConnectWhere = {
@@ -732,6 +1295,15 @@ export type HolidayCreateInput = {
   readableText: Scalars['String']['input'];
   sortDateValue: Scalars['String']['input'];
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
+  travelled_to?: InputMaybe<HolidayTravelled_ToFieldInput>;
+};
+
+export type HolidayDeleteInput = {
+  travelled_to?: InputMaybe<Array<HolidayTravelled_ToDeleteFieldInput>>;
+};
+
+export type HolidayDisconnectInput = {
+  travelled_to?: InputMaybe<Array<HolidayTravelled_ToDisconnectFieldInput>>;
 };
 
 export type HolidayEdge = {
@@ -740,11 +1312,27 @@ export type HolidayEdge = {
   node: Holiday;
 };
 
+export type HolidayLocationTravelled_ToAggregationSelection = {
+  __typename?: 'HolidayLocationTravelled_toAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<HolidayLocationTravelled_ToNodeAggregateSelection>;
+};
+
+export type HolidayLocationTravelled_ToNodeAggregateSelection = {
+  __typename?: 'HolidayLocationTravelled_toNodeAggregateSelection';
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
+};
+
 export type HolidayOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   /** Specify one or more HolidaySort objects to sort Holidays by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<HolidaySort>>;
+};
+
+export type HolidayRelationInput = {
+  travelled_to?: InputMaybe<Array<HolidayTravelled_ToCreateFieldInput>>;
 };
 
 /** Fields to sort Holidays by. The order in which sorts are applied is not guaranteed when specifying many fields in one HolidaySort object. */
@@ -760,6 +1348,117 @@ export type HolidaySort = {
   photoAlbum?: InputMaybe<SortDirection>;
   readableText?: InputMaybe<SortDirection>;
   sortDateValue?: InputMaybe<SortDirection>;
+};
+
+export type HolidayTravelled_ToAggregateInput = {
+  AND?: InputMaybe<Array<HolidayTravelled_ToAggregateInput>>;
+  NOT?: InputMaybe<HolidayTravelled_ToAggregateInput>;
+  OR?: InputMaybe<Array<HolidayTravelled_ToAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<HolidayTravelled_ToNodeAggregationWhereInput>;
+};
+
+export type HolidayTravelled_ToConnectFieldInput = {
+  connect?: InputMaybe<Array<LocationConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<LocationConnectWhere>;
+};
+
+export type HolidayTravelled_ToConnection = {
+  __typename?: 'HolidayTravelled_toConnection';
+  edges: Array<HolidayTravelled_ToRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type HolidayTravelled_ToConnectionSort = {
+  node?: InputMaybe<LocationSort>;
+};
+
+export type HolidayTravelled_ToConnectionWhere = {
+  AND?: InputMaybe<Array<HolidayTravelled_ToConnectionWhere>>;
+  NOT?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+  OR?: InputMaybe<Array<HolidayTravelled_ToConnectionWhere>>;
+  node?: InputMaybe<LocationWhere>;
+};
+
+export type HolidayTravelled_ToCreateFieldInput = {
+  node: LocationCreateInput;
+};
+
+export type HolidayTravelled_ToDeleteFieldInput = {
+  delete?: InputMaybe<LocationDeleteInput>;
+  where?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+};
+
+export type HolidayTravelled_ToDisconnectFieldInput = {
+  disconnect?: InputMaybe<LocationDisconnectInput>;
+  where?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+};
+
+export type HolidayTravelled_ToFieldInput = {
+  connect?: InputMaybe<Array<HolidayTravelled_ToConnectFieldInput>>;
+  create?: InputMaybe<Array<HolidayTravelled_ToCreateFieldInput>>;
+};
+
+export type HolidayTravelled_ToNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<HolidayTravelled_ToNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<HolidayTravelled_ToNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<HolidayTravelled_ToNodeAggregationWhereInput>>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type HolidayTravelled_ToRelationship = {
+  __typename?: 'HolidayTravelled_toRelationship';
+  cursor: Scalars['String']['output'];
+  node: Location;
+};
+
+export type HolidayTravelled_ToUpdateConnectionInput = {
+  node?: InputMaybe<LocationUpdateInput>;
+};
+
+export type HolidayTravelled_ToUpdateFieldInput = {
+  connect?: InputMaybe<Array<HolidayTravelled_ToConnectFieldInput>>;
+  create?: InputMaybe<Array<HolidayTravelled_ToCreateFieldInput>>;
+  delete?: InputMaybe<Array<HolidayTravelled_ToDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<HolidayTravelled_ToDisconnectFieldInput>>;
+  update?: InputMaybe<HolidayTravelled_ToUpdateConnectionInput>;
+  where?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
 };
 
 export type HolidayUpdateInput = {
@@ -783,6 +1482,7 @@ export type HolidayUpdateInput = {
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   tags_POP?: InputMaybe<Scalars['Int']['input']>;
   tags_PUSH?: InputMaybe<Array<Scalars['String']['input']>>;
+  travelled_to?: InputMaybe<Array<HolidayTravelled_ToUpdateFieldInput>>;
 };
 
 export type HolidayWhere = {
@@ -850,6 +1550,23 @@ export type HolidayWhere = {
   sortDateValue_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   tags_INCLUDES?: InputMaybe<Scalars['String']['input']>;
+  travelled_toAggregate?: InputMaybe<HolidayTravelled_ToAggregateInput>;
+  /** Return Holidays where all of the related HolidayTravelled_toConnections match this filter */
+  travelled_toConnection_ALL?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+  /** Return Holidays where none of the related HolidayTravelled_toConnections match this filter */
+  travelled_toConnection_NONE?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+  /** Return Holidays where one of the related HolidayTravelled_toConnections match this filter */
+  travelled_toConnection_SINGLE?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+  /** Return Holidays where some of the related HolidayTravelled_toConnections match this filter */
+  travelled_toConnection_SOME?: InputMaybe<HolidayTravelled_ToConnectionWhere>;
+  /** Return Holidays where all of the related Locations match this filter */
+  travelled_to_ALL?: InputMaybe<LocationWhere>;
+  /** Return Holidays where none of the related Locations match this filter */
+  travelled_to_NONE?: InputMaybe<LocationWhere>;
+  /** Return Holidays where one of the related Locations match this filter */
+  travelled_to_SINGLE?: InputMaybe<LocationWhere>;
+  /** Return Holidays where some of the related Locations match this filter */
+  travelled_to_SOME?: InputMaybe<LocationWhere>;
 };
 
 export type HolidaysConnection = {
@@ -870,6 +1587,9 @@ export type Island = {
   linkedHolidays: Array<Holiday>;
   linkedHolidaysAggregate?: Maybe<IslandHolidayLinkedHolidaysAggregationSelection>;
   linkedHolidaysConnection: IslandLinkedHolidaysConnection;
+  locatedIn: Array<Country>;
+  locatedInAggregate?: Maybe<IslandCountryLocatedInAggregationSelection>;
+  locatedInConnection: IslandLocatedInConnection;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
 };
@@ -896,6 +1616,28 @@ export type IslandLinkedHolidaysConnectionArgs = {
   where?: InputMaybe<IslandLinkedHolidaysConnectionWhere>;
 };
 
+
+export type IslandLocatedInArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<CountryOptions>;
+  where?: InputMaybe<CountryWhere>;
+};
+
+
+export type IslandLocatedInAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<CountryWhere>;
+};
+
+
+export type IslandLocatedInConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<IslandLocatedInConnectionSort>>;
+  where?: InputMaybe<IslandLocatedInConnectionWhere>;
+};
+
 export type IslandAggregateSelection = {
   __typename?: 'IslandAggregateSelection';
   count: Scalars['Int']['output'];
@@ -905,20 +1647,36 @@ export type IslandAggregateSelection = {
 
 export type IslandConnectInput = {
   linkedHolidays?: InputMaybe<Array<IslandLinkedHolidaysConnectFieldInput>>;
+  locatedIn?: InputMaybe<Array<IslandLocatedInConnectFieldInput>>;
+};
+
+export type IslandCountryLocatedInAggregationSelection = {
+  __typename?: 'IslandCountryLocatedInAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<IslandCountryLocatedInNodeAggregateSelection>;
+};
+
+export type IslandCountryLocatedInNodeAggregateSelection = {
+  __typename?: 'IslandCountryLocatedInNodeAggregateSelection';
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
 };
 
 export type IslandCreateInput = {
   linkedHolidays?: InputMaybe<IslandLinkedHolidaysFieldInput>;
+  locatedIn?: InputMaybe<IslandLocatedInFieldInput>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
 };
 
 export type IslandDeleteInput = {
   linkedHolidays?: InputMaybe<Array<IslandLinkedHolidaysDeleteFieldInput>>;
+  locatedIn?: InputMaybe<Array<IslandLocatedInDeleteFieldInput>>;
 };
 
 export type IslandDisconnectInput = {
   linkedHolidays?: InputMaybe<Array<IslandLinkedHolidaysDisconnectFieldInput>>;
+  locatedIn?: InputMaybe<Array<IslandLocatedInDisconnectFieldInput>>;
 };
 
 export type IslandEdge = {
@@ -961,6 +1719,7 @@ export type IslandLinkedHolidaysAggregateInput = {
 };
 
 export type IslandLinkedHolidaysConnectFieldInput = {
+  connect?: InputMaybe<Array<HolidayConnectInput>>;
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']['input'];
   where?: InputMaybe<HolidayConnectWhere>;
@@ -989,10 +1748,12 @@ export type IslandLinkedHolidaysCreateFieldInput = {
 };
 
 export type IslandLinkedHolidaysDeleteFieldInput = {
+  delete?: InputMaybe<HolidayDeleteInput>;
   where?: InputMaybe<IslandLinkedHolidaysConnectionWhere>;
 };
 
 export type IslandLinkedHolidaysDisconnectFieldInput = {
+  disconnect?: InputMaybe<HolidayDisconnectInput>;
   where?: InputMaybe<IslandLinkedHolidaysConnectionWhere>;
 };
 
@@ -1191,6 +1952,117 @@ export type IslandLinkedHolidaysUpdateFieldInput = {
   where?: InputMaybe<IslandLinkedHolidaysConnectionWhere>;
 };
 
+export type IslandLocatedInAggregateInput = {
+  AND?: InputMaybe<Array<IslandLocatedInAggregateInput>>;
+  NOT?: InputMaybe<IslandLocatedInAggregateInput>;
+  OR?: InputMaybe<Array<IslandLocatedInAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<IslandLocatedInNodeAggregationWhereInput>;
+};
+
+export type IslandLocatedInConnectFieldInput = {
+  connect?: InputMaybe<Array<CountryConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<CountryConnectWhere>;
+};
+
+export type IslandLocatedInConnection = {
+  __typename?: 'IslandLocatedInConnection';
+  edges: Array<IslandLocatedInRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type IslandLocatedInConnectionSort = {
+  node?: InputMaybe<CountrySort>;
+};
+
+export type IslandLocatedInConnectionWhere = {
+  AND?: InputMaybe<Array<IslandLocatedInConnectionWhere>>;
+  NOT?: InputMaybe<IslandLocatedInConnectionWhere>;
+  OR?: InputMaybe<Array<IslandLocatedInConnectionWhere>>;
+  node?: InputMaybe<CountryWhere>;
+};
+
+export type IslandLocatedInCreateFieldInput = {
+  node: CountryCreateInput;
+};
+
+export type IslandLocatedInDeleteFieldInput = {
+  delete?: InputMaybe<CountryDeleteInput>;
+  where?: InputMaybe<IslandLocatedInConnectionWhere>;
+};
+
+export type IslandLocatedInDisconnectFieldInput = {
+  disconnect?: InputMaybe<CountryDisconnectInput>;
+  where?: InputMaybe<IslandLocatedInConnectionWhere>;
+};
+
+export type IslandLocatedInFieldInput = {
+  connect?: InputMaybe<Array<IslandLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<IslandLocatedInCreateFieldInput>>;
+};
+
+export type IslandLocatedInNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<IslandLocatedInNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<IslandLocatedInNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<IslandLocatedInNodeAggregationWhereInput>>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type IslandLocatedInRelationship = {
+  __typename?: 'IslandLocatedInRelationship';
+  cursor: Scalars['String']['output'];
+  node: Country;
+};
+
+export type IslandLocatedInUpdateConnectionInput = {
+  node?: InputMaybe<CountryUpdateInput>;
+};
+
+export type IslandLocatedInUpdateFieldInput = {
+  connect?: InputMaybe<Array<IslandLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<IslandLocatedInCreateFieldInput>>;
+  delete?: InputMaybe<Array<IslandLocatedInDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<IslandLocatedInDisconnectFieldInput>>;
+  update?: InputMaybe<IslandLocatedInUpdateConnectionInput>;
+  where?: InputMaybe<IslandLocatedInConnectionWhere>;
+};
+
 export type IslandOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -1200,6 +2072,7 @@ export type IslandOptions = {
 
 export type IslandRelationInput = {
   linkedHolidays?: InputMaybe<Array<IslandLinkedHolidaysCreateFieldInput>>;
+  locatedIn?: InputMaybe<Array<IslandLocatedInCreateFieldInput>>;
 };
 
 /** Fields to sort Islands by. The order in which sorts are applied is not guaranteed when specifying many fields in one IslandSort object. */
@@ -1210,6 +2083,7 @@ export type IslandSort = {
 
 export type IslandUpdateInput = {
   linkedHolidays?: InputMaybe<Array<IslandLinkedHolidaysUpdateFieldInput>>;
+  locatedIn?: InputMaybe<Array<IslandLocatedInUpdateFieldInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1235,6 +2109,23 @@ export type IslandWhere = {
   linkedHolidays_SINGLE?: InputMaybe<HolidayWhere>;
   /** Return Islands where some of the related Holidays match this filter */
   linkedHolidays_SOME?: InputMaybe<HolidayWhere>;
+  locatedInAggregate?: InputMaybe<IslandLocatedInAggregateInput>;
+  /** Return Islands where all of the related IslandLocatedInConnections match this filter */
+  locatedInConnection_ALL?: InputMaybe<IslandLocatedInConnectionWhere>;
+  /** Return Islands where none of the related IslandLocatedInConnections match this filter */
+  locatedInConnection_NONE?: InputMaybe<IslandLocatedInConnectionWhere>;
+  /** Return Islands where one of the related IslandLocatedInConnections match this filter */
+  locatedInConnection_SINGLE?: InputMaybe<IslandLocatedInConnectionWhere>;
+  /** Return Islands where some of the related IslandLocatedInConnections match this filter */
+  locatedInConnection_SOME?: InputMaybe<IslandLocatedInConnectionWhere>;
+  /** Return Islands where all of the related Countries match this filter */
+  locatedIn_ALL?: InputMaybe<CountryWhere>;
+  /** Return Islands where none of the related Countries match this filter */
+  locatedIn_NONE?: InputMaybe<CountryWhere>;
+  /** Return Islands where one of the related Countries match this filter */
+  locatedIn_SINGLE?: InputMaybe<CountryWhere>;
+  /** Return Islands where some of the related Countries match this filter */
+  locatedIn_SOME?: InputMaybe<CountryWhere>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -1256,8 +2147,33 @@ export type IslandsConnection = {
 
 export type Location = {
   __typename?: 'Location';
+  linkedHolidays: Array<Holiday>;
+  linkedHolidaysAggregate?: Maybe<LocationHolidayLinkedHolidaysAggregationSelection>;
+  linkedHolidaysConnection: LocationLinkedHolidaysConnection;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
+};
+
+
+export type LocationLinkedHolidaysArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<HolidayOptions>;
+  where?: InputMaybe<HolidayWhere>;
+};
+
+
+export type LocationLinkedHolidaysAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<HolidayWhere>;
+};
+
+
+export type LocationLinkedHolidaysConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<LocationLinkedHolidaysConnectionSort>>;
+  where?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
 };
 
 export type LocationAggregateSelection = {
@@ -1267,15 +2183,299 @@ export type LocationAggregateSelection = {
   nodeId: StringAggregateSelectionNonNullable;
 };
 
+export type LocationConnectInput = {
+  linkedHolidays?: InputMaybe<Array<LocationLinkedHolidaysConnectFieldInput>>;
+};
+
+export type LocationConnectWhere = {
+  node: LocationWhere;
+};
+
 export type LocationCreateInput = {
+  linkedHolidays?: InputMaybe<LocationLinkedHolidaysFieldInput>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
+};
+
+export type LocationDeleteInput = {
+  linkedHolidays?: InputMaybe<Array<LocationLinkedHolidaysDeleteFieldInput>>;
+};
+
+export type LocationDisconnectInput = {
+  linkedHolidays?: InputMaybe<Array<LocationLinkedHolidaysDisconnectFieldInput>>;
 };
 
 export type LocationEdge = {
   __typename?: 'LocationEdge';
   cursor: Scalars['String']['output'];
   node: Location;
+};
+
+export type LocationHolidayLinkedHolidaysAggregationSelection = {
+  __typename?: 'LocationHolidayLinkedHolidaysAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<LocationHolidayLinkedHolidaysNodeAggregateSelection>;
+};
+
+export type LocationHolidayLinkedHolidaysNodeAggregateSelection = {
+  __typename?: 'LocationHolidayLinkedHolidaysNodeAggregateSelection';
+  coverPhoto: StringAggregateSelectionNullable;
+  dateMonth: StringAggregateSelectionNonNullable;
+  dateYear: StringAggregateSelectionNonNullable;
+  departingAirport: StringAggregateSelectionNullable;
+  fullText: StringAggregateSelectionNonNullable;
+  holidayTitle: StringAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
+  photoAlbum: StringAggregateSelectionNullable;
+  readableText: StringAggregateSelectionNonNullable;
+  sortDateValue: StringAggregateSelectionNonNullable;
+};
+
+export type LocationLinkedHolidaysAggregateInput = {
+  AND?: InputMaybe<Array<LocationLinkedHolidaysAggregateInput>>;
+  NOT?: InputMaybe<LocationLinkedHolidaysAggregateInput>;
+  OR?: InputMaybe<Array<LocationLinkedHolidaysAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<LocationLinkedHolidaysNodeAggregationWhereInput>;
+};
+
+export type LocationLinkedHolidaysConnectFieldInput = {
+  connect?: InputMaybe<Array<HolidayConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<HolidayConnectWhere>;
+};
+
+export type LocationLinkedHolidaysConnection = {
+  __typename?: 'LocationLinkedHolidaysConnection';
+  edges: Array<LocationLinkedHolidaysRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type LocationLinkedHolidaysConnectionSort = {
+  node?: InputMaybe<HolidaySort>;
+};
+
+export type LocationLinkedHolidaysConnectionWhere = {
+  AND?: InputMaybe<Array<LocationLinkedHolidaysConnectionWhere>>;
+  NOT?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+  OR?: InputMaybe<Array<LocationLinkedHolidaysConnectionWhere>>;
+  node?: InputMaybe<HolidayWhere>;
+};
+
+export type LocationLinkedHolidaysCreateFieldInput = {
+  node: HolidayCreateInput;
+};
+
+export type LocationLinkedHolidaysDeleteFieldInput = {
+  delete?: InputMaybe<HolidayDeleteInput>;
+  where?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+};
+
+export type LocationLinkedHolidaysDisconnectFieldInput = {
+  disconnect?: InputMaybe<HolidayDisconnectInput>;
+  where?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+};
+
+export type LocationLinkedHolidaysFieldInput = {
+  connect?: InputMaybe<Array<LocationLinkedHolidaysConnectFieldInput>>;
+  create?: InputMaybe<Array<LocationLinkedHolidaysCreateFieldInput>>;
+};
+
+export type LocationLinkedHolidaysNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<LocationLinkedHolidaysNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<LocationLinkedHolidaysNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<LocationLinkedHolidaysNodeAggregationWhereInput>>;
+  coverPhoto_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  coverPhoto_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  coverPhoto_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  coverPhoto_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  coverPhoto_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  coverPhoto_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  coverPhoto_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  dateMonth_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  dateMonth_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  dateMonth_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  dateMonth_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  dateMonth_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  dateMonth_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  dateYear_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  dateYear_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  dateYear_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  dateYear_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  dateYear_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  dateYear_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  departingAirport_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  departingAirport_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  departingAirport_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  departingAirport_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  departingAirport_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  departingAirport_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  fullText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  fullText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  fullText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  holidayTitle_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  holidayTitle_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  holidayTitle_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  holidayTitle_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  holidayTitle_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  holidayTitle_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  photoAlbum_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  photoAlbum_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  photoAlbum_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  photoAlbum_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  photoAlbum_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  photoAlbum_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  readableText_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  readableText_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  readableText_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  sortDateValue_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  sortDateValue_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  sortDateValue_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  sortDateValue_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  sortDateValue_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  sortDateValue_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type LocationLinkedHolidaysRelationship = {
+  __typename?: 'LocationLinkedHolidaysRelationship';
+  cursor: Scalars['String']['output'];
+  node: Holiday;
+};
+
+export type LocationLinkedHolidaysUpdateConnectionInput = {
+  node?: InputMaybe<HolidayUpdateInput>;
+};
+
+export type LocationLinkedHolidaysUpdateFieldInput = {
+  connect?: InputMaybe<Array<LocationLinkedHolidaysConnectFieldInput>>;
+  create?: InputMaybe<Array<LocationLinkedHolidaysCreateFieldInput>>;
+  delete?: InputMaybe<Array<LocationLinkedHolidaysDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<LocationLinkedHolidaysDisconnectFieldInput>>;
+  update?: InputMaybe<LocationLinkedHolidaysUpdateConnectionInput>;
+  where?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
 };
 
 export type LocationOptions = {
@@ -1285,6 +2485,10 @@ export type LocationOptions = {
   sort?: InputMaybe<Array<LocationSort>>;
 };
 
+export type LocationRelationInput = {
+  linkedHolidays?: InputMaybe<Array<LocationLinkedHolidaysCreateFieldInput>>;
+};
+
 /** Fields to sort Locations by. The order in which sorts are applied is not guaranteed when specifying many fields in one LocationSort object. */
 export type LocationSort = {
   name?: InputMaybe<SortDirection>;
@@ -1292,6 +2496,7 @@ export type LocationSort = {
 };
 
 export type LocationUpdateInput = {
+  linkedHolidays?: InputMaybe<Array<LocationLinkedHolidaysUpdateFieldInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1300,6 +2505,23 @@ export type LocationWhere = {
   AND?: InputMaybe<Array<LocationWhere>>;
   NOT?: InputMaybe<LocationWhere>;
   OR?: InputMaybe<Array<LocationWhere>>;
+  linkedHolidaysAggregate?: InputMaybe<LocationLinkedHolidaysAggregateInput>;
+  /** Return Locations where all of the related LocationLinkedHolidaysConnections match this filter */
+  linkedHolidaysConnection_ALL?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+  /** Return Locations where none of the related LocationLinkedHolidaysConnections match this filter */
+  linkedHolidaysConnection_NONE?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+  /** Return Locations where one of the related LocationLinkedHolidaysConnections match this filter */
+  linkedHolidaysConnection_SINGLE?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+  /** Return Locations where some of the related LocationLinkedHolidaysConnections match this filter */
+  linkedHolidaysConnection_SOME?: InputMaybe<LocationLinkedHolidaysConnectionWhere>;
+  /** Return Locations where all of the related Holidays match this filter */
+  linkedHolidays_ALL?: InputMaybe<HolidayWhere>;
+  /** Return Locations where none of the related Holidays match this filter */
+  linkedHolidays_NONE?: InputMaybe<HolidayWhere>;
+  /** Return Locations where one of the related Holidays match this filter */
+  linkedHolidays_SINGLE?: InputMaybe<HolidayWhere>;
+  /** Return Locations where some of the related Holidays match this filter */
+  linkedHolidays_SOME?: InputMaybe<HolidayWhere>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -1476,11 +2698,13 @@ export type MutationDeleteContinentsArgs = {
 
 
 export type MutationDeleteCountriesArgs = {
+  delete?: InputMaybe<CountryDeleteInput>;
   where?: InputMaybe<CountryWhere>;
 };
 
 
 export type MutationDeleteHolidaysArgs = {
+  delete?: InputMaybe<HolidayDeleteInput>;
   where?: InputMaybe<HolidayWhere>;
 };
 
@@ -1492,6 +2716,7 @@ export type MutationDeleteIslandsArgs = {
 
 
 export type MutationDeleteLocationsArgs = {
+  delete?: InputMaybe<LocationDeleteInput>;
   where?: InputMaybe<LocationWhere>;
 };
 
@@ -1536,12 +2761,20 @@ export type MutationUpdateContinentsArgs = {
 
 
 export type MutationUpdateCountriesArgs = {
+  connect?: InputMaybe<CountryConnectInput>;
+  create?: InputMaybe<CountryRelationInput>;
+  delete?: InputMaybe<CountryDeleteInput>;
+  disconnect?: InputMaybe<CountryDisconnectInput>;
   update?: InputMaybe<CountryUpdateInput>;
   where?: InputMaybe<CountryWhere>;
 };
 
 
 export type MutationUpdateHolidaysArgs = {
+  connect?: InputMaybe<HolidayConnectInput>;
+  create?: InputMaybe<HolidayRelationInput>;
+  delete?: InputMaybe<HolidayDeleteInput>;
+  disconnect?: InputMaybe<HolidayDisconnectInput>;
   update?: InputMaybe<HolidayUpdateInput>;
   where?: InputMaybe<HolidayWhere>;
 };
@@ -1558,6 +2791,10 @@ export type MutationUpdateIslandsArgs = {
 
 
 export type MutationUpdateLocationsArgs = {
+  connect?: InputMaybe<LocationConnectInput>;
+  create?: InputMaybe<LocationRelationInput>;
+  delete?: InputMaybe<LocationDeleteInput>;
+  disconnect?: InputMaybe<LocationDisconnectInput>;
   update?: InputMaybe<LocationUpdateInput>;
   where?: InputMaybe<LocationWhere>;
 };
@@ -1657,6 +2894,7 @@ export type PersonAttendedHolidaysAggregateInput = {
 };
 
 export type PersonAttendedHolidaysConnectFieldInput = {
+  connect?: InputMaybe<Array<HolidayConnectInput>>;
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']['input'];
   where?: InputMaybe<HolidayConnectWhere>;
@@ -1685,10 +2923,12 @@ export type PersonAttendedHolidaysCreateFieldInput = {
 };
 
 export type PersonAttendedHolidaysDeleteFieldInput = {
+  delete?: InputMaybe<HolidayDeleteInput>;
   where?: InputMaybe<PersonAttendedHolidaysConnectionWhere>;
 };
 
 export type PersonAttendedHolidaysDisconnectFieldInput = {
+  disconnect?: InputMaybe<HolidayDisconnectInput>;
   where?: InputMaybe<PersonAttendedHolidaysConnectionWhere>;
 };
 
@@ -2250,6 +3490,9 @@ export type Town = {
   linkedHolidays: Array<Holiday>;
   linkedHolidaysAggregate?: Maybe<TownHolidayLinkedHolidaysAggregationSelection>;
   linkedHolidaysConnection: TownLinkedHolidaysConnection;
+  locatedIn: Array<Country>;
+  locatedInAggregate?: Maybe<TownCountryLocatedInAggregationSelection>;
+  locatedInConnection: TownLocatedInConnection;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
 };
@@ -2276,6 +3519,28 @@ export type TownLinkedHolidaysConnectionArgs = {
   where?: InputMaybe<TownLinkedHolidaysConnectionWhere>;
 };
 
+
+export type TownLocatedInArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<CountryOptions>;
+  where?: InputMaybe<CountryWhere>;
+};
+
+
+export type TownLocatedInAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<CountryWhere>;
+};
+
+
+export type TownLocatedInConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<TownLocatedInConnectionSort>>;
+  where?: InputMaybe<TownLocatedInConnectionWhere>;
+};
+
 export type TownAggregateSelection = {
   __typename?: 'TownAggregateSelection';
   count: Scalars['Int']['output'];
@@ -2285,20 +3550,36 @@ export type TownAggregateSelection = {
 
 export type TownConnectInput = {
   linkedHolidays?: InputMaybe<Array<TownLinkedHolidaysConnectFieldInput>>;
+  locatedIn?: InputMaybe<Array<TownLocatedInConnectFieldInput>>;
+};
+
+export type TownCountryLocatedInAggregationSelection = {
+  __typename?: 'TownCountryLocatedInAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<TownCountryLocatedInNodeAggregateSelection>;
+};
+
+export type TownCountryLocatedInNodeAggregateSelection = {
+  __typename?: 'TownCountryLocatedInNodeAggregateSelection';
+  name: StringAggregateSelectionNonNullable;
+  nodeId: StringAggregateSelectionNonNullable;
 };
 
 export type TownCreateInput = {
   linkedHolidays?: InputMaybe<TownLinkedHolidaysFieldInput>;
+  locatedIn?: InputMaybe<TownLocatedInFieldInput>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
 };
 
 export type TownDeleteInput = {
   linkedHolidays?: InputMaybe<Array<TownLinkedHolidaysDeleteFieldInput>>;
+  locatedIn?: InputMaybe<Array<TownLocatedInDeleteFieldInput>>;
 };
 
 export type TownDisconnectInput = {
   linkedHolidays?: InputMaybe<Array<TownLinkedHolidaysDisconnectFieldInput>>;
+  locatedIn?: InputMaybe<Array<TownLocatedInDisconnectFieldInput>>;
 };
 
 export type TownEdge = {
@@ -2341,6 +3622,7 @@ export type TownLinkedHolidaysAggregateInput = {
 };
 
 export type TownLinkedHolidaysConnectFieldInput = {
+  connect?: InputMaybe<Array<HolidayConnectInput>>;
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']['input'];
   where?: InputMaybe<HolidayConnectWhere>;
@@ -2369,10 +3651,12 @@ export type TownLinkedHolidaysCreateFieldInput = {
 };
 
 export type TownLinkedHolidaysDeleteFieldInput = {
+  delete?: InputMaybe<HolidayDeleteInput>;
   where?: InputMaybe<TownLinkedHolidaysConnectionWhere>;
 };
 
 export type TownLinkedHolidaysDisconnectFieldInput = {
+  disconnect?: InputMaybe<HolidayDisconnectInput>;
   where?: InputMaybe<TownLinkedHolidaysConnectionWhere>;
 };
 
@@ -2571,6 +3855,117 @@ export type TownLinkedHolidaysUpdateFieldInput = {
   where?: InputMaybe<TownLinkedHolidaysConnectionWhere>;
 };
 
+export type TownLocatedInAggregateInput = {
+  AND?: InputMaybe<Array<TownLocatedInAggregateInput>>;
+  NOT?: InputMaybe<TownLocatedInAggregateInput>;
+  OR?: InputMaybe<Array<TownLocatedInAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<TownLocatedInNodeAggregationWhereInput>;
+};
+
+export type TownLocatedInConnectFieldInput = {
+  connect?: InputMaybe<Array<CountryConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<CountryConnectWhere>;
+};
+
+export type TownLocatedInConnection = {
+  __typename?: 'TownLocatedInConnection';
+  edges: Array<TownLocatedInRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type TownLocatedInConnectionSort = {
+  node?: InputMaybe<CountrySort>;
+};
+
+export type TownLocatedInConnectionWhere = {
+  AND?: InputMaybe<Array<TownLocatedInConnectionWhere>>;
+  NOT?: InputMaybe<TownLocatedInConnectionWhere>;
+  OR?: InputMaybe<Array<TownLocatedInConnectionWhere>>;
+  node?: InputMaybe<CountryWhere>;
+};
+
+export type TownLocatedInCreateFieldInput = {
+  node: CountryCreateInput;
+};
+
+export type TownLocatedInDeleteFieldInput = {
+  delete?: InputMaybe<CountryDeleteInput>;
+  where?: InputMaybe<TownLocatedInConnectionWhere>;
+};
+
+export type TownLocatedInDisconnectFieldInput = {
+  disconnect?: InputMaybe<CountryDisconnectInput>;
+  where?: InputMaybe<TownLocatedInConnectionWhere>;
+};
+
+export type TownLocatedInFieldInput = {
+  connect?: InputMaybe<Array<TownLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<TownLocatedInCreateFieldInput>>;
+};
+
+export type TownLocatedInNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TownLocatedInNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<TownLocatedInNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<TownLocatedInNodeAggregationWhereInput>>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type TownLocatedInRelationship = {
+  __typename?: 'TownLocatedInRelationship';
+  cursor: Scalars['String']['output'];
+  node: Country;
+};
+
+export type TownLocatedInUpdateConnectionInput = {
+  node?: InputMaybe<CountryUpdateInput>;
+};
+
+export type TownLocatedInUpdateFieldInput = {
+  connect?: InputMaybe<Array<TownLocatedInConnectFieldInput>>;
+  create?: InputMaybe<Array<TownLocatedInCreateFieldInput>>;
+  delete?: InputMaybe<Array<TownLocatedInDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<TownLocatedInDisconnectFieldInput>>;
+  update?: InputMaybe<TownLocatedInUpdateConnectionInput>;
+  where?: InputMaybe<TownLocatedInConnectionWhere>;
+};
+
 export type TownOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2580,6 +3975,7 @@ export type TownOptions = {
 
 export type TownRelationInput = {
   linkedHolidays?: InputMaybe<Array<TownLinkedHolidaysCreateFieldInput>>;
+  locatedIn?: InputMaybe<Array<TownLocatedInCreateFieldInput>>;
 };
 
 /** Fields to sort Towns by. The order in which sorts are applied is not guaranteed when specifying many fields in one TownSort object. */
@@ -2590,6 +3986,7 @@ export type TownSort = {
 
 export type TownUpdateInput = {
   linkedHolidays?: InputMaybe<Array<TownLinkedHolidaysUpdateFieldInput>>;
+  locatedIn?: InputMaybe<Array<TownLocatedInUpdateFieldInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2615,6 +4012,23 @@ export type TownWhere = {
   linkedHolidays_SINGLE?: InputMaybe<HolidayWhere>;
   /** Return Towns where some of the related Holidays match this filter */
   linkedHolidays_SOME?: InputMaybe<HolidayWhere>;
+  locatedInAggregate?: InputMaybe<TownLocatedInAggregateInput>;
+  /** Return Towns where all of the related TownLocatedInConnections match this filter */
+  locatedInConnection_ALL?: InputMaybe<TownLocatedInConnectionWhere>;
+  /** Return Towns where none of the related TownLocatedInConnections match this filter */
+  locatedInConnection_NONE?: InputMaybe<TownLocatedInConnectionWhere>;
+  /** Return Towns where one of the related TownLocatedInConnections match this filter */
+  locatedInConnection_SINGLE?: InputMaybe<TownLocatedInConnectionWhere>;
+  /** Return Towns where some of the related TownLocatedInConnections match this filter */
+  locatedInConnection_SOME?: InputMaybe<TownLocatedInConnectionWhere>;
+  /** Return Towns where all of the related Countries match this filter */
+  locatedIn_ALL?: InputMaybe<CountryWhere>;
+  /** Return Towns where none of the related Countries match this filter */
+  locatedIn_NONE?: InputMaybe<CountryWhere>;
+  /** Return Towns where one of the related Countries match this filter */
+  locatedIn_SINGLE?: InputMaybe<CountryWhere>;
+  /** Return Towns where some of the related Countries match this filter */
+  locatedIn_SOME?: InputMaybe<CountryWhere>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -2737,10 +4151,22 @@ export type GetCountryByIdQueryVariables = Exact<{
 
 export type GetCountryByIdQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, nodeId: string }> };
 
+export type GetCountryAndLinkedHolidaysByIdQueryVariables = Exact<{
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetCountryAndLinkedHolidaysByIdQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, nodeId: string, placesLocatedIn: Array<{ __typename: 'Location', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, sortDateValue: string }> }> }> };
+
 export type GetCountriesListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCountriesListQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, nodeId: string }> };
+export type GetCountriesListQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, nodeId: string, placesLocatedIn: Array<{ __typename: 'Location', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, dateMonth: string, dateYear: string, sortDateValue: string }> }> }> };
+
+export type GetCountriesTestQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCountriesTestQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', nodeId: string, name: string, placesLocatedIn: Array<{ __typename: 'Location', name: string, nodeId: string, linkedHolidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, sortDateValue: string }> }> }> };
 
 export type GetCitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2820,14 +4246,14 @@ export type GetPeopleListQuery = { __typename?: 'Query', people: Array<{ __typen
 export type GetHolidaysQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHolidaysQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, holidayTitle: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, fullText: string, readableText: string, locations?: Array<string> | null, departingAirport?: string | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null }> };
+export type GetHolidaysQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, holidayTitle: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, fullText: string, readableText: string, locations?: Array<string> | null, departingAirport?: string | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null, travelled_to: Array<{ __typename?: 'Location', nodeId: string }> }> };
 
 export type GetHolidayByIdQueryVariables = Exact<{
   nodeId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetHolidayByIdQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, holidayTitle: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, fullText: string, readableText: string, locations?: Array<string> | null, departingAirport?: string | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null }> };
+export type GetHolidayByIdQuery = { __typename?: 'Query', holidays: Array<{ __typename?: 'Holiday', nodeId: string, name: string, holidayTitle: string, tags?: Array<string> | null, dateYear: string, dateMonth: string, sortDateValue: string, fullText: string, readableText: string, locations?: Array<string> | null, departingAirport?: string | null, coverPhoto?: string | null, photoAlbum?: string | null, attendees?: Array<string> | null, travelled_to: Array<{ __typename?: 'Location', nodeId: string }> }> };
 
 export type GetHolidaysListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2846,7 +4272,9 @@ export const GetContinentByIdDocument = {"kind":"Document","definitions":[{"kind
 export const GetContinentsListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetContinentsList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"continents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]} as unknown as DocumentNode<GetContinentsListQuery, GetContinentsListQueryVariables>;
 export const GetCountriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]} as unknown as DocumentNode<GetCountriesQuery, GetCountriesQueryVariables>;
 export const GetCountryByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCountryById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]} as unknown as DocumentNode<GetCountryByIdQuery, GetCountryByIdQueryVariables>;
-export const GetCountriesListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCountriesList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]} as unknown as DocumentNode<GetCountriesListQuery, GetCountriesListQueryVariables>;
+export const GetCountryAndLinkedHolidaysByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCountryAndLinkedHolidaysById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"placesLocatedIn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCountryAndLinkedHolidaysByIdQuery, GetCountryAndLinkedHolidaysByIdQueryVariables>;
+export const GetCountriesListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCountriesList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"placesLocatedIn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCountriesListQuery, GetCountriesListQueryVariables>;
+export const GetCountriesTestDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCountriesTest"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"placesLocatedIn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCountriesTestQuery, GetCountriesTestQueryVariables>;
 export const GetCitiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"capital"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]}}]} as unknown as DocumentNode<GetCitiesQuery, GetCitiesQueryVariables>;
 export const GetCityByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCityById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cities"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"capital"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]}}]} as unknown as DocumentNode<GetCityByIdQuery, GetCityByIdQueryVariables>;
 export const GetCitiesListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCitiesList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"capital"}},{"kind":"Field","name":{"kind":"Name","value":"linkedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]}}]} as unknown as DocumentNode<GetCitiesListQuery, GetCitiesListQueryVariables>;
@@ -2860,7 +4288,7 @@ export const GetIslandsListDocument = {"kind":"Document","definitions":[{"kind":
 export const GetPeopleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeople"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]}}]} as unknown as DocumentNode<GetPeopleQuery, GetPeopleQueryVariables>;
 export const GetPersonByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPersonById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}}]}}]}}]}}]} as unknown as DocumentNode<GetPersonByIdQuery, GetPersonByIdQueryVariables>;
 export const GetPeopleListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPeopleList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"attendedHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}}]}}]}}]}}]} as unknown as DocumentNode<GetPeopleListQuery, GetPeopleListQueryVariables>;
-export const GetHolidaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"fullText"}},{"kind":"Field","name":{"kind":"Name","value":"readableText"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysQuery, GetHolidaysQueryVariables>;
-export const GetHolidayByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidayById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"fullText"}},{"kind":"Field","name":{"kind":"Name","value":"readableText"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}}]}}]}}]} as unknown as DocumentNode<GetHolidayByIdQuery, GetHolidayByIdQueryVariables>;
+export const GetHolidaysDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"fullText"}},{"kind":"Field","name":{"kind":"Name","value":"readableText"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"travelled_to"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysQuery, GetHolidaysQueryVariables>;
+export const GetHolidayByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidayById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"nodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"nodeId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"fullText"}},{"kind":"Field","name":{"kind":"Name","value":"readableText"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"travelled_to"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}}]}}]}}]} as unknown as DocumentNode<GetHolidayByIdQuery, GetHolidayByIdQueryVariables>;
 export const GetHolidaysListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHolidaysList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"dateYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateMonth"}},{"kind":"Field","name":{"kind":"Name","value":"sortDateValue"}},{"kind":"Field","name":{"kind":"Name","value":"holidayTitle"}},{"kind":"Field","name":{"kind":"Name","value":"locations"}},{"kind":"Field","name":{"kind":"Name","value":"coverPhoto"}},{"kind":"Field","name":{"kind":"Name","value":"photoAlbum"}},{"kind":"Field","name":{"kind":"Name","value":"attendees"}},{"kind":"Field","name":{"kind":"Name","value":"departingAirport"}}]}}]}}]} as unknown as DocumentNode<GetHolidaysListQuery, GetHolidaysListQueryVariables>;
 export const GetPossibleHyperlinksDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPossibleHyperlinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"holidays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"continents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"towns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"islands"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nodeId"}}]}}]}}]} as unknown as DocumentNode<GetPossibleHyperlinksQuery, GetPossibleHyperlinksQueryVariables>;

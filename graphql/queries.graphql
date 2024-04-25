@@ -77,10 +77,29 @@ query GetCountries {
 	}
 }
 
+# Simple query for a single country by Id
 query GetCountryById($nodeId: String) {
 	countries(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+	}
+}
+
+# Complex query for a single country by Id to return the linked holidays
+query GetCountryAndLinkedHolidaysById($nodeId: String) {
+	countries(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+				name
+				sortDateValue
+			}
+		}
 	}
 }
 
@@ -89,6 +108,36 @@ query GetCountriesList {
 	countries {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+				name
+				dateMonth
+				dateYear
+				sortDateValue
+			}
+		}
+	}
+}
+
+# TEST DEVELOPMENT QUERY - DELETE WHEN DONE
+query GetCountriesTest {
+	countries {
+		nodeId
+		name
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+				name
+				sortDateValue
+			}
+		}
 	}
 }
 
@@ -268,7 +317,9 @@ query GetHolidays {
 		fullText
 		readableText
 		locations
-		# travelled_to
+		travelled_to {
+			nodeId
+		}
 		departingAirport
 		coverPhoto
 		photoAlbum
@@ -289,7 +340,9 @@ query GetHolidayById($nodeId: String) {
 		fullText
 		readableText
 		locations
-		# travelled_to
+		travelled_to {
+			nodeId
+		}
 		departingAirport
 		coverPhoto
 		photoAlbum
