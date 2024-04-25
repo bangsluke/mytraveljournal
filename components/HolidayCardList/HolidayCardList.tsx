@@ -2,7 +2,6 @@ import { ActionIcon, Group, Text, rem } from "@mantine/core";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Holiday } from "../../graphql/__generated__/graphql";
 import useScreenSize from "../../hooks/useScreenSize";
 import filterTags from "../../services/FilterTagsS";
 import FilterDecade from "./FilterDecade";
@@ -11,7 +10,7 @@ import styles from "./HolidayCardList.module.css";
 
 // Define the HolidayCardList component props
 interface HolidayListProps {
-	data?: Holiday[];
+	data?: any;
 }
 
 type SortOrder = "OldToNew" | "NewToOld";
@@ -45,7 +44,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	}
 
 	// Filter holidays based on the selected decade
-	const filteredHolidaysData = data?.filter((holiday) => {
+	const filteredHolidaysData = data?.filter((holiday: any) => {
 		if (selectedDecade === "All") {
 			return true; // Show all holidays
 		}
@@ -60,7 +59,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// Define the holiday elements
 	const holidayElements = filteredHolidaysData
 		// First sort the holidays by sortDateValue
-		?.sort((a, b) => {
+		?.sort((a: any, b: any) => {
 			if (sortOrder === "NewToOld") {
 				return parseInt(b.sortDateValue) - parseInt(a.sortDateValue);
 			} else {
@@ -68,7 +67,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			}
 		})
 		// Then map the sorted holidays to create the holiday elements
-		?.map((holiday, index) => {
+		?.map((holiday: any, index: any) => {
 			// Define the holiday image URL
 			// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 			let holidayImageURL = "";
