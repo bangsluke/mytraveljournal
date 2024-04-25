@@ -12,6 +12,16 @@ query GetCardCounts {
 	countries {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+				name
+				sortDateValue
+			}
+		}
 	}
 	cities {
 		name
