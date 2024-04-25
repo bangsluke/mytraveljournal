@@ -25,7 +25,8 @@ type CardCountResults = {
 	continentData: CountValue[] | undefined;
 	continentCount: number;
 	countriesData: CountValue[] | undefined;
-	countriesCount: number;
+	filteredCountriesData: CountValue[] | undefined;
+	filteredCountriesCount: number;
 	citiesData: CountValue[] | undefined;
 	filteredCitiesData: CountValue[] | undefined;
 	filteredCitiesCount: number;
@@ -47,7 +48,8 @@ const useGetCardCounts = () => {
 		continentData: [],
 		continentCount: 0,
 		countriesData: [],
-		countriesCount: 0,
+		filteredCountriesData: [],
+		filteredCountriesCount: 0,
 		citiesData: [],
 		filteredCitiesData: [],
 		filteredCitiesCount: 0,
@@ -66,6 +68,14 @@ const useGetCardCounts = () => {
 		LogS.error("useGetCardCounts GraphQL Error: ", error.message), cardCounts;
 		return <Toast message={"useGetCardCounts GraphQL Error: " + error.message} duration={5} />;
 	}
+
+	// Reduce countries down to visited countries (ones without a linkedHolidays array connected to any placesLocatedIn)
+	const visitedCountriesData =
+		data?.countries.filter((country: any) => {
+			return country.placesLocatedIn.some((place: any) => {
+				return place.linkedHolidays.length > 0;
+			});
+		}) ?? [];
 
 	// Reduce cities down to visited cities
 	const visitedCitiesData =
@@ -123,7 +133,8 @@ const useGetCardCounts = () => {
 		continentData: data?.continents ?? [],
 		continentCount: data?.continents.length ?? 0, // TODO: Filter out continents not visited
 		countriesData: data?.countries ?? [],
-		countriesCount: data?.countries.length ?? 0, // TODO: Filter out countries not visited
+		filteredCountriesData: visitedCountriesData,
+		filteredCountriesCount: visitedCountriesData.length ?? 0,
 		citiesData: data?.cities ?? [],
 		filteredCitiesData: visitedCitiesData,
 		filteredCitiesCount: visitedCitiesData.length,
@@ -190,7 +201,7 @@ export default function CountCardSection() {
 			<CountCard
 				id='4'
 				cardTitle='Countries Count'
-				countValue={countCardData.countriesCount}
+				countValue={countCardData.filteredCountriesCount}
 				pagePath='/countries'
 				enabledBoolean={true}
 				backgroundIcon={

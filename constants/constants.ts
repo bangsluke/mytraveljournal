@@ -16,12 +16,23 @@ let AllowedTopLevelTags = ["work", "family", "UK", "skiing"];
 // Define some tags that are allowed at the secondary level (Holiday Page Level)
 let AllowedSecondLevelTags = [...AllowedTopLevelTags, "wedding", "golf", "sport"];
 
+// Define the node to path mapping
+let NodeToPath = {
+	person: "people",
+	holiday: "holidays",
+	city: "cities",
+	continent: "continents",
+	country: "countries",
+	town: "towns",
+};
+
 const Constants = {
 	headerHeight,
 	SkipAuth,
 	mainAccent,
 	AllowedTopLevelTags,
 	AllowedSecondLevelTags,
+	NodeToPath,
 };
 
 export default Constants;

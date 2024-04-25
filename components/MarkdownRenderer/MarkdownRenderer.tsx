@@ -1,5 +1,6 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Constants from "../../constants/constants";
 
 interface MyRendererProps {
 	possibleHyperlinks: any;
@@ -55,16 +56,8 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 						return LabelLongName; // Return the original label with no link if no results
 					} else if (results.length >= 0) {
 						// Define the a hyperlink path that should be followed when clicked
-						let routeName = results[0].__typename.toLowerCase();
-						if (routeName === "person") {
-							routeName = "people";
-						} else if (routeName === "city") {
-							routeName = "cities";
-						} else if (routeName === "country") {
-							routeName = "countries";
-						} else if (routeName === "town") {
-							routeName = "towns";
-						}
+						// @ts-ignore
+						let routeName = Constants.NodeToPath[results[0].__typename.toLowerCase()]; // Get the route name based on the mapped node type from constants
 						const pageName = results[0].nodeId.replace(/\s+/g, "-");
 						// Return the link in Markdown format so that it can correctly be rendered by react-markdown
 						return `[${LabelShortName ? LabelShortName : LabelLongName}](/${routeName + "/" + pageName})`;
