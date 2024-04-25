@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { ActionIcon, Anchor, ScrollArea, Table, Text, Tooltip, rem } from "@mantine/core";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
+import InfoIcon from "@mui/icons-material/Info";
 import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
 import { GetCountriesListDocument } from "../../graphql/__generated__/graphql";
@@ -76,6 +77,9 @@ export default function CountryList() {
 		(a: any, b: any) => b.uniqueHolidayCount - a.uniqueHolidayCount,
 	);
 
+	// Define the text for the information icon
+	const infoText = `Total Database Country Count: ${data?.countries.length}, Visited Countries Count: ${sortedAndFilteredCountriesWithLastHoliday.length}`;
+
 	// Get the height of the scrollable area
 	const windowHeight = window.innerHeight;
 	const scrollHeight = windowHeight - Constants.headerHeight;
@@ -120,6 +124,9 @@ export default function CountryList() {
 
 	return (
 		<ScrollArea h={scrollHeight} className={styles.dataList}>
+			<Tooltip label={infoText}>
+				<InfoIcon className={styles.infoIcon} />
+			</Tooltip>
 			<Table.ScrollContainer minWidth={300}>
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
