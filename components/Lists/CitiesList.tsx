@@ -22,12 +22,26 @@ export default function CitiesList() {
 	}
 	LogS.log("CitiesList: cities data: ", data);
 
-	// Filter out cities with no holidays and then sort by the length of timesVisited
-	//const sortedAndFilteredCities = data.cities;
-	const sortedAndFilteredCities: any = data?.cities
-		.filter((city: any) => city.linkedHolidays && city.linkedHolidays.length > 0)
-		.sort((a: any, b: any) => b.linkedHolidays.length - a.linkedHolidays.length);
+	// Filter out cities not visited (ones without a linkedHolidays array) and then sort by the length of attendedHolidays
+	let sortedAndFilteredCities = data?.cities
+		.filter((city) => city.linkedHolidays && city.linkedHolidays.length > 0)
+		.sort((a, b) => b.linkedHolidays.length - a.linkedHolidays.length);
 
+	// Map the sorted and filtered cities to add the holiday count
+	sortedAndFilteredCities = sortedAndFilteredCities?.map((city) => {
+		let lastHoliday = city.linkedHolidays.reduce((prev: any, current: any) => {
+			return prev.sortDateValue > current.sortDateValue ? prev : current;
+		});
+
+		return {
+			...city,
+			holidayCount: city.linkedHolidays.length,
+			lastHoliday: {
+				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
+				nodeId: lastHoliday.nodeId,
+			},
+		};
+	});
 	LogS.log("CitiesList: Sorted and filtered city data: ", sortedAndFilteredCities);
 
 	// Get the height of the scrollable area

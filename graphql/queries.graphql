@@ -133,24 +133,6 @@ query GetCountriesList {
 	}
 }
 
-# TEST DEVELOPMENT QUERY - DELETE WHEN DONE
-query GetCountriesTest {
-	countries {
-		nodeId
-		name
-		placesLocatedIn {
-			name
-			nodeId
-			__typename
-			linkedHolidays {
-				nodeId
-				name
-				sortDateValue
-			}
-		}
-	}
-}
-
 # Cities
 
 query GetCities {
@@ -183,6 +165,10 @@ query GetCitiesList {
 		capital
 		linkedHolidays {
 			nodeId
+			name
+			sortDateValue
+			dateMonth
+			dateYear
 		}
 	}
 }
@@ -306,8 +292,8 @@ query GetPeopleList {
 			name
 			holidayTitle
 			sortDateValue
-			dateYear
 			dateMonth
+			dateYear
 		}
 	}
 }
