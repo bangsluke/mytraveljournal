@@ -229,7 +229,7 @@ export default function CountCardSection() {
 				cardTitle='Capitals Count'
 				countValue={countCardData.filteredCapitalsCount}
 				pagePath='/capitals'
-				enabledBoolean={false}
+				enabledBoolean={true}
 				backgroundIcon={
 					<PinDropIcon
 						// @ts-ignore
@@ -241,8 +241,9 @@ export default function CountCardSection() {
 				id='7'
 				cardTitle='Towns Count'
 				countValue={countCardData.filteredTownsCount}
-				pagePath='/towns'
-				enabledBoolean={false}
+				pagePath='/locations'
+				// TODO: Pass a value in the locations URL above?
+				enabledBoolean={true}
 				backgroundIcon={
 					<HouseIcon
 						// @ts-ignore
@@ -254,8 +255,9 @@ export default function CountCardSection() {
 				id='8'
 				cardTitle='Islands Count'
 				countValue={countCardData.filteredIslandsCount}
-				pagePath='/islands'
-				enabledBoolean={false}
+				pagePath='/locations'
+				// TODO: Pass a value in the locations URL above?
+				enabledBoolean={true}
 				backgroundIcon={
 					<BeachAccessIcon
 						// @ts-ignore

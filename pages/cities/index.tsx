@@ -8,7 +8,6 @@ function CitiesPage() {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			{/* Note: Layout wraps component in a main tag */}
-
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Cities' />
 				<CitiesList />

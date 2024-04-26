@@ -47,7 +47,18 @@ export default function HolidayList() {
 			</Table.Td>
 			<Table.Td>
 				<Text fz='md' fw={500}>
-					{holiday.dateMonth} {holiday.dateYear}
+					{new Date(parseInt(holiday.dateYear, 10), parseInt(holiday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })}{" "}
+					{holiday.dateYear}
+				</Text>
+			</Table.Td>
+			<Table.Td>
+				<Text fz='md' fw={500} className={styles.centerAlign}>
+					{holiday.attendees.length}
+				</Text>
+			</Table.Td>
+			<Table.Td>
+				<Text fz='md' fw={500} className={styles.centerAlign}>
+					{holiday.locations.length}
 				</Text>
 			</Table.Td>
 			<Table.Td>
@@ -69,6 +80,8 @@ export default function HolidayList() {
 						<Table.Tr>
 							<Table.Th>Name</Table.Th>
 							<Table.Th>Date</Table.Th>
+							<Table.Th>Attendees</Table.Th>
+							<Table.Th>Locations</Table.Th>
 							<Table.Th />
 						</Table.Tr>
 					</Table.Thead>
@@ -77,19 +90,4 @@ export default function HolidayList() {
 			</Table.ScrollContainer>
 		</ScrollArea>
 	);
-
-	// return (
-	// 	<div className={styles.dataList}>
-	// 		<ul>
-	// 			{sortedHolidays.map(({ name, dateYear, dateMonth, nodeId }: Holiday) => (
-	// 				<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/holidays/${nodeId}` })}>
-	// 					<h4>{name}</h4>
-	// 					<h5>
-	// 						{dateYear} {dateMonth}
-	// 					</h5>
-	// 				</li>
-	// 			))}
-	// 		</ul>
-	// 	</div>
-	// );
 }

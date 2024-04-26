@@ -1,20 +1,19 @@
 import Layout from "../../components/Layout/Layout";
-import TownsList from "../../components/Lists/TownsList";
+import LocationsList from "../../components/Lists/LocationsList";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import styles from "../../styles/Home.module.css";
 import withAuth from "../api/auth/withAuth";
 
-function TownsPage() {
+function LocationsPage() {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			{/* Note: Layout wraps component in a main tag */}
-
 			<section className={styles.section}>
-				<PageHeader PageHeaderTitle='Towns' />
-				<TownsList />
+				<PageHeader PageHeaderTitle='Locations' />
+				<LocationsList />
 			</section>
 		</Layout>
 	);
 }
 
-export default withAuth(TownsPage);
+export default withAuth(LocationsPage);

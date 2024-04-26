@@ -9,7 +9,6 @@ function HolidaysPage() {
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Holidays' />
-
 				<HolidayList />
 			</section>
 		</Layout>

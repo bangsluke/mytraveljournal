@@ -133,24 +133,6 @@ query GetCountriesList {
 	}
 }
 
-# TEST DEVELOPMENT QUERY - DELETE WHEN DONE
-query GetCountriesTest {
-	countries {
-		nodeId
-		name
-		placesLocatedIn {
-			name
-			nodeId
-			__typename
-			linkedHolidays {
-				nodeId
-				name
-				sortDateValue
-			}
-		}
-	}
-}
-
 # Cities
 
 query GetCities {
@@ -183,6 +165,10 @@ query GetCitiesList {
 		capital
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 }
@@ -208,6 +194,69 @@ query GetCapitalsList($capitalCheck: Boolean) {
 		capital
 		linkedHolidays {
 			nodeId
+		}
+	}
+}
+
+# Locations
+
+query GetLocationsList {
+	towns {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
+		}
+	}
+	islands {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
+		}
+	}
+	states {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
+		}
+	}
+	counties {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
+		}
+	}
+}
+
+query GetLocationById($nodeId: String) {
+	locations(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 }
@@ -305,9 +354,9 @@ query GetPeopleList {
 			nodeId
 			name
 			holidayTitle
-			sortDateValue
-			dateYear
 			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 }
@@ -321,8 +370,8 @@ query GetHolidays {
 		name
 		holidayTitle
 		tags
-		dateYear
 		dateMonth
+		dateYear
 		sortDateValue
 		fullText
 		readableText
@@ -344,8 +393,8 @@ query GetHolidayById($nodeId: String) {
 		name
 		holidayTitle
 		tags
-		dateYear
 		dateMonth
+		dateYear
 		sortDateValue
 		fullText
 		readableText
@@ -367,8 +416,8 @@ query GetHolidaysList {
 		name
 		nodeId
 		tags
-		dateYear
 		dateMonth
+		dateYear
 		sortDateValue
 		holidayTitle
 		locations
