@@ -206,6 +206,10 @@ query GetLocationsList {
 		nodeId
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 	islands {
@@ -213,6 +217,10 @@ query GetLocationsList {
 		nodeId
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 	states {
@@ -220,6 +228,10 @@ query GetLocationsList {
 		nodeId
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 	counties {
@@ -227,6 +239,24 @@ query GetLocationsList {
 		nodeId
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
+		}
+	}
+}
+
+query GetLocationById($nodeId: String) {
+	locations(where: { nodeId: $nodeId }) {
+		name
+		nodeId
+		linkedHolidays {
+			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 }
