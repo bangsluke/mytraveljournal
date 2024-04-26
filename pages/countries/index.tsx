@@ -8,10 +8,8 @@ function CountriesPage() {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			{/* Note: Layout wraps component in a main tag */}
-
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Countries' />
-
 				<CountriesList />
 			</section>
 		</Layout>
