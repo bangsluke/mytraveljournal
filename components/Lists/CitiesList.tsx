@@ -35,7 +35,7 @@ export default function CitiesList() {
 
 		return {
 			...city,
-			holidayCount: city.linkedHolidays.length,
+			uniqueHolidayCount: city.linkedHolidays.length,
 			lastHoliday: {
 				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
 				nodeId: lastHoliday.nodeId,
@@ -63,7 +63,7 @@ export default function CitiesList() {
 			</Table.Td>
 			<Table.Td>
 				<Text fz='md' fw={500}>
-					{city.visitedCount}
+					{city.uniqueHolidayCount}
 				</Text>
 			</Table.Td>
 			<Table.Td>
