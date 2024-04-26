@@ -8,10 +8,8 @@ function ContinentsPage() {
 	return (
 		<Layout NavbarStyle='Opaque'>
 			{/* Note: Layout wraps component in a main tag */}
-
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Continents' />
-
 				<ContinentList />
 			</section>
 		</Layout>

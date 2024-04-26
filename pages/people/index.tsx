@@ -9,7 +9,6 @@ function PersonsPage() {
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle='Travel Companions' />
-
 				<PersonsList />
 			</section>
 		</Layout>

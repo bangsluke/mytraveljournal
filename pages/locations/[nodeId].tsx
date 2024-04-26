@@ -4,41 +4,41 @@ import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import Toast from "../../components/Toast/Toast";
-import { GetTownByIdDocument } from "../../graphql/__generated__/graphql";
+import { GetLocationByIdDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import styles from "../../styles/Home.module.css";
 import withAuth from "../api/auth/withAuth";
 
-function TownPage() {
+function LocationsPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId }: any = router.query; // Use the same variable name as the [nodeId] file name
 	LogS.log("nodeId: ", nodeId);
 
 	// Get the town by Id
-	const { loading, error, data } = useQuery(GetTownByIdDocument, {
+	const { loading, error, data } = useQuery(GetLocationByIdDocument, {
 		variables: { nodeId }, // Pass the variable to the query);
 	});
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
 		// If error - show error message, and raise an error toast
-		LogS.error("useQuery(GetTownByIdDocument) GraphQL Error: ", error.message);
-		return <Toast message={"useQuery(GetTownByIdDocument) GraphQL Error: " + error.message} duration={5} />;
+		LogS.error("useQuery(GetLocationByIdDocument) GraphQL Error: ", error.message);
+		return <Toast message={"useQuery(GetLocationByIdDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
-	LogS.log("Town [nodeId]: data", data);
+	LogS.log("Location [nodeId]: data", data);
 
 	// Extract the data into usable variables
-	const { name }: any = data?.towns[0];
-	const timesVisited: number | undefined = data?.towns[0].linkedHolidays.length;
+	const { name }: any = data?.locations[0];
+	const timesVisited: number | undefined = data?.locations[0].linkedHolidays.length;
 
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
 				<PageHeader PageHeaderTitle={name} />
 
-				<h1>Town Page</h1>
+				<h1>Location Page</h1>
 
-				<h3>Town Name: {name}</h3>
+				<h3>Location Name: {name}</h3>
 				<p>{nodeId}</p>
 
 				<div>Number of times visited: {timesVisited}</div>
@@ -47,4 +47,4 @@ function TownPage() {
 	);
 }
 
-export default withAuth(TownPage);
+export default withAuth(LocationsPage);

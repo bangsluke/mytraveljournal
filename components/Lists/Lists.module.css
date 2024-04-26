@@ -10,6 +10,9 @@
 	text-align: left;
 }
 
+.centerAlign {
+	text-align: center;
+}
 
 .clickableListItem {
 	/* list-style: none; */

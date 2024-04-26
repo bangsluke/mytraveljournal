@@ -58,8 +58,8 @@
 
 .holidayName {
 	z-index: 1;
-	font-size: 1.6rem;
-	line-height: 1.6rem;
+	font-size: 1.8rem;
+	line-height: 1.8rem;
 	text-align: left;
 	align-self: flex-start;
 	margin: 0;
@@ -146,11 +146,21 @@
 	.holidayContentContainer {
 		padding: 0 20px;
 	}
+
+	.holidayName {
+		font-size: 2rem;
+		line-height: 2rem;
+	}
 }
 
 /* Desktops */
 @media only screen and (min-width: 1024px) {
 	.holidayContentContainer {
 		padding: 0 60px;
+	}
+
+	.holidayName {
+		font-size: 2.2rem;
+		line-height: 2.2rem;
 	}
 }
