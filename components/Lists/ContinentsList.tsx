@@ -23,7 +23,7 @@ export default function ContinentsList() {
 		return <Toast message={"useQuery(GetContinentsListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
 
-	LogS.log("ContinentsList: continents data: ", data);
+	// LogS.log("ContinentsList: continents data: ", data);
 
 	// Filter out continents not visited (ones without a linkedHolidays array connected to any placesLocatedIn)
 	const filterContinentsWithLinkedHolidays = (continents: any) => {
@@ -37,54 +37,31 @@ export default function ContinentsList() {
 		});
 	};
 	const filteredContinents = filterContinentsWithLinkedHolidays(data?.continents);
-	LogS.log("ContinentsList: filteredContinents data: ", filteredContinents);
+	// LogS.log("ContinentsList: filteredContinents data: ", filteredContinents);
 
 	let mostRecentHolidayAtContinent = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(filteredContinents[2]);
-	console.log("mostRecentHolidayAtContinent for continent: " + filteredContinents[2].name, mostRecentHolidayAtContinent);
+	// console.log("mostRecentHolidayAtContinent for continent: " + filteredContinents[2].name, mostRecentHolidayAtContinent);
 
-	// Re-map the data into a new array with the last holiday and unique holiday count for each country
+	// Re-map the data into a new array with the last holiday and unique holiday count for each continent
 	const getContinentDataWithLastHolidayAndUniqueHolidayCount = (continents: any) => {
 		return continents.map((continent: any) => {
 			// Return the last holiday for each continent
-			let lastHoliday = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(continent);
-			console.log("lastHoliday for continent: " + continent.name, lastHoliday);
-
-			// Return the last holiday for each continent if the holiday is connected to a location, under another location below the Continent
-			// lastHoliday = continent.placesLocatedIn.placesLocatedIn.reduce(
-			// 	(acc: any, place: any) => {
-			// 		const holiday = place.linkedHolidays[0];
-			// 		if (holiday && holiday.sortDateValue > acc.sortDateValue) {
-			// 			return holiday;
-			// 		}
-			// 		return acc;
-			// 	},
-			// 	{ sortDateValue: 0 },
-			// );
-
-			// Return the unique holiday count by nodeId for each continent
-			// const getUniqueHolidayNodeIdCount = (continent: any) => {
-			// 	const holidays = continent.placesLocatedIn.flatMap((place: any) => place.linkedHolidays);
-			// 	const nodeIds = holidays.map((holiday: any) => holiday.nodeId);
-			// 	// @ts-ignore
-			// 	const uniqueNodeIds = [...new Set(nodeIds)];
-			// 	return uniqueNodeIds.length;
-			// };
+			let lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(continent);
 			return {
 				__typename: "Continent",
 				name: continent.name,
 				nodeId: continent.nodeId,
-
 				lastHoliday: {
 					nodeId: lastHoliday.nodeId,
 					name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
 					sortDateValue: lastHoliday.sortDateValue,
 				},
-				// uniqueHolidayCount: getUniqueHolidayNodeIdCount(continent),
+				uniqueHolidayCount: NodeTraversalsS.findHolidayCountOfLocation(continent),
 			};
 		});
 	};
 	const filteredContinentsWithLastHoliday = getContinentDataWithLastHolidayAndUniqueHolidayCount(filteredContinents);
-	LogS.log("ContinentList: filteredContinentsWithLastHoliday data: ", filteredContinentsWithLastHoliday);
+	// LogS.log("ContinentList: filteredContinentsWithLastHoliday data: ", filteredContinentsWithLastHoliday);
 
 	// Finally, sort the continents by the number of unique holidays
 	let sortedAndFilteredContinentsWithLastHoliday: any = filteredContinentsWithLastHoliday.sort(
