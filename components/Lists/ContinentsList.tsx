@@ -39,48 +39,15 @@ export default function ContinentsList() {
 	const filteredContinents = filterContinentsWithLinkedHolidays(data?.continents);
 	LogS.log("ContinentsList: filteredContinents data: ", filteredContinents);
 
-	// let mostRecentHolidayAtContinent = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(filteredContinents[2]);
-	// console.log("mostRecentHolidayAtContinent for continent: " + filteredContinents[2].name, mostRecentHolidayAtContinent);
+	let mostRecentHolidayAtContinent = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(filteredContinents[2]);
+	console.log("mostRecentHolidayAtContinent for continent: " + filteredContinents[2].name, mostRecentHolidayAtContinent);
 
 	// Re-map the data into a new array with the last holiday and unique holiday count for each country
 	const getContinentDataWithLastHolidayAndUniqueHolidayCount = (continents: any) => {
 		return continents.map((continent: any) => {
 			// Return the last holiday for each continent
-			let lastHoliday = continent.placesLocatedIn.reduce(
-				(accumulator: any, place: any) => {
-					console.log("place: ", place);
-					let mostRecentHoliday;
-					if (place.hasOwnProperty("linkedHolidays")) {
-						console.log(place.name + " does have linkedHolidays: ", place.linkedHolidays[0]);
-						// The place is directly below the continent and has a connected holiday, such as a Country mentioned directly in the Obsidian note
-						mostRecentHoliday = place.linkedHolidays[0];
-						// TODO: Check the above actually gives the correct result
-					} else {
-						// The place directly below the continent does not have a connected holiday. Need to check down two levels
-						if (place.hasOwnProperty("placesLocatedIn")) {
-							// The place has locations located below it
-							console.log(place.name + " does have placesLocatedIn: ", place.placesLocatedIn);
-							// Loop through the placesLocatedIn array
-							mostRecentHoliday = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(place);
-							// console.log("mostRecentHoliday: ", mostRecentHoliday);
-							return mostRecentHoliday;
-						} else {
-							// The place does not have locations located below it - e.g. an unvisited country
-							console.log(place.name + " does not have placesLocatedIn: ", place);
-						}
-					}
-
-					// Return the holiday if connected directly to the top level location
-					// const holiday = place.linkedHolidays[0];
-					if (mostRecentHoliday && mostRecentHoliday.sortDateValue > accumulator.sortDateValue) {
-						return mostRecentHoliday;
-					}
-					return accumulator;
-				},
-				{ sortDateValue: 0 },
-			);
-
-			console.log("lastHoliday: ", lastHoliday);
+			let lastHoliday = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(continent);
+			console.log("lastHoliday for continent: " + continent.name, lastHoliday);
 
 			// Return the last holiday for each continent if the holiday is connected to a location, under another location below the Continent
 			// lastHoliday = continent.placesLocatedIn.placesLocatedIn.reduce(
