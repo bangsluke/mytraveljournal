@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
 import { GetCountriesListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
+import NodeTraversalsS from "../../services/NodeTraversalsS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
@@ -38,24 +39,8 @@ export default function CountryList() {
 	const getCountryDataWithLastHolidayAndUniqueHolidayCount = (countries: any) => {
 		return countries.map((country: any) => {
 			// Return the last holiday for each country
-			const lastHoliday = country.placesLocatedIn.reduce(
-				(acc: any, place: any) => {
-					const holiday = place.linkedHolidays[0];
-					if (holiday && holiday.sortDateValue > acc.sortDateValue) {
-						return holiday;
-					}
-					return acc;
-				},
-				{ sortDateValue: 0 },
-			);
-			// Return the unique holiday count by nodeId for each country
-			const getUniqueHolidayNodeIdCount = (country: any) => {
-				const holidays = country.placesLocatedIn.flatMap((place: any) => place.linkedHolidays);
-				const nodeIds = holidays.map((holiday: any) => holiday.nodeId);
-				// @ts-ignore
-				const uniqueNodeIds = [...new Set(nodeIds)];
-				return uniqueNodeIds.length;
-			};
+			let lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(country);
+			// Return the mapped item
 			return {
 				__typename: "Country",
 				name: country.name,
@@ -65,7 +50,7 @@ export default function CountryList() {
 					name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
 					sortDateValue: lastHoliday.sortDateValue,
 				},
-				uniqueHolidayCount: getUniqueHolidayNodeIdCount(country),
+				uniqueHolidayCount: NodeTraversalsS.findHolidayCountOfLocation(country),
 			};
 		});
 	};

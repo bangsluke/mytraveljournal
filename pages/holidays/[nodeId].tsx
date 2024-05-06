@@ -114,6 +114,7 @@ function HolidayPage() {
 	// Define the pills for the holiday
 	const pills = Object.keys(properties).map((property) => {
 		const { text, image, id } = properties[property];
+		// TODO: Add hyperlink if pill is a location
 		// Loop through the array if text is an array
 		if (Array.isArray(text)) {
 			return text.map((element, index) => <Pill key={id + index} icon={image} text={element} />);
