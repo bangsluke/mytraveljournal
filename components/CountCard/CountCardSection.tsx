@@ -242,7 +242,7 @@ export default function CountCardSection() {
 				id='6'
 				cardTitle='Capitals Count'
 				countValue={countCardData.filteredCapitalsCount}
-				pagePath='/capitals'
+				pagePath='/cities'
 				enabledBoolean={true}
 				backgroundIcon={
 					<PinDropIcon
