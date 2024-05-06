@@ -8,6 +8,23 @@ query GetCardCounts {
 	continents {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			placesLocatedIn {
+				name
+				nodeId
+				__typename
+				linkedHolidays {
+					nodeId
+					name
+					dateMonth
+					dateYear
+					sortDateValue
+				}
+			}
+		}
 	}
 	countries {
 		name
@@ -67,6 +84,23 @@ query GetContinentById($nodeId: String) {
 	continents(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			placesLocatedIn {
+				name
+				nodeId
+				__typename
+				linkedHolidays {
+					nodeId
+					name
+					dateMonth
+					dateYear
+					sortDateValue
+				}
+			}
+		}
 	}
 }
 
@@ -75,6 +109,23 @@ query GetContinentsList {
 	continents {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			placesLocatedIn {
+				name
+				nodeId
+				__typename
+				linkedHolidays {
+					nodeId
+					name
+					dateMonth
+					dateYear
+					sortDateValue
+				}
+			}
+		}
 	}
 }
 
@@ -92,6 +143,18 @@ query GetCountryById($nodeId: String) {
 	countries(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+				name
+				dateMonth
+				dateYear
+				sortDateValue
+			}
+		}
 	}
 }
 
@@ -107,6 +170,8 @@ query GetCountryAndLinkedHolidaysById($nodeId: String) {
 			linkedHolidays {
 				nodeId
 				name
+				dateMonth
+				dateYear
 				sortDateValue
 			}
 		}
@@ -153,6 +218,10 @@ query GetCityById($nodeId: String) {
 		capital
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 }

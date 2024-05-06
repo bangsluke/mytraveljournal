@@ -20,13 +20,12 @@ export default function HolidayList() {
 		LogS.error("useQuery(GetHolidaysListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetHolidaysListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-	LogS.log("HolidayList: holiday data: ", data);
+	// LogS.log("HolidayList: holiday data: ", data);
 
 	// Sort holidays by sortDateValue
 	//@ts-ignore
 	const sortedHolidays: any = [...data?.holidays].sort((a: any, b: any) => b.sortDateValue.localeCompare(a.sortDateValue));
-
-	LogS.log("HolidayList: Sorted holiday data: ", sortedHolidays);
+	// LogS.log("HolidayList: Sorted holiday data: ", sortedHolidays);
 
 	// Get the height of the scrollable area
 	const windowHeight = window.innerHeight;

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
 import { GetPeopleListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
+import NodeTraversalsS from "../../services/NodeTraversalsS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
@@ -20,7 +21,7 @@ export default function PersonsList() {
 		LogS.error("useQuery(GetPeopleListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetPeopleListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-	LogS.log("PersonsList: person data: ", data);
+	// LogS.log("PersonsList: person data: ", data);
 
 	// Filter out people with no holidays and then sort by the length of attendedHolidays
 	let sortedAndFilteredPeople = data?.people
@@ -29,10 +30,9 @@ export default function PersonsList() {
 
 	// Map the sorted and filtered people to add the holiday count
 	sortedAndFilteredPeople = sortedAndFilteredPeople?.map((person) => {
-		let lastHoliday = person.attendedHolidays.reduce((prev, current) => {
-			return prev.sortDateValue > current.sortDateValue ? prev : current;
-		});
-
+		// Return the last holiday for each person
+		let lastHoliday = NodeTraversalsS.findHighestSortDateValueHolidayOfPerson(person);
+		// Return the mapped item
 		return {
 			...person,
 			holidayCount: person.attendedHolidays.length,

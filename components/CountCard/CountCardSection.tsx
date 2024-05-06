@@ -23,7 +23,8 @@ type CardCountResults = {
 	holidayData: CountValue[] | undefined;
 	holidayCount: number;
 	continentData: CountValue[] | undefined;
-	continentCount: number;
+	filteredContinentsData: CountValue[] | undefined;
+	filteredContinentsCount: number;
 	countriesData: CountValue[] | undefined;
 	filteredCountriesData: CountValue[] | undefined;
 	filteredCountriesCount: number;
@@ -46,7 +47,8 @@ const useGetCardCounts = () => {
 		holidayData: [],
 		holidayCount: 0,
 		continentData: [],
-		continentCount: 0,
+		filteredContinentsData: [],
+		filteredContinentsCount: 0,
 		countriesData: [],
 		filteredCountriesData: [],
 		filteredCountriesCount: 0,
@@ -68,6 +70,17 @@ const useGetCardCounts = () => {
 		LogS.error("useGetCardCounts GraphQL Error: ", error.message), cardCounts;
 		return <Toast message={"useGetCardCounts GraphQL Error: " + error.message} duration={5} />;
 	}
+
+	// Reduce continents down to visited continents (ones without a linkedHolidays array connected to any placesLocatedIn)
+	const visitedContinentsData =
+		data?.continents.filter((continent: any) => {
+			return continent.placesLocatedIn.some((location: any) => {
+				return location.placesLocatedIn.some((location2: any) => {
+					// Need to check down two levels as a holiday could be connected to a City which is connected to a Country and then the Continent
+					return location2.linkedHolidays.length > 0;
+				});
+			});
+		}) ?? [];
 
 	// Reduce countries down to visited countries (ones without a linkedHolidays array connected to any placesLocatedIn)
 	const visitedCountriesData =
@@ -124,14 +137,15 @@ const useGetCardCounts = () => {
 				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
 			})) ?? [];
 
-	// console.log("CountCardSection data", data);
+	// LogS.log("CountCardSection data", data);
 
 	// Finalise the card counts data
 	cardCounts = {
 		holidayData: data?.holidays ?? [],
 		holidayCount: data?.holidays.length ?? 0,
 		continentData: data?.continents ?? [],
-		continentCount: data?.continents.length ?? 0, // TODO: Filter out continents not visited
+		filteredContinentsData: visitedContinentsData,
+		filteredContinentsCount: visitedContinentsData.length ?? 0,
 		countriesData: data?.countries ?? [],
 		filteredCountriesData: visitedCountriesData,
 		filteredCountriesCount: visitedCountriesData.length ?? 0,
@@ -188,9 +202,9 @@ export default function CountCardSection() {
 			<CountCard
 				id='3'
 				cardTitle='Continent Count'
-				countValue={countCardData.continentCount}
+				countValue={countCardData.filteredContinentsCount}
 				pagePath='/continents'
-				enabledBoolean={false}
+				enabledBoolean={true}
 				backgroundIcon={
 					<PublicIcon
 						// @ts-ignore
@@ -228,7 +242,7 @@ export default function CountCardSection() {
 				id='6'
 				cardTitle='Capitals Count'
 				countValue={countCardData.filteredCapitalsCount}
-				pagePath='/capitals'
+				pagePath='/cities'
 				enabledBoolean={true}
 				backgroundIcon={
 					<PinDropIcon
