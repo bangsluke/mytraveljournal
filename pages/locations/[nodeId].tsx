@@ -6,13 +6,14 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import Toast from "../../components/Toast/Toast";
 import { GetLocationByIdDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
+import NodeTraversalsS from "../../services/NodeTraversalsS";
 import styles from "../../styles/Home.module.css";
 import withAuth from "../api/auth/withAuth";
 
 function LocationsPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId }: any = router.query; // Use the same variable name as the [nodeId] file name
-	LogS.log("nodeId: ", nodeId);
+	// LogS.log("nodeId: ", nodeId);
 
 	// Get the town by Id
 	const { loading, error, data } = useQuery(GetLocationByIdDocument, {
@@ -24,21 +25,20 @@ function LocationsPage() {
 		LogS.error("useQuery(GetLocationByIdDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetLocationByIdDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-
-	LogS.log("Location [nodeId]: data", data);
+	// LogS.log("Location [nodeId]: data", data);
 
 	// Extract the data into usable variables
-	const { name }: any = data?.locations[0];
-	const timesVisited: number | undefined = data?.locations[0].linkedHolidays.length;
+	const location: any = data?.locations[0];
+	const timesVisited: number | undefined = NodeTraversalsS.findHolidayCountOfLocation(location);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
-				<PageHeader PageHeaderTitle={name} />
+				<PageHeader PageHeaderTitle={location.name} />
 
 				<h1>Location Page</h1>
 
-				<h3>Location Name: {name}</h3>
+				<h3>Location Name: {location.name}</h3>
 				<p>{nodeId}</p>
 
 				<div>Number of times visited: {timesVisited}</div>

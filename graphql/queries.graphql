@@ -67,17 +67,25 @@ query GetContinentById($nodeId: String) {
 	continents(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			placesLocatedIn {
+				name
+				nodeId
+				__typename
+				linkedHolidays {
+					nodeId
+					name
+					dateMonth
+					dateYear
+					sortDateValue
+				}
+			}
+		}
 	}
 }
-
-# Query for the Continents list page
-# TODO: Delete this
-# query GetContinentsList {
-# 	continents {
-# 		name
-# 		nodeId
-# 	}
-# }
 
 # Query for the Continents list page
 query GetContinentsList {
@@ -118,6 +126,16 @@ query GetCountryById($nodeId: String) {
 	countries(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+				name
+				sortDateValue
+			}
+		}
 	}
 }
 

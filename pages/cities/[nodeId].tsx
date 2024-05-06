@@ -12,7 +12,7 @@ import withAuth from "../api/auth/withAuth";
 function CityPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId }: any = router.query; // Use the same variable name as the [nodeId] file name
-	LogS.log("nodeId: ", nodeId);
+	// LogS.log("nodeId: ", nodeId);
 
 	// Get the city by Id
 	const { loading, error, data } = useQuery(GetCityByIdDocument, {
@@ -24,14 +24,12 @@ function CityPage() {
 		LogS.error("useQuery(GetCityByIdDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetCityByIdDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-
-	LogS.log("City [nodeId]: data", data);
+	// LogS.log("City [nodeId]: data", data);
 
 	// Extract the data into usable variables
 	const { name }: any = data?.cities[0];
 	const timesVisited: number | undefined = data?.cities[0].linkedHolidays.length;
-
-	LogS.log("City [nodeId]:", data?.cities[0].linkedHolidays.length);
+	// LogS.log("City [nodeId]:", data?.cities[0].linkedHolidays.length);
 
 	return (
 		<Layout NavbarStyle='Opaque'>

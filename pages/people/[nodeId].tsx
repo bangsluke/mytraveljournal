@@ -13,7 +13,7 @@ import withAuth from "../api/auth/withAuth";
 function PersonPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId }: any = router.query; // Use the same variable name as the [nodeId] file name
-	LogS.log("nodeId: ", nodeId);
+	//LogS.log("nodeId: ", nodeId);
 
 	// Get the person by Id
 	const { loading, error, data } = useQuery(GetPersonByIdDocument, {
@@ -25,13 +25,11 @@ function PersonPage() {
 		LogS.error("useQuery(GetCountryByIdDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetCountryByIdDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-
-	LogS.log("Person [nodeId]: data", data);
+	//LogS.log("Person [nodeId]: data", data);
 
 	// Extract the data into usable variables
 	const { name, aliases, attendedHolidays }: any = data?.people[0];
-
-	LogS.log("person data: ", data?.people[0]);
+	//LogS.log("person data: ", data?.people[0]);
 	// LogS.log("attendedHolidays data: ", attendedHolidays);
 
 	return (
