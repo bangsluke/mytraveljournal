@@ -45,14 +45,14 @@ function CityPage() {
 
 				<div>Number of times visited: {timesVisited}</div>
 
-				<p>
+				<div>
 					Last visited continent:{" "}
 					<p className={styles.lastHoliday} onClick={() => router.push({ pathname: `/holidays/${lastHoliday.nodeId}` })}>
 						{lastHoliday.name} (
 						{new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })}{" "}
 						{lastHoliday.dateYear})
 					</p>
-				</p>
+				</div>
 			</section>
 		</Layout>
 	);
