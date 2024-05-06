@@ -14,13 +14,6 @@
   font-family: var(--font-family, ui-sans-serif);
 }
 
-.lastHoliday {
-  text-decoration: underline;
-  font-weight: bold;
-  color: var(--main-accent, #fe395c);
-  display: inline;
-}
-
 .mapContainer {
   margin: auto;
   height: 210px;
