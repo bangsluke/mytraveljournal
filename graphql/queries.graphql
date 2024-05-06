@@ -8,6 +8,23 @@ query GetCardCounts {
 	continents {
 		name
 		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			placesLocatedIn {
+				name
+				nodeId
+				__typename
+				linkedHolidays {
+					nodeId
+					name
+					dateMonth
+					dateYear
+					sortDateValue
+				}
+			}
+		}
 	}
 	countries {
 		name
