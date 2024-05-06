@@ -143,6 +143,10 @@ query GetCountryById($nodeId: String) {
 	countries(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		locatedIn {
+			nodeId
+			name
+		}
 		placesLocatedIn {
 			name
 			nodeId
@@ -163,6 +167,10 @@ query GetCountryAndLinkedHolidaysById($nodeId: String) {
 	countries(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		locatedIn {
+			nodeId
+			name
+		}
 		placesLocatedIn {
 			name
 			nodeId
@@ -216,6 +224,10 @@ query GetCityById($nodeId: String) {
 		name
 		nodeId
 		capital
+		locatedIn {
+			nodeId
+			name
+		}
 		linkedHolidays {
 			nodeId
 			name
@@ -320,6 +332,10 @@ query GetLocationById($nodeId: String) {
 	locations(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		locatedIn {
+			nodeId
+			name
+		}
 		linkedHolidays {
 			nodeId
 			name
@@ -346,6 +362,10 @@ query GetTownById($nodeId: String) {
 	towns(where: { nodeId: $nodeId }) {
 		name
 		nodeId
+		locatedIn {
+			nodeId
+			name
+		}
 		linkedHolidays {
 			nodeId
 		}

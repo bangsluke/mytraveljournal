@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { BaseInformation } from "../../components/BaseInformation/BaseInformation";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
@@ -40,19 +41,7 @@ function CityPage() {
 
 				<h1>City Page</h1>
 
-				<h3>City Name: {city.name}</h3>
-				<p>{nodeId}</p>
-
-				<div>Number of times visited: {timesVisited}</div>
-
-				<div>
-					Last visited:{" "}
-					<p className={styles.lastHoliday} onClick={() => router.push({ pathname: `/holidays/${lastHoliday.nodeId}` })}>
-						{lastHoliday.name} (
-						{new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })}{" "}
-						{lastHoliday.dateYear})
-					</p>
-				</div>
+				<BaseInformation node={city} timesVisited={timesVisited} lastHoliday={lastHoliday} />
 			</section>
 		</Layout>
 	);
