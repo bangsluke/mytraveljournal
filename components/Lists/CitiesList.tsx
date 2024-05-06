@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
 import { GetCitiesListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
+import NodeTraversalsS from "../../services/NodeTraversalsS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
@@ -20,7 +21,7 @@ export default function CitiesList() {
 		LogS.error("useQuery(GetCitiesListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetCitiesListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-	LogS.log("CitiesList: cities data: ", data);
+	// LogS.log("CitiesList: cities data: ", data);
 
 	// Filter out cities not visited (ones without a linkedHolidays array) and then sort by the length of attendedHolidays
 	let sortedAndFilteredCities = data?.cities
@@ -29,10 +30,9 @@ export default function CitiesList() {
 
 	// Map the sorted and filtered cities to add the holiday count
 	sortedAndFilteredCities = sortedAndFilteredCities?.map((city) => {
-		let lastHoliday = city.linkedHolidays.reduce((prev: any, current: any) => {
-			return prev.sortDateValue > current.sortDateValue ? prev : current;
-		});
-
+		// Return the last holiday for each city
+		let lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(city);
+		// Return the mapped item
 		return {
 			...city,
 			uniqueHolidayCount: city.linkedHolidays.length,
@@ -42,7 +42,7 @@ export default function CitiesList() {
 			},
 		};
 	});
-	LogS.log("CitiesList: Sorted and filtered city data: ", sortedAndFilteredCities);
+	// LogS.log("CitiesList: Sorted and filtered city data: ", sortedAndFilteredCities);
 
 	// Get the height of the scrollable area
 	const windowHeight = window.innerHeight;

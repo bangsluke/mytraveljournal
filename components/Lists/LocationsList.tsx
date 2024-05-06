@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
 import { GetLocationsListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
+import NodeTraversalsS from "../../services/NodeTraversalsS";
 import Loading from "../Loading/Loading";
 import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
@@ -41,11 +42,9 @@ export default function LocationsList() {
 
 	// Map the sorted and filtered locations to add the holiday count and other properties such as the clicked link path
 	const updatedFilteredAndSortedLocationsData = filteredAndSortedLocationsData?.map((location) => {
-		// @ts-ignore
-		let lastHoliday = location.linkedHolidays.reduce((prev, current) => {
-			return prev.sortDateValue > current.sortDateValue ? prev : current;
-		});
-
+		// Return the last holiday for each location
+		let lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(location);
+		// Return the mapped item
 		return {
 			// @ts-ignore
 			...location,
@@ -59,7 +58,7 @@ export default function LocationsList() {
 			clickedLinkPath: `/locations/${location.nodeId}`,
 		};
 	});
-	LogS.log("LocationsList: updatedFilteredAndSortedLocationsData: ", updatedFilteredAndSortedLocationsData);
+	// LogS.log("LocationsList: updatedFilteredAndSortedLocationsData: ", updatedFilteredAndSortedLocationsData);
 
 	// Get the height of the scrollable area
 	const windowHeight = window.innerHeight;

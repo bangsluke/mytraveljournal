@@ -22,7 +22,6 @@ export default function ContinentsList() {
 		LogS.error("useQuery(GetContinentsListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetContinentsListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-
 	// LogS.log("ContinentsList: continents data: ", data);
 
 	// Filter out continents not visited (ones without a linkedHolidays array connected to any placesLocatedIn)
@@ -39,14 +38,12 @@ export default function ContinentsList() {
 	const filteredContinents = filterContinentsWithLinkedHolidays(data?.continents);
 	// LogS.log("ContinentsList: filteredContinents data: ", filteredContinents);
 
-	let mostRecentHolidayAtContinent = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(filteredContinents[2]);
-	// console.log("mostRecentHolidayAtContinent for continent: " + filteredContinents[2].name, mostRecentHolidayAtContinent);
-
 	// Re-map the data into a new array with the last holiday and unique holiday count for each continent
 	const getContinentDataWithLastHolidayAndUniqueHolidayCount = (continents: any) => {
 		return continents.map((continent: any) => {
 			// Return the last holiday for each continent
 			let lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(continent);
+			// Return the mapped item
 			return {
 				__typename: "Continent",
 				name: continent.name,

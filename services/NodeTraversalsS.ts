@@ -36,6 +36,13 @@ const findHighestSortDateValueHolidayOfLocation = (location: any) => {
 	return highestSortDateHoliday;
 };
 
+// Function to return the holiday node with the highest sortDateValue of a person (the most recent holiday)
+const findHighestSortDateValueHolidayOfPerson = (person: any) => {
+	return person.attendedHolidays.reduce((prev: any, current: any) => {
+		return prev.sortDateValue > current.sortDateValue ? prev : current;
+	});
+};
+
 // Function to return the count of "holiday" nodes with an unique nodeId of a location (the holiday count at that location)
 const findHolidayCountOfLocation = (location: any) => {
 	// Initialize an empty set to store unique nodeIds
@@ -75,6 +82,7 @@ const findHolidayCountOfLocation = (location: any) => {
 
 const NodeTraversalsS = {
 	findHighestSortDateValueHolidayOfLocation,
+	findHighestSortDateValueHolidayOfPerson,
 	findHolidayCountOfLocation,
 };
 
