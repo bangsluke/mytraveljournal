@@ -6,6 +6,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import Toast from "../../components/Toast/Toast";
 import { GetCityByIdDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
+import NodeTraversalsS from "../../services/NodeTraversalsS";
 import styles from "../../styles/Home.module.css";
 import withAuth from "../api/auth/withAuth";
 
@@ -27,21 +28,31 @@ function CityPage() {
 	// LogS.log("City [nodeId]: data", data);
 
 	// Extract the data into usable variables
-	const { name }: any = data?.cities[0];
-	const timesVisited: number | undefined = data?.cities[0].linkedHolidays.length;
+	const city: any = data?.cities[0];
+	const timesVisited: number | undefined = city.linkedHolidays.length;
+	const lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(city);
 	// LogS.log("City [nodeId]:", data?.cities[0].linkedHolidays.length);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
-				<PageHeader PageHeaderTitle={name} />
+				<PageHeader PageHeaderTitle={city.name} />
 
 				<h1>City Page</h1>
 
-				<h3>City Name: {name}</h3>
+				<h3>City Name: {city.name}</h3>
 				<p>{nodeId}</p>
 
 				<div>Number of times visited: {timesVisited}</div>
+
+				<p>
+					Last visited continent:{" "}
+					<p className={styles.lastHoliday} onClick={() => router.push({ pathname: `/holidays/${lastHoliday.nodeId}` })}>
+						{lastHoliday.name} (
+						{new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })}{" "}
+						{lastHoliday.dateYear})
+					</p>
+				</p>
 			</section>
 		</Layout>
 	);

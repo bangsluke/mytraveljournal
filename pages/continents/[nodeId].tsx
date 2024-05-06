@@ -30,6 +30,7 @@ function ContinentPage() {
 	// Extract the data into usable variables
 	const continent: any = data?.continents[0];
 	const timesVisited: number | undefined = NodeTraversalsS.findHolidayCountOfLocation(continent);
+	const lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(continent);
 	// LogS.log("continent data: ", continent);
 
 	return (
@@ -42,7 +43,16 @@ function ContinentPage() {
 				<h3>Continent Name: {continent.name}</h3>
 				<p>{nodeId}</p>
 
-				<div>Number of times visited: {timesVisited}</div>
+				<p>Number of times visited: {timesVisited}</p>
+
+				<p>
+					Last visited continent:{" "}
+					<p className={styles.lastHoliday} onClick={() => router.push({ pathname: `/holidays/${lastHoliday.nodeId}` })}>
+						{lastHoliday.name} (
+						{new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })}{" "}
+						{lastHoliday.dateYear})
+					</p>
+				</p>
 			</section>
 		</Layout>
 	);

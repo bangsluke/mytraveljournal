@@ -150,6 +150,8 @@ query GetCountryById($nodeId: String) {
 			linkedHolidays {
 				nodeId
 				name
+				dateMonth
+				dateYear
 				sortDateValue
 			}
 		}
@@ -168,6 +170,8 @@ query GetCountryAndLinkedHolidaysById($nodeId: String) {
 			linkedHolidays {
 				nodeId
 				name
+				dateMonth
+				dateYear
 				sortDateValue
 			}
 		}
@@ -214,6 +218,10 @@ query GetCityById($nodeId: String) {
 		capital
 		linkedHolidays {
 			nodeId
+			name
+			dateMonth
+			dateYear
+			sortDateValue
 		}
 	}
 }

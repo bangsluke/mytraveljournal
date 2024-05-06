@@ -30,6 +30,7 @@ function LocationsPage() {
 	// Extract the data into usable variables
 	const location: any = data?.locations[0];
 	const timesVisited: number | undefined = NodeTraversalsS.findHolidayCountOfLocation(location);
+	const lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(location);
 
 	return (
 		<Layout NavbarStyle='Opaque'>
@@ -42,6 +43,15 @@ function LocationsPage() {
 				<p>{nodeId}</p>
 
 				<div>Number of times visited: {timesVisited}</div>
+
+				<p>
+					Last visited continent:{" "}
+					<p className={styles.lastHoliday} onClick={() => router.push({ pathname: `/holidays/${lastHoliday.nodeId}` })}>
+						{lastHoliday.name} (
+						{new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })}{" "}
+						{lastHoliday.dateYear})
+					</p>
+				</p>
 			</section>
 		</Layout>
 	);
