@@ -20,6 +20,14 @@
   width: 95%;
 }
 
+.TypeIcon {
+  color: var(--secondary-accent, #BBB);
+}
+
+.TypeIcon:hover {
+  color: var(--main-accent, #fe395c);
+}
+
 /* Mobiles */
 @media only screen and (max-width: 767px) {
   .section {

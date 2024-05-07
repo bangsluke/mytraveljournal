@@ -29,10 +29,7 @@ const findHighestSortDateValueHolidayOfLocation = (location: any) => {
 
 	findHoliday([location]); // Call the function on the top location
 
-	LogS.log(
-		"NodeTraversalsS.findHighestSortDateValueHolidayOfLocation: Highest sortDateValue holiday for location: " + location.name + " is: ",
-		highestSortDateHoliday,
-	);
+	// LogS.log("NodeTraversalsS.findHighestSortDateValueHolidayOfLocation: Highest sortDateValue holiday for location: " + location.name + " is: ",highestSortDateHoliday);
 	return highestSortDateHoliday;
 };
 

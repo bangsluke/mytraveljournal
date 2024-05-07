@@ -33,6 +33,12 @@ function LocationsPage() {
 	const timesVisited: number | undefined = NodeTraversalsS.findHolidayCountOfLocation(location);
 	const lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(location);
 
+	// Check what the node type is from the nodeId and override if needed
+	let typeOverride = "";
+	if (location.nodeId.split("-")[0].toLowerCase() !== location.__typename.toLowerCase()) {
+		typeOverride = location.nodeId.split("-")[0].toLowerCase();
+	}
+
 	return (
 		<Layout NavbarStyle='Opaque'>
 			<section className={styles.section}>
@@ -40,7 +46,7 @@ function LocationsPage() {
 
 				<h1>Location Page</h1>
 
-				<BaseInformation node={location} timesVisited={timesVisited} lastHoliday={lastHoliday} />
+				<BaseInformation node={location} timesVisited={timesVisited} lastHoliday={lastHoliday} typeOverride={typeOverride} />
 			</section>
 		</Layout>
 	);

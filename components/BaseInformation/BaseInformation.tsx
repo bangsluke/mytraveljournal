@@ -21,10 +21,11 @@ type BaseInformationProps = {
 	node: NodeProps;
 	timesVisited: number | undefined;
 	lastHoliday: LastHolidayProps;
+	typeOverride?: string;
 };
 
 export function BaseInformation(props: BaseInformationProps) {
-	const { node, timesVisited, lastHoliday } = props; // Destructure the props
+	const { node, timesVisited, lastHoliday, typeOverride } = props; // Destructure the props
 	console.log("node", node);
 
 	const router = useRouter(); // Import the Next router
@@ -35,15 +36,18 @@ export function BaseInformation(props: BaseInformationProps) {
 	if (node.locatedIn) routeName = Constants.NodeToPath[node.locatedIn[0].__typename.toLowerCase()]; // Get the route name based on the mapped node type from constants
 
 	// Get the type icon
-	let typeIcon = ReturnTypeIcon(node.__typename, "large");
+	let typeIcon = ReturnTypeIcon(node.__typename.toLowerCase(), "large");
+
+	// If a type override is provided, use it
+	if (typeOverride) typeIcon = ReturnTypeIcon(typeOverride, "large");
 
 	return (
 		<>
 			<h3>
 				{node.__typename} name: {node.name}
 			</h3>
-			<p>{node.nodeId}</p>
 
+			{/* Display the type icon */}
 			{typeIcon}
 
 			{/* If the node has a locatedIn property, display it */}

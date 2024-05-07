@@ -39,7 +39,7 @@ export default function LocationsList() {
 		.filter((item) => item.linkedHolidays.length > 0)
 		// @ts-ignore
 		.sort((a, b) => b.linkedHolidays.length - a.linkedHolidays.length);
-	LogS.log("LocationsList: filteredAndSortedLocationsData: ", filteredAndSortedLocationsData);
+	// LogS.log("LocationsList: filteredAndSortedLocationsData: ", filteredAndSortedLocationsData);
 
 	// Map the sorted and filtered locations to add the holiday count and other properties such as the clicked link path
 	const updatedFilteredAndSortedLocationsData = filteredAndSortedLocationsData?.map((location) => {
@@ -58,7 +58,7 @@ export default function LocationsList() {
 			// @ts-ignore
 			clickedLinkPath: `/locations/${location.nodeId}`,
 			// @ts-ignore
-			typeIcon: ReturnTypeIcon(location.__typename, "medium"),
+			typeIcon: ReturnTypeIcon(location.__typename, "small"),
 		};
 	});
 	// LogS.log("LocationsList: updatedFilteredAndSortedLocationsData: ", updatedFilteredAndSortedLocationsData);

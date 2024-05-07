@@ -26,6 +26,19 @@ let NodeToPath = {
 	town: "towns",
 };
 
+// Correct the node type to plural and capitalize
+let CorrectNodeTypeToPlural = {
+	person: "People",
+	holiday: "Holidays",
+	city: "Cities",
+	continent: "Continents",
+	country: "Countries",
+	county: "Counties",
+	state: "States",
+	town: "Towns",
+	island: "Islands",
+};
+
 // Export the constants
 const Constants = {
 	headerHeight,
@@ -34,6 +47,7 @@ const Constants = {
 	AllowedTopLevelTags,
 	AllowedSecondLevelTags,
 	NodeToPath,
+	CorrectNodeTypeToPlural,
 };
 
 export default Constants;
