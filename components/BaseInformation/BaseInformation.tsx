@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
+import ReturnTypeIcon from "../../services/IconS";
 import styles from "./BaseInformation.module.css";
 
 type NodeProps = {
@@ -24,6 +25,7 @@ type BaseInformationProps = {
 
 export function BaseInformation(props: BaseInformationProps) {
 	const { node, timesVisited, lastHoliday } = props; // Destructure the props
+	console.log("node", node);
 
 	const router = useRouter(); // Import the Next router
 
@@ -32,12 +34,17 @@ export function BaseInformation(props: BaseInformationProps) {
 	// @ts-ignore
 	if (node.locatedIn) routeName = Constants.NodeToPath[node.locatedIn[0].__typename.toLowerCase()]; // Get the route name based on the mapped node type from constants
 
+	// Get the type icon
+	let typeIcon = ReturnTypeIcon(node.__typename, "large");
+
 	return (
 		<>
 			<h3>
-				{node.__typename} Name: {node.name}
+				{node.__typename} name: {node.name}
 			</h3>
 			<p>{node.nodeId}</p>
+
+			{typeIcon}
 
 			{/* If the node has a locatedIn property, display it */}
 			{node.locatedIn && (

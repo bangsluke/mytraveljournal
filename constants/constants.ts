@@ -26,6 +26,7 @@ let NodeToPath = {
 	town: "towns",
 };
 
+// Export the constants
 const Constants = {
 	headerHeight,
 	SkipAuth,

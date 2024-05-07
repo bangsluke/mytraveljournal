@@ -4,6 +4,7 @@ import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import { useRouter } from "next/router";
 import Constants from "../../constants/constants";
 import { GetLocationsListDocument } from "../../graphql/__generated__/graphql";
+import ReturnTypeIcon from "../../services/IconS";
 import LogS from "../../services/LogS";
 import NodeTraversalsS from "../../services/NodeTraversalsS";
 import Loading from "../Loading/Loading";
@@ -38,7 +39,7 @@ export default function LocationsList() {
 		.filter((item) => item.linkedHolidays.length > 0)
 		// @ts-ignore
 		.sort((a, b) => b.linkedHolidays.length - a.linkedHolidays.length);
-	// LogS.log("LocationsList: filteredAndSortedLocationsData: ", filteredAndSortedLocationsData);
+	LogS.log("LocationsList: filteredAndSortedLocationsData: ", filteredAndSortedLocationsData);
 
 	// Map the sorted and filtered locations to add the holiday count and other properties such as the clicked link path
 	const updatedFilteredAndSortedLocationsData = filteredAndSortedLocationsData?.map((location) => {
@@ -56,6 +57,8 @@ export default function LocationsList() {
 			},
 			// @ts-ignore
 			clickedLinkPath: `/locations/${location.nodeId}`,
+			// @ts-ignore
+			typeIcon: ReturnTypeIcon(location.__typename, "medium"),
 		};
 	});
 	// LogS.log("LocationsList: updatedFilteredAndSortedLocationsData: ", updatedFilteredAndSortedLocationsData);
@@ -67,6 +70,11 @@ export default function LocationsList() {
 	// Map the sorted and filtered locations to create the table rows
 	const rows = updatedFilteredAndSortedLocationsData?.map((location: any) => (
 		<Table.Tr key={location.nodeId} className={styles.rowHighlight}>
+			<Table.Td>
+				<Text fz='md' fw={500}>
+					{location.typeIcon}
+				</Text>
+			</Table.Td>
 			<Table.Td>
 				<Text fz='md' fw={500}>
 					{location.__typename}
@@ -113,6 +121,7 @@ export default function LocationsList() {
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
 						<Table.Tr>
+							<Table.Th></Table.Th>
 							<Table.Th>Type</Table.Th>
 							<Table.Th>Name</Table.Th>
 							<Table.Th>Date</Table.Th>
