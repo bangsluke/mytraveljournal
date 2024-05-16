@@ -68,16 +68,6 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		})
 		// Then map the sorted holidays to create the holiday elements
 		?.map((holiday: any, index: any) => {
-			// Define the holiday image URL
-			// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
-			let holidayImageURL = "";
-			if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
-				holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
-			} else {
-				holidayImageURL = holiday.coverPhoto;
-			}
-			// LogS.log("holidayImageURL: ", holidayImageURL);
-
 			// Define the holiday tags
 			// console.log("holiday.tags: ", holiday.tags);
 			const displayHolidayTags = filterTags(holiday?.tags, "topLevel");
@@ -98,7 +88,8 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 					holidayName={holiday.name}
 					holidayTags={displayHolidayTags}
 					holidayDate={dateFormatted}
-					holidayImageURL={holidayImageURL}
+					holidayImageURL={holiday.coverPhoto}
+					holidayLocation={holiday.locations[0]}
 					clickHoliday={holidayClickHandler}
 				/>
 			);

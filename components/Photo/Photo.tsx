@@ -12,7 +12,7 @@ const Photo: React.FC<PhotoProps> = ({ searchString }) => {
 	useEffect(() => {
 		const fetchImage = async () => {
 			try {
-				const image = await GetImageS(searchString);
+				const image = await GetImageS.getImageFromSearch(searchString);
 				setPhoto(image); // Set the resolved image data
 			} catch (error) {
 				console.error("Error fetching image:", error);
