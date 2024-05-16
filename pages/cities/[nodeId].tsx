@@ -4,6 +4,7 @@ import { BaseInformation } from "../../components/BaseInformation/BaseInformatio
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import Photo from "../../components/Photo/Photo";
 import Toast from "../../components/Toast/Toast";
 import { GetCityByIdDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
@@ -14,7 +15,7 @@ import withAuth from "../api/auth/withAuth";
 function CityPage() {
 	const router = useRouter(); // Import the Next router
 	const { nodeId }: any = router.query; // Use the same variable name as the [nodeId] file name
-	// LogS.log("nodeId: ", nodeId);
+	//LogS.log("nodeId: ", nodeId);
 
 	// Get the city by Id
 	const { loading, error, data } = useQuery(GetCityByIdDocument, {
@@ -42,6 +43,8 @@ function CityPage() {
 				<h1>City Page</h1>
 
 				<BaseInformation node={city} timesVisited={timesVisited} lastHoliday={lastHoliday} />
+
+				<Photo searchString={city.name} />
 			</section>
 		</Layout>
 	);
