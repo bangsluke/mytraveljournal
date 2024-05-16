@@ -1,8 +1,6 @@
-import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import LogS from "../../services/LogS";
-import styles from "./Photo.module.css";
+import GetImageS from "../../services/GetImageS";
 
 interface PhotoProps {
 	searchString: string;
@@ -12,33 +10,37 @@ const Photo: React.FC<PhotoProps> = ({ searchString }) => {
 	const [photo, setPhoto] = useState(null);
 
 	useEffect(() => {
-		const searchPhotos = async () => {
+		const fetchImage = async () => {
 			try {
-				const response = await axios.get(`https://api.unsplash.com/search/photos?query=${searchString}&per_page=1`, {
-					headers: {
-						Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_API_ACCESS_KEY}`,
-					},
-				});
-				LogS.log("response.data.results[0]", response.data.results[0]);
-				setPhoto(response.data.results[0]);
+				const image = await GetImageS(searchString);
+				setPhoto(image); // Set the resolved image data
 			} catch (error) {
-				LogS.error("Error fetching photo:", error);
+				console.error("Error fetching image:", error);
 			}
 		};
-
-		searchPhotos(); // Call the function once when the component mounts
+		fetchImage(); // Call the function once when the component mounts
 	}, []); // Empty dependency array ensures it runs only once
 
-	return (
-		<div className={styles.PhotoContainer}>
-			{photo == null ? (
-				<p>Loading...</p>
-			) : (
+	// LogS.log("photo", photo);
+
+	if (photo == null) {
+		return <p>Loading image...</p>;
+	} else {
+		return (
+			<Image
 				// @ts-ignore
-				<Image loader={() => photo.urls.small} src={photo.urls.regular} width={500} height={500} alt={photo.alt_description} priority />
-			)}
-		</div>
-	);
+				loader={() => photo.urls.small}
+				// @ts-ignore
+				src={photo.urls.small}
+				layout='fill'
+				objectFit='contain'
+				// @ts-ignore
+				alt={photo.alt_description}
+				priority
+				sizes='(max-width: 408px) 50vw, (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+			/>
+		);
+	}
 };
 
 export default Photo;

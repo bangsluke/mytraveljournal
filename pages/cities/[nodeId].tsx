@@ -5,6 +5,7 @@ import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import Photo from "../../components/Photo/Photo";
+import PhotoContainer from "../../components/Photo/PhotoContainer";
 import Toast from "../../components/Toast/Toast";
 import { GetCityByIdDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
@@ -44,7 +45,9 @@ function CityPage() {
 
 				<BaseInformation node={city} timesVisited={timesVisited} lastHoliday={lastHoliday} />
 
-				<Photo searchString={city.name} />
+				<PhotoContainer>
+					<Photo searchString={city.name} />
+				</PhotoContainer>
 			</section>
 		</Layout>
 	);

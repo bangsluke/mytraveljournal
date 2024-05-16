@@ -1,11 +1,10 @@
 .PhotoContainer {
 	/* background-color: var(--secondary-accent-light, grey); */
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* padding: 0.5rem 1rem; */
-	border-radius: 20px;
-	/* font-size: 14px; */
-	width: 100vw;
 	margin-top: 20px;
+	width: 100vw;
+	height: 40vh;
 }
