@@ -1,6 +1,8 @@
 import axios from "axios";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import LogS from "../../services/LogS";
+import styles from "./Photo.module.css";
 
 interface PhotoProps {
 	searchString: string;
@@ -27,7 +29,16 @@ const Photo: React.FC<PhotoProps> = ({ searchString }) => {
 		searchPhotos(); // Call the function once when the component mounts
 	}, []); // Empty dependency array ensures it runs only once
 
-	return photo == null ? <p>Loading...</p> : <img src={photo.urls.small} alt={photo.alt_description} />;
+	return (
+		<div className={styles.PhotoContainer}>
+			{photo == null ? (
+				<p>Loading...</p>
+			) : (
+				// @ts-ignore
+				<Image loader={() => photo.urls.small} src={photo.urls.regular} width={500} height={500} alt={photo.alt_description} priority />
+			)}
+		</div>
+	);
 };
 
 export default Photo;
