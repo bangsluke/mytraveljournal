@@ -3,17 +3,18 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
-import filterTags from "../../services/FilterTagsS";
+import LogS from "../../services/LogS";
 import FilterDecade from "./FilterDecade";
 import HolidayCard from "./HolidayCard";
 import styles from "./HolidayCardList.module.css";
+import filterSortAndMapHolidayCardListData from "./HolidayCardListData";
 
 // Define the HolidayCardList component props
 interface HolidayListProps {
 	data?: any;
 }
 
-type SortOrder = "OldToNew" | "NewToOld";
+export type SortOrder = "OldToNew" | "NewToOld";
 
 const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	const router = useRouter(); // Import the Next router
@@ -43,40 +44,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		filterText = "Filter by Decade, Type and Sort:";
 	}
 
-	// Filter holidays based on the selected decade
-	const filteredHolidaysData = data?.filter((holiday: any) => {
-		if (selectedDecade === "All") {
-			return true; // Show all holidays
-		}
-		// Extract the decade from holiday's dateYear
-		const decade: string = (Math.floor(parseInt(holiday.dateYear) / 10) * 10).toString() + "s";
-		// LogS.log("Decade: ", decade);
-		return decade === selectedDecade;
-	});
-
-	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
+	// Filter, sort and map the holiday card list data based on selectedDecade and sortOrder
+	const updatedHolidaysData = filterSortAndMapHolidayCardListData(data, selectedDecade, sortOrder);
+	LogS.log("Updated data from filteredHolidaysData: ", updatedHolidaysData);
 
 	// Define the holiday elements
-	const holidayElements = filteredHolidaysData
-		// First sort the holidays by sortDateValue
-		?.sort((a: any, b: any) => {
-			if (sortOrder === "NewToOld") {
-				return parseInt(b.sortDateValue) - parseInt(a.sortDateValue);
-			} else {
-				return parseInt(a.sortDateValue) - parseInt(b.sortDateValue);
-			}
-		})
-		// Then map the sorted holidays to create the holiday elements
+	const holidayElements = updatedHolidaysData
+		// Then map the updated holidays to create the holiday elements - adding a click handler
 		?.map((holiday: any, index: any) => {
-			// Define the holiday tags
-			// console.log("holiday.tags: ", holiday.tags);
-			const displayHolidayTags = filterTags(holiday?.tags, "topLevel");
-			// console.log("displayHolidayTags", displayHolidayTags);
-
-			// Format the month date and then full date
-			const monthFormatted = new Date(2000, parseInt(holiday.dateMonth) - 1).toLocaleString("default", { month: "long" });
-			const dateFormatted = monthFormatted + " " + holiday.dateYear;
-
 			// Create an event handler for the holiday card button
 			const holidayClickHandler = () => {
 				router.push({ pathname: "/holidays/" + holiday.nodeId });
@@ -86,10 +61,9 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 				<HolidayCard
 					key={index}
 					holidayName={holiday.name}
-					holidayTags={displayHolidayTags}
-					holidayDate={dateFormatted}
+					holidayTags={holiday.holidayTags}
+					holidayDate={holiday.holidayDate}
 					holidayImageURL={holiday.coverPhoto}
-					holidayLocation={holiday.locations[0]}
 					clickHoliday={holidayClickHandler}
 				/>
 			);

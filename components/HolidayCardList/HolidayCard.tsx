@@ -1,7 +1,5 @@
 import { Badge, Button, Group, Paper, Text, Title } from "@mantine/core";
 import RoomIcon from "@mui/icons-material/Room";
-import { useEffect, useState } from "react";
-import GetImageS from "../../services/GetImageS";
 import styles from "./HolidayCardList.module.css";
 
 // Modified from https: //ui.mantine.dev/category/article-cards/#article-card-image
@@ -10,39 +8,19 @@ interface HolidayCardProps {
 	holidayName: string;
 	holidayTags: string[];
 	holidayDate: string;
-	holidayLocation: string;
 	holidayImageURL: string;
 	clickHoliday: () => void;
 }
 
 export default function HolidayCard(props: HolidayCardProps) {
-	const { holidayName, holidayTags, holidayDate, holidayLocation, holidayImageURL, clickHoliday } = props; // Destructure the props
+	const { holidayName, holidayTags, holidayDate, holidayImageURL, clickHoliday } = props; // Destructure the props
 
-	const [photo, setPhoto] = useState(holidayImageURL);
+	// console.log("holidayImageURL for holiday: " + holidayName + " = " + holidayImageURL);
 
-	useEffect(() => {
-		const fetchImage = async () => {
-			try {
-				const image = await GetImageS.getImageFromSearch(holidayLocation);
-				setPhoto(image.urls.small); // Set the resolved image data
-			} catch (error) {
-				try {
-					const image = await GetImageS.getRandomImage();
-					setPhoto(image.urls.small); // Set the resolved image data
-				} catch (error) {
-					console.error("Error fetching image:", error);
-				}
-			}
-		};
-
-		if (holidayImageURL == null || holidayImageURL == "" || holidayImageURL == "TBC") {
-			fetchImage(); // Call the function once when the component mounts
-		}
-	}, []); // Empty dependency array ensures it runs only once
-
+	// Return the card component
 	return (
 		// Hold the full Card, image and all
-		<Paper shadow='md' p='xl' radius='md' className={styles.card} style={{ backgroundImage: `url(${photo})` }}>
+		<Paper shadow='md' p='xl' radius='md' className={styles.card} style={{ backgroundImage: `url(${holidayImageURL})` }}>
 			{/* Hold the top title and details */}
 			<div className={styles.textContent}>
 				<Text className={styles.date} size='xs'>
