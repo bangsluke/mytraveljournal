@@ -36,6 +36,8 @@ yarn-error.log*
 .env.*
 # local env files
 .env*.local
+# However, we do want to commit the example env file
+!.env.example
 
 # Neo4j Aura Details
 Neo4j-29909dfd-Created-2023-10-09.txt
