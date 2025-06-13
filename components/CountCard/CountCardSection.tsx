@@ -72,6 +72,7 @@ const useGetCardCounts = () => {
 	}
 
 	// Reduce continents down to visited continents (ones without a linkedHolidays array connected to any placesLocatedIn)
+	//console.log("data?.continents", data?.continents);
 	const visitedContinentsData =
 		data?.continents.filter((continent: any) => {
 			return continent.placesLocatedIn.some((location: any) => {
