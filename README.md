@@ -6,10 +6,10 @@
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-  - [Quick Start](#quick-start)
-    - [Development Start](#development-start)
-    - [Production Start](#production-start)
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+  - [Development Start](#development-start)
+  - [Production Start](#production-start)
 - [Set Up](#set-up)
   - [Installations](#installations)
   - [Re-set Up The .env Files](#re-set-up-the-env-files)
@@ -25,11 +25,13 @@
     - [Schema and Updates](#schema-and-updates)
     - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
 
-## Getting Started
+## Introduction
 
-### Quick start
+The front end Next.js repository for MyTravelJournal
 
-#### Development Start
+## Quick start
+
+### Development Start
 
 To quickly get started in development mode, do the following steps:
 
@@ -41,7 +43,7 @@ To quickly get started in development mode, do the following steps:
 6. Start the frontend by running: `yarn dev` - Note: This will generate types from the GraphQL schema in the frontend
 7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
 
-#### Production Start
+### Production Start
 
 To quickly get started in production mode, do the following steps:
 
@@ -50,7 +52,8 @@ To quickly get started in production mode, do the following steps:
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
 2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
-3. Open [Neo4j Aura](https://console.neo4j.io/?product=aura-db&tenant=7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2#databases) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
+3. Open [Neo4j Aura](https://console-preview.neo4j.io/projects/7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2/instances) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
+  - If there are no nodes or edges - run the Python script to load the data in
 4. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal` and start the frontend by running: `yarn start` - this will build and start the frontend
 5. Open [http://localhost:3000](http://localhost:3000)
 
