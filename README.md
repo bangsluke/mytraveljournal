@@ -73,7 +73,7 @@ On a new machine, ensure you run all installations;
 - Create a `.env.development` file and a `.env.production` file (note that most production .env values are saved in Heroku)
 - The .env files should contain;
   - `NEO4J_PW` - The password used in the Neo4j database when it was created
-  - `NEO4J_URI` - The connection to the Neo4j database (for development this is `bolt://localhost:7687`)
+  - `NEO4J_URI` - The connection to the Neo4j database (for development this is `bolt://localhost:7687`). For production - navigate the the running Neo4j Aura DB and find the "Connection URI"
   - `NEO4J_USER` - This is the database name (usually `neo4j` unless renamed)
   - Several other values, defined in the [Netlify Environment Variables](#netlify-environment-variables) section
 
