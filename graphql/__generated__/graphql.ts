@@ -602,36 +602,11 @@ export type CityWhere = {
 
 export type Continent = {
   __typename?: 'Continent';
-  locatedIn: Array<Location>;
-  locatedInAggregate?: Maybe<ContinentLocationLocatedInAggregationSelection>;
-  locatedInConnection: ContinentLocatedInConnection;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
   placesLocatedIn: Array<Location>;
   placesLocatedInAggregate?: Maybe<ContinentLocationPlacesLocatedInAggregationSelection>;
   placesLocatedInConnection: ContinentPlacesLocatedInConnection;
-};
-
-
-export type ContinentLocatedInArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  options?: InputMaybe<LocationOptions>;
-  where?: InputMaybe<LocationWhere>;
-};
-
-
-export type ContinentLocatedInAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<LocationWhere>;
-};
-
-
-export type ContinentLocatedInConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Array<ContinentLocatedInConnectionSort>>;
-  where?: InputMaybe<ContinentLocatedInConnectionWhere>;
 };
 
 
@@ -664,7 +639,6 @@ export type ContinentAggregateSelection = {
 };
 
 export type ContinentConnectInput = {
-  locatedIn?: InputMaybe<Array<ContinentLocatedInConnectFieldInput>>;
   placesLocatedIn?: InputMaybe<Array<ContinentPlacesLocatedInConnectFieldInput>>;
 };
 
@@ -673,19 +647,16 @@ export type ContinentConnectWhere = {
 };
 
 export type ContinentCreateInput = {
-  locatedIn?: InputMaybe<ContinentLocatedInFieldInput>;
   name: Scalars['String']['input'];
   nodeId: Scalars['String']['input'];
   placesLocatedIn?: InputMaybe<ContinentPlacesLocatedInFieldInput>;
 };
 
 export type ContinentDeleteInput = {
-  locatedIn?: InputMaybe<Array<ContinentLocatedInDeleteFieldInput>>;
   placesLocatedIn?: InputMaybe<Array<ContinentPlacesLocatedInDeleteFieldInput>>;
 };
 
 export type ContinentDisconnectInput = {
-  locatedIn?: InputMaybe<Array<ContinentLocatedInDisconnectFieldInput>>;
   placesLocatedIn?: InputMaybe<Array<ContinentPlacesLocatedInDisconnectFieldInput>>;
 };
 
@@ -693,129 +664,6 @@ export type ContinentEdge = {
   __typename?: 'ContinentEdge';
   cursor: Scalars['String']['output'];
   node: Continent;
-};
-
-export type ContinentLocatedInAggregateInput = {
-  AND?: InputMaybe<Array<ContinentLocatedInAggregateInput>>;
-  NOT?: InputMaybe<ContinentLocatedInAggregateInput>;
-  OR?: InputMaybe<Array<ContinentLocatedInAggregateInput>>;
-  count?: InputMaybe<Scalars['Int']['input']>;
-  count_GT?: InputMaybe<Scalars['Int']['input']>;
-  count_GTE?: InputMaybe<Scalars['Int']['input']>;
-  count_LT?: InputMaybe<Scalars['Int']['input']>;
-  count_LTE?: InputMaybe<Scalars['Int']['input']>;
-  node?: InputMaybe<ContinentLocatedInNodeAggregationWhereInput>;
-};
-
-export type ContinentLocatedInConnectFieldInput = {
-  connect?: InputMaybe<Array<LocationConnectInput>>;
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']['input'];
-  where?: InputMaybe<LocationConnectWhere>;
-};
-
-export type ContinentLocatedInConnection = {
-  __typename?: 'ContinentLocatedInConnection';
-  edges: Array<ContinentLocatedInRelationship>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type ContinentLocatedInConnectionSort = {
-  node?: InputMaybe<LocationSort>;
-};
-
-export type ContinentLocatedInConnectionWhere = {
-  AND?: InputMaybe<Array<ContinentLocatedInConnectionWhere>>;
-  NOT?: InputMaybe<ContinentLocatedInConnectionWhere>;
-  OR?: InputMaybe<Array<ContinentLocatedInConnectionWhere>>;
-  node?: InputMaybe<LocationWhere>;
-};
-
-export type ContinentLocatedInCreateFieldInput = {
-  node: LocationCreateInput;
-};
-
-export type ContinentLocatedInDeleteFieldInput = {
-  delete?: InputMaybe<LocationDeleteInput>;
-  where?: InputMaybe<ContinentLocatedInConnectionWhere>;
-};
-
-export type ContinentLocatedInDisconnectFieldInput = {
-  disconnect?: InputMaybe<LocationDisconnectInput>;
-  where?: InputMaybe<ContinentLocatedInConnectionWhere>;
-};
-
-export type ContinentLocatedInFieldInput = {
-  connect?: InputMaybe<Array<ContinentLocatedInConnectFieldInput>>;
-  create?: InputMaybe<Array<ContinentLocatedInCreateFieldInput>>;
-};
-
-export type ContinentLocatedInNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ContinentLocatedInNodeAggregationWhereInput>>;
-  NOT?: InputMaybe<ContinentLocatedInNodeAggregationWhereInput>;
-  OR?: InputMaybe<Array<ContinentLocatedInNodeAggregationWhereInput>>;
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  nodeId_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  nodeId_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  nodeId_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  nodeId_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  nodeId_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  nodeId_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type ContinentLocatedInRelationship = {
-  __typename?: 'ContinentLocatedInRelationship';
-  cursor: Scalars['String']['output'];
-  node: Location;
-};
-
-export type ContinentLocatedInUpdateConnectionInput = {
-  node?: InputMaybe<LocationUpdateInput>;
-};
-
-export type ContinentLocatedInUpdateFieldInput = {
-  connect?: InputMaybe<Array<ContinentLocatedInConnectFieldInput>>;
-  create?: InputMaybe<Array<ContinentLocatedInCreateFieldInput>>;
-  delete?: InputMaybe<Array<ContinentLocatedInDeleteFieldInput>>;
-  disconnect?: InputMaybe<Array<ContinentLocatedInDisconnectFieldInput>>;
-  update?: InputMaybe<ContinentLocatedInUpdateConnectionInput>;
-  where?: InputMaybe<ContinentLocatedInConnectionWhere>;
-};
-
-export type ContinentLocationLocatedInAggregationSelection = {
-  __typename?: 'ContinentLocationLocatedInAggregationSelection';
-  count: Scalars['Int']['output'];
-  node?: Maybe<ContinentLocationLocatedInNodeAggregateSelection>;
-};
-
-export type ContinentLocationLocatedInNodeAggregateSelection = {
-  __typename?: 'ContinentLocationLocatedInNodeAggregateSelection';
-  name: StringAggregateSelectionNonNullable;
-  nodeId: StringAggregateSelectionNonNullable;
 };
 
 export type ContinentLocationPlacesLocatedInAggregationSelection = {
@@ -949,7 +797,6 @@ export type ContinentPlacesLocatedInUpdateFieldInput = {
 };
 
 export type ContinentRelationInput = {
-  locatedIn?: InputMaybe<Array<ContinentLocatedInCreateFieldInput>>;
   placesLocatedIn?: InputMaybe<Array<ContinentPlacesLocatedInCreateFieldInput>>;
 };
 
@@ -960,7 +807,6 @@ export type ContinentSort = {
 };
 
 export type ContinentUpdateInput = {
-  locatedIn?: InputMaybe<Array<ContinentLocatedInUpdateFieldInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
   placesLocatedIn?: InputMaybe<Array<ContinentPlacesLocatedInUpdateFieldInput>>;
@@ -970,23 +816,6 @@ export type ContinentWhere = {
   AND?: InputMaybe<Array<ContinentWhere>>;
   NOT?: InputMaybe<ContinentWhere>;
   OR?: InputMaybe<Array<ContinentWhere>>;
-  locatedInAggregate?: InputMaybe<ContinentLocatedInAggregateInput>;
-  /** Return Continents where all of the related ContinentLocatedInConnections match this filter */
-  locatedInConnection_ALL?: InputMaybe<ContinentLocatedInConnectionWhere>;
-  /** Return Continents where none of the related ContinentLocatedInConnections match this filter */
-  locatedInConnection_NONE?: InputMaybe<ContinentLocatedInConnectionWhere>;
-  /** Return Continents where one of the related ContinentLocatedInConnections match this filter */
-  locatedInConnection_SINGLE?: InputMaybe<ContinentLocatedInConnectionWhere>;
-  /** Return Continents where some of the related ContinentLocatedInConnections match this filter */
-  locatedInConnection_SOME?: InputMaybe<ContinentLocatedInConnectionWhere>;
-  /** Return Continents where all of the related Locations match this filter */
-  locatedIn_ALL?: InputMaybe<LocationWhere>;
-  /** Return Continents where none of the related Locations match this filter */
-  locatedIn_NONE?: InputMaybe<LocationWhere>;
-  /** Return Continents where one of the related Locations match this filter */
-  locatedIn_SINGLE?: InputMaybe<LocationWhere>;
-  /** Return Continents where some of the related Locations match this filter */
-  locatedIn_SOME?: InputMaybe<LocationWhere>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -4481,6 +4310,7 @@ export type Query = {
   cities: Array<City>;
   citiesAggregate: CityAggregateSelection;
   citiesConnection: CitiesConnection;
+  continent?: Maybe<Continent>;
   continents: Array<Continent>;
   continentsAggregate: ContinentAggregateSelection;
   continentsConnection: ContinentsConnection;
@@ -4527,6 +4357,11 @@ export type QueryCitiesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<CitySort>>>;
   where?: InputMaybe<CityWhere>;
+};
+
+
+export type QueryContinentArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
