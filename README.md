@@ -6,10 +6,10 @@
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-  - [Quick Start](#quick-start)
-    - [Development Start](#development-start)
-    - [Production Start](#production-start)
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+  - [Development Start](#development-start)
+  - [Production Start](#production-start)
 - [Set Up](#set-up)
   - [Installations](#installations)
   - [Re-set Up The .env Files](#re-set-up-the-env-files)
@@ -25,11 +25,13 @@
     - [Schema and Updates](#schema-and-updates)
     - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
 
-## Getting Started
+## Introduction
 
-### Quick start
+The front end Next.js repository for MyTravelJournal
 
-#### Development Start
+## Quick start
+
+### Development Start
 
 To quickly get started in development mode, do the following steps:
 
@@ -41,7 +43,7 @@ To quickly get started in development mode, do the following steps:
 6. Start the frontend by running: `yarn dev` - Note: This will generate types from the GraphQL schema in the frontend
 7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
 
-#### Production Start
+### Production Start
 
 To quickly get started in production mode, do the following steps:
 
