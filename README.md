@@ -2,6 +2,8 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/267ef8c1-6dae-4fae-bc37-680c3f02ebfd/deploy-status)](https://app.netlify.com/sites/bangsluke-mytraveljournal/deploys)
 
+> Also see the backend server repo <https://github.com/bangsluke/server-mytraveljournal> for more details and instructions
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -9,6 +11,8 @@
     - [Development Start](#development-start)
     - [Production Start](#production-start)
 - [Set Up](#set-up)
+  - [Installations](#installations)
+  - [Re-set Up The .env Files](#re-set-up-the-env-files)
   - [Notes Set Up](#notes-set-up)
     - [Markdown Set Up](#markdown-set-up)
   - [Next.js Initiation](#nextjs-initiation)
@@ -53,6 +57,25 @@ To quickly get started in production mode, do the following steps:
 > [Back to Table of Contents](#table-of-contents)
 
 ## Set Up
+
+### Installations
+
+On a new machine, ensure you run all installations;
+
+- Install python, node, npm and yarn if not already installed
+- In this repo, run the command `yarn`
+- Run the command `npm install` in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>
+- Install all of the required Python libraries in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>
+- Also see the Python installations in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>
+
+### Re-set Up The .env Files
+
+- Create a `.env.development` file and a `.env.production` file (note that most production .env values are saved in Heroku)
+- The .env files should contain;
+  - `NEO4J_PW` - The password used in the Neo4j database when it was created
+  - `NEO4J_URI` - The connection to the Neo4j database (for development this is `bolt://localhost:7687`)
+  - `NEO4J_USER` - This is the database name (usually `neo4j` unless renamed)
+  - Several other values, defined in the [Netlify Environment Variables](#netlify-environment-variables) section
 
 ### Notes Set Up
 
@@ -111,18 +134,19 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 ##### GraphQL Endpoint
 
-- NEXT_PUBLIC_APP_BACKEND_URL
+- `NEXT_PUBLIC_APP_BACKEND_URL`
   - Purpose: Specifies the URL of your GraphQL backend
+  - For development, this is `http://localhost:4000/graphql`
 
 ##### NextAuth
 
-- NEXTAUTH_URL
+- `NEXTAUTH_URL`
   - Purpose: Specifies the base URL for authentication callbacks. It should be set to the Netlify URL
-- NEXTAUTH_SECRET
+- `NEXTAUTH_SECRET`
   - Purpose: A secret key used by NextAuth.js for session encryption
-- GITHUB_ID, GITHUB_SECRET
+- `GITHUB_ID`, `GITHUB_SECRET`
   - Purpose: OAuth credentials for GitHub authentication
-- GOOGLE_ID, GOOGLE_SECRET
+- `GOOGLE_ID`, `GOOGLE_SECRET`
   - Purpose: OAuth credentials for Google authentication
 
 > [Back to Table of Contents](#table-of-contents)
