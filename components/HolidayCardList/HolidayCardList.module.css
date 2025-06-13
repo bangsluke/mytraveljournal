@@ -126,10 +126,10 @@
 	font-family:
 		var(--mantine-font-family);
 	font-weight: 900;
-	color: var(--white, #FFFFFF);
+	color: var(--text, #333);
 	opacity: 1;
 	line-height: 1.2;
-	font-size: rem(32px);
+	font-size: rem(25px);
 	margin-top: var(--mantine-spacing-xs);
 	text-align: right;
 	z-index: 15;
