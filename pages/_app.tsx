@@ -16,7 +16,7 @@ LogS.log(" NEXT_PUBLIC_ENV_NAME", process.env.NEXT_PUBLIC_ENV_NAME);
 const runMode = process.env.NODE_ENV;
 LogS.log("Site running in mode: ", runMode);
 
-console.log("Constants.mainAccent", Constants.mainAccent);
+// console.log("Constants.mainAccent", Constants.mainAccent);
 
 // https://mantine.dev/theming/theme-object/#usage
 const theme = createTheme({
