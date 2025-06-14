@@ -30,6 +30,7 @@
     - [GraphQL Set Up](#graphql-set-up)
     - [Schema and Updates](#schema-and-updates)
     - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
+  - [Debugging Steps](#debugging-steps)
 
 ## Introduction
 
@@ -180,3 +181,18 @@ This keeps the front end up to date with the back end and fully typed.
 - To extend the queries, test out making queries by running the server in development mode and going to `http://localhost:4000/graphql` to use the sandbox. Then manually update the file `queries.graphql` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/queries.graphql`.
 
 > [Back to Table of Contents](#table-of-contents)
+
+## Debugging Steps
+
+If the production site is not running correctly at `https://bangsluke-mytraveljournal.netlify.app/`, follow the steps below;
+
+- Check that the production Neo4j Aura Database is running at `https://console-preview.neo4j.io/projects/7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2/instances`
+- Check that the production Neo4j Aura Database is populated with data at `https://console-preview.neo4j.io/tools/query`, using the command `MATCH (n)-[r]->(m) RETURN n, r, m;`
+- Ensure that the following .env values are all correct and aligned:
+  - `.env.production` in the frontend repo <https://github.com/bangsluke/mytraveljournal>
+  - `.env.production` in the backend repo <https://github.com/bangsluke/server-mytraveljournal>
+  - The Config Vars in the Heroku app at `https://dashboard.heroku.com/apps/server-mytraveljournal/settings`
+- Run the production site `https://bangsluke-mytraveljournal.netlify.app/` and view the developer console for warnings
+- Open the backend server site at `https://server-mytraveljournal-be4d3e31032e.herokuapp.com/` and check for TBC
+  - TBC
+- TBC
