@@ -52,7 +52,7 @@ const theme = createTheme({
 if (runMode === "development") {
 	LogS.log(" NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
 }
-LogS.log(" Constants.SkipAuth: ", Constants.SkipAuth);
+//LogS.log(" Constants.SkipAuth: ", Constants.SkipAuth);
 
 // Create an Apollo client
 const client = new ApolloClient({
