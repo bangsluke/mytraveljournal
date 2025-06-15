@@ -80,9 +80,10 @@ On a new machine, ensure you run all installations;
 
 ### Re-set Up The .env Files
 
+- There is an example .env file saved in the repo - see `.env.example`
 - Create a `.env.development` file and a `.env.production` file (note that most production .env values are saved in Heroku)
 - The .env files should contain;
-  - `NEO4J_PW` - The password used in the Neo4j database when it was created
+  - `NEO4J_PASSWORD` - The password used in the Neo4j database when it was created
   - `NEO4J_URI` - The connection to the Neo4j database (for development this is `bolt://localhost:7687`). For production - navigate the the running Neo4j Aura DB and find the "Connection URI"
   - `NEO4J_USER` - This is the database name (usually `neo4j` unless renamed)
   - Several other values, defined in the [Netlify Environment Variables](#netlify-environment-variables) section
@@ -191,8 +192,9 @@ If the production site is not running correctly at `https://bangsluke-mytraveljo
 - Ensure that the following .env values are all correct and aligned:
   - `.env.production` in the frontend repo <https://github.com/bangsluke/mytraveljournal>
   - `.env.production` in the backend repo <https://github.com/bangsluke/server-mytraveljournal>
+  - The Environment variables in Netlify at `https://app.netlify.com/projects/bangsluke-mytraveljournal/configuration/env#content`
   - The Config Vars in the Heroku app at `https://dashboard.heroku.com/apps/server-mytraveljournal/settings`
 - Run the production site `https://bangsluke-mytraveljournal.netlify.app/` and view the developer console for warnings
 - Open the backend server site at `https://server-mytraveljournal-be4d3e31032e.herokuapp.com/` and check for TBC
   - TBC
-- TBC
+- If running the app in production mode is working locally (`npm run start` in the backend and `yarn start` in the frontend), try pushing a new update to the main branch via the Heroku commands 
