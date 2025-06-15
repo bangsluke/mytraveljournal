@@ -195,6 +195,8 @@ If the production site is not running correctly at `https://bangsluke-mytraveljo
   - The Environment variables in Netlify at `https://app.netlify.com/projects/bangsluke-mytraveljournal/configuration/env#content`
   - The Config Vars in the Heroku app at `https://dashboard.heroku.com/apps/server-mytraveljournal/settings`
 - Run the production site `https://bangsluke-mytraveljournal.netlify.app/` and view the developer console for warnings
-- Open the backend server site at `https://server-mytraveljournal-be4d3e31032e.herokuapp.com/` and check for TBC
-  - TBC
-- If running the app in production mode is working locally (`npm run start` in the backend and `yarn start` in the frontend), try pushing a new update to the main branch via the Heroku commands 
+- Check that the CORS allowed URLs in the `server.js` file in the backend includes the frontend and backend URLs 
+- Login to Heroku CLI from the backend folder (`heroku login`) and check the logs using `heroku logs --tail`
+  - Run the output through AI if required to clarify the problem
+- If running the app in production mode is working locally (`npm run start` in the backend and `yarn start` in the frontend), try pushing a new update to the main branch via the Heroku commands
+- Otherwise, continue to try and identify the issue and add more details to this note as you go
