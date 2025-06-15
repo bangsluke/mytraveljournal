@@ -4310,7 +4310,6 @@ export type Query = {
   cities: Array<City>;
   citiesAggregate: CityAggregateSelection;
   citiesConnection: CitiesConnection;
-  continent?: Maybe<Continent>;
   continents: Array<Continent>;
   continentsAggregate: ContinentAggregateSelection;
   continentsConnection: ContinentsConnection;
@@ -4357,11 +4356,6 @@ export type QueryCitiesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<CitySort>>>;
   where?: InputMaybe<CityWhere>;
-};
-
-
-export type QueryContinentArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
