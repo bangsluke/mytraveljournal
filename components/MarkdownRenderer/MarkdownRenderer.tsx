@@ -1,6 +1,8 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Constants from "../../constants/constants";
+import styles from "./MarkdownRenderer.module.css";
+import { ComponentPropsWithoutRef } from "react";
 
 interface MyRendererProps {
 	possibleHyperlinks: any;
@@ -36,7 +38,7 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 	}
 
 	const processedContent = children
-		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!bigback] Link back to [[Personal Home|Home]]"
+		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!back] Link back to [[Personal Home|Home]]"
 		.replace(/> \[!back\] Link back to \[\[Travel Notes\]\]/g, "") // Remove "> [!back] Link back to [[Travel Notes]]"
 		.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 		.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
@@ -71,9 +73,20 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		});
 
 	return (
-		<ReactMarkdown remarkPlugins={[remarkGfm]}>
-			{processedContent}
-		</ReactMarkdown>
+		<div className={styles.markdownContainer}>
+			<ReactMarkdown
+				remarkPlugins={[remarkGfm]}
+				components={{
+					blockquote: ({children}) => (
+						<div className={styles.blockquote}>
+							{children}
+						</div>
+					)
+				}}
+			>
+				{processedContent}
+			</ReactMarkdown>
+		</div>
 	);
 };
 

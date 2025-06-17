@@ -1,0 +1,10 @@
+.markdownContainer {
+    width: 100%;
+}
+
+.blockquote {
+    border-left: 4px solid #ccc;
+    margin: 1em 0;
+    padding-left: 1em;
+    color: #666;
+} 
