@@ -15,7 +15,15 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		const categories = ["holidays", "continents", "countries", "cities", "towns", "islands", "people"]; // Define the categories that could contain links
 		for (const category of categories) {
 			for (const item of data[category] || []) {
-				if (item.name.toLowerCase() === search_text.toLowerCase()) {
+				if (category === "holidays") {
+					// If the item has a nodeId containing the search_text (but without spaces), add it to the results - needed for links to holidays
+					if (item.nodeId.toLowerCase().includes(search_text.toLowerCase().replace(/\s+/g, ""))) {
+						results.push({
+							__typename: item.__typename,
+							nodeId: item.nodeId,
+						});
+					}
+				} else if (item.name.toLowerCase() === search_text.toLowerCase()) {
 					results.push({
 						__typename: item.__typename,
 						nodeId: item.nodeId,
