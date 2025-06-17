@@ -46,7 +46,8 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 			if (label.includes("|")) {
 				// Check if the label contains a "|"
 				const [fullName, shortName] = label.split("|").map((item) => item.trim());
-				LabelLongName = fullName;
+				// If fullName contains a #, only use the part before it for searching
+				LabelLongName = fullName.split("#")[0].trim();
 				LabelShortName = shortName;
 			} else {
 				LabelLongName = label;
