@@ -1,6 +1,8 @@
-import Markdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Constants from "../../constants/constants";
+import styles from "./MarkdownRenderer.module.css";
+import { ComponentPropsWithoutRef } from "react";
 
 interface MyRendererProps {
 	possibleHyperlinks: any;
@@ -15,7 +17,15 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		const categories = ["holidays", "continents", "countries", "cities", "towns", "islands", "people"]; // Define the categories that could contain links
 		for (const category of categories) {
 			for (const item of data[category] || []) {
-				if (item.name.toLowerCase() === search_text.toLowerCase()) {
+				if (category === "holidays") {
+					// If the item has a nodeId containing the search_text (but without spaces), add it to the results - needed for links to holidays
+					if (item.nodeId.toLowerCase().includes(search_text.toLowerCase().replace(/\s+/g, ""))) {
+						results.push({
+							__typename: item.__typename,
+							nodeId: item.nodeId,
+						});
+					}
+				} else if (item.name.toLowerCase() === search_text.toLowerCase()) {
 					results.push({
 						__typename: item.__typename,
 						nodeId: item.nodeId,
@@ -28,8 +38,8 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 	}
 
 	const processedContent = children
-		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!bigback] Link back to [[Personal Home|Home]]"
-		.replace(/> \[!back\] Link back to \[\[Travel\]\]/g, "") // Remove "> [!back] Link back to [[Travel]]"
+		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!back] Link back to [[Personal Home|Home]]"
+		.replace(/> \[!back\] Link back to \[\[Travel Notes\]\]/g, "") // Remove "> [!back] Link back to [[Travel Notes]]"
 		.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 		.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 			// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property
@@ -38,7 +48,8 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 			if (label.includes("|")) {
 				// Check if the label contains a "|"
 				const [fullName, shortName] = label.split("|").map((item) => item.trim());
-				LabelLongName = fullName;
+				// If fullName contains a #, only use the part before it for searching
+				LabelLongName = fullName.split("#")[0].trim();
 				LabelShortName = shortName;
 			} else {
 				LabelLongName = label;
@@ -62,9 +73,20 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		});
 
 	return (
-		<Markdown remarkPlugins={[remarkGfm]}>
-			{processedContent}
-		</Markdown>
+		<div className={styles.markdownContainer}>
+			<ReactMarkdown
+				remarkPlugins={[remarkGfm]}
+				components={{
+					blockquote: ({children}) => (
+						<div className={styles.blockquote}>
+							{children}
+						</div>
+					)
+				}}
+			>
+				{processedContent}
+			</ReactMarkdown>
+		</div>
 	);
 };
 
