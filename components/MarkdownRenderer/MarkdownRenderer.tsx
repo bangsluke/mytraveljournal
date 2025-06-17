@@ -1,4 +1,4 @@
-import Markdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Constants from "../../constants/constants";
 
@@ -29,7 +29,7 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 
 	const processedContent = children
 		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!bigback] Link back to [[Personal Home|Home]]"
-		.replace(/> \[!back\] Link back to \[\[Travel\]\]/g, "") // Remove "> [!back] Link back to [[Travel]]"
+		.replace(/> \[!back\] Link back to \[\[Travel Notes\]\]/g, "") // Remove "> [!back] Link back to [[Travel Notes]]"
 		.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 		.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 			// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property
@@ -62,9 +62,9 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		});
 
 	return (
-		<Markdown remarkPlugins={[remarkGfm]}>
+		<ReactMarkdown remarkPlugins={[remarkGfm]}>
 			{processedContent}
-		</Markdown>
+		</ReactMarkdown>
 	);
 };
 
