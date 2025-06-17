@@ -30,6 +30,7 @@
     - [GraphQL Set Up](#graphql-set-up)
     - [Schema and Updates](#schema-and-updates)
     - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
+    - [Flask API Remote Update](#flask-api-remote-update)
   - [Debugging Steps](#debugging-steps)
 
 ## Introduction
@@ -182,6 +183,12 @@ This keeps the front end up to date with the back end and fully typed.
 - To extend the queries, test out making queries by running the server in development mode and going to `http://localhost:4000/graphql` to use the sandbox. Then manually update the file `queries.graphql` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/queries.graphql`.
 
 > [Back to Table of Contents](#table-of-contents)
+
+### Flask API Remote Update
+
+- The `remote-update-flask-api.py` file has been added and committed into the Heroku app, in order to open up a `/generate-graph` endpoint to the backend server
+  - As part of this, an email will be sent on error, using the .env variables and by setting a Google App Password - found at `https://myaccount.google.com/apppasswords`
+- There is then an Apple Shortcut to call this enpoint and trigger the update 
 
 ## Debugging Steps
 
