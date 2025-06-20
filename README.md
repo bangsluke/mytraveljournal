@@ -62,7 +62,7 @@ To quickly get started in production mode, do the following steps:
 
 1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
 2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
-3. Open [Neo4j Aura](https://console-preview.neo4j.io/projects/7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2/instances) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
+3. Open [Neo4j Aura](https://console-preview.neo4j.io/projects/7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2/instances) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges (or `Match (n) return n` just to see nodes)
   - If there are no nodes or edges - run the Python script to load the data in
 4. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal` and start the frontend by running: `yarn start` - this will build and start the frontend
 5. Open [http://localhost:3000](http://localhost:3000)
@@ -197,8 +197,9 @@ See the `neo4j-aura-db-cloud-functions` folder in the <https://github.com/bangsl
 ### Flask API Remote Update
 
 - The `remote-update-flask-api.py` file has been added and committed into the Heroku app, in order to open up a `/generate-graph` endpoint to the backend server
-  - As part of this, an email will be sent on error (using Twilio's SendGrid), using the .env variables and by setting a Google App Password for an app called "Mail" (found at `https://myaccount.google.com/apppasswords`)
-- There is then an Apple Shortcut to call this enpoint and trigger the update 
+  - As part of this, an email will be sent on error - using Twilio's SendGrid (`https://app.sendgrid.com/`) - using the .env variables
+- There is a test Python file in the backend repo called `test_api.py` for running some tests on this endpoint
+- There is then an Apple Shortcut to call this enpoint and trigger the update
 
 ## Debugging Steps
 
