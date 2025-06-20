@@ -28,8 +28,10 @@
         - [GraphQL Endpoint](#graphql-endpoint)
         - [NextAuth](#nextauth)
     - [GraphQL Set Up](#graphql-set-up)
-    - [Schema and Updates](#schema-and-updates)
-    - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
+      - [Schema and Updates](#schema-and-updates)
+      - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
+    - [Neo4j Aura Set Up](#neo4j-aura-set-up)
+      - [Keeping the Neo4j Aura database running](#keeping-the-neo4j-aura-database-running)
     - [Flask API Remote Update](#flask-api-remote-update)
   - [Debugging Steps](#debugging-steps)
 
@@ -165,7 +167,7 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 ### GraphQL Set Up
 
-### Schema and Updates
+#### Schema and Updates
 
 The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
 
@@ -177,17 +179,25 @@ Further to this, there are some additional front end queries that are stored in 
 
 This keeps the front end up to date with the back end and fully typed.
 
-### How to extend the Schema and queries
+#### How to extend the Schema and queries
 
 - To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. Re-start the server and the types will be updated.
 - To extend the queries, test out making queries by running the server in development mode and going to `http://localhost:4000/graphql` to use the sandbox. Then manually update the file `queries.graphql` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/queries.graphql`.
 
 > [Back to Table of Contents](#table-of-contents)
 
+### Neo4j Aura Set Up
+
+#### Keeping the Neo4j Aura database running
+
+See the `neo4j-aura-db-cloud-functions` folder in the <https://github.com/bangsluke/server-mytraveljournal> repo which holds a `README` and the Python file for the Google Cloud Function set up. 
+
+> [Back to Table of Contents](#table-of-contents)
+
 ### Flask API Remote Update
 
 - The `remote-update-flask-api.py` file has been added and committed into the Heroku app, in order to open up a `/generate-graph` endpoint to the backend server
-  - As part of this, an email will be sent on error, using the .env variables and by setting a Google App Password - found at `https://myaccount.google.com/apppasswords`
+  - As part of this, an email will be sent on error (using Twilio's SendGrid), using the .env variables and by setting a Google App Password for an app called "Mail" (found at `https://myaccount.google.com/apppasswords`)
 - There is then an Apple Shortcut to call this enpoint and trigger the update 
 
 ## Debugging Steps
