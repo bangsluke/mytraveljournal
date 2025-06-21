@@ -41,7 +41,7 @@ function PersonPage() {
 
 				<h3>Aliases: {aliases}</h3>
 
-				<h4>Attended Holiday Count: {attendedHolidays.length}</h4>
+				<h4>Attended Holiday Count: {attendedHolidays?.length || 0}</h4>
 
 				<h4>Holidays been on:</h4>
 

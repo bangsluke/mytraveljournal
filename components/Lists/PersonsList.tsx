@@ -26,7 +26,7 @@ export default function PersonsList() {
 	// Filter out people with no holidays and then sort by the length of attendedHolidays
 	let sortedAndFilteredPeople = data?.people
 		.filter((person) => person.attendedHolidays && person.attendedHolidays.length > 0)
-		.sort((a, b) => b.attendedHolidays.length - a.attendedHolidays.length);
+		.sort((a, b) => (b.attendedHolidays?.length || 0) - (a.attendedHolidays?.length || 0));
 
 	// Map the sorted and filtered people to add the holiday count
 	sortedAndFilteredPeople = sortedAndFilteredPeople?.map((person) => {
@@ -35,7 +35,7 @@ export default function PersonsList() {
 		// Return the mapped item
 		return {
 			...person,
-			holidayCount: person.attendedHolidays.length,
+			holidayCount: person.attendedHolidays?.length || 0,
 			lastHoliday: {
 				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
 				nodeId: lastHoliday.nodeId,

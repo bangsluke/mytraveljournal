@@ -74,10 +74,10 @@ const useGetCardCounts = () => {
 	// Reduce continents down to visited continents (ones without a linkedHolidays array connected to any placesLocatedIn)
 	const visitedContinentsData =
 		data?.continents.filter((continent: any) => {
-			return continent.placesLocatedIn.some((location: any) => {
-				return location.placesLocatedIn.some((location2: any) => {
+			return continent.placesLocatedIn?.some((location: any) => {
+				return location.placesLocatedIn?.some((location2: any) => {
 					// Need to check down two levels as a holiday could be connected to a City which is connected to a Country and then the Continent
-					return location2.linkedHolidays.length > 0;
+					return location2.linkedHolidays?.length > 0;
 				});
 			});
 		}) ?? [];
@@ -85,8 +85,8 @@ const useGetCardCounts = () => {
 	// Reduce countries down to visited countries (ones without a linkedHolidays array connected to any placesLocatedIn)
 	const visitedCountriesData =
 		data?.countries.filter((country: any) => {
-			return country.placesLocatedIn.some((place: any) => {
-				return place.linkedHolidays.length > 0;
+			return country.placesLocatedIn?.some((place: any) => {
+				return place.linkedHolidays?.length > 0;
 			});
 		}) ?? [];
 

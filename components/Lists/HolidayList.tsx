@@ -52,12 +52,12 @@ export default function HolidayList() {
 			</Table.Td>
 			<Table.Td>
 				<Text fz='md' fw={500} className={styles.centerAlign}>
-					{holiday.attendees.length}
+					{holiday.attendees?.length || 0}
 				</Text>
 			</Table.Td>
 			<Table.Td>
 				<Text fz='md' fw={500} className={styles.centerAlign}>
-					{holiday.locations.length}
+					{holiday.locations?.length || 0}
 				</Text>
 			</Table.Td>
 			<Table.Td>

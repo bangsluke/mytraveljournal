@@ -35,9 +35,9 @@ export default function LocationsList() {
 	const filteredAndSortedLocationsData = Object.values(flattenedData)
 		.flatMap((item) => item)
 		// @ts-ignore
-		.filter((item) => item.linkedHolidays.length > 0)
+		.filter((item) => item.linkedHolidays?.length > 0)
 		// @ts-ignore
-		.sort((a, b) => b.linkedHolidays.length - a.linkedHolidays.length);
+		.sort((a, b) => (b.linkedHolidays?.length || 0) - (a.linkedHolidays?.length || 0));
 	// LogS.log("LocationsList: filteredAndSortedLocationsData: ", filteredAndSortedLocationsData);
 
 	// Map the sorted and filtered locations to add the holiday count and other properties such as the clicked link path
@@ -49,7 +49,7 @@ export default function LocationsList() {
 			// @ts-ignore
 			...location,
 			// @ts-ignore
-			holidayCount: location.linkedHolidays.length,
+			holidayCount: location.linkedHolidays?.length || 0,
 			lastHoliday: {
 				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
 				nodeId: lastHoliday.nodeId,
