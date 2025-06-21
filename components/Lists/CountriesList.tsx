@@ -27,8 +27,8 @@ export default function CountryList() {
 	// Filter out countries not visited (ones without a linkedHolidays array connected to any placesLocatedIn)
 	const filterCountriesWithLinkedHolidays = (countries: any) => {
 		return countries.filter((country: any) => {
-			return country.placesLocatedIn.some((place: any) => {
-				return place.linkedHolidays.length > 0;
+			return country.placesLocatedIn?.some((place: any) => {
+				return place.linkedHolidays?.length > 0;
 			});
 		});
 	};

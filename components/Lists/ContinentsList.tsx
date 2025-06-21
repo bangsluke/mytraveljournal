@@ -27,10 +27,10 @@ export default function ContinentsList() {
 	// Filter out continents not visited (ones without a linkedHolidays array connected to any placesLocatedIn)
 	const filterContinentsWithLinkedHolidays = (continents: any) => {
 		return continents.filter((continent: any) => {
-			return continent.placesLocatedIn.some((location: any) => {
-				return location.placesLocatedIn.some((location2: any) => {
+			return continent.placesLocatedIn?.some((location: any) => {
+				return location.placesLocatedIn?.some((location2: any) => {
 					// Need to check down two levels as a holiday could be connected to a City which is connected to a Country and then the Continent
-					return location2.linkedHolidays.length > 0;
+					return location2.linkedHolidays?.length > 0;
 				});
 			});
 		});

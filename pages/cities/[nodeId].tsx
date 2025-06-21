@@ -30,7 +30,7 @@ function CityPage() {
 
 	// Extract the data into usable variables
 	const city: any = data?.cities[0];
-	const timesVisited: number | undefined = city.linkedHolidays.length;
+	const timesVisited: number | undefined = city.linkedHolidays?.length || 0;
 	const lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(city);
 	// LogS.log("City [nodeId]:", data?.cities[0].linkedHolidays.length);
 
