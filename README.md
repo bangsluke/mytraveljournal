@@ -195,11 +195,13 @@ This keeps the front end up to date with the back end and fully typed.
 ### Flask API vs. Node.js Apollo Server Backend
 
 #### Previous Node.js Apollo Server Implementation
+
 - The backend was a Node.js server using Apollo Server and the `@neo4j/graphql` library, which allowed you to define the schema with Neo4j-specific directives (like `@relationship`) and auto-generated resolvers for most relationships.
 - CORS and authentication were handled in Node.js, and the server was started via `server.js`.
 - The schema and resolvers were tightly coupled to the Neo4j GraphQL library, and extending the schema often required only updating the GraphQL schema file.
 
 #### New Flask API Implementation
+
 - The backend is now a Python Flask app (`remote-update-flask-api.py`) using the `ariadne` library for GraphQL.
 - The Flask API loads the same `schema.graphql` file, but strips out Neo4j-specific directives and requires explicit Python resolver functions for all relationship fields.
 - CORS is handled via Flask-CORS, and the API supports both GraphQL queries and remote update endpoints (e.g., `/generate-graph`).

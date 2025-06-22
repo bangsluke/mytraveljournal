@@ -43,6 +43,8 @@ type CardCountResults = {
 
 const useGetCardCounts = () => {
 	const { loading, error, data } = useQuery(GetCardCountsDocument);
+
+	// Initialize default values
 	let cardCounts: CardCountResults = {
 		holidayData: [],
 		holidayCount: 0,
@@ -64,25 +66,31 @@ const useGetCardCounts = () => {
 		filteredTravelCompanionData: [],
 		filteredTravelCompanionCount: 0,
 	};
+
 	if (loading) return cardCounts; // If loading - show zeros
+
 	if (error) {
-		// If error - show error message, and raise an error toast
-		LogS.error("useGetCardCounts GraphQL Error: ", error.message), cardCounts;
-		return <Toast message={"useGetCardCounts GraphQL Error: " + error.message} duration={5} />;
+		// If error - log the error and return default values
+		LogS.error("useGetCardCounts GraphQL Error: ", error.message);
+		return cardCounts;
 	}
 
-	// Reduce continents down to visited continents (ones without a linkedHolidays array connected to any placesLocatedIn)
+	// Reduce continents down to visited continents (ones with places that have linked holidays)
 	const visitedContinentsData =
 		data?.continents.filter((continent: any) => {
 			return continent.placesLocatedIn?.some((location: any) => {
-				return location.placesLocatedIn?.some((location2: any) => {
-					// Need to check down two levels as a holiday could be connected to a City which is connected to a Country and then the Continent
-					return location2.linkedHolidays?.length > 0;
+				// Check if this location has linked holidays
+				if (location.linkedHolidays?.length > 0) {
+					return true;
+				}
+				// Check if any sub-locations have linked holidays
+				return location.placesLocatedIn?.some((subLocation: any) => {
+					return subLocation.linkedHolidays?.length > 0;
 				});
 			});
 		}) ?? [];
 
-	// Reduce countries down to visited countries (ones without a linkedHolidays array connected to any placesLocatedIn)
+	// Reduce countries down to visited countries (ones with places that have linked holidays)
 	const visitedCountriesData =
 		data?.countries.filter((country: any) => {
 			return country.placesLocatedIn?.some((place: any) => {
@@ -116,7 +124,6 @@ const useGetCardCounts = () => {
 			.map((town: any) => ({
 				...town,
 				linkedHolidays: town.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
-				capital: town.capital ?? false, // Ensure capital is not undefined
 			})) ?? [];
 
 	// Reduce islands down to visited islands
@@ -134,7 +141,7 @@ const useGetCardCounts = () => {
 			.filter((person: any) => person.attendedHolidays?.length > 0) // Filter out people not travelled with
 			.map((person: any) => ({
 				...person,
-				attendedHolidays: person.attendedHolidays ?? [], // Ensure linkedHolidays is not undefined
+				attendedHolidays: person.attendedHolidays ?? [], // Ensure attendedHolidays is not undefined
 			})) ?? [];
 
 	// LogS.log("CountCardSection data", data);
@@ -142,7 +149,7 @@ const useGetCardCounts = () => {
 	// Finalise the card counts data
 	cardCounts = {
 		holidayData: data?.holidays ?? [],
-		holidayCount: data?.holidays.length ?? 0,
+		holidayCount: data?.holidays?.length ?? 0,
 		continentData: data?.continents ?? [],
 		filteredContinentsData: visitedContinentsData,
 		filteredContinentsCount: visitedContinentsData.length ?? 0,
