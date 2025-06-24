@@ -30,9 +30,12 @@
     - [GraphQL Set Up](#graphql-set-up)
       - [Schema and Updates](#schema-and-updates)
       - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
-    - [Node.js Apollo Server Implementation](#nodejs-apollo-server-implementation)
+    - [Flask API vs. Node.js Apollo Server Backend](#flask-api-vs-nodejs-apollo-server-backend)
+      - [Previous Node.js Apollo Server Implementation](#previous-nodejs-apollo-server-implementation)
+      - [New Flask API Implementation](#new-flask-api-implementation)
     - [Neo4j Aura Set Up](#neo4j-aura-set-up)
       - [Keeping the Neo4j Aura database running](#keeping-the-neo4j-aura-database-running)
+    - [Flask API Remote Update](#flask-api-remote-update)
   - [Debugging Steps](#debugging-steps)
 
 ## Introduction
@@ -182,14 +185,34 @@ This keeps the front end up to date with the back end and fully typed.
 #### How to extend the Schema and queries
 
 - To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. 
+- **For the new Flask API setup:**
+  - The Flask API loads the schema from this file and automatically strips out Neo4j-specific directives (like `@relationship`) that are not supported by the Python GraphQL library (`ariadne`).
+  - If you add new types, fields, or relationships, you should also ensure that any new relationship fields have corresponding Python field resolvers in `remote-update-flask-api.py`. These resolvers are Python functions that fetch related data from Neo4j using Cypher queries. See the `ObjectType` and resolver functions in `remote-update-flask-api.py` for examples.
+  - After updating the schema, restart the Flask API server to pick up the changes. The API will log if the schema loads successfully or falls back to a minimal schema.
 - To extend the queries, test out making queries by running the server in development mode and going to `http://localhost:5000/graphql` (or your deployed backend URL) to use the built-in GraphQL playground. Then manually update the file `queries.graphql` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/queries.graphql`.
 - The frontend and backend type generation process remains the same: run the codegen scripts to update TypeScript types after changing the schema or queries.
 
-### Node.js Apollo Server Implementation
+### Flask API vs. Node.js Apollo Server Backend
+
+#### Previous Node.js Apollo Server Implementation
 
 - The backend was a Node.js server using Apollo Server and the `@neo4j/graphql` library, which allowed you to define the schema with Neo4j-specific directives (like `@relationship`) and auto-generated resolvers for most relationships.
 - CORS and authentication were handled in Node.js, and the server was started via `server.js`.
 - The schema and resolvers were tightly coupled to the Neo4j GraphQL library, and extending the schema often required only updating the GraphQL schema file.
+
+#### New Flask API Implementation
+
+- The backend is now a Python Flask app (`remote-update-flask-api.py`) using the `ariadne` library for GraphQL.
+- The Flask API loads the same `schema.graphql` file, but strips out Neo4j-specific directives and requires explicit Python resolver functions for all relationship fields.
+- CORS is handled via Flask-CORS, and the API supports both GraphQL queries and remote update endpoints (e.g., `/generate-graph`).
+- The Flask API is more flexible for integrating with Python scripts (e.g., for vault processing), but requires more manual work to keep schema and resolvers in sync.
+- The built-in GraphQL playground is available at `/graphql` for testing queries.
+- When extending the schema, you must:
+  1. Update `schema.graphql` as before.
+  2. Add or update Python resolver functions in `remote-update-flask-api.py` for any new relationship fields.
+  3. Restart the Flask API server.
+
+> See the comments in `remote-update-flask-api.py` for detailed guidance on adding new types and resolvers.
 
 ### Neo4j Aura Set Up
 
@@ -198,6 +221,13 @@ This keeps the front end up to date with the back end and fully typed.
 See the `neo4j-aura-db-cloud-functions` folder in the <https://github.com/bangsluke/server-mytraveljournal> repo which holds a `README` and the Python file for the Google Cloud Function set up. 
 
 > [Back to Table of Contents](#table-of-contents)
+
+### Flask API Remote Update
+
+- The `remote-update-flask-api.py` file has been added and committed into the Heroku app, in order to open up a `/generate-graph` endpoint to the backend server
+  - As part of this, an email will be sent on error - using Twilio's SendGrid (`https://app.sendgrid.com/`) - using the .env variables
+- There is a test Python file in the backend repo called `test_api.py` for running some tests on this endpoint
+- There is then an Apple Shortcut to call this enpoint and trigger the update
 
 ## Debugging Steps
 
@@ -216,5 +246,3 @@ If the production site is not running correctly at `https://bangsluke-mytraveljo
   - Run the output through AI if required to clarify the problem
 - If running the app in production mode is working locally (`npm run start` in the backend and `yarn start` in the frontend), try pushing a new update to the main branch via the Heroku commands
 - Otherwise, continue to try and identify the issue and add more details to this note as you go
-
-> [Back to Table of Contents](#table-of-contents)
