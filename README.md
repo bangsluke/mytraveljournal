@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/267ef8c1-6dae-4fae-bc37-680c3f02ebfd/deploy-status)](https://app.netlify.com/sites/bangsluke-mytraveljournal/deploys)
 
-> Also see the backend server repo <https://github.com/bangsluke/server-mytraveljournal> for more details and instructions
+> Also see the backend server repo <https://github.com/bangsluke/bangsluke-backend-server> for more details and instructions
 
 ## Table of Contents
 
@@ -46,12 +46,10 @@ The front end Next.js repository for MyTravelJournal
 To quickly get started in development mode, do the following steps:
 
 1. Start up Neo4j desktop
-2. Start the Neo4j graph database (on Neo4j desktop) and use either the command `MATCH (n) RETURN n` or `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
-3. If not already in the correct directory, navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal`
-4. Start the backend by running: `npm run dev` in a terminal - Note: This will generate types from the GraphQL schema in the backend
-5. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal`
-6. Start the frontend by running: `yarn dev` - Note: This will generate types from the GraphQL schema in the frontend
-7. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
+2. Start the Neo4j graph database (on Neo4j desktop) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges
+3. Start the backend, the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server> by running: `npm run dev` in a terminal - Note: This will generate types from the GraphQL schema in the backend
+4. Start the frontend, the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> by running: `yarn dev` - Note: This will generate types from the GraphQL schema in the frontend
+5. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
 
 ### Production Start
 
@@ -60,12 +58,11 @@ To quickly get started in production mode, do the following steps:
 > NOTE: Cannot locally run in production mode as the auth callback is to the main site. Don't know how to fix this.
 <!-- TODO: Find a solution -->
 
-1. Check that the backend Apollo Server <https://github.com/bangsluke/server-mytraveljournal> is running correctly
-2. Alternatively navigate to the backend directory, the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal> using `cd server-mytraveljournal` and start the backend by running: `npm run start` in a terminal
-3. Open [Neo4j Aura](https://console-preview.neo4j.io/projects/7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2/instances) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges (or `Match (n) return n` just to see nodes)
+1. Check that the backend server <https://github.com/bangsluke/bangsluke-backend-server> is running correctly in Heroku - at <https://dashboard.heroku.com/apps/bangsluke-backend-server> (use `heroku login` and then `heroku logs --tail` in the command line to check the status or visit the Heroku dashboard)
+2. Open [Neo4j Aura](https://console-preview.neo4j.io/projects/7a5b41a0-6373-5c3c-9fcf-48b80d5d38f2/instances) and use the command `MATCH (n)-[r]->(m) RETURN n, r, m;` to see all nodes and edges (or `Match (n) return n` just to see nodes)
   - If there are no nodes or edges - run the Python script to load the data in
-4. In a second terminal, navigate to the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> using `cd ../mytraveljournal` and start the frontend by running: `yarn start` - this will build and start the frontend
-5. Open [http://localhost:3000](http://localhost:3000)
+3. Start the frontend by running: `yarn start` - this will build and start the frontend
+4. Open [http://localhost:3000](http://localhost:3000)
 
 > [Back to Table of Contents](#table-of-contents)
 
@@ -77,9 +74,9 @@ On a new machine, ensure you run all installations;
 
 - Install python, node, npm and yarn if not already installed
 - In this repo, run the command `yarn`
-- Run the command `npm install` in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>
-- Install all of the required Python libraries in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>
-- Also see the Python installations in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>
+- Run the command `npm install` in the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server>
+- Install all of the required Python libraries in the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server>
+- Also see the Python installations in the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server>
 
 ### Re-set Up The .env Files
 
@@ -132,7 +129,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### Authentication Set Up
 
-- Using Next-Auth for all authentication - https://next-auth.js.org/getting-started/example
+- Using Next-Auth for all authentication - <https://next-auth.js.org/getting-started/example>
 
 #### Adding Email Addresses
 
@@ -169,9 +166,9 @@ The front end code is deployed to [Netlify](https://app.netlify.com/sites/bangsl
 
 #### Schema and Updates
 
-The GraphQL schema can be found in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/schema.graphql`.
+The GraphQL schema can be found in the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server>, located at `bangsluke-backend-server/graphql_utils/schema.graphql`.
 
-On starting up the server in development mode, the back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `server-mytraveljournal` repo <https://github.com/bangsluke/server-mytraveljournal>, located at `server-mytraveljournal/graphql/__generated__/backend-resolvers-types.ts` which is used to start the server. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
+On starting up the server in development mode, the back end types and resolvers are generated from the `schema.graphql` file, using the `npm run generate` command. This produces a file in the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server>, located at `bangsluke-backend-server/graphql_utils/__generated__/backend-resolvers-types.ts` which is used to start the server. See the site <https://www.apollographql.com/docs/apollo-server/workflow/generate-types/> for more information.
 
 On starting up the front end in development mode, the front end types are generated from the graphql server `localhost:4000/graphql`, using the `npm run generate` command. This produces several files in the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal>, located at `mytraveljournal/graphql/__generated__/` which can then be used within the front end development.
 
@@ -181,7 +178,7 @@ This keeps the front end up to date with the back end and fully typed.
 
 #### How to extend the Schema and queries
 
-- To extend the schema, update the file `schema.graphql` in the `server-mytraveljournal` repo, found at `server-mytraveljournal/graphql/schema.graphql`. 
+- To extend the schema, update the file `schema.graphql` in the `bangsluke-backend-server` repo, found at `bangsluke-backend-server/graphql_utils/schema.graphql`. 
 - To extend the queries, test out making queries by running the server in development mode and going to `http://localhost:5000/graphql` (or your deployed backend URL) to use the built-in GraphQL playground. Then manually update the file `queries.graphql` in the `mytraveljournal` repo, found at `mytraveljournal/graphql/queries.graphql`.
 - The frontend and backend type generation process remains the same: run the codegen scripts to update TypeScript types after changing the schema or queries.
 
@@ -195,7 +192,7 @@ This keeps the front end up to date with the back end and fully typed.
 
 #### Keeping the Neo4j Aura database running
 
-See the `neo4j-aura-db-cloud-functions` folder in the <https://github.com/bangsluke/server-mytraveljournal> repo which holds a `README` and the Python file for the Google Cloud Function set up. 
+See the `neo4j-aura-db-cloud-functions` folder in the <https://github.com/bangsluke/bangsluke-backend-server> repo which holds a `README` and the Python file for the Google Cloud Function set up. 
 
 > [Back to Table of Contents](#table-of-contents)
 
@@ -207,11 +204,11 @@ If the production site is not running correctly at `https://bangsluke-mytraveljo
 - Check that the production Neo4j Aura Database is populated with data at `https://console-preview.neo4j.io/tools/query`, using the command `MATCH (n)-[r]->(m) RETURN n, r, m;`
 - Ensure that the following .env values are all correct and aligned:
   - `.env.production` in the frontend repo <https://github.com/bangsluke/mytraveljournal>
-  - `.env.production` in the backend repo <https://github.com/bangsluke/server-mytraveljournal>
+  - `.env.production` in the backend repo <https://github.com/bangsluke/bangsluke-backend-server>
   - The Environment variables in Netlify at `https://app.netlify.com/projects/bangsluke-mytraveljournal/configuration/env#content`
-  - The Config Vars in the Heroku app at `https://dashboard.heroku.com/apps/server-mytraveljournal/settings`
+  - The Config Vars in the Heroku app at `https://dashboard.heroku.com/apps/bangsluke-backend-server/settings`
 - Run the production site `https://bangsluke-mytraveljournal.netlify.app/` and view the developer console for warnings
-- Check that the CORS allowed URLs in the `server.js` file in the backend includes the frontend and backend URLs 
+- Check that the CORS allowed URLs in the `.env` file in the backend includes the frontend and backend URLs 
 - Login to Heroku CLI from the backend folder (`heroku login`) and check the logs using `heroku logs --tail`
   - Run the output through AI if required to clarify the problem
 - If running the app in production mode is working locally (`npm run start` in the backend and `yarn start` in the frontend), try pushing a new update to the main branch via the Heroku commands
