@@ -78,14 +78,20 @@ const useGetCardCounts = () => {
 	// Reduce continents down to visited continents (ones with places that have linked holidays)
 	const visitedContinentsData =
 		data?.continents.filter((continent: any) => {
+			LogS.log("Checking continent:", continent.name, "placesLocatedIn:", continent.placesLocatedIn);
 			return continent.placesLocatedIn?.some((location: any) => {
 				// Check if this location has linked holidays
 				if (location.linkedHolidays?.length > 0) {
+					LogS.log("Found location with linked holidays:", location.name);
 					return true;
 				}
 				// Check if any sub-locations have linked holidays
 				return location.placesLocatedIn?.some((subLocation: any) => {
-					return subLocation.linkedHolidays?.length > 0;
+					if (subLocation.linkedHolidays?.length > 0) {
+						LogS.log("Found sub-location with linked holidays:", subLocation.name);
+						return true;
+					}
+					return false;
 				});
 			});
 		}) ?? [];
@@ -93,15 +99,23 @@ const useGetCardCounts = () => {
 	// Reduce countries down to visited countries (ones with places that have linked holidays)
 	const visitedCountriesData =
 		data?.countries.filter((country: any) => {
+			LogS.log("Checking country:", country.name, "placesLocatedIn:", country.placesLocatedIn);
 			return country.placesLocatedIn?.some((place: any) => {
-				return place.linkedHolidays?.length > 0;
+				if (place.linkedHolidays?.length > 0) {
+					LogS.log("Found country place with linked holidays:", place.name);
+					return true;
+				}
+				return false;
 			});
 		}) ?? [];
 
 	// Reduce cities down to visited cities
 	const visitedCitiesData =
 		(data?.cities ?? [])
-			.filter((city: any) => city.linkedHolidays?.length > 0) // Filter out cities not visited
+			.filter((city: any) => {
+				LogS.log("Checking city:", city.name, "linkedHolidays:", city.linkedHolidays);
+				return city.linkedHolidays?.length > 0;
+			})
 			.map((city: any) => ({
 				...city,
 				linkedHolidays: city.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
@@ -120,7 +134,10 @@ const useGetCardCounts = () => {
 	// Reduce towns down to visited towns
 	const visitedTownsData =
 		(data?.towns ?? [])
-			.filter((town: any) => town.linkedHolidays?.length > 0) // Filter out towns not visited
+			.filter((town: any) => {
+				LogS.log("Checking town:", town.name, "linkedHolidays:", town.linkedHolidays);
+				return town.linkedHolidays?.length > 0;
+			})
 			.map((town: any) => ({
 				...town,
 				linkedHolidays: town.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
@@ -129,7 +146,10 @@ const useGetCardCounts = () => {
 	// Reduce islands down to visited islands
 	const visitedIslandsData =
 		(data?.islands ?? [])
-			.filter((island: any) => island.linkedHolidays?.length > 0) // Filter out islands not visited
+			.filter((island: any) => {
+				LogS.log("Checking island:", island.name, "linkedHolidays:", island.linkedHolidays);
+				return island.linkedHolidays?.length > 0;
+			})
 			.map((island: any) => ({
 				...island,
 				linkedHolidays: island.linkedHolidays ?? [], // Ensure linkedHolidays is not undefined
@@ -138,13 +158,38 @@ const useGetCardCounts = () => {
 	// Reduce down travel companion data to those that have been to a holiday
 	const travelledWithCompanionData =
 		(data?.people ?? [])
-			.filter((person: any) => person.attendedHolidays?.length > 0) // Filter out people not travelled with
+			.filter((person: any) => {
+				LogS.log("Checking person:", person.name, "attendedHolidays:", person.attendedHolidays);
+				return person.attendedHolidays?.length > 0;
+			})
 			.map((person: any) => ({
 				...person,
 				attendedHolidays: person.attendedHolidays ?? [], // Ensure attendedHolidays is not undefined
 			})) ?? [];
 
-	// LogS.log("CountCardSection data", data);
+	// Debug logging to understand the data structure
+	LogS.log("=== DEBUG: CountCardSection Data ===");
+	LogS.log("Holidays count:", data?.holidays?.length);
+	LogS.log("Continents count:", data?.continents?.length);
+	LogS.log("Countries count:", data?.countries?.length);
+	LogS.log("Cities count:", data?.cities?.length);
+	LogS.log("Towns count:", data?.towns?.length);
+	LogS.log("Islands count:", data?.islands?.length);
+	LogS.log("People count:", data?.people?.length);
+
+	// Log sample data to understand structure
+	if (data?.continents && data.continents.length > 0) {
+		LogS.log("Sample continent:", data.continents[0]);
+	}
+	if (data?.countries && data.countries.length > 0) {
+		LogS.log("Sample country:", data.countries[0]);
+	}
+	if (data?.cities && data.cities.length > 0) {
+		LogS.log("Sample city:", data.cities[0]);
+	}
+	if (data?.people && data.people.length > 0) {
+		LogS.log("Sample person:", data.people[0]);
+	}
 
 	// Finalise the card counts data
 	cardCounts = {
@@ -168,6 +213,17 @@ const useGetCardCounts = () => {
 		filteredTravelCompanionData: travelledWithCompanionData,
 		filteredTravelCompanionCount: travelledWithCompanionData.length,
 	};
+
+	// Debug filtered results
+	LogS.log("=== DEBUG: Filtered Results ===");
+	LogS.log("Visited continents count:", visitedContinentsData.length);
+	LogS.log("Visited countries count:", visitedCountriesData.length);
+	LogS.log("Visited cities count:", visitedCitiesData.length);
+	LogS.log("Visited capitals count:", visitedCapitalData.length);
+	LogS.log("Visited towns count:", visitedTownsData.length);
+	LogS.log("Visited islands count:", visitedIslandsData.length);
+	LogS.log("Travel companions count:", travelledWithCompanionData.length);
+
 	// LogS.log("data from useGetCardCounts", cardCounts);
 	return cardCounts;
 };

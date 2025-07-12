@@ -2,7 +2,7 @@ import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
 	overwrite: true, // Set to true to allow overwriting existing generated files
-	schema: "../server-mytraveljournal/graphql/schema.graphql", // Use the local schema file
+	schema: "../../bangsluke-backend-server/graphql_utils/schema.graphql", // Use the local schema file
 	// documents: "./graphql/!(*.d).{ts,tsx}",
 	documents: "./graphql/**/*.graphql",
 
