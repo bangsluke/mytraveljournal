@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import styles from "./CountCard.module.css";
+import React from "react";
 
 interface CountCardProp {
 	id: string;
@@ -16,12 +17,17 @@ export default function CountCard(props: CountCardProp) {
 	const router = useRouter(); // Import the Next router
 	const { id, cardTitle, countValue, pagePath, backgroundIcon, enabledBoolean } = props; // Extract the props
 
-	// Error handling for if countValue returns an element
+	// Handle different types of countValue
 	let displayCountValue;
-	if (countValue instanceof Element) {
-		displayCountValue = 0;
-	} else {
+	if (React.isValidElement(countValue)) {
+		// If countValue is a JSX element (like a loading spinner), display it directly
 		displayCountValue = countValue;
+	} else if (typeof countValue === 'number' || typeof countValue === 'string') {
+		// If countValue is a number or string, display it normally
+		displayCountValue = countValue;
+	} else {
+		// Fallback to 0 for any other type
+		displayCountValue = 0;
 	}
 
 	let cardStyles = styles.countcard;
@@ -48,7 +54,7 @@ export default function CountCard(props: CountCardProp) {
 				</div>
 			)}
 			<h3 className={styles.cardTitle}>{cardTitle}</h3>
-			<h4 className={styles.displayCountValue}>{displayCountValue}</h4>
+			<div className={styles.displayCountValue}>{displayCountValue}</div>
 		</div>
 	);
 }
