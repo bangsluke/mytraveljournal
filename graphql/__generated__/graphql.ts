@@ -16,9 +16,21 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type AuthResponse = {
+  __typename?: 'AuthResponse';
+  token: Scalars['String']['output'];
+  user: User;
+};
+
+export type BaseNodeWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type City = {
   __typename?: 'City';
   capital: Scalars['Boolean']['output'];
+  graphLabel: Scalars['String']['output'];
   linkedHolidays: Array<Holiday>;
   locatedIn: Array<Country>;
   name: Scalars['String']['output'];
@@ -32,8 +44,57 @@ export type CityWhereInput = {
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Client = {
+  __typename?: 'Client';
+  dateEnd?: Maybe<Scalars['String']['output']>;
+  dateStart?: Maybe<Scalars['String']['output']>;
+  graphLabel: Scalars['String']['output'];
+  imageURL: Scalars['String']['output'];
+  linkedCompany: Array<Company>;
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+};
+
+export type ClientWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Club = {
+  __typename?: 'Club';
+  dateEnd?: Maybe<Scalars['String']['output']>;
+  dateStart?: Maybe<Scalars['String']['output']>;
+  graphLabel: Scalars['String']['output'];
+  imageURL: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+};
+
+export type ClubWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Company = {
+  __typename?: 'Company';
+  dateEnd?: Maybe<Scalars['String']['output']>;
+  dateStart?: Maybe<Scalars['String']['output']>;
+  graphLabel: Scalars['String']['output'];
+  imageURL: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+};
+
+export type CompanyOrClient = Client | Company;
+
+export type CompanyWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Continent = {
   __typename?: 'Continent';
+  graphLabel: Scalars['String']['output'];
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
   placesLocatedIn: Array<Location>;
@@ -46,6 +107,7 @@ export type ContinentWhereInput = {
 
 export type Country = {
   __typename?: 'Country';
+  graphLabel: Scalars['String']['output'];
   locatedIn: Array<Continent>;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
@@ -59,6 +121,7 @@ export type CountryWhereInput = {
 
 export type County = {
   __typename?: 'County';
+  graphLabel: Scalars['String']['output'];
   linkedHolidays: Array<Holiday>;
   locatedIn: Array<Country>;
   name: Scalars['String']['output'];
@@ -67,6 +130,25 @@ export type County = {
 };
 
 export type CountyWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Education = {
+  __typename?: 'Education';
+  additionalDetails: Scalars['String']['output'];
+  dateEnd?: Maybe<Scalars['String']['output']>;
+  dateStart?: Maybe<Scalars['String']['output']>;
+  fullText: Scalars['String']['output'];
+  graphLabel: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+  qualifications: Scalars['String']['output'];
+  readableText: Scalars['String']['output'];
+  textHtmlContent: Scalars['String']['output'];
+};
+
+export type EducationWhereInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -80,6 +162,7 @@ export type Holiday = {
   dateYear: Scalars['String']['output'];
   departingAirport?: Maybe<Scalars['String']['output']>;
   fullText: Scalars['String']['output'];
+  graphLabel: Scalars['String']['output'];
   holidayTitle: Scalars['String']['output'];
   locations?: Maybe<Array<Scalars['String']['output']>>;
   name: Scalars['String']['output'];
@@ -100,6 +183,7 @@ export type HolidayWhereInput = {
 
 export type Island = {
   __typename?: 'Island';
+  graphLabel: Scalars['String']['output'];
   linkedHolidays: Array<Holiday>;
   locatedIn: Array<Country>;
   name: Scalars['String']['output'];
@@ -114,6 +198,7 @@ export type IslandWhereInput = {
 
 export type Location = {
   __typename?: 'Location';
+  graphLabel: Scalars['String']['output'];
   linkedHolidays: Array<Holiday>;
   locatedIn: Array<Location>;
   name: Scalars['String']['output'];
@@ -126,12 +211,38 @@ export type LocationWhereInput = {
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  login: AuthResponse;
+  pushData: Scalars['String']['output'];
+  register: AuthResponse;
+};
+
+
+export type MutationLoginArgs = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+
+export type MutationRegisterArgs = {
+  password: Scalars['String']['input'];
+  role?: InputMaybe<Scalars['String']['input']>;
+  username: Scalars['String']['input'];
+};
+
 export type Person = {
   __typename?: 'Person';
   aliases?: Maybe<Scalars['String']['output']>;
   attendedHolidays: Array<Holiday>;
+  graphLabel: Scalars['String']['output'];
+  linkedCompany: Array<Company>;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
+  referenceAddress?: Maybe<Scalars['String']['output']>;
+  referenceEmail?: Maybe<Scalars['String']['output']>;
+  referenceNumber?: Maybe<Scalars['String']['output']>;
+  referenceRole?: Maybe<Scalars['String']['output']>;
 };
 
 export type PersonWhereInput = {
@@ -140,17 +251,56 @@ export type PersonWhereInput = {
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Project = {
+  __typename?: 'Project';
+  aliases?: Maybe<Scalars['String']['output']>;
+  architectureAndTechnologies: Scalars['String']['output'];
+  codeURL: Scalars['String']['output'];
+  dateEnd?: Maybe<Scalars['String']['output']>;
+  dateStart?: Maybe<Scalars['String']['output']>;
+  developers: Array<Person>;
+  fullText: Scalars['String']['output'];
+  graphLabel: Scalars['String']['output'];
+  imageURL: Scalars['String']['output'];
+  lessonsLearned: Scalars['String']['output'];
+  linkedCompany: Array<CompanyOrClient>;
+  longDescription: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+  projectCategory: Scalars['String']['output'];
+  projectURL: Scalars['String']['output'];
+  readableText: Scalars['String']['output'];
+  shortDescription: Scalars['String']['output'];
+  technologies: Array<Skill>;
+  textHtmlContent: Scalars['String']['output'];
+  toolOwner?: Maybe<Person>;
+  topicRelationships: Array<TopicTarget>;
+  topicTags?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProjectWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   cities: Array<City>;
+  clients: Array<Client>;
+  clubs: Array<Club>;
+  companies: Array<Company>;
   continents: Array<Continent>;
   counties: Array<County>;
   countries: Array<Country>;
-  hello: Scalars['String']['output'];
+  educations: Array<Education>;
   holidays: Array<Holiday>;
   islands: Array<Island>;
   locations: Array<Location>;
   people: Array<Person>;
+  projects: Array<Project>;
+  references: Array<Reference>;
+  roles: Array<Role>;
+  skills: Array<Skill>;
   states: Array<State>;
   towns: Array<Town>;
 };
@@ -158,6 +308,21 @@ export type Query = {
 
 export type QueryCitiesArgs = {
   where?: InputMaybe<CityWhereInput>;
+};
+
+
+export type QueryClientsArgs = {
+  where?: InputMaybe<ClientWhereInput>;
+};
+
+
+export type QueryClubsArgs = {
+  where?: InputMaybe<ClubWhereInput>;
+};
+
+
+export type QueryCompaniesArgs = {
+  where?: InputMaybe<CompanyWhereInput>;
 };
 
 
@@ -173,6 +338,11 @@ export type QueryCountiesArgs = {
 
 export type QueryCountriesArgs = {
   where?: InputMaybe<CountryWhereInput>;
+};
+
+
+export type QueryEducationsArgs = {
+  where?: InputMaybe<EducationWhereInput>;
 };
 
 
@@ -196,6 +366,26 @@ export type QueryPeopleArgs = {
 };
 
 
+export type QueryProjectsArgs = {
+  where?: InputMaybe<ProjectWhereInput>;
+};
+
+
+export type QueryReferencesArgs = {
+  where?: InputMaybe<ReferenceWhereInput>;
+};
+
+
+export type QueryRolesArgs = {
+  where?: InputMaybe<RoleWhereInput>;
+};
+
+
+export type QuerySkillsArgs = {
+  where?: InputMaybe<SkillWhereInput>;
+};
+
+
 export type QueryStatesArgs = {
   where?: InputMaybe<StateWhereInput>;
 };
@@ -205,8 +395,61 @@ export type QueryTownsArgs = {
   where?: InputMaybe<TownWhereInput>;
 };
 
+export type Reference = {
+  __typename?: 'Reference';
+  graphLabel: Scalars['String']['output'];
+  linkedCompany: Array<Company>;
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+  referenceAddress: Scalars['String']['output'];
+  referenceEmail: Scalars['String']['output'];
+  referenceNumber: Scalars['String']['output'];
+  referenceRole: Scalars['String']['output'];
+};
+
+export type ReferenceWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Role = {
+  __typename?: 'Role';
+  dateEnd?: Maybe<Scalars['String']['output']>;
+  dateStart?: Maybe<Scalars['String']['output']>;
+  fullText: Scalars['String']['output'];
+  graphLabel: Scalars['String']['output'];
+  keyAchievement: Scalars['String']['output'];
+  linkedCompany: Array<Company>;
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+  readableText: Scalars['String']['output'];
+  roleDescription: Scalars['String']['output'];
+  textHtmlContent: Scalars['String']['output'];
+};
+
+export type RoleWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Skill = {
+  __typename?: 'Skill';
+  graphLabel: Scalars['String']['output'];
+  imageURL: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  nodeId: Scalars['String']['output'];
+  skillDescription: Scalars['String']['output'];
+  skillRating: Scalars['Int']['output'];
+};
+
+export type SkillWhereInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type State = {
   __typename?: 'State';
+  graphLabel: Scalars['String']['output'];
   linkedHolidays: Array<Holiday>;
   locatedIn: Array<Country>;
   name: Scalars['String']['output'];
@@ -219,8 +462,11 @@ export type StateWhereInput = {
   nodeId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type TopicTarget = Client | Club | Company | Education | Person | Reference | Role | Skill;
+
 export type Town = {
   __typename?: 'Town';
+  graphLabel: Scalars['String']['output'];
   linkedHolidays: Array<Holiday>;
   locatedIn: Array<Country>;
   name: Scalars['String']['output'];
@@ -231,6 +477,12 @@ export type Town = {
 export type TownWhereInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   nodeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type User = {
+  __typename?: 'User';
+  role: Scalars['String']['output'];
+  user_id: Scalars['String']['output'];
 };
 
 export type GetCardCountsQueryVariables = Exact<{ [key: string]: never; }>;
