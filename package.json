@@ -19,7 +19,7 @@
 		"@emotion/react": "^11.11.4",
 		"@emotion/styled": "^11.11.0",
 		"@mantine/core": "7.7.1",
-		"@mantine/hooks": "^7.7.1",
+		"@mantine/hooks": "^7.17.8",
 		"@mantinex/dev-icons": "^1.0.2",
 		"@mui/icons-material": "^5.15.13",
 		"@mui/material": "^5.15.13",
