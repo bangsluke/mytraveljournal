@@ -49,8 +49,8 @@ export type Client = {
   dateEnd?: Maybe<Scalars['String']['output']>;
   dateStart?: Maybe<Scalars['String']['output']>;
   graphLabel: Scalars['String']['output'];
-  imageURL: Scalars['String']['output'];
   linkedCompany: Array<Company>;
+  logoURL: Scalars['String']['output'];
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
 };
@@ -65,7 +65,7 @@ export type Club = {
   dateEnd?: Maybe<Scalars['String']['output']>;
   dateStart?: Maybe<Scalars['String']['output']>;
   graphLabel: Scalars['String']['output'];
-  imageURL: Scalars['String']['output'];
+  logoURL: Scalars['String']['output'];
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
 };
@@ -80,7 +80,7 @@ export type Company = {
   dateEnd?: Maybe<Scalars['String']['output']>;
   dateStart?: Maybe<Scalars['String']['output']>;
   graphLabel: Scalars['String']['output'];
-  imageURL: Scalars['String']['output'];
+  logoURL: Scalars['String']['output'];
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
 };
@@ -419,7 +419,7 @@ export type Role = {
   fullText: Scalars['String']['output'];
   graphLabel: Scalars['String']['output'];
   keyAchievement: Scalars['String']['output'];
-  linkedCompany: Array<Company>;
+  linkedCompany?: Maybe<Company>;
   name: Scalars['String']['output'];
   nodeId: Scalars['String']['output'];
   readableText: Scalars['String']['output'];
