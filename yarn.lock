@@ -1560,10 +1560,10 @@
     react-textarea-autosize "8.5.9"
     type-fest "^4.27.0"
 
-"@mantine/hooks@^7.7.1":
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.7.1.tgz#04fd8999fe109615d064bf42a8ff04435c93b927"
-  integrity sha512-3YH2FzKMlg840tb04PBDcDXyBCi9puFOxEBVgc6Y/pN6KFqfOoAnQE/YvgOtwSNXZlbTWyDlQoYj+3je7pA7og==
+"@mantine/hooks@^7.17.8":
+  version "7.17.8"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.17.8.tgz#8ac109a848236371c9da2a44261de7cb45330db4"
+  integrity sha512-96qygbkTjRhdkzd5HDU8fMziemN/h758/EwrFu7TlWrEP10Vw076u+Ap/sG6OT4RGPZYYoHrTlT+mkCZblWHuw==
 
 "@mantinex/dev-icons@^1.0.2":
   version "1.0.2"
