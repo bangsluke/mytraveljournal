@@ -16,10 +16,10 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.13.9",
-		"@emotion/react": "^11.11.4",
 		"@mantine/core": "7.17.8",
 		"@mantine/hooks": "^7.17.8",
 		"@emotion/styled": "^11.14.1",
+		"@emotion/react": "^11.14.0",
 		"@mantinex/dev-icons": "^1.0.2",
 		"@mui/icons-material": "^5.18.0",
 		"@mui/material": "^5.18.0",
