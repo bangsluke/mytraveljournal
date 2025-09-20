@@ -32,8 +32,8 @@
 		"react-dom": "18.3.1",
 		"react": "^18.3.1",
 		"react-markdown": "^9.1.0",
-		"remark-gfm": "^4.0.0",
-		"sharp": "^0.34.3"
+		"sharp": "^0.34.3",
+		"remark-gfm": "^4.0.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.27.4",
