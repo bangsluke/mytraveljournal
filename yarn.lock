@@ -1550,10 +1550,10 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.17.8.tgz#8ac109a848236371c9da2a44261de7cb45330db4"
   integrity sha512-96qygbkTjRhdkzd5HDU8fMziemN/h758/EwrFu7TlWrEP10Vw076u+Ap/sG6OT4RGPZYYoHrTlT+mkCZblWHuw==
 
-"@mantinex/dev-icons@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@mantinex/dev-icons/-/dev-icons-1.0.2.tgz#9af8ab6a75b2f245b78299c7c934aa22be98d03d"
-  integrity sha512-wKSOvjqLTQbSf+XAq3BojhkaEwjR1C3L5ShlgE2lN6JnxGcIZeFcwphMf4xqBp9Gl45XhIyKxNGfmija/u/a7A==
+"@mantinex/dev-icons@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@mantinex/dev-icons/-/dev-icons-1.1.0.tgz#021d1de43d7bc530b2a58e9493be36ad7567a855"
+  integrity sha512-ovve4xpjhBA29CIxwnTvIi6pJ7jWJftBFHiI2AAj79MGaVxteuj4o7G1j4gK0+b5U770vceXUVAKAwVBDTa5Aw==
 
 "@mui/core-downloads-tracker@^5.18.0":
   version "5.18.0"
