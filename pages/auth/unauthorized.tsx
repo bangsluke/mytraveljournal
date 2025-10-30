@@ -19,7 +19,10 @@ export default function UnAuthorized() {
 		<AuthenticationLayout>
 			<h1 className={styles.title}>Unauthorized</h1>
 			<p>{email} does not have access to this site.</p>
-			<p>To gain access, please contact Luke with your email address to be added.</p>
+			<p>
+				If you believe this is a mistake, you can
+				{' '}<a href={`/auth/request-access?email=${encodeURIComponent((email as string) || "")}`}>request access</a>.
+			</p>
 			<ButtonComponent Text={"Go Back to Home"} onClick={handleGoBack} fullWidth={false} />
 		</AuthenticationLayout>
 	);

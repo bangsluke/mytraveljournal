@@ -53,6 +53,20 @@
 	color: var(--secondary-accent, #BBB);
 }
 
+.input {
+	width: 100%;
+	padding: 0.5rem;
+	border: 1px solid var(--secondary-accent, #BBB);
+	border-radius: 0.5rem;
+	font-size: 14px;
+	font-family: var(--font-family, ui-sans-serif);
+}
+
+.label {
+	font-size: 14px;
+	font-family: var(--font-family, ui-sans-serif);
+}
+
 /* Mobiles */
 @media only screen and (max-width: 767px) {
 	.card {
@@ -82,6 +96,14 @@
 
 	.title {
 		color: var(--off-white, #f3f3f3)
+	}
+
+	.label {
+		color: var(--off-white, #f3f3f3);
+	}
+
+	.text {
+		color: var(--off-white, #f3f3f3);
 	}
 
 	.Logo {
