@@ -1,0 +1,5 @@
+[build]
+  # These secrets are intentionally used in server-side API routes
+  # and are expected to appear in build output
+  environment = { SECRETS_SCAN_OMIT_KEYS = "GITHUB_REPOSITORY,NETLIFY_SITE_ID,FROM_EMAIL" }
+
