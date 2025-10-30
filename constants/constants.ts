@@ -1,3 +1,6 @@
+// Developer email
+const developerEmail = "bangsluke@gmail.com";
+
 // Define the header height used across the tool
 const headerHeight = 80; // In pixels. Keep aligned with the global.css --header-height variable
 
@@ -27,6 +30,7 @@ let NodeToPath = {
 };
 
 const Constants = {
+	developerEmail,
 	headerHeight,
 	SkipAuth,
 	mainAccent,
