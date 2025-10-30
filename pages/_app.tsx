@@ -55,7 +55,8 @@ if (runMode === "development") {
 
 // Create an Apollo client
 const client = new ApolloClient({
-	uri: process.env.NEXT_PUBLIC_APP_BACKEND_URL,
+	// Use proxy in development to avoid CORS; direct URL in production
+	uri: runMode === "development" ? "/api/graphql" : process.env.NEXT_PUBLIC_APP_BACKEND_URL,
 	cache: new InMemoryCache(),
 });
 
