@@ -22,7 +22,8 @@ const nextConfig = {
 	},
 
 	async rewrites() {
-		// Proxy GraphQL to avoid CORS in development. Uses env at build/dev server start.
+		// Development-only proxy to avoid CORS. Disabled in production builds.
+		if (process.env.NODE_ENV !== "development") return [];
 		const backendUrl = process.env.NEXT_PUBLIC_APP_BACKEND_URL || "";
 		if (!backendUrl) return [];
 		return [
