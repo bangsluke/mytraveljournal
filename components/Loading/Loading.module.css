@@ -52,4 +52,8 @@
 	.rotatingLogo {
 		filter: invert(100);
 	}
+
+	.title {
+		color: #ffffff;
+	}
 }
