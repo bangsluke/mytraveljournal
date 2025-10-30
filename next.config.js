@@ -21,6 +21,19 @@ const nextConfig = {
 		],
 	},
 
+	async rewrites() {
+		// Development-only proxy to avoid CORS. Disabled in production builds.
+		if (process.env.NODE_ENV !== "development") return [];
+		const backendUrl = process.env.NEXT_PUBLIC_APP_BACKEND_URL || "";
+		if (!backendUrl) return [];
+		return [
+			{
+				source: "/api/graphql",
+				destination: backendUrl,
+			},
+		];
+	},
+
 	async redirects() {
 		return [
 			// Basic redirect

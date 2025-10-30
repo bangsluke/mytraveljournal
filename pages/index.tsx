@@ -1,5 +1,6 @@
 // import jsonData from "../backend/output.json"; // Adjust the path accordingly
-import CountCardSection from "../components/CountCard/CountCardSection";
+//import CountCardSection from "../components/CountCard/CountCardSection";
+import AsyncCountCardSection from "../components/CountCard/AsyncCountCardSection";
 import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
 import Layout from "../components/Layout/Layout";
 // import MapChart from "../components/MapChart";
@@ -52,7 +53,8 @@ export default function Home() {
 					<MapChart />
 				</div> */}
 
-				<CountCardSection />
+				{/* <CountCardSection /> */}
+				<AsyncCountCardSection />
 			</section>
 
 			{/* Divider to visually separate the sections */}
