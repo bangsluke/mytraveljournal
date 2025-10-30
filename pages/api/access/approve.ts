@@ -2,7 +2,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { verifyApprovalToken } from "../../../lib/token";
 import { addEmailToAllowedJsonAndPR } from "../../../lib/github";
 import { getAppBaseUrl, sendEmail } from "../../../lib/email";
-import Constants from "../../../constants/constants";
+
+// Helper to get developer email from env (same as FROM_EMAIL)
+function getDeveloperEmail(): string {
+	const email = process.env.FROM_EMAIL;
+	if (!email) throw new Error("FROM_EMAIL not configured");
+	return email;
+}
 
 async function maybeNotifyNetlifyOnFailure(commitSha: string) {
 	const token = process.env.NETLIFY_TOKEN;
@@ -21,7 +27,7 @@ async function maybeNotifyNetlifyOnFailure(commitSha: string) {
 			if (!notified) {
 				notified = true;
 				await sendEmail({
-					to: Constants.developerEmail,
+					to: getDeveloperEmail(),
 					subject: "Netlify deploy failed after approval",
 					html: `<p>Deploy failed for commit ${commitSha}.</p><p>Deploy: ${d?.id || "unknown"}</p>`,
 				});
@@ -54,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		// Notify developer with PR link
 		try {
 			await sendEmail({
-				to: Constants.developerEmail,
+				to: getDeveloperEmail(),
 				subject: `Approval initiated for ${payload.email}`,
 				html: `<p>PR created to approve ${payload.email}.</p><p><a href="${prUrl}">${prUrl}</a></p>`,
 			});
@@ -70,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		res.setHeader("Content-Type", "text/html; charset=utf-8");
 		return res.status(200).send(`<html><body><h3>Approval started for ${payload.email}.</h3><p>You can close this window.</p></body></html>`);
 	} catch (e: any) {
-		await sendEmail({ to: Constants.developerEmail, subject: "Approval failed", html: `<p>Error approving: ${(e && e.message) || e}</p>` });
+		await sendEmail({ to: getDeveloperEmail(), subject: "Approval failed", html: `<p>Error approving: ${(e && e.message) || e}</p>` });
 		return res.status(500).send("Approval failed");
 	}
 }

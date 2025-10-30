@@ -1,3 +1,7 @@
+// Server-side only module - must only be imported in API routes (pages/api/*)
+if (typeof window !== "undefined") {
+	throw new Error("This module can only be used server-side");
+}
 import crypto from "crypto";
 
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours

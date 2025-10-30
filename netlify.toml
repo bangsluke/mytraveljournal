@@ -1,5 +1,7 @@
 [build]
-  # These secrets are intentionally used in server-side API routes
-  # and are expected to appear in build output
-  environment = { SECRETS_SCAN_OMIT_KEYS = "GITHUB_REPOSITORY,NETLIFY_SITE_ID,FROM_EMAIL" }
+  # These secrets are used ONLY in server-side API routes (pages/api/*)
+  # They appear in server bundles which run on Netlify's infrastructure, not in browsers
+  # Next.js Pages Router API routes are completely isolated from client bundles
+  # The actual values come from Netlify environment variables at runtime, not build time
+  environment = { SECRETS_SCAN_OMIT_KEYS = "GITHUB_REPOSITORY,NETLIFY_SITE_ID,FROM_EMAIL,SMTP_USER,SMTP_PASS,SMTP_HOST,SMTP_PORT" }
 

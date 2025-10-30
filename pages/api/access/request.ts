@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { rateLimitCheck } from "../../../lib/rateLimit";
 import { createApprovalToken } from "../../../lib/token";
 import { getAppBaseUrl, sendEmail } from "../../../lib/email";
-import Constants from "../../../constants/constants";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
@@ -37,8 +36,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		const approveUrl = `${base}/api/access/approve?token=${encodeURIComponent(approvalToken)}`;
 
 		// Send email to developer with approve link
+		// Use FROM_EMAIL as developer email (they're the same)
+		const developerEmail = process.env.FROM_EMAIL;
+		if (!developerEmail) throw new Error("FROM_EMAIL not configured");
 		await sendEmail({
-			to: Constants.developerEmail,
+			to: developerEmail,
 			subject: `Access Request for My Travel Journal: ${email}`,
 			html: `
 				<p>Hello,</p>

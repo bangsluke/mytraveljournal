@@ -1,5 +1,8 @@
+// Server-side only module - must only be imported in API routes (pages/api/*)
+if (typeof window !== "undefined") {
+	throw new Error("This module can only be used server-side");
+}
 import nodemailer from "nodemailer";
-import Constants from "../constants/constants";
 
 type SendEmailArgs = {
 	to: string;
@@ -38,7 +41,12 @@ function getTransporter() {
 
 export async function sendEmail({ to, subject, html }: SendEmailArgs) {
 	const transporter = getTransporter();
-	const from = process.env.FROM_EMAIL || Constants.developerEmail;
+	// Use FROM_EMAIL env var directly - do NOT import Constants to avoid client-side bundling
+	// If FROM_EMAIL is not set, throw error rather than using a fallback that creates dependencies
+	const from = process.env.FROM_EMAIL;
+	if (!from) {
+		throw new Error("FROM_EMAIL environment variable is not configured");
+	}
 	await transporter.sendMail({ from, to, subject, html });
 }
 
