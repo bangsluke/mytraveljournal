@@ -6,34 +6,38 @@
 
 ## Table of Contents
 
-- [MyTravelJournal](#mytraveljournal)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Quick start](#quick-start)
-    - [Development Start](#development-start)
-    - [Production Start](#production-start)
-  - [Set Up](#set-up)
-    - [Installations](#installations)
-    - [Re-set Up The .env Files](#re-set-up-the-env-files)
-    - [Notes Set Up](#notes-set-up)
-      - [Markdown Set Up](#markdown-set-up)
-        - [Note Set Up](#note-set-up)
-          - [Example of required "Front Matter" Structure](#example-of-required-front-matter-structure)
-        - [Cover Photo Set Up](#cover-photo-set-up)
-    - [Next.js Initiation](#nextjs-initiation)
-    - [Authentication Set Up](#authentication-set-up)
-      - [Adding Email Addresses](#adding-email-addresses)
-    - [Netlify Hosting](#netlify-hosting)
-      - [Netlify Environment Variables](#netlify-environment-variables)
-        - [GraphQL Endpoint](#graphql-endpoint)
-        - [NextAuth](#nextauth)
-    - [GraphQL Set Up](#graphql-set-up)
-      - [Schema and Updates](#schema-and-updates)
-      - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
-    - [Node.js Apollo Server Implementation](#nodejs-apollo-server-implementation)
-    - [Neo4j Aura Set Up](#neo4j-aura-set-up)
-      - [Keeping the Neo4j Aura database running](#keeping-the-neo4j-aura-database-running)
-  - [Debugging Steps](#debugging-steps)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Quick start](#quick-start)
+  - [Development Start](#development-start)
+  - [Production Start](#production-start)
+- [Set Up](#set-up)
+  - [Installations](#installations)
+  - [Re-set Up The .env Files](#re-set-up-the-env-files)
+  - [Notes Set Up](#notes-set-up)
+    - [Markdown Set Up](#markdown-set-up)
+      - [Note Set Up](#note-set-up)
+        - [Example of required "Front Matter" Structure](#example-of-required-front-matter-structure)
+      - [Cover Photo Set Up](#cover-photo-set-up)
+  - [Next.js Initiation](#nextjs-initiation)
+  - [Authentication Set Up](#authentication-set-up)
+    - [Adding Email Addresses](#adding-email-addresses)
+    - [Email Access Request Feature](#email-access-request-feature)
+      - [How It Works](#how-it-works)
+      - [Testing](#testing)
+      - [Required Environment Variables](#required-environment-variables)
+      - [Manual vs Automatic Approval](#manual-vs-automatic-approval)
+  - [Netlify Hosting](#netlify-hosting)
+    - [Netlify Environment Variables](#netlify-environment-variables)
+      - [GraphQL Endpoint](#graphql-endpoint)
+      - [NextAuth](#nextauth)
+  - [GraphQL Set Up](#graphql-set-up)
+    - [Schema and Updates](#schema-and-updates)
+    - [How to extend the Schema and queries](#how-to-extend-the-schema-and-queries)
+  - [Node.js Apollo Server Implementation](#nodejs-apollo-server-implementation)
+  - [Neo4j Aura Set Up](#neo4j-aura-set-up)
+    - [Keeping the Neo4j Aura database running](#keeping-the-neo4j-aura-database-running)
+- [Debugging Steps](#debugging-steps)
 
 ## Introduction
 
@@ -134,6 +138,63 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 #### Adding Email Addresses
 
 In order to add a new address to the list of allowed email addresses, add it to the `allowedEmails.json` file in the `mytraveljournal/constants` folder.
+
+#### Email Access Request Feature
+
+The site includes an automated email access request system that allows users to request access and be approved via email.
+
+##### How It Works
+
+1. **Request Access**: When a user tries to sign in with an email that is not in `allowedEmails.json`, they are redirected to the request access page (`/auth/request-access`).
+2. **Submit Request**: The user enters their email and submits a request, which triggers:
+   - Rate limiting checks (by IP and email) to prevent spam
+   - Creation of a secure, time-limited approval token (valid for 24 hours)
+   - An email sent to the developer with an "Approve Access" button
+   - An acknowledgement email sent to the requester
+3. **Approve Access**: When the developer clicks the "Approve Access" button in the email:
+   - A GitHub Pull Request is automatically created to add the email to `allowedEmails.json`
+   - If `GITHUB_AUTO_MERGE` is set to `"true"`, the PR is automatically merged (squash merge)
+   - A confirmation page is displayed showing all currently allowed emails
+   - Success emails are sent to both the developer and the requester
+   - If auto-merge is enabled and Netlify monitoring is configured, build failures are reported via email
+
+##### Testing
+
+You can test the request access page by visiting:
+```
+https://bangsluke-mytraveljournal.netlify.app/auth/request-access?email=test@example.com
+```
+
+Replace `test@example.com` with any test email address. Note that submitting a request will send emails to the configured developer email address.
+
+##### Required Environment Variables
+
+The following environment variables must be configured in Netlify for this feature to work:
+
+- **SMTP Configuration** (for sending emails):
+  - `SMTP_HOST` - SMTP server hostname
+  - `SMTP_PORT` - SMTP server port (typically 465 or 587)
+  - `SMTP_USER` - SMTP username
+  - `SMTP_PASS` - SMTP password
+  - `SMTP_REJECT_UNAUTHORIZED` - Set to `"false"` for self-signed certificates (optional)
+  - `FROM_EMAIL` - The email address used as the sender
+
+- **GitHub Integration** (for creating PRs):
+  - `GITHUB_TOKEN` - Personal access token with repo permissions
+  - `GITHUB_REPOSITORY` - Repository in format `owner/repo` (e.g., `bangsluke/mytraveljournal`)
+  - `GITHUB_AUTO_MERGE` - Set to `"true"` to automatically merge approval PRs (optional)
+
+- **Netlify Integration** (optional, for deploy monitoring):
+  - `NETLIFY_TOKEN` - Netlify API token
+  - `NETLIFY_SITE_ID` - Netlify site ID
+
+- **Existing NextAuth Variables**:
+  - `NEXTAUTH_SECRET` - Used for signing approval tokens (already required for NextAuth)
+
+##### Manual vs Automatic Approval
+
+- **Manual Approval** (`GITHUB_AUTO_MERGE` not set or set to `"false"`): The PR is created but remains open for manual review and merge via GitHub.
+- **Automatic Approval** (`GITHUB_AUTO_MERGE="true"`): The PR is automatically merged using squash merge, making the email immediately available after the next deployment.
 
 > [Back to Table of Contents](#table-of-contents)
 
