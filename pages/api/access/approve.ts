@@ -46,38 +46,44 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	if (!payload) return res.status(400).send("Invalid or expired token");
 
 	try {
+		// Create PR (this is the critical operation - must complete)
 		const { prUrl, mergeCommitSha } = await addEmailToAllowedJsonAndPR(payload.email);
 
-		// Optionally email requester with success immediately on auto-merge, or after manual merge webhook. Here: send success now with PR link; note access may take a moment post-merge.
-		try {
-			await sendEmail({
+		// Start async operations (emails and monitoring) but don't await them
+		// These will continue in the background after the response is sent
+		Promise.all([
+			// Email requester
+			sendEmail({
 				to: payload.email,
-				subject: "Access approved",
-				html: `<p>Your email has been approved for access.</p><p>Visit the site: <a href="${getAppBaseUrl()}">${getAppBaseUrl()}</a></p><p>PR reference: <a href="${prUrl}">${prUrl}</a></p>`,
-			});
-		} catch {}
+				subject: "Access approved for My Travel Journal",
+				html: `<p>Your email has been approved for access to <strong>My Travel Journal</strong>.</p><p>Visit the site: <a href="${getAppBaseUrl()}">${getAppBaseUrl()}</a></p><p>Note: Access will be available after the GitHub PR is merged and deployed.</p><p>PR reference: <a href="${prUrl}">${prUrl}</a></p>`,
+			}).catch((e) => console.error("Failed to send approval email:", e)),
 
-		// Notify developer with PR link
-		try {
-			await sendEmail({
+			// Notify developer
+			sendEmail({
 				to: getDeveloperEmail(),
 				subject: `Approval initiated for ${payload.email}`,
-				html: `<p>PR created to approve ${payload.email}.</p><p><a href="${prUrl}">${prUrl}</a></p>`,
-			});
-		} catch {}
+				html: `<p>PR created to approve ${payload.email} for <strong>My Travel Journal</strong>.</p><p><a href="${prUrl}">${prUrl}</a></p>`,
+			}).catch((e) => console.error("Failed to send developer email:", e)),
 
-		// If auto-merged, optionally poll Netlify deploy and email on failure
-		if (process.env.GITHUB_AUTO_MERGE === "true" && mergeCommitSha) {
-			try {
-				await maybeNotifyNetlifyOnFailure(mergeCommitSha);
-			} catch {}
-		}
+			// If auto-merged, monitor Netlify deploy (this can take up to 3 minutes - definitely async)
+			process.env.GITHUB_AUTO_MERGE === "true" && mergeCommitSha
+				? maybeNotifyNetlifyOnFailure(mergeCommitSha).catch((e) => console.error("Failed to monitor Netlify:", e))
+				: Promise.resolve(),
+		]).catch((e) => console.error("Background task error:", e));
 
-		res.setHeader("Content-Type", "text/html; charset=utf-8");
-		return res.status(200).send(`<html><body><h3>Approval started for ${payload.email}.</h3><p>You can close this window.</p></body></html>`);
+		// Redirect to confirmation page immediately to avoid timeout
+		const base = getAppBaseUrl().replace(/\/$/, "");
+		return res.redirect(302, `${base}/auth/approval-confirmation?token=${encodeURIComponent(token)}`);
 	} catch (e: any) {
-		await sendEmail({ to: getDeveloperEmail(), subject: "Approval failed", html: `<p>Error approving: ${(e && e.message) || e}</p>` });
-		return res.status(500).send("Approval failed");
+		console.error("Approval error:", e);
+		// Try to send error email, but don't wait for it
+		sendEmail({
+			to: getDeveloperEmail(),
+			subject: "Approval failed",
+			html: `<p>Error approving ${payload?.email || "unknown"}: ${(e && e.message) || e}</p>`,
+		}).catch(() => {});
+		return res.status(500).send("Approval failed. Check server logs for details.");
 	}
 }
 
