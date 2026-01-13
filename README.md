@@ -1,13 +1,44 @@
-# MyTravelJournal
+<p align="center">
+  <img src="https://i.postimg.cc/3RZn08zP/Portfolio-Site-V2.png" alt="bangsluke Logo" height="100"/>
+</p>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/267ef8c1-6dae-4fae-bc37-680c3f02ebfd/deploy-status)](https://app.netlify.com/sites/bangsluke-mytraveljournal/deploys)
+# My Travel Journal
+
+<p align="center">
+  A journal of my travels across the world, stored in Obsidian notes, synced to a Neo4j database and displayed using a Next.js frontend.
+</p>
+
+<p align="center">
+  <a href="https://bangsluke-mytraveljournal.netlify.app/">🌐 Live Demo</a> •
+  <a href="https://github.com/bangsluke/mytraveljournal">💻 GitHub Repository</a> •
+  <a href="#screenshots">📸 Screenshots</a>
+</p>
+
+<p align="center">
+  <a href="https://app.netlify.com/projects/bangsluke-mytraveljournal/deploys" style="text-decoration: none;">
+    <img src="https://api.netlify.com/api/v1/badges/267ef8c1-6dae-4fae-bc37-680c3f02ebfd/deploy-status" alt="Netlify Status" />
+  </a>
+  <img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-5.4-blue?logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Neo4j-Aura-green?logo=neo4j" alt="Neo4j" />
+  <img src="https://img.shields.io/badge/Obsidian-purple?logo=obsidian" alt="Obsidian" />
+  <img src="https://img.shields.io/badge/Mantine-7.17.8-blue?logo=mantine" alt="Mantine" />
+</p>
 
 > Also see the backend server repo <https://github.com/bangsluke/bangsluke-backend-server> for more details and instructions
+
+<p align="center">
+  <img src="./public/screenshots/Travel Website.png" alt="My Travel Journal Screenshot" height="550"/>
+</p>
 
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
+  - [Screenshots](#screenshots)
+    - [My Travel Journal](#my-travel-journal-1)
+    - [Navigation](#navigation)
+    - [Countries](#countries)
 - [Quick start](#quick-start)
   - [Development Start](#development-start)
   - [Production Start](#production-start)
@@ -41,7 +72,31 @@
 
 ## Introduction
 
-The front end Next.js repository for MyTravelJournal
+The front end Next.js repository for MyTravelJournal, detailing my travels across the world. The site contains a list of holidays I've had, continents, countries, cities and locations I have visited, and who I went with.
+
+> [Back to Table of Contents](#table-of-contents)
+
+### Screenshots
+
+#### My Travel Journal
+
+<p align="center">
+  <img src="./public/screenshots/Travel Website.png" alt="My Travel Journal Screenshot" height="500"/>
+</p>
+
+#### Navigation
+
+<p align="center">
+  <img src="./public/screenshots/Navigation.png" alt="Navigation Screenshot" height="500"/>
+</p>
+
+#### Countries
+
+<p align="center">
+  <img src="./public/screenshots/Countries.png" alt="Countries Screenshot" height="500"/>
+</p>
+
+> [Back to Table of Contents](#table-of-contents)
 
 ## Quick start
 
@@ -54,6 +109,8 @@ To quickly get started in development mode, do the following steps:
 3. Start the backend, the `bangsluke-backend-server` repo <https://github.com/bangsluke/bangsluke-backend-server> by running: `npm run dev` in a terminal - Note: This will generate types from the GraphQL schema in the backend
 4. Start the frontend, the `mytraveljournal` repo <https://github.com/bangsluke/mytraveljournal> by running: `yarn dev` - Note: This will generate types from the GraphQL schema in the frontend
 5. Open [http://localhost:3000](http://localhost:3000) and the frontend should be up and running with a data connection to the backend
+
+> [Back to Table of Contents](#table-of-contents)
 
 ### Production Start
 
