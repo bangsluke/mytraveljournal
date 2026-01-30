@@ -1,7 +1,7 @@
 .page {
 	background-color: var(--secondary-accent-light, #f0f0f0);
 	height: 100vh;
-	width: 100vw;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
