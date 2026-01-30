@@ -5,7 +5,9 @@ import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import ScrollToTopButton from "../ScrollToTop/ScrollToTopButton";
 import Sidebar from "../Sidebar/Sidebar";
+import FilterSidebar from "../FilterSidebar/FilterSidebar";
 import styles from "./Layout.module.css";
+// import sidebarStyles from "../Sidebar/Sidebar.module.css"; // Ensure colors/vars are available
 
 // ! IMPORTANT WARNING: Do not move from Components - causes big build errors if you do
 
@@ -39,6 +41,7 @@ export default function Layout({ children, NavbarStyle }: any) {
 
 			{/* Include the sidebar */}
 			<Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+			<FilterSidebar />
 
 			{/* Include the scroll to top button */}
 			<ScrollToTopButton />

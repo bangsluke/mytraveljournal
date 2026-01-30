@@ -32,7 +32,9 @@ export function verifyApprovalToken(token: string): ApprovalTokenPayload | null 
 	if (parts.length !== 2) return null;
 	const [data, sig] = parts;
 	const expected = crypto.createHmac("sha256", secret).update(data).digest("base64url");
-	if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return null;
+	const sigBuffer = Buffer.from(sig);
+	const expectedBuffer = Buffer.from(expected);
+	if (sigBuffer.length !== expectedBuffer.length || !crypto.timingSafeEqual(new Uint8Array(sigBuffer), new Uint8Array(expectedBuffer))) return null;
 	const payload = JSON.parse(Buffer.from(data, "base64url").toString());
 	if (typeof payload?.expiresAt !== "number" || Date.now() > payload.expiresAt) return null;
 	return payload as ApprovalTokenPayload;
