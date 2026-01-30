@@ -9,7 +9,7 @@
 	height: 45px;
 	width: 45px;
 	/* Set the width and height to create a circle */
-	background-color: var(--secondary-accent #BBB);
+	background-color: var(--secondary-accent, #BBB);
 	border: none;
 	border-radius: 50%;
 	outline: none;
