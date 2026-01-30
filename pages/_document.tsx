@@ -6,6 +6,9 @@ export default function Document() {
 		<Html lang='en'>
 			<Head>
 				<ColorSchemeScript defaultColorScheme='auto' />
+				<link rel='manifest' href='/manifest.json' />
+				<link rel='apple-touch-icon' href='/Travel-Journal-Logo.png' />
+				<meta name="theme-color" content="#ffffff" />
 			</Head>
 			<body>
 				<Main />

@@ -1,9 +1,11 @@
 import { ActionIcon, Group, Text, rem } from "@mantine/core";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
 import filterTags from "../../services/FilterTagsS";
+import { useFilter, FILTER_CATEGORIES } from "../../context/FilterContext";
 import FilterDecade from "./FilterDecade";
 import HolidayCard from "./HolidayCard";
 import styles from "./HolidayCardList.module.css";
@@ -43,15 +45,49 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		filterText = "Filter by Decade, Type and Sort:";
 	}
 
-	// Filter holidays based on the selected decade
-	const filteredHolidaysData = data?.filter((holiday: any) => {
-		if (selectedDecade === "All") {
-			return true; // Show all holidays
+	const { filters, activeFilterCount, toggleFilterSidebar } = useFilter();
+
+	// Function to check if a holiday matches the filters
+	const matchesFilters = (holiday: any) => {
+		// LogS.log("Checking holiday tags:", holiday.tags);
+		// Flatten holiday tags for easier searching. 
+		// Assuming holiday.tags is an object or array of objects.
+		// If holiday.tags is just array of strings, good.
+		// Based on SidebarData or similar, tags might be complex. 
+		// But let's check how filterTags works? No, I can't read it now.
+		// Let's assume holiday.tags includes the strings user listed (e.g. "school", "local").
+		// If it's an array of objects, we might need to map to names.
+		// Safe bet: JSON.stringify or recursive search if structure is unknown, 
+		// but since user gave specific string values, they likely exist as values.
+		// START ASSUMPTION: holiday.tags contains the strings.
+
+		const holidayTagValues = Array.isArray(holiday.tags) ? holiday.tags : [];
+
+		for (const [category, selectedTags] of Object.entries(filters)) {
+			if (selectedTags.length > 0) {
+				// Category has active filters. Holiday must match AT LEAST ONE.
+				// For "Type", "Company", "Activity", "Location".
+				// Check intersection.
+				const hasMatch = selectedTags.some((tag: string) => holidayTagValues.includes(tag));
+				if (!hasMatch) return false;
+			}
 		}
-		// Extract the decade from holiday's dateYear
-		const decade: string = (Math.floor(parseInt(holiday.dateYear) / 10) * 10).toString() + "s";
-		// LogS.log("Decade: ", decade);
-		return decade === selectedDecade;
+		return true;
+	};
+
+	// Filter holidays based on the selected decade AND context filters
+	const filteredHolidaysData = data?.filter((holiday: any) => {
+		// Decade Filter
+		let matchesDecade = true;
+		if (selectedDecade !== "All") {
+			const decade: string = (Math.floor(parseInt(holiday.dateYear) / 10) * 10).toString() + "s";
+			matchesDecade = decade === selectedDecade;
+		}
+
+		if (!matchesDecade) return false;
+
+		// Context Filters
+		return matchesFilters(holiday);
 	});
 
 	// LogS.log("Filtered data from HolidayCardList: ", filteredHolidaysData);
@@ -115,6 +151,37 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 				<Group className={styles.headerFilterContainer}>
 					<Text className={styles.filterLabel}>{filterText}</Text>
 					<FilterDecade selectedDecade={selectedDecade} onDecadeChange={onDecadeChange} />
+
+					<div style={{ position: 'relative' }}>
+						<ActionIcon
+							variant='filled'
+							onClick={toggleFilterSidebar}
+							className={styles.sortButton} // Reuse sort button style for consistency
+							style={{ marginRight: '0.5rem' }}
+						>
+							<FilterListIcon style={{ width: rem(18), height: rem(18) }} />
+						</ActionIcon>
+						{activeFilterCount > 0 && (
+							<div style={{
+								position: 'absolute',
+								top: -5,
+								right: 0,
+								backgroundColor: 'red',
+								color: 'white',
+								borderRadius: '50%',
+								width: '16px',
+								height: '16px',
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								fontSize: '10px',
+								pointerEvents: 'none'
+							}}>
+								{activeFilterCount}
+							</div>
+						)}
+					</div>
+
 					<ActionIcon
 						variant='filled'
 						onClick={() => onSortOrderChange(sortOrder === "OldToNew" ? "NewToOld" : "OldToNew")}

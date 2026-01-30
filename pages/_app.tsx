@@ -8,6 +8,7 @@ import type { AppProps } from "next/app";
 import Constants from "../constants/constants";
 import LogS from "../services/LogS";
 import "../styles/globals.css";
+import { FilterProvider } from "../context/FilterContext";
 
 // This App component is the top-level component which will be common across all the different pages. You can use this App component to keep state when navigating between pages, for example.
 
@@ -63,11 +64,13 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
 		<SessionProvider session={session}>
-			<ApolloProvider client={client}>
-				<MantineProvider theme={theme} defaultColorScheme='light'>
-					<Component {...pageProps} />
-				</MantineProvider>
-			</ApolloProvider>
+			<FilterProvider>
+				<ApolloProvider client={client}>
+					<MantineProvider theme={theme} defaultColorScheme='light'>
+						<Component {...pageProps} />
+					</MantineProvider>
+				</ApolloProvider>
+			</FilterProvider>
 		</SessionProvider>
 	);
 }
