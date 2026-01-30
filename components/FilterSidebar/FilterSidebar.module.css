@@ -1,0 +1,83 @@
+/* Filter Sidebar Styles - Mirrored from Sidebar.module.css */
+
+.filterSidebar {
+    position: fixed;
+    top: var(--header-height, 80px);
+    /* Appear below header */
+    right: -30vw;
+    /* Start off-screen right. Width + little extra? Width is 300px or 200px. */
+    /* If width is dynamic, we need to handle this. */
+    width: 30vw;
+    height: calc(100vh - var(--header-height, 80px));
+    background-color: var(--background, #fafafa);
+    opacity: 0.95;
+    transition: right 0.3s ease-in-out;
+    z-index: 10001;
+    /* Significantly higher */
+    /* Higher than main sidebar (100) */
+    border-left: var(--secondary-accent, #BBB) 2px solid;
+    overflow-y: auto;
+}
+
+.filterSidebarOpen {
+    right: 0 !important;
+}
+
+.filterSidebarClosed {
+    /* Calculated based on width, but CSS variable usage suggests standard widths */
+    /* We can use transform instead of left/right for better performance? */
+    /* Sticking to Sidebar.module.css pattern for consistency "same fashion". */
+    right: -30vw;
+}
+
+/* Header inside filter sidebar? No, user said below page header. */
+/* But we need a close button on mobile? Or just toggle. */
+
+.filterContent {
+    width: 100%;
+    height: max-content;
+    padding: var(--sidebar-spacing, 15px);
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--secondary-accent, #BBB);
+}
+
+/* Mobile responsive widths */
+@media only screen and (max-width: 767px) {
+    .filterSidebar {
+        width: 60vw;
+        right: -60vw;
+    }
+
+    .filterSidebarClosed {
+        right: -60vw;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .filterSidebar {
+        width: 50vw;
+        right: -50vw;
+    }
+
+    .filterSidebarClosed {
+        right: -50vw;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .filterSidebar {
+        width: 30vw;
+        right: -30vw;
+    }
+
+    .filterSidebarClosed {
+        right: -30vw;
+    }
+}

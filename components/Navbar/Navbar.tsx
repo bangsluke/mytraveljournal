@@ -4,6 +4,7 @@ import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useScreenSize from "../../hooks/useScreenSize";
+import { useFilter } from "../../context/FilterContext";
 import styles from "./Navbar.module.css";
 
 export type Transparency = "Transparent" | "Opaque";
@@ -18,13 +19,13 @@ interface NavbarProps {
 export default function Navbar(props: NavbarProps) {
 	const router = useRouter(); // Import the Next router
 	const screenSize = useScreenSize(); // Get the screen size
+	const { activeFilterCount } = useFilter();
 
 	const { NavbarStyle, toggleSidebar, sidebarOpen } = props; // Extract the props
 
 	// Create a combination of class names for the Navbar based on the Navbar style
-	const NavbarClassNames = `${styles.Navbar} ${NavbarStyle === "Opaque" ? styles.NavbarOpaque : null} ${
-		screenSize === "mobile" || screenSize === "tablet" ? styles.NavbarMobile : null
-	}`;
+	const NavbarClassNames = `${styles.Navbar} ${NavbarStyle === "Opaque" ? styles.NavbarOpaque : null} ${screenSize === "mobile" || screenSize === "tablet" ? styles.NavbarMobile : null
+		}`;
 
 	// Create a class name for the icon and icon circles based on the Navbar style
 	const IconClassName = `${styles.Icon} ${NavbarStyle === "Opaque" ? null : styles.IconOpaque}`;
@@ -65,13 +66,33 @@ export default function Navbar(props: NavbarProps) {
 
 			{/* Add a menu icon to toggle the sidebar if the screen is mobile or tablet */}
 			{screenSize === "mobile" || screenSize === "tablet" ? (
-				<div className={styles.Navbar_menuContainer}>
+				<div className={styles.Navbar_menuContainer} style={{ position: 'relative' }}>
 					<div className={IconCircleClassName}></div>
 					{/* If the sidebar is open, display the close icon, otherwise display the menu icon */}
 					{sidebarOpen ? (
 						<CloseIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
 					) : (
 						<MenuSharpIcon sx={{ fontSize: 35 }} className={IconClassName} onClick={() => toggleSidebar()} />
+					)}
+					{!sidebarOpen && activeFilterCount > 0 && (
+						<div style={{
+							position: 'absolute',
+							top: 8,
+							right: -8,
+							backgroundColor: 'red',
+							color: 'white',
+							borderRadius: '50%',
+							width: '20px',
+							height: '20px',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							fontSize: '12px',
+							pointerEvents: 'none',
+							zIndex: 10
+						}}>
+							{activeFilterCount}
+						</div>
 					)}
 				</div>
 			) : null}

@@ -1,4 +1,5 @@
 import { CloseButton, Group } from "@mantine/core";
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -9,6 +10,7 @@ import { ButtonComponent } from "../Button/Button";
 import styles from "./Sidebar.module.css";
 import { SidebarData } from "./SidebarData";
 import SidebarItem from "./SidebarItem";
+import { useFilter } from "../../context/FilterContext";
 
 interface SidebarProps {
 	sidebarOpen: boolean;
@@ -21,6 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 	const { data: session } = useSession(); // Return the NextAuth session
 	const router = useRouter(); // Import the Next router
 	const screenSize = useScreenSize(); // Get the screen size
+	const { toggleFilterSidebar, activeFilterCount } = useFilter();
 
 	// Define the styles for the sidebar based on the screen size
 	const sidebarStyle: SidebarStyle = screenSize == "desktop" ? "static" : "dynamic"; // If the screen is desktop size, make the sidebar static, otherwise make the sidebar dynamic
@@ -75,6 +78,41 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 							/>
 						))}
 					</ul>
+					<Group justify="center" mt="md" mb="xl">
+						<div style={{ position: 'relative', display: 'inline-block' }}>
+							<ButtonComponent
+								onClick={toggleFilterSidebar}
+								fullWidth={false}
+							>
+								<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+									<FilterListIcon />
+									<span style={{ fontWeight: 600 }}>Filter</span>
+								</div>
+							</ButtonComponent>
+							{activeFilterCount > 0 && (
+								<div style={{
+									position: 'absolute',
+									top: -6,
+									right: -6,
+									backgroundColor: '#fe395c',
+									color: 'white',
+									borderRadius: '50%',
+									width: '18px',
+									height: '18px',
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+									fontSize: '10px',
+									fontWeight: 700,
+									boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+									zIndex: 10,
+									pointerEvents: 'none'
+								}}>
+									{activeFilterCount}
+								</div>
+							)}
+						</div>
+					</Group>
 				</div>
 				{/* Provide details to the user on their login email and offer a sign out button */}
 				<Group justify='center' align='center' wrap='wrap' className={styles.sidebarLoginContent}>
