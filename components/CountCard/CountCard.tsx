@@ -48,9 +48,8 @@ export default function CountCard(props: CountCardProp) {
 			{/* Load in the MUI icon to display behind the card content */}
 			{backgroundIcon && (
 				<div
-					className={styles.backgroundIcon} // @ts-ignore
-					fontSize='40'>
-					{backgroundIcon}
+					className={styles.backgroundIcon}>
+					{React.cloneElement(backgroundIcon, { fontSize: "inherit" })}
 				</div>
 			)}
 			<h3 className={styles.cardTitle}>{cardTitle}</h3>

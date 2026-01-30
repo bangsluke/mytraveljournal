@@ -272,10 +272,7 @@ export default function CountCardSection() {
 					pagePath='/holidays'
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<FlightTakeoffIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<FlightTakeoffIcon />
 					}
 				/>
 
@@ -286,10 +283,7 @@ export default function CountCardSection() {
 					pagePath='/people'
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<SupervisorAccountIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<SupervisorAccountIcon />
 					}
 				/>
 
@@ -300,10 +294,7 @@ export default function CountCardSection() {
 					pagePath='/continents'
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<PublicIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<PublicIcon />
 					}
 				/>
 				<CountCard
@@ -313,10 +304,7 @@ export default function CountCardSection() {
 					pagePath='/countries'
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<MapIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<MapIcon />
 					}
 				/>
 				<CountCard
@@ -326,10 +314,7 @@ export default function CountCardSection() {
 					pagePath='/cities'
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<LocationCityIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<LocationCityIcon />
 					}
 				/>
 				<CountCard
@@ -339,10 +324,7 @@ export default function CountCardSection() {
 					pagePath='/cities'
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<PinDropIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<PinDropIcon />
 					}
 				/>
 				<CountCard
@@ -353,10 +335,7 @@ export default function CountCardSection() {
 					// TODO: Pass a value in the locations URL above?
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<HouseIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<HouseIcon />
 					}
 				/>
 				<CountCard
@@ -367,10 +346,7 @@ export default function CountCardSection() {
 					// TODO: Pass a value in the locations URL above?
 					enabledBoolean={!countCardData.isLoading}
 					backgroundIcon={
-						<BeachAccessIcon
-							// @ts-ignore
-							fontSize='40'
-						/>
+						<BeachAccessIcon />
 					}
 				/>
 			</div>
