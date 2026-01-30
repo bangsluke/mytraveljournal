@@ -1,9 +1,10 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink } from "@apollo/client";
 import { MantineProvider, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { SessionProvider } from "next-auth/react";
+import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import type { AppProps } from "next/app";
 import Constants from "../constants/constants";
 import LogS from "../services/LogS";
@@ -51,13 +52,29 @@ const theme = createTheme({
 // Note: All console logs will be printed in the browser console
 if (runMode === "development") {
 	LogS.log(" NEXT_PUBLIC_APP_BACKEND_URL", process.env.NEXT_PUBLIC_APP_BACKEND_URL);
+	// Suppress specific Apollo Client deprecation warning
+	const originalWarn = console.warn;
+	console.warn = (...args) => {
+		if (args[0] && typeof args[0] === "string" && args[0].includes("canonizeResults")) {
+			return;
+		}
+		originalWarn(...args);
+	};
+
+	loadDevMessages();
+	loadErrorMessages();
 }
 //LogS.log(" Constants.SkipAuth: ", Constants.SkipAuth);
 
 // Create an Apollo client
+// Create an HttpLink
+const httpLink = new HttpLink({
+	uri: runMode === "development" ? "/api/graphql" : process.env.NEXT_PUBLIC_APP_BACKEND_URL,
+});
+
 const client = new ApolloClient({
 	// Use proxy in development to avoid CORS; direct URL in production
-	uri: runMode === "development" ? "/api/graphql" : process.env.NEXT_PUBLIC_APP_BACKEND_URL,
+	link: httpLink,
 	cache: new InMemoryCache(),
 });
 
