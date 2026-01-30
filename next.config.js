@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	swcMinify: true,
+	// Try top-level turbopack config
+	// experimental: {}, // Removed invalid key
+	/*
+	turbopack: {
+		root: __dirname,
+	},
+	*/
 
 	images: {
 		formats: ["image/avif", "image/webp"],
