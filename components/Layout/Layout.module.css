@@ -16,7 +16,7 @@
 	/* width: 100vw; */
 	align-items: center;
 	justify-content: center;
-	overflow-x: hidden;
+	/* overflow-x: hidden; - Removed to fix sticky positioning */
 
 }
 
@@ -39,7 +39,7 @@
 	height: max-content;
 	min-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 80px));
 	max-width: 100vw;
-	overflow-x: hidden;
+	/* overflow-x: hidden; - Removed to fix sticky positioning */
 	overflow-y: visible;
 }
 

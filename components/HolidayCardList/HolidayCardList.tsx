@@ -64,9 +64,17 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 		const holidayTagValues = Array.isArray(holiday.tags) ? holiday.tags : [];
 
 		for (const [category, selectedTags] of Object.entries(filters)) {
-			if (selectedTags.length > 0) {
-				// Category has active filters. Holiday must match AT LEAST ONE.
-				// For "Type", "Company", "Activity", "Location".
+			// Check if all tags for this category are selected
+			const allCategoryTags = FILTER_CATEGORIES[category as keyof typeof FILTER_CATEGORIES];
+			const isAllSelected = selectedTags.length === allCategoryTags?.length;
+
+			// We only filter if:
+			// 1. There are some selected tags (if 0, we assume "show none" or "show all" depending on UX, but usually loop skips)
+			// 2. NOT ALL tags are selected. If ALL are selected, we treat it as "Don't filter by this category".
+			//    This is important for optional categories like "Company" or "Activity".
+			//    If we enforced matching when ALL are selected, a holiday with NO Company tag would be hidden, which is wrong default behavior.
+			if (selectedTags.length > 0 && !isAllSelected) {
+				// Category has active, restrictive filters. Holiday must match AT LEAST ONE.
 				// Check intersection.
 				const hasMatch = selectedTags.some((tag: string) => holidayTagValues.includes(tag));
 				if (!hasMatch) return false;
