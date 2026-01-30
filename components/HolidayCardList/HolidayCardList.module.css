@@ -119,7 +119,7 @@
 }
 
 .markerIcon {
-	color: var(#AAA, #BBB);
+	color: var(--secondary-accent, #BBB);
 }
 
 .title {
