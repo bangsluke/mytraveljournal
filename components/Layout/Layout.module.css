@@ -12,9 +12,11 @@
 	/* padding-left: 10vw; */
 	/* height: 100vh; */
 	width: 100%;
+	max-width: 100vw;
 	/* width: 100vw; */
 	align-items: center;
 	justify-content: center;
+	overflow-x: hidden;
 
 }
 
@@ -36,7 +38,9 @@
 	align-self: center;
 	height: max-content;
 	min-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 80px));
-	overflow-y: scroll;
+	max-width: 100vw;
+	overflow-x: hidden;
+	overflow-y: visible;
 }
 
 .mainDynamic {

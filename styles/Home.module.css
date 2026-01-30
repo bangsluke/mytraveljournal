@@ -4,8 +4,10 @@
 
 .section {
   width: 100%;
+  max-width: 100vw;
   padding: 0 10px;
   z-index: 1;
+  overflow-x: hidden;
 }
 
 #homepageHeader {

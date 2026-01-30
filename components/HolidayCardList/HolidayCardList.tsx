@@ -38,7 +38,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// LogS.log("Original data from HolidayCardList: ", data);
 
 	// Define the filter text based on the screen size
-	let filterText = "Controls:";
+	let filterText = "";
 	if (screenSize === "tablet") {
 		filterText = "Filters and Sort:";
 	} else if (screenSize === "desktop") {

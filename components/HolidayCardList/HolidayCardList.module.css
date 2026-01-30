@@ -27,7 +27,7 @@
 	top: 0;
 	left: -20px;
 	z-index: 80;
-	width: 110vw;
+	width: 100vw;
 	height: calc(var(--button-height, 40px) + 20px);
 
 }
@@ -136,7 +136,7 @@
 }
 
 .cardBottomItemsContainer {
-	width: 110%;
+	width: 100%;
 	/* background-color: aquamarine; */
 	display: flex;
 	flex-direction: row;

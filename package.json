@@ -1,6 +1,7 @@
 {
 	"name": "mytraveljournal",
 	"version": "1.2.1",
+	"license": "MIT",
 	"private": true,
 	"description": "The frontend Next.js website for MyTravelJournal",
 	"keywords": [
@@ -9,9 +10,9 @@
 	],
 	"scripts": {
 		"generate": "graphql-codegen --config graphql/codegen-frontend.ts",
-		"dev": "npm run generate && next dev",
+		"dev": "yarn generate && next dev",
 		"build": "next build",
-		"start": "npm run build && next start",
+		"start": "yarn build && next start",
 		"lint": "next lint"
 	},
 	"dependencies": {
