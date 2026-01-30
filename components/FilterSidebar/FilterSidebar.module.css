@@ -3,18 +3,13 @@
 .filterSidebar {
     position: fixed;
     top: var(--header-height, 80px);
-    /* Appear below header */
     right: -30vw;
-    /* Start off-screen right. Width + little extra? Width is 300px or 200px. */
-    /* If width is dynamic, we need to handle this. */
     width: 30vw;
-    height: calc(100vh - var(--header-height, 80px));
+    height: calc(100dvh - var(--header-height, 80px));
     background-color: var(--background, #fafafa);
     opacity: 0.95;
     transition: right 0.3s ease-in-out;
     z-index: 10001;
-    /* Significantly higher */
-    /* Higher than main sidebar (100) */
     border-left: var(--secondary-accent, #BBB) 2px solid;
     overflow-y: auto;
 }

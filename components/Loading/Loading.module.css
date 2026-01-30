@@ -1,7 +1,7 @@
 .LoadingHolder {
 	/* background-color: var(--secondary-accent-light, #f0f0f0); */
 	height: 100vh;
-	width: 100vw;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -44,16 +44,15 @@
 }
 
 /* Style for dark mode */
-@media (prefers-color-scheme: dark) {
-	.LoadingHolder {
-		background-color: var(--background-dark-mode, #161A23);
-	}
+/* Style for dark mode */
+:global([data-mantine-color-scheme="dark"]) .LoadingHolder {
+	background-color: var(--background-dark-mode, #161A23);
+}
 
-	.rotatingLogo {
-		filter: invert(100);
-	}
+:global([data-mantine-color-scheme="dark"]) .rotatingLogo {
+	filter: invert(100);
+}
 
-	.title {
-		color: #ffffff;
-	}
+:global([data-mantine-color-scheme="dark"]) .title {
+	color: #ffffff;
 }
