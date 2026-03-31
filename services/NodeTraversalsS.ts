@@ -1,5 +1,3 @@
-import LogS from "../services/LogS";
-
 // Function to return the holiday node with the highest sortDateValue of a location (the most recent holiday)
 const findHighestSortDateValueHolidayOfLocation = (location: any) => {
 	// Initially define the highest sortDateValue as -Infinity and the highestSortDateValueHoliday as null ready for population
@@ -29,10 +27,6 @@ const findHighestSortDateValueHolidayOfLocation = (location: any) => {
 
 	findHoliday([location]); // Call the function on the top location
 
-	LogS.log(
-		"NodeTraversalsS.findHighestSortDateValueHolidayOfLocation: Highest sortDateValue holiday for location: " + location.name + " is: ",
-		highestSortDateHoliday,
-	);
 	return highestSortDateHoliday;
 };
 
@@ -72,10 +66,6 @@ const findHolidayCountOfLocation = (location: any) => {
 
 	// Get the count of unique nodeIds
 	const uniqueNodeIdCount = uniqueNodeIds.size;
-	LogS.log(
-		"NodeTraversalsS.findHolidayCountOfLocation: Number of unique 'holiday' nodes for location: " + location.name + " is: ",
-		uniqueNodeIdCount,
-	);
 
 	return uniqueNodeIdCount;
 };

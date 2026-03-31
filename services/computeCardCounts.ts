@@ -1,4 +1,4 @@
-import type { GetCardCountsQuery } from "../graphql/__generated__/graphql";
+import type { GetCardCountsQuery, GetWorldMapVisitsQuery } from "../graphql/__generated__/graphql";
 import NodeTraversalsS from "./NodeTraversalsS";
 
 export type ComputedCardCounts = {
@@ -73,6 +73,17 @@ export function computeCardCountsFromGetCardCounts(data: GetCardCountsQuery | un
 
 /** Unique holiday count per country (for choropleth), keyed by exact GraphQL country name. */
 export function buildCountryNameToVisitCount(data: GetCardCountsQuery | undefined): Map<string, number> {
+	const map = new Map<string, number>();
+	if (!data?.countries) return map;
+	for (const country of data.countries) {
+		const n = NodeTraversalsS.findHolidayCountOfLocation(country);
+		if (n > 0) map.set(country.name, n);
+	}
+	return map;
+}
+
+/** Same choropleth counts from the lightweight `GetWorldMapVisits` query only. */
+export function buildCountryNameToVisitCountFromWorldMap(data: GetWorldMapVisitsQuery | undefined): Map<string, number> {
 	const map = new Map<string, number>();
 	if (!data?.countries) return map;
 	for (const country of data.countries) {

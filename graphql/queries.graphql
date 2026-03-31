@@ -71,6 +71,22 @@ query GetCardCounts {
 	}
 }
 
+# Minimal payload for world map choropleth (unique holiday nodeIds per country subtree)
+query GetWorldMapVisits {
+	countries {
+		name
+		nodeId
+		placesLocatedIn {
+			name
+			nodeId
+			__typename
+			linkedHolidays {
+				nodeId
+			}
+		}
+	}
+}
+
 # Continents
 
 query GetContinents {

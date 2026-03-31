@@ -119,24 +119,41 @@ export function resolveCountryVisitCount(
 	geoProperties: Record<string, unknown>,
 	visitByCountry: Map<string, number>,
 ): { count: number; matchedName: string | null } {
-	const candidates = collectGeoNameCandidates(geoProperties);
+	return createVisitLookup(visitByCountry).resolve(geoProperties);
+}
 
-	for (const n of candidates) {
-		if (visitByCountry.has(n)) return { count: visitByCountry.get(n)!, matchedName: n };
+/** O(1) normalized-name lookup; reuse one instance per stable `visitByCountry` map. */
+export type VisitCountryLookup = {
+	resolve: (geoProperties: Record<string, unknown>) => { count: number; matchedName: string | null };
+};
+
+export function createVisitLookup(visitByCountry: Map<string, number>): VisitCountryLookup {
+	const normalizedKeyToDb = new Map<string, { dbName: string; count: number }>();
+	for (const [dbName, count] of Array.from(visitByCountry.entries())) {
+		normalizedKeyToDb.set(normalizeCountryKey(dbName), { dbName, count });
 	}
 
-	for (const n of candidates) {
-		const key = normalizeCountryKey(n);
-		const mapped = GEO_NAME_TO_DB[key];
-		if (mapped && visitByCountry.has(mapped)) return { count: visitByCountry.get(mapped)!, matchedName: mapped };
-	}
+	return {
+		resolve(geoProperties) {
+			const candidates = collectGeoNameCandidates(geoProperties);
 
-	for (const n of candidates) {
-		const nn = normalizeCountryKey(n);
-		for (const [dbName, count] of Array.from(visitByCountry.entries())) {
-			if (normalizeCountryKey(dbName) === nn) return { count, matchedName: dbName };
-		}
-	}
+			for (const n of candidates) {
+				if (visitByCountry.has(n)) return { count: visitByCountry.get(n)!, matchedName: n };
+			}
 
-	return { count: 0, matchedName: null };
+			for (const n of candidates) {
+				const key = normalizeCountryKey(n);
+				const mapped = GEO_NAME_TO_DB[key];
+				if (mapped && visitByCountry.has(mapped)) return { count: visitByCountry.get(mapped)!, matchedName: mapped };
+			}
+
+			for (const n of candidates) {
+				const nn = normalizeCountryKey(n);
+				const hit = normalizedKeyToDb.get(nn);
+				if (hit) return { count: hit.count, matchedName: hit.dbName };
+			}
+
+			return { count: 0, matchedName: null };
+		},
+	};
 }

@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { geoCentroid } from "d3-geo";
-import { useCallback, useMemo, useState } from "react";
+import { Fragment, useCallback, useMemo, useState, type ReactNode } from "react";
 import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from "react-simple-maps";
-import { GetCardCountsDocument } from "../../graphql/__generated__/graphql";
-import { buildCountryNameToVisitCount } from "../../services/computeCardCounts";
-import { CAPITAL_LABEL_BY_COUNTRY, resolveCountryVisitCount } from "../../services/countryGeoMatch";
+import { GetWorldMapVisitsDocument } from "../../graphql/__generated__/graphql";
+import { buildCountryNameToVisitCountFromWorldMap } from "../../services/computeCardCounts";
+import { CAPITAL_LABEL_BY_COUNTRY, createVisitLookup } from "../../services/countryGeoMatch";
 import styles from "./VisitWorldMap.module.css";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
@@ -31,8 +31,9 @@ function colorsForVisitCount(count: number, maxVisits: number): { default: strin
 }
 
 export default function VisitWorldMap() {
-	const { loading, error, data } = useQuery(GetCardCountsDocument);
-	const visitByCountry = useMemo(() => buildCountryNameToVisitCount(data), [data]);
+	const { loading, error, data } = useQuery(GetWorldMapVisitsDocument);
+	const visitByCountry = useMemo(() => buildCountryNameToVisitCountFromWorldMap(data), [data]);
+	const visitLookup = useMemo(() => createVisitLookup(visitByCountry), [visitByCountry]);
 	const maxVisits = useMemo(() => {
 		const vals = Array.from(visitByCountry.values());
 		return vals.length ? Math.max(...vals) : 0;
@@ -84,17 +85,12 @@ export default function VisitWorldMap() {
 				setPinned(null);
 			}}
 			role='presentation'>
-			<div className={styles.svgHost}>
-				{loading && (
-					<div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
-						<span style={{ color: "var(--secondary-accent, #888)", fontSize: "0.9rem" }}>Loading map…</span>
-					</div>
-				)}
+			<div className={`${styles.svgHost} ${loading ? styles.svgHostLoading : ""}`}>
 				<div className={styles.zoomControls}>
-					<button type='button' className={styles.zoomBtn} aria-label='Zoom in' onClick={zoomIn}>
+					<button type='button' className={styles.zoomBtn} aria-label='Zoom in' onClick={zoomIn} disabled={loading}>
 						+
 					</button>
-					<button type='button' className={styles.zoomBtn} aria-label='Zoom out' onClick={zoomOut}>
+					<button type='button' className={styles.zoomBtn} aria-label='Zoom out' onClick={zoomOut} disabled={loading}>
 						−
 					</button>
 				</div>
@@ -123,58 +119,16 @@ export default function VisitWorldMap() {
 								<>
 									{geographies.map((geo) => {
 										const props = geo.properties as Record<string, unknown>;
-										const { count, matchedName } = resolveCountryVisitCount(props, visitByCountry);
+										const { count, matchedName } = visitLookup.resolve(props);
 										const displayName =
 											(typeof props.name === "string" && props.name) ||
 											(typeof props.NAME === "string" && props.NAME) ||
 											(typeof props.ADMIN === "string" && props.ADMIN) ||
 											"Unknown";
 										const cols = colorsForVisitCount(count, maxVisits);
-										return (
-											<Geography
-												key={geo.rsmKey}
-												geography={geo}
-												onMouseEnter={(e) => {
-													if (!pinned) showTooltip(e, displayName, count);
-												}}
-												onMouseMove={(e) => {
-													if (!pinned) showTooltip(e, displayName, count);
-												}}
-												onMouseLeave={() => {
-													if (!pinned) hideTooltip();
-												}}
-												onTouchStart={(e) => {
-													showTooltip(e, displayName, count);
-													setPinned({
-														title: displayName,
-														subtitle: count > 0 ? `Visited ${count} time${count === 1 ? "" : "s"}` : "Not visited yet",
-														x: e.touches[0].clientX + 12,
-														y: e.touches[0].clientY + 12,
-													});
-												}}
-												onClick={(e) => {
-													e.stopPropagation();
-													showTooltip(e, displayName, count);
-													setPinned({
-														title: displayName,
-														subtitle: count > 0 ? `Visited ${count} time${count === 1 ? "" : "s"}` : "Not visited yet",
-														x: (e as React.MouseEvent).clientX + 12,
-														y: (e as React.MouseEvent).clientY + 12,
-													});
-												}}
-												style={{
-													default: { outline: "none", fill: cols.default, stroke: cols.stroke, strokeWidth: 0.35 },
-													hover: { outline: "none", fill: cols.hover, stroke: cols.stroke, strokeWidth: 0.45, cursor: "pointer" },
-													pressed: { outline: "none", fill: cols.pressed, stroke: cols.stroke, strokeWidth: 0.45 },
-												}}
-											/>
-										);
-									})}
-									{zoom >= 3.2 &&
-										geographies.map((geo) => {
-											const props = geo.properties as Record<string, unknown>;
-											const { count, matchedName } = resolveCountryVisitCount(props, visitByCountry);
-											if (count <= 0) return null;
+
+										let capitalMarker: ReactNode = null;
+										if (zoom >= 3.2 && count > 0) {
 											const [lon, lat] = geoCentroid(geo);
 											const dbName = matchedName ?? "";
 											const geoShortName =
@@ -186,32 +140,83 @@ export default function VisitWorldMap() {
 												(geoShortName && CAPITAL_LABEL_BY_COUNTRY[geoShortName]) ||
 												null;
 											const label = cap || geoShortName || "";
-											if (!label) return null;
-											const fs = Math.max(2.8, 9 / zoom);
-											return (
-												<Marker key={`cap-${geo.rsmKey}`} coordinates={[lon, lat]}>
-													<text
-														textAnchor='middle'
-														y={-2}
-														style={{
-															fontFamily: "var(--font-family, ui-sans-serif)",
-															fontSize: fs,
-															fill: "var(--text, #222)",
-															fontWeight: 600,
-															paintOrder: "stroke",
-															stroke: "#ffffff",
-															strokeWidth: 0.35,
-														}}>
-														{label}
-													</text>
-												</Marker>
-											);
-										})}
+											if (label) {
+												const fs = Math.max(2.8, 9 / zoom);
+												capitalMarker = (
+													<Marker coordinates={[lon, lat]}>
+														<text
+															textAnchor='middle'
+															y={-2}
+															style={{
+																fontFamily: "var(--font-family, ui-sans-serif)",
+																fontSize: fs,
+																fill: "var(--text, #222)",
+																fontWeight: 600,
+																paintOrder: "stroke",
+																stroke: "#ffffff",
+																strokeWidth: 0.35,
+															}}>
+															{label}
+														</text>
+													</Marker>
+												);
+											}
+										}
+
+										return (
+											<Fragment key={geo.rsmKey}>
+												<Geography
+													geography={geo}
+													onMouseEnter={(e) => {
+														if (!loading && !pinned) showTooltip(e, displayName, count);
+													}}
+													onMouseMove={(e) => {
+														if (!loading && !pinned) showTooltip(e, displayName, count);
+													}}
+													onMouseLeave={() => {
+														if (!pinned) hideTooltip();
+													}}
+													onTouchStart={(e) => {
+														if (loading) return;
+														showTooltip(e, displayName, count);
+														setPinned({
+															title: displayName,
+															subtitle: count > 0 ? `Visited ${count} time${count === 1 ? "" : "s"}` : "Not visited yet",
+															x: e.touches[0].clientX + 12,
+															y: e.touches[0].clientY + 12,
+														});
+													}}
+													onClick={(e) => {
+														if (loading) return;
+														e.stopPropagation();
+														showTooltip(e, displayName, count);
+														setPinned({
+															title: displayName,
+															subtitle: count > 0 ? `Visited ${count} time${count === 1 ? "" : "s"}` : "Not visited yet",
+															x: (e as React.MouseEvent).clientX + 12,
+															y: (e as React.MouseEvent).clientY + 12,
+														});
+													}}
+													style={{
+														default: { outline: "none", fill: cols.default, stroke: cols.stroke, strokeWidth: 0.35 },
+														hover: { outline: "none", fill: cols.hover, stroke: cols.stroke, strokeWidth: 0.45, cursor: loading ? "default" : "pointer" },
+														pressed: { outline: "none", fill: cols.pressed, stroke: cols.stroke, strokeWidth: 0.45 },
+													}}
+												/>
+												{capitalMarker}
+											</Fragment>
+										);
+									})}
 								</>
 							)}
 						</Geographies>
 					</ZoomableGroup>
 				</ComposableMap>
+				{loading && (
+					<div className={styles.loadingOverlay} role='status' aria-live='polite' aria-busy='true'>
+						<span className={styles.loadingLabel}>Loading map…</span>
+					</div>
+				)}
 			</div>
 			<div className={styles.legend}>
 				<span className={styles.legendSwatch} style={{ background: "#d0d0d0" }} />
