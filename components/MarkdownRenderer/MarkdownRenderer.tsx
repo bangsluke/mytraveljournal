@@ -2,6 +2,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Constants from "../../constants/constants";
 import styles from "./MarkdownRenderer.module.css";
+import {
+	decodeEscapedBlockquoteMarkers,
+	hasObsidianStatCallout,
+	normalizeMarkdownNewlines,
+	transformObsidianStatCallouts,
+} from "./statCalloutTransform";
 
 interface MyRendererProps {
 	possibleHyperlinks: any;
@@ -36,12 +42,12 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		return results;
 	}
 
-	const processedContent = children
+	const normalizedMarkdown = decodeEscapedBlockquoteMarkers(normalizeMarkdownNewlines(children));
+	const afterStatPass = transformObsidianStatCallouts(normalizedMarkdown);
+
+	const processedContent = afterStatPass
 		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!back] Link back to [[Personal Home|Home]]"
 		.replace(/> \[!back\] Link back to \[\[Travel Notes\]\]/g, "") // Remove "> [!back] Link back to [[Travel Notes]]"
-		// Obsidian-style stat callout: drop directive line, turn "> - item" into markdown list items
-		.replace(/> \[!stat\][^\r\n]*\r?\n?/gi, "")
-		.replace(/^>\s*-\s/gm, "- ")
 		.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 		.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 			// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property
@@ -73,6 +79,22 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 				return LabelLongName;
 			}
 		});
+
+	if (process.env.NODE_ENV === "development" && hasObsidianStatCallout(normalizedMarkdown)) {
+		const idx = normalizedMarkdown.search(/^\s*>\s*\[!stat\]/im);
+		const rawExcerpt =
+			idx >= 0
+				? normalizedMarkdown.slice(Math.max(0, idx - 40), idx + 600)
+				: normalizedMarkdown.slice(0, 500);
+		console.debug("[MarkdownRenderer][stat] raw excerpt around > [!stat]:", rawExcerpt);
+		/* After stat pass: heading + blank line + first bullet */
+		const statOutIdx = afterStatPass.search(/##[^\n]+\n\n-\s/);
+		const procExcerpt =
+			statOutIdx >= 0
+				? afterStatPass.slice(Math.max(0, statOutIdx - 20), statOutIdx + 720)
+				: afterStatPass.slice(0, 800);
+		console.debug("[MarkdownRenderer][stat] afterStatPass excerpt (heading + list):", procExcerpt);
+	}
 
 	return (
 		<div className={styles.markdownContainer}>

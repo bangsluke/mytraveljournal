@@ -140,6 +140,7 @@ export default function AsyncCountCardSection() {
 				<CountCard
 					id='2'
 					cardTitle='Travel Companion Count'
+					compactTitle
 					countValue={getCountValue(isLoadingAll, display?.travelCompanionCount)}
 					pagePath='/people'
 					enabledBoolean={!isLoadingAll}

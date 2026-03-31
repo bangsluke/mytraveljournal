@@ -1,10 +1,43 @@
 .markdownContainer {
-    width: 100%;
+	width: 100%;
+}
+
+.markdownContainer :global(h2),
+.markdownContainer :global(h3) {
+	font-size: 1.5em;
+	font-weight: 700;
+	line-height: 1.25;
+	margin: 0.75em 0 0.5em;
+	color: var(--text, #333);
+}
+
+.markdownContainer :global(ul),
+.markdownContainer :global(ol) {
+	margin: 0.5em 0 1em;
+	padding-left: 1.5em;
+	list-style-position: outside;
+}
+
+.markdownContainer :global(ul) {
+	list-style-type: disc;
+}
+
+.markdownContainer :global(li) {
+	margin: 0.2em 0;
+}
+
+.markdownContainer :global(li > ul) {
+	margin: 0.25em 0;
+}
+
+:global([data-mantine-color-scheme="dark"]) .markdownContainer :global(h2),
+:global([data-mantine-color-scheme="dark"]) .markdownContainer :global(h3) {
+	color: #e8e8e8;
 }
 
 .blockquote {
-    border-left: 4px solid #ccc;
-    margin: 1em 0;
-    padding-left: 1em;
-    color: #666;
-} 
+	border-left: 4px solid #ccc;
+	margin: 1em 0;
+	padding-left: 1em;
+	color: #666;
+}

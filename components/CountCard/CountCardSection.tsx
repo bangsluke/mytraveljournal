@@ -105,6 +105,7 @@ export default function CountCardSection() {
 				<CountCard
 					id='2'
 					cardTitle='Travel Companion Count'
+					compactTitle
 					countValue={getCountValue(countCardData.filteredTravelCompanionCount)}
 					pagePath='/people'
 					enabledBoolean={!countCardData.isLoading}

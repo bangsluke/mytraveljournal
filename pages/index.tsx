@@ -56,6 +56,7 @@ export default function Home() {
 
 				{/* <CountCardSection /> */}
 				<AsyncCountCardSection />
+				<Divider />
 				<div className={styles.mapSectionBlock}>
 					<h2 className={styles.homepageHeader}>world map.</h2>
 					<VisitWorldMap />
