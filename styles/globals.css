@@ -10,6 +10,10 @@
 	--sidebar-spacing: 15px;
 	--card-border-radius: 15px;
 	--section-divider-spacing: 20px;
+	/* List pages + homepage section headings (travel stats., world map.) */
+	--homepage-section-title-size: 1.5em;
+	/* Fixed page title bar under navbar — keep in sync with PageHeader.module.css */
+	--page-header-bar-height: 52px;
 
 	/* Colours */
 	--background: #fafafa;

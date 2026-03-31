@@ -10,12 +10,14 @@ interface CountCardProp {
 	pagePath: string;
 	backgroundIcon?: ReactElement;
 	enabledBoolean: boolean;
+	/** Slightly smaller title text (e.g. long labels like Travel Companion Count). */
+	compactTitle?: boolean;
 }
 
 // Define a count card component that holds a string title and a number.
 export default function CountCard(props: CountCardProp) {
 	const router = useRouter(); // Import the Next router
-	const { id, cardTitle, countValue, pagePath, backgroundIcon, enabledBoolean } = props; // Extract the props
+	const { id, cardTitle, countValue, pagePath, backgroundIcon, enabledBoolean, compactTitle } = props; // Extract the props
 
 	// Handle different types of countValue
 	let displayCountValue;
@@ -52,8 +54,10 @@ export default function CountCard(props: CountCardProp) {
 					{React.cloneElement(backgroundIcon, { fontSize: "inherit" })}
 				</div>
 			)}
-			<h3 className={styles.cardTitle}>{cardTitle}</h3>
-			<div className={styles.displayCountValue}>{displayCountValue}</div>
+			<div className={styles.countCardStack}>
+				<h3 className={`${styles.cardTitle} ${compactTitle ? styles.cardTitleCompact : ""}`.trim()}>{cardTitle}</h3>
+				<div className={styles.displayCountValue}>{displayCountValue}</div>
+			</div>
 		</div>
 	);
 }

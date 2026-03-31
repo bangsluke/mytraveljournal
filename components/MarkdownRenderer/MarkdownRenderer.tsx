@@ -2,6 +2,11 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Constants from "../../constants/constants";
 import styles from "./MarkdownRenderer.module.css";
+import {
+	decodeEscapedBlockquoteMarkers,
+	normalizeMarkdownNewlines,
+	transformObsidianStatCallouts,
+} from "./statCalloutTransform";
 
 interface MyRendererProps {
 	possibleHyperlinks: any;
@@ -36,12 +41,13 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		return results;
 	}
 
-	const processedContent = children
+	const afterStatPass = transformObsidianStatCallouts(
+		decodeEscapedBlockquoteMarkers(normalizeMarkdownNewlines(children)),
+	);
+
+	const processedContent = afterStatPass
 		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!back] Link back to [[Personal Home|Home]]"
 		.replace(/> \[!back\] Link back to \[\[Travel Notes\]\]/g, "") // Remove "> [!back] Link back to [[Travel Notes]]"
-		// Obsidian-style stat callout: drop directive line, turn "> - item" into markdown list items
-		.replace(/> \[!stat\][^\r\n]*\r?\n?/gi, "")
-		.replace(/^>\s*-\s/gm, "- ")
 		.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 		.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 			// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property
@@ -73,6 +79,11 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 				return LabelLongName;
 			}
 		});
+
+	if (process.env.NODE_ENV === "development" && children.includes("[!stat]")) {
+		console.debug("[MarkdownRenderer][stat] raw (first 500 chars):", children.slice(0, 500));
+		console.debug("[MarkdownRenderer][stat] processed (first 700 chars):", processedContent.slice(0, 700));
+	}
 
 	return (
 		<div className={styles.markdownContainer}>

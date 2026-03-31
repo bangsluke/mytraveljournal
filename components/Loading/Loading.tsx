@@ -10,6 +10,8 @@ export default function Loading(props: LoadingProps) {
 	let LoadingStyles = `${styles.LoadingHolder}`;
 	if (BackgroundStyle === "Opaque") {
 		LoadingStyles = `${styles.LoadingHolder} ${styles.LoadingHolderOpaque}`;
+	} else {
+		LoadingStyles = `${styles.LoadingHolder} ${styles.LoadingHolderTransparent}`;
 	}
 
 	return (

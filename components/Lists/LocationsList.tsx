@@ -50,18 +50,18 @@ export default function LocationsList() {
 
 	const rows = updatedFilteredAndSortedLocationsData?.map((location: any) => (
 		<Table.Tr key={location.nodeId} className={styles.rowHighlight}>
-			<Table.Td>
-				<Text fz='md' fw={500}>
+			<Table.Td className={styles.locationsTypeCol}>
+				<Text fw={500} className={styles.locationsTypeText}>
 					{location.__typename}
 				</Text>
 			</Table.Td>
-			<Table.Td>
+			<Table.Td className={styles.locationsNameCol}>
 				<Anchor
 					component='button'
 					size='sm'
 					fw={500}
 					onClick={() => router.push({ pathname: location.clickedLinkPath })}
-					className={styles.leftAlign}>
+					className={`${styles.leftAlign} ${styles.locationsNameAnchor}`}>
 					{location.name}
 				</Anchor>
 			</Table.Td>
@@ -96,8 +96,8 @@ export default function LocationsList() {
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
 						<Table.Tr>
-							<Table.Th>Type</Table.Th>
-							<Table.Th>Name</Table.Th>
+							<Table.Th className={styles.locationsTypeCol}>Type</Table.Th>
+							<Table.Th className={styles.locationsNameCol}>Name</Table.Th>
 							<Tooltip label='Unique holidays at this location' withArrow>
 								<Table.Th>Count</Table.Th>
 							</Tooltip>

@@ -1,9 +1,43 @@
 /* Define a full width table with an offset to sit below the header. */
 .dataList {
 	width: 100%;
-	/* background-color: #0070f3; */
-	margin-top: 70px;
-	/* Drop the contents below the PageHeader */
+	/* Sit below fixed PageHeader — matches globals --page-header-bar-height */
+	margin-top: calc(var(--page-header-bar-height, 42px) + 10px);
+}
+
+.locationsTypeText {
+	font-size: var(--mantine-font-size-md, 1rem);
+}
+
+/* /locations — smaller Type, narrower Name on mobile */
+@media only screen and (max-width: 767px) {
+	.locationsTypeCol {
+		max-width: 22vw;
+		width: 22%;
+		min-width: 0;
+		vertical-align: top;
+	}
+
+	.locationsTypeText {
+		font-size: 0.75rem !important;
+		line-height: 1.2;
+	}
+
+	.locationsNameCol {
+		max-width: 24vw;
+		width: 24%;
+		min-width: 0;
+		vertical-align: top;
+	}
+
+	.locationsNameAnchor {
+		display: block;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		text-align: left;
+	}
 }
 
 .leftAlign {
