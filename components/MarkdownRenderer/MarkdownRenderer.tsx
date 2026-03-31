@@ -2,7 +2,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Constants from "../../constants/constants";
 import styles from "./MarkdownRenderer.module.css";
-import { ComponentPropsWithoutRef } from "react";
 
 interface MyRendererProps {
 	possibleHyperlinks: any;
@@ -40,6 +39,9 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 	const processedContent = children
 		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!back] Link back to [[Personal Home|Home]]"
 		.replace(/> \[!back\] Link back to \[\[Travel Notes\]\]/g, "") // Remove "> [!back] Link back to [[Travel Notes]]"
+		// Obsidian-style stat callout: drop directive line, turn "> - item" into markdown list items
+		.replace(/> \[!stat\][^\r\n]*\r?\n?/gi, "")
+		.replace(/^>\s*-\s/gm, "- ")
 		.replace(/\!\[\[(.*?)\]\]/g, "") // Remove "![[" pattern
 		.replace(/\[\[(.*?)\]\]/g, (_: string, label: string) => {
 			// Find items of text wrapped in "[[" and "]]" and check if it exists as a value against any "name" property

@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, ScrollArea, Table, Text, Tooltip, rem } from "@mantine/core";
+import { ActionIcon, Anchor, Table, Text, Tooltip, rem } from "@mantine/core";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import InfoIcon from "@mui/icons-material/Info";
 import { useRouter } from "next/router";
-import Constants from "../../constants/constants";
 import { GetCountriesListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import NodeTraversalsS from "../../services/NodeTraversalsS";
@@ -65,10 +64,6 @@ export default function CountryList() {
 	// Define the text for the information icon
 	const infoText = `Total Database Country Count: ${data?.countries.length}, Visited Countries Count: ${sortedAndFilteredCountriesWithLastHoliday.length}`;
 
-	// Get the height of the scrollable area
-	const windowHeight = window.innerHeight;
-	const scrollHeight = windowHeight - Constants.headerHeight;
-
 	// Map the sorted and filtered countries to create the table rows
 	const rows = sortedAndFilteredCountriesWithLastHoliday?.map((country: any) => (
 		<Table.Tr key={country.nodeId} className={styles.rowHighlight}>
@@ -108,11 +103,11 @@ export default function CountryList() {
 	));
 
 	return (
-		<ScrollArea h={scrollHeight} className={styles.dataList}>
+		<div className={styles.dataList}>
 			<Tooltip label={infoText}>
 				<InfoIcon className={styles.infoIcon} />
 			</Tooltip>
-			<Table.ScrollContainer minWidth={300}>
+			<Table.ScrollContainer minWidth={300} type='native'>
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
 						<Table.Tr>
@@ -127,6 +122,6 @@ export default function CountryList() {
 					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</Table.ScrollContainer>
-		</ScrollArea>
+		</div>
 	);
 }

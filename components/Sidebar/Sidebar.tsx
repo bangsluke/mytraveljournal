@@ -4,7 +4,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import DarkModeToggle from "../../components/DarkModeToggle/DarkModeToggle";
 import useScreenSize from "../../hooks/useScreenSize";
 import { ButtonComponent } from "../Button/Button";
 import styles from "./Sidebar.module.css";
@@ -126,7 +125,6 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 					) : (
 						<ButtonComponent Text='Sign in' onClick={() => signIn()} fullWidth={false} />
 					)}
-					<DarkModeToggle></DarkModeToggle>
 				</Group>
 			</nav>
 

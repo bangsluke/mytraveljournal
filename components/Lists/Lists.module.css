@@ -23,3 +23,10 @@
 .rowHighlight:hover {
 	background-color: #f0f0f0;
 }
+
+.infoIcon {
+	color: var(--secondary-accent, #bbb);
+	cursor: help;
+	margin-bottom: 0.5rem;
+	vertical-align: middle;
+}

@@ -10,10 +10,18 @@
   /* overflow-x: hidden; - Removed to fix sticky positioning */
 }
 
-#homepageHeader {
+.homepageHeader {
   text-align: center;
   color: var(--text, #333);
   font-family: var(--font-family, ui-sans-serif);
+}
+
+.mapSectionBlock {
+  margin-top: 2rem;
+}
+
+:global([data-mantine-color-scheme="dark"]) .homepageHeader {
+  color: #e8e8e8;
 }
 
 .mapContainer {

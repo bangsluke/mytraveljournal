@@ -175,6 +175,8 @@
 
 	.card {
 		filter: grayscale(20%);
+		width: rem(315px);
+		height: rem(396px);
 		/* Reduce the amount of greyscale on mobile where the card can't be hovered */
 	}
 }
@@ -191,6 +193,8 @@
 
 	.card {
 		filter: grayscale(20%);
+		width: rem(315px);
+		height: rem(396px);
 		/* Reduce the amount of greyscale on mobile where the card can't be hovered */
 	}
 }

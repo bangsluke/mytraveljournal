@@ -88,3 +88,23 @@
 	/* This makes the icon faded */
 	z-index: 1;
 }
+
+/* Mobile: ~10% smaller count cards */
+@media only screen and (max-width: 767px) {
+
+	.countcard,
+	.disabledCard {
+		width: 135px;
+		height: 135px;
+		padding: 0 12px;
+	}
+
+	.backgroundIcon {
+		font-size: 108px;
+	}
+
+	.displayCountValue {
+		font-size: 4.5rem;
+		height: 4.5rem;
+	}
+}

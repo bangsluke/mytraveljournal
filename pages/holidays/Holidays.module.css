@@ -131,6 +131,51 @@
 	padding: 0rem 1rem 1rem 1rem;
 }
 
+.backSection {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem 1rem 3rem;
+	box-sizing: border-box;
+}
+
+.backButton {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.65rem 1.5rem;
+	border-radius: 999px;
+	border: 2px solid var(--main-accent, #fe395c);
+	background: var(--background, #fafafa);
+	color: var(--main-accent, #fe395c);
+	font-weight: 700;
+	font-size: 1rem;
+	cursor: pointer;
+	font-family: var(--font-family, ui-sans-serif);
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.backButton:hover {
+	background: var(--main-accent, #fe395c);
+	color: #fff;
+}
+
+.backIcon {
+	font-size: 1.25rem !important;
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+:global([data-mantine-color-scheme="dark"]) .backButton {
+	background: var(--background-dark-mode, #161a23);
+	color: var(--main-accent, #fe395c);
+}
+
+:global([data-mantine-color-scheme="dark"]) .backButton:hover {
+	color: #fff;
+}
+
 /* Mobiles */
 @media only screen and (max-width: 767px) {
 	.holidayImageOverlayContainer h3 {
