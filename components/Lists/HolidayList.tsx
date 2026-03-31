@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, ScrollArea, Table, Text, rem } from "@mantine/core";
+import { ActionIcon, Anchor, Table, Text, rem } from "@mantine/core";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import { useRouter } from "next/router";
-import Constants from "../../constants/constants";
+import { useMediaQuery } from "@mantine/hooks";
 import { GetHolidaysListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import Loading from "../Loading/Loading";
@@ -10,28 +10,22 @@ import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
 
 export default function HolidayList() {
-	const router = useRouter(); // Import the Next router
+	const router = useRouter();
+	const isMobileList = useMediaQuery("(max-width: 767px)");
 
-	// Get the list of holidays
 	const { loading, error, data } = useQuery(GetHolidaysListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
-		// If error - show error message, and raise an error toast
 		LogS.error("useQuery(GetHolidaysListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetHolidaysListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-	// LogS.log("HolidayList: holiday data: ", data);
 
-	// Sort holidays by sortDateValue
 	//@ts-ignore
 	const sortedHolidays: any = [...data?.holidays].sort((a: any, b: any) => b.sortDateValue.localeCompare(a.sortDateValue));
-	// LogS.log("HolidayList: Sorted holiday data: ", sortedHolidays);
 
-	// Get the height of the scrollable area
-	const windowHeight = window.innerHeight;
-	const scrollHeight = windowHeight - Constants.headerHeight;
+	const attendeesHeader = isMobileList ? "Att." : "Attendees";
+	const locationsHeader = isMobileList ? "Loc." : "Locations";
 
-	// Map the sorted and filtered holidays to create the table rows
 	const rows = sortedHolidays?.map((holiday: any) => (
 		<Table.Tr key={holiday.nodeId} className={styles.rowHighlight}>
 			<Table.Td>
@@ -72,21 +66,21 @@ export default function HolidayList() {
 	));
 
 	return (
-		<ScrollArea h={scrollHeight} className={styles.dataList}>
-			<Table.ScrollContainer minWidth={300}>
+		<div className={styles.dataList}>
+			<Table.ScrollContainer minWidth={300} type='native'>
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
 						<Table.Tr>
 							<Table.Th>Name</Table.Th>
 							<Table.Th>Date</Table.Th>
-							<Table.Th>Attendees</Table.Th>
-							<Table.Th>Locations</Table.Th>
+							<Table.Th>{attendeesHeader}</Table.Th>
+							<Table.Th>{locationsHeader}</Table.Th>
 							<Table.Th />
 						</Table.Tr>
 					</Table.Thead>
 					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</Table.ScrollContainer>
-		</ScrollArea>
+		</div>
 	);
 }

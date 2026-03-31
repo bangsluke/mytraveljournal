@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
 import filterTags from "../../services/FilterTagsS";
+import { picsumPlaceholderUrl } from "../../services/placeholderImage";
 import { useFilter, FILTER_CATEGORIES } from "../../context/FilterContext";
 import FilterDecade from "./FilterDecade";
 import HolidayCard from "./HolidayCard";
@@ -50,14 +51,14 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 	// Function to check if a holiday matches the filters
 	const matchesFilters = (holiday: any) => {
 		// LogS.log("Checking holiday tags:", holiday.tags);
-		// Flatten holiday tags for easier searching. 
+		// Flatten holiday tags for easier searching.
 		// Assuming holiday.tags is an object or array of objects.
 		// If holiday.tags is just array of strings, good.
-		// Based on SidebarData or similar, tags might be complex. 
+		// Based on SidebarData or similar, tags might be complex.
 		// But let's check how filterTags works? No, I can't read it now.
 		// Let's assume holiday.tags includes the strings user listed (e.g. "school", "local").
 		// If it's an array of objects, we might need to map to names.
-		// Safe bet: JSON.stringify or recursive search if structure is unknown, 
+		// Safe bet: JSON.stringify or recursive search if structure is unknown,
 		// but since user gave specific string values, they likely exist as values.
 		// START ASSUMPTION: holiday.tags contains the strings.
 
@@ -116,7 +117,7 @@ const HolidayCardList: React.FC<HolidayListProps> = ({ data }) => {
 			// LogS.log("holiday.coverPhoto: ", holiday.coverPhoto);
 			let holidayImageURL = "";
 			if (holiday.coverPhoto == null || holiday.coverPhoto == "" || holiday.coverPhoto == "TBC") {
-				holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
+				holidayImageURL = picsumPlaceholderUrl(String(holiday.nodeId ?? holiday.name ?? String(index)), 375, 600);
 			} else {
 				holidayImageURL = holiday.coverPhoto;
 			}

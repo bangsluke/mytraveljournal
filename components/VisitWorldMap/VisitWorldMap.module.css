@@ -1,0 +1,114 @@
+.mapWrap {
+	width: 100%;
+	max-width: 960px;
+	margin: 0.5rem auto 0;
+	background: #ffffff;
+	border-radius: var(--card-border-radius, 15px);
+	box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.08);
+	padding: 0.75rem 0.75rem 1rem;
+	position: relative;
+	border: 1px solid var(--secondary-accent-light, #ececec);
+}
+
+.mapTitle {
+	text-align: center;
+	font-size: 0.95rem;
+	font-weight: 700;
+	color: var(--text, #333);
+	margin: 0 0 0.5rem;
+}
+
+.svgHost {
+	width: 100%;
+	/* Match ComposableMap width/height (800×420) for correct responsive scaling */
+	aspect-ratio: 800 / 420;
+	position: relative;
+	touch-action: none;
+}
+
+.svgHost :global(svg) {
+	display: block;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.zoomControls {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	z-index: 5;
+}
+
+.zoomBtn {
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	border: 1px solid var(--secondary-accent, #bbb);
+	background: var(--background, #fafafa);
+	color: var(--text, #333);
+	font-size: 1.25rem;
+	line-height: 1;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.zoomBtn:hover {
+	background: var(--secondary-accent-light, #ececec);
+	color: var(--main-accent, #fe395c);
+}
+
+.tooltip {
+	position: fixed;
+	pointer-events: none;
+	z-index: 200;
+	background: var(--hover-message-background, rgba(0, 0, 0, 0.85));
+	color: #fff;
+	padding: 8px 12px;
+	border-radius: 8px;
+	font-size: 0.875rem;
+	max-width: 240px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip strong {
+	color: #fff;
+}
+
+.legend {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 0.5rem;
+	font-size: 0.75rem;
+	color: var(--secondary-accent, #888);
+}
+
+.legendSwatch {
+	width: 14px;
+	height: 14px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+}
+
+:global([data-mantine-color-scheme="dark"]) .mapWrap {
+	background: var(--background-dark-mode, #161a23);
+	border-color: var(--secondary-accent-dark-mode, #0d1019);
+}
+
+:global([data-mantine-color-scheme="dark"]) .mapTitle {
+	color: #e8e8e8;
+}
+
+:global([data-mantine-color-scheme="dark"]) .zoomBtn {
+	background: var(--secondary-accent-dark-mode, #0d1019);
+	border-color: #333;
+	color: #e8e8e8;
+}

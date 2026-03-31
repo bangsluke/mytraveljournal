@@ -2,6 +2,7 @@
 //import CountCardSection from "../components/CountCard/CountCardSection";
 import AsyncCountCardSection from "../components/CountCard/AsyncCountCardSection";
 import HolidayCardList from "../components/HolidayCardList/HolidayCardList";
+import VisitWorldMap from "../components/VisitWorldMap/VisitWorldMap";
 import Layout from "../components/Layout/Layout";
 // import MapChart from "../components/MapChart";
 import { useQuery } from "@apollo/client";
@@ -47,7 +48,7 @@ export default function Home() {
 			<h1 className={styles.hidden}>My Travel Journal</h1>
 			{/* Top section holding the map and count card elements */}
 			<section className={styles.section}>
-				<h2 id={styles.homepageHeader}>travel stats.</h2>
+				<h2 className={styles.homepageHeader}>travel stats.</h2>
 
 				{/* <div className={styles.mapContainer}>
 					<MapChart />
@@ -55,6 +56,10 @@ export default function Home() {
 
 				{/* <CountCardSection /> */}
 				<AsyncCountCardSection />
+				<div className={styles.mapSectionBlock}>
+					<h2 className={styles.homepageHeader}>world map.</h2>
+					<VisitWorldMap />
+				</div>
 			</section>
 
 			{/* Divider to visually separate the sections */}

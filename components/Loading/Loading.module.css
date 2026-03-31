@@ -1,13 +1,18 @@
 .LoadingHolder {
 	/* background-color: var(--secondary-accent-light, #f0f0f0); */
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
+	max-width: 100vw;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	gap: 20px;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 }
 
 .LoadingHolderOpaque {

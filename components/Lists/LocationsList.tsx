@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, ScrollArea, Table, Text, rem } from "@mantine/core";
+import { ActionIcon, Anchor, Table, Text, Tooltip, rem } from "@mantine/core";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import { useRouter } from "next/router";
-import Constants from "../../constants/constants";
 import { GetLocationsListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import NodeTraversalsS from "../../services/NodeTraversalsS";
@@ -11,45 +10,35 @@ import Toast from "../Toast/Toast";
 import styles from "./Lists.module.css";
 
 export default function LocationsList() {
-	const router = useRouter(); // Import the Next router
+	const router = useRouter();
 
-	// Get the list of locations
 	const { loading, error, data } = useQuery(GetLocationsListDocument);
 	if (loading) return <Loading BackgroundStyle={"Transparent"} />;
 	if (error) {
-		// If error - show error message, and raise an error toast
 		LogS.error("useQuery(GetLocationsListDocument) GraphQL Error: ", error.message);
 		return <Toast message={"useQuery(GetLocationsListDocument) GraphQL Error: " + error.message} duration={5} />;
 	}
-	// LogS.log("LocationsList: locations data: ", data);
 
-	// Flatten the returned data so that all location objects are at the top level and not nested under node types
 	// @ts-ignore
 	const locations = Object.values(data).flatMap((item) => item);
-	const flattenedData = {
-		locations,
-	};
-	// LogS.log("LocationsList: flattenedData: ", flattenedData);
+	const flattenedData = { locations };
 
-	// Filter out locations with no holidays and then sort by the length of linkedHolidays
 	const filteredAndSortedLocationsData = Object.values(flattenedData)
 		.flatMap((item) => item)
 		// @ts-ignore
 		.filter((item) => item.linkedHolidays?.length > 0)
 		// @ts-ignore
-		.sort((a, b) => (b.linkedHolidays?.length || 0) - (a.linkedHolidays?.length || 0));
-	// LogS.log("LocationsList: filteredAndSortedLocationsData: ", filteredAndSortedLocationsData);
+		.sort(
+			(a, b) =>
+				NodeTraversalsS.findHolidayCountOfLocation(b as any) - NodeTraversalsS.findHolidayCountOfLocation(a as any),
+		);
 
-	// Map the sorted and filtered locations to add the holiday count and other properties such as the clicked link path
 	const updatedFilteredAndSortedLocationsData = filteredAndSortedLocationsData?.map((location) => {
-		// Return the last holiday for each location
 		let lastHoliday: any = NodeTraversalsS.findHighestSortDateValueHolidayOfLocation(location);
-		// Return the mapped item
 		return {
 			// @ts-ignore
 			...location,
-			// @ts-ignore
-			holidayCount: location.linkedHolidays?.length || 0,
+			uniqueHolidayCount: NodeTraversalsS.findHolidayCountOfLocation(location),
 			lastHoliday: {
 				name: `${lastHoliday.name}  (${new Date(parseInt(lastHoliday.dateYear, 10), parseInt(lastHoliday.dateMonth, 10), 1).toLocaleString(undefined, { month: "short" })} ${lastHoliday.dateYear})`,
 				nodeId: lastHoliday.nodeId,
@@ -58,13 +47,7 @@ export default function LocationsList() {
 			clickedLinkPath: `/locations/${location.nodeId}`,
 		};
 	});
-	// LogS.log("LocationsList: updatedFilteredAndSortedLocationsData: ", updatedFilteredAndSortedLocationsData);
 
-	// Get the height of the scrollable area
-	const windowHeight = window.innerHeight;
-	const scrollHeight = windowHeight - Constants.headerHeight;
-
-	// Map the sorted and filtered locations to create the table rows
 	const rows = updatedFilteredAndSortedLocationsData?.map((location: any) => (
 		<Table.Tr key={location.nodeId} className={styles.rowHighlight}>
 			<Table.Td>
@@ -84,7 +67,7 @@ export default function LocationsList() {
 			</Table.Td>
 			<Table.Td>
 				<Text fz='md' fw={500}>
-					{location.holidayCount}
+					{location.uniqueHolidayCount}
 				</Text>
 			</Table.Td>
 			<Table.Td>
@@ -108,34 +91,23 @@ export default function LocationsList() {
 	));
 
 	return (
-		<ScrollArea h={scrollHeight} className={styles.dataList}>
-			<Table.ScrollContainer minWidth={300}>
+		<div className={styles.dataList}>
+			<Table.ScrollContainer minWidth={300} type='native'>
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
 						<Table.Tr>
 							<Table.Th>Type</Table.Th>
 							<Table.Th>Name</Table.Th>
-							<Table.Th>Date</Table.Th>
-							<Table.Th>Attendees</Table.Th>
-							<Table.Th>Locations</Table.Th>
+							<Tooltip label='Unique holidays at this location' withArrow>
+								<Table.Th>Count</Table.Th>
+							</Tooltip>
+							<Table.Th>Last Holiday</Table.Th>
 							<Table.Th />
 						</Table.Tr>
 					</Table.Thead>
 					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</Table.ScrollContainer>
-		</ScrollArea>
+		</div>
 	);
-
-	// return (
-	// 	<div className={styles.dataList}>
-	// 		<ul>
-	// 			{filteredAndSortedLocationsData.map(({ name, nodeId }: Town) => (
-	// 				<li key={nodeId} className={styles.clickableListItem} onClick={() => router.push({ pathname: `/towns/${nodeId}` })}>
-	// 					<h4>{name}</h4>
-	// 				</li>
-	// 			))}
-	// 		</ul>
-	// 	</div>
-	// );
 }

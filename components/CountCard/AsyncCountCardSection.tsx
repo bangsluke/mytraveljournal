@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect --
+   Travel stats: read daily localStorage cache after mount (SSR-safe); cannot initialize from localStorage in useState without hydration mismatch. */
 import { useQuery } from "@apollo/client";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -7,30 +9,24 @@ import MapIcon from "@mui/icons-material/Map";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import PublicIcon from "@mui/icons-material/Public";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import { useEffect, useState } from "react";
-import {
-	GetHolidaysDocument,
-	GetPeopleDocument,
-	GetContinentsListDocument,
-	GetCountriesListDocument,
-	GetCitiesListDocument,
-	GetCapitalsListDocument,
-	GetTownsListDocument,
-	GetIslandsListDocument,
-} from "../../graphql/__generated__/graphql";
+import { useEffect, useMemo, useState } from "react";
+import { GetCardCountsDocument } from "../../graphql/__generated__/graphql";
+import { computeCardCountsFromGetCardCounts } from "../../services/computeCardCounts";
 import CountCard from "./CountCard";
 import styles from "./CountCard.module.css";
 
 const CountCardLoadingSpinner = () => (
-	<div style={{
-		width: '40px',
-		height: '40px',
-		border: '4px solid rgba(255, 255, 255, 0.3)',
-		borderTop: '4px solid #fff',
-		borderRadius: '50%',
-		animation: 'spin 1s linear infinite',
-		margin: '0 auto'
-	}} />
+	<div
+		style={{
+			width: "40px",
+			height: "40px",
+			border: "4px solid rgba(255, 255, 255, 0.3)",
+			borderTop: "4px solid #fff",
+			borderRadius: "50%",
+			animation: "spin 1s linear infinite",
+			margin: "0 auto",
+		}}
+	/>
 );
 
 const spinnerStyles = `
@@ -52,17 +48,16 @@ interface CachedStats {
 	date: string;
 }
 
-const CACHE_KEY = 'travelStatsCache';
+const CACHE_KEY = "travelStatsCache";
 
-const getTodayDateString = () => new Date().toISOString().split('T')[0];
+const getTodayDateString = () => new Date().toISOString().split("T")[0];
 
 const getCachedStats = (): CachedStats | null => {
-	if (typeof window === 'undefined') return null;
+	if (typeof window === "undefined") return null;
 	try {
 		const cached = localStorage.getItem(CACHE_KEY);
 		if (!cached) return null;
 		const parsed: CachedStats = JSON.parse(cached);
-		// Invalidate if date has changed
 		if (parsed.date !== getTodayDateString()) {
 			localStorage.removeItem(CACHE_KEY);
 			return null;
@@ -73,116 +68,61 @@ const getCachedStats = (): CachedStats | null => {
 	}
 };
 
-const setCachedStats = (stats: Omit<CachedStats, 'date'>) => {
-	if (typeof window === 'undefined') return;
+const setCachedStats = (stats: Omit<CachedStats, "date">) => {
+	if (typeof window === "undefined") return;
 	try {
 		const cacheData: CachedStats = {
 			...stats,
-			date: getTodayDateString()
+			date: getTodayDateString(),
 		};
 		localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
 	} catch (error) {
-		console.error('Failed to cache stats:', error);
+		console.error("Failed to cache stats:", error);
 	}
 };
 
 export default function AsyncCountCardSection() {
+	const [cacheChecked, setCacheChecked] = useState(false);
 	const [cachedStats, setCachedStatsState] = useState<CachedStats | null>(null);
 	const [shouldFetch, setShouldFetch] = useState(false);
 
-	// Check cache on mount
 	useEffect(() => {
 		const cached = getCachedStats();
 		if (cached) {
 			setCachedStatsState(cached);
 			setShouldFetch(false);
+			if (process.env.NODE_ENV === "development") {
+				console.info("[travelStats] cache hit — skipping GetCardCounts network request");
+			}
 		} else {
 			setShouldFetch(true);
+			if (process.env.NODE_ENV === "development") {
+				console.info("[travelStats] cache miss — fetching GetCardCounts (single query)");
+			}
 		}
+		setCacheChecked(true);
 	}, []);
-	const { loading: holidaysLoading, data: holidaysData } = useQuery(GetHolidaysDocument, { skip: !shouldFetch });
-	const holidayCount = holidaysData?.holidays?.length ?? 0;
 
-	const { loading: peopleLoading, data: peopleData } = useQuery(GetPeopleDocument, { skip: !shouldFetch });
-	const filteredTravelCompanionCount = (peopleData?.people ?? []).filter((p: any) => (p.attendedHolidays ?? []).length > 0).length;
+	const { loading, data } = useQuery(GetCardCountsDocument, {
+		skip: !shouldFetch,
+		onCompleted: (d) => {
+			const c = computeCardCountsFromGetCardCounts(d);
+			if (!c) return;
+			setCachedStats(c);
+			setCachedStatsState({ ...c, date: getTodayDateString() });
+			if (process.env.NODE_ENV === "development") {
+				console.info("[travelStats] GetCardCounts loaded and written to daily cache");
+			}
+		},
+	});
 
-	const { loading: continentsLoading, data: continentsData } = useQuery(GetContinentsListDocument, { skip: !shouldFetch });
-	const filteredContinentsCount = ((continentsData?.continents ?? []).filter((continent: any) => {
-		return (continent.placesLocatedIn ?? []).some((location: any) => {
-			if ((location.linkedHolidays ?? []).length > 0) return true;
-			return (location.placesLocatedIn ?? []).some((sub: any) => (sub.linkedHolidays ?? []).length > 0);
-		});
-	})).length;
+	const computed = useMemo(() => computeCardCountsFromGetCardCounts(data), [data]);
+	const display = cachedStats ?? computed;
 
-	const { loading: countriesLoading, data: countriesData } = useQuery(GetCountriesListDocument, { skip: !shouldFetch });
-	const filteredCountriesCount = ((countriesData?.countries ?? []).filter((country: any) => {
-		return (country.placesLocatedIn ?? []).some((place: any) => (place.linkedHolidays ?? []).length > 0);
-	})).length;
+	const getCountValue = (isLoading: boolean, count: number | undefined) =>
+		isLoading ? <CountCardLoadingSpinner /> : (count ?? 0);
 
-	const { loading: citiesLoading, data: citiesData } = useQuery(GetCitiesListDocument, { skip: !shouldFetch });
-	const filteredCitiesCount = (citiesData?.cities ?? []).filter((c: any) => (c.linkedHolidays ?? []).length > 0).length;
-
-	const { loading: capitalsLoading, data: capitalsData } = useQuery(GetCapitalsListDocument, { variables: { capitalCheck: true }, skip: !shouldFetch });
-	const filteredCapitalsCount = (capitalsData?.cities ?? []).filter((c: any) => (c.linkedHolidays ?? []).length > 0).length;
-
-	const { loading: townsLoading, data: townsData } = useQuery(GetTownsListDocument, { skip: !shouldFetch });
-	const filteredTownsCount = (townsData?.towns ?? []).filter((t: any) => (t.linkedHolidays ?? []).length > 0).length;
-
-	const { loading: islandsLoading, data: islandsData } = useQuery(GetIslandsListDocument, { skip: !shouldFetch });
-	const filteredIslandsCount = (islandsData?.islands ?? []).filter((i: any) => (i.linkedHolidays ?? []).length > 0).length;
-
-	// Cache the data when all queries complete
-	useEffect(() => {
-		if (shouldFetch && !holidaysLoading && !peopleLoading && !continentsLoading &&
-			!countriesLoading && !citiesLoading && !capitalsLoading && !townsLoading && !islandsLoading) {
-			setCachedStats({
-				holidayCount,
-				travelCompanionCount: filteredTravelCompanionCount,
-				continentsCount: filteredContinentsCount,
-				countriesCount: filteredCountriesCount,
-				citiesCount: filteredCitiesCount,
-				capitalsCount: filteredCapitalsCount,
-				townsCount: filteredTownsCount,
-				islandsCount: filteredIslandsCount
-			});
-			setCachedStatsState({
-				holidayCount,
-				travelCompanionCount: filteredTravelCompanionCount,
-				continentsCount: filteredContinentsCount,
-				countriesCount: filteredCountriesCount,
-				citiesCount: filteredCitiesCount,
-				capitalsCount: filteredCapitalsCount,
-				townsCount: filteredTownsCount,
-				islandsCount: filteredIslandsCount,
-				date: getTodayDateString()
-			});
-		}
-	}, [shouldFetch, holidaysLoading, peopleLoading, continentsLoading, countriesLoading,
-		citiesLoading, capitalsLoading, townsLoading, islandsLoading, holidayCount,
-		filteredTravelCompanionCount, filteredContinentsCount, filteredCountriesCount,
-		filteredCitiesCount, filteredCapitalsCount, filteredTownsCount, filteredIslandsCount]);
-
-	const getCountValue = (isLoading: boolean, count: number) => (isLoading ? <CountCardLoadingSpinner /> : count);
-
-	// Use cached values if available, otherwise use fetched values
-	const displayHolidayCount = cachedStats?.holidayCount ?? holidayCount;
-	const displayTravelCompanionCount = cachedStats?.travelCompanionCount ?? filteredTravelCompanionCount;
-	const displayContinentsCount = cachedStats?.continentsCount ?? filteredContinentsCount;
-	const displayCountriesCount = cachedStats?.countriesCount ?? filteredCountriesCount;
-	const displayCitiesCount = cachedStats?.citiesCount ?? filteredCitiesCount;
-	const displayCapitalsCount = cachedStats?.capitalsCount ?? filteredCapitalsCount;
-	const displayTownsCount = cachedStats?.townsCount ?? filteredTownsCount;
-	const displayIslandsCount = cachedStats?.islandsCount ?? filteredIslandsCount;
-
-	// Only show loading if we're fetching and don't have cached data
-	const isLoadingHolidays = shouldFetch && holidaysLoading && !cachedStats;
-	const isLoadingPeople = shouldFetch && peopleLoading && !cachedStats;
-	const isLoadingContinents = shouldFetch && continentsLoading && !cachedStats;
-	const isLoadingCountries = shouldFetch && countriesLoading && !cachedStats;
-	const isLoadingCities = shouldFetch && citiesLoading && !cachedStats;
-	const isLoadingCapitals = shouldFetch && capitalsLoading && !cachedStats;
-	const isLoadingTowns = shouldFetch && townsLoading && !cachedStats;
-	const isLoadingIslands = shouldFetch && islandsLoading && !cachedStats;
+	const isLoadingAll = !cacheChecked || (shouldFetch && loading && !cachedStats);
 
 	return (
 		<>
@@ -191,76 +131,75 @@ export default function AsyncCountCardSection() {
 				<CountCard
 					id='1'
 					cardTitle='Holiday Count'
-					countValue={getCountValue(isLoadingHolidays, displayHolidayCount)}
+					countValue={getCountValue(isLoadingAll, display?.holidayCount)}
 					pagePath='/holidays'
-					enabledBoolean={!isLoadingHolidays}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<FlightTakeoffIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='2'
 					cardTitle='Travel Companion Count'
-					countValue={getCountValue(isLoadingPeople, displayTravelCompanionCount)}
+					countValue={getCountValue(isLoadingAll, display?.travelCompanionCount)}
 					pagePath='/people'
-					enabledBoolean={!isLoadingPeople}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<SupervisorAccountIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='3'
 					cardTitle='Continent Count'
-					countValue={getCountValue(isLoadingContinents, displayContinentsCount)}
+					countValue={getCountValue(isLoadingAll, display?.continentsCount)}
 					pagePath='/continents'
-					enabledBoolean={!isLoadingContinents}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<PublicIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='4'
 					cardTitle='Countries Count'
-					countValue={getCountValue(isLoadingCountries, displayCountriesCount)}
+					countValue={getCountValue(isLoadingAll, display?.countriesCount)}
 					pagePath='/countries'
-					enabledBoolean={!isLoadingCountries}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<MapIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='5'
 					cardTitle='Cities Count'
-					countValue={getCountValue(isLoadingCities, displayCitiesCount)}
+					countValue={getCountValue(isLoadingAll, display?.citiesCount)}
 					pagePath='/cities'
-					enabledBoolean={!isLoadingCities}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<LocationCityIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='6'
 					cardTitle='Capitals Count'
-					countValue={getCountValue(isLoadingCapitals, displayCapitalsCount)}
+					countValue={getCountValue(isLoadingAll, display?.capitalsCount)}
 					pagePath='/cities'
-					enabledBoolean={!isLoadingCapitals}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<PinDropIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='7'
 					cardTitle='Towns Count'
-					countValue={getCountValue(isLoadingTowns, displayTownsCount)}
+					countValue={getCountValue(isLoadingAll, display?.townsCount)}
 					pagePath='/locations'
-					enabledBoolean={!isLoadingTowns}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<HouseIcon fontSize='large' />}
 				/>
 
 				<CountCard
 					id='8'
 					cardTitle='Islands Count'
-					countValue={getCountValue(isLoadingIslands, displayIslandsCount)}
+					countValue={getCountValue(isLoadingAll, display?.islandsCount)}
 					pagePath='/locations'
-					enabledBoolean={!isLoadingIslands}
+					enabledBoolean={!isLoadingAll}
 					backgroundIcon={<BeachAccessIcon fontSize='large' />}
 				/>
 			</div>
 		</>
 	);
 }
-

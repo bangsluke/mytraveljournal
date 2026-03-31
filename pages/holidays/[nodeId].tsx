@@ -1,12 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { Badge } from "@mantine/core";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
+import HolidayLocationPills from "../../components/HolidayLocationPills/HolidayLocationPills";
 import Layout from "../../components/Layout/Layout";
 import Loading from "../../components/Loading/Loading";
 import MarkdownRenderer from "../../components/MarkdownRenderer/MarkdownRenderer";
@@ -14,6 +15,7 @@ import Pill from "../../components/Pill/Pill";
 import Toast from "../../components/Toast/Toast";
 import { GetHolidayByIdDocument, GetPossibleHyperlinksDocument, Holiday } from "../../graphql/__generated__/graphql";
 import filterTags from "../../services/FilterTagsS";
+import { picsumPlaceholderUrl } from "../../services/placeholderImage";
 import LogS from "../../services/LogS";
 import withAuth from "../api/auth/withAuth";
 import styles from "./Holidays.module.css";
@@ -80,7 +82,7 @@ function HolidayPage() {
 
 	// Extract the holiday data into usable variables
 	// @ts-ignore
-	const { dateYear, dateMonth, name, coverPhoto, fullText, attendees, departingAirport, locations, photoAlbum }: Holiday =
+	const { dateYear, dateMonth, name, coverPhoto, fullText, attendees, departingAirport, locations, photoAlbum, nodeId: holidayNodeId }: Holiday =
 		// @ts-ignore
 		data.holidays[0];
 	LogS.log("holiday data: ", data?.holidays[0]);
@@ -90,7 +92,7 @@ function HolidayPage() {
 	// LogS.log("coverPhoto: ", coverPhoto);
 	let holidayImageURL = "";
 	if (coverPhoto == null || coverPhoto == "" || coverPhoto == "TBC") {
-		holidayImageURL = `https://picsum.photos/id/${Math.floor(Math.random() * 999) + 1}/375/600`;
+		holidayImageURL = picsumPlaceholderUrl(String(holidayNodeId ?? nodeId ?? name), 375, 600);
 	} else {
 		holidayImageURL = coverPhoto;
 	}
@@ -105,7 +107,6 @@ function HolidayPage() {
 	// Gather the data for the pills for the holiday
 	const properties: { [key: string]: { id: number; text: string | string[] | null | undefined; image: ReactElement } } = {
 		property1: { id: 1, text: monthFormatted + " " + dateYear, image: <CalendarMonthIcon /> },
-		property2: { id: 2, text: locations, image: <LocationOnRoundedIcon /> },
 		property3: { id: 3, text: departingAirport, image: <FlightTakeoffIcon /> },
 		property4: { id: 4, text: photoAlbum, image: <AddAPhotoIcon /> },
 	};
@@ -117,7 +118,7 @@ function HolidayPage() {
 		// TODO: Add hyperlink if pill is a location
 		// Loop through the array if text is an array
 		if (Array.isArray(text)) {
-			return text.map((element, index) => <Pill key={id + index} icon={image} text={element} />);
+			return text.map((element, index) => <Pill key={id + index} icon={image} text={String(element)} />);
 		}
 		// Return nothing if text is null or empty or too long
 		if (text == null || text == "" || text == "TBC" || text == "n/a" || text.length >= 20) {
@@ -160,8 +161,8 @@ function HolidayPage() {
 					{/* Hold the pills and tags */}
 					<section className={styles.pillsSection}>
 						<div className={styles.holidayPills}>
-							{/* List the holiday pills */}
 							{pills}
+							<HolidayLocationPills locations={locations} />
 						</div>
 						<div className={styles.tagPills}>
 							{displayHolidayTags.map((tag) => (
@@ -183,6 +184,22 @@ function HolidayPage() {
 					<section className={styles.textSection}>
 						{/* Add a custom react-markdown wrapper around the received text */}
 						<MarkdownRenderer possibleHyperlinks={possibleHyperlinksData}>{fullText}</MarkdownRenderer>
+					</section>
+
+					<section className={styles.backSection}>
+						<button
+							type='button'
+							className={styles.backButton}
+							onClick={() => {
+								if (typeof window !== "undefined" && window.history.length > 1) {
+									router.back();
+								} else {
+									void router.push("/holidays");
+								}
+							}}>
+							<ArrowBackIcon className={styles.backIcon} aria-hidden />
+							Back
+						</button>
 					</section>
 				</div>
 			</div>

@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, ScrollArea, Table, Text, Tooltip, rem } from "@mantine/core";
+import { ActionIcon, Anchor, Table, Text, Tooltip, rem } from "@mantine/core";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import { useRouter } from "next/router";
-import Constants from "../../constants/constants";
 import { GetPeopleListDocument } from "../../graphql/__generated__/graphql";
 import LogS from "../../services/LogS";
 import NodeTraversalsS from "../../services/NodeTraversalsS";
@@ -43,10 +42,6 @@ export default function PersonsList() {
 		};
 	});
 
-	// Get the height of the scrollable area
-	const windowHeight = window.innerHeight;
-	const scrollHeight = windowHeight - Constants.headerHeight;
-
 	// Map the sorted and filtered people to create the table rows
 	const rows = sortedAndFilteredPeople?.map((person: any) => (
 		<Table.Tr key={person.name} className={styles.rowHighlight}>
@@ -86,8 +81,8 @@ export default function PersonsList() {
 	));
 
 	return (
-		<ScrollArea h={scrollHeight} className={styles.dataList}>
-			<Table.ScrollContainer minWidth={300}>
+		<div className={styles.dataList}>
+			<Table.ScrollContainer minWidth={300} type='native'>
 				<Table verticalSpacing='sm'>
 					<Table.Thead>
 						<Table.Tr>
@@ -102,6 +97,6 @@ export default function PersonsList() {
 					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</Table.ScrollContainer>
-		</ScrollArea>
+		</div>
 	);
 }
