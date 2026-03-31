@@ -4,6 +4,7 @@ import Constants from "../../constants/constants";
 import styles from "./MarkdownRenderer.module.css";
 import {
 	decodeEscapedBlockquoteMarkers,
+	hasObsidianStatCallout,
 	normalizeMarkdownNewlines,
 	transformObsidianStatCallouts,
 } from "./statCalloutTransform";
@@ -41,9 +42,8 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 		return results;
 	}
 
-	const afterStatPass = transformObsidianStatCallouts(
-		decodeEscapedBlockquoteMarkers(normalizeMarkdownNewlines(children)),
-	);
+	const normalizedMarkdown = decodeEscapedBlockquoteMarkers(normalizeMarkdownNewlines(children));
+	const afterStatPass = transformObsidianStatCallouts(normalizedMarkdown);
 
 	const processedContent = afterStatPass
 		.replace(/> \[!bigback\] Link back to \[\[Personal Home\|Home\]\]/g, "") // Remove "> [!back] Link back to [[Personal Home|Home]]"
@@ -80,9 +80,20 @@ const MarkdownRenderer: React.FC<MyRendererProps> = ({ possibleHyperlinks, child
 			}
 		});
 
-	if (process.env.NODE_ENV === "development" && children.includes("[!stat]")) {
-		console.debug("[MarkdownRenderer][stat] raw (first 500 chars):", children.slice(0, 500));
-		console.debug("[MarkdownRenderer][stat] processed (first 700 chars):", processedContent.slice(0, 700));
+	if (process.env.NODE_ENV === "development" && hasObsidianStatCallout(normalizedMarkdown)) {
+		const idx = normalizedMarkdown.search(/^\s*>\s*\[!stat\]/im);
+		const rawExcerpt =
+			idx >= 0
+				? normalizedMarkdown.slice(Math.max(0, idx - 40), idx + 600)
+				: normalizedMarkdown.slice(0, 500);
+		console.debug("[MarkdownRenderer][stat] raw excerpt around > [!stat]:", rawExcerpt);
+		/* After stat pass: heading + blank line + first bullet */
+		const statOutIdx = afterStatPass.search(/##[^\n]+\n\n-\s/);
+		const procExcerpt =
+			statOutIdx >= 0
+				? afterStatPass.slice(Math.max(0, statOutIdx - 20), statOutIdx + 720)
+				: afterStatPass.slice(0, 800);
+		console.debug("[MarkdownRenderer][stat] afterStatPass excerpt (heading + list):", procExcerpt);
 	}
 
 	return (

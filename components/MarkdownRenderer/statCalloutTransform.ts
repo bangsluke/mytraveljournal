@@ -1,10 +1,10 @@
 /**
  * Obsidian `> [!stat] Title` callouts → markdown heading + GFM list.
  *
- * Rules (only these patterns start list lines; other "-" stay in prose):
- * - `> - ` → top-level bullet (`- …`)
- * - `> ` + tabs + `- ` → nested bullet (`  - …` for GFM)
- * - `> [!stat] ` removed from the opening line; remainder is the section title
+ * Supported shapes:
+ * - Multiline: `> [!stat] Title` then `> - …` (top) / `> \t- …` (nested → `  - …`).
+ * - Single-line export: `> [!stat] Stats \- first item \- second item …` (markdown-escaped
+ *   hyphens mark bullets; prose hyphens stay as `-` inside each segment).
  */
 
 /** Unify newlines (incl. unusual separators) so line-based parsing works. */
@@ -49,6 +49,26 @@ function statBodyLineToMarkdown(line: string): string | null {
 	return null;
 }
 
+/** Split `Title \- bullet \- bullet` (Obsidian / CMS single-line stat blocks). */
+function parseEscapedHyphenBullets(afterDirective: string): { title: string; bullets: string[] } | null {
+	const parts = afterDirective.split(/\s+\\-\s+/);
+	if (parts.length < 2) {
+		return null;
+	}
+	const title = (parts[0] ?? "").trim() || "Stats";
+	const bullets = parts
+		.slice(1)
+		.map((p) => p.trim().replace(/\\-/g, "-"))
+		.filter(Boolean);
+	return bullets.length > 0 ? { title, bullets } : null;
+}
+
+/** True when the source has an Obsidian stat callout line (`> [!stat] …`). */
+export function hasObsidianStatCallout(markdown: string): boolean {
+	const d = decodeEscapedBlockquoteMarkers(normalizeMarkdownNewlines(markdown));
+	return /^\s*>\s*\[!stat\]/im.test(d);
+}
+
 export function transformObsidianStatCallouts(markdown: string): string {
 	const lines = markdown.split("\n");
 	const out: string[] = [];
@@ -63,16 +83,28 @@ export function transformObsidianStatCallouts(markdown: string): string {
 		}
 
 		const first = decodeLine(raw).trimStart();
-		const titleMatch = first.match(/^>\s*\[!stat\]\s*(.*)$/i);
-		const title = (titleMatch?.[1] ?? "").trim() || "Stats";
+		const m = first.match(/^>\s*\[!stat\]\s*(.*)$/i);
+		const afterDirective = (m?.[1] ?? "").trimEnd();
 
 		const body: string[] = [];
+		let title: string;
+
+		const escaped = parseEscapedHyphenBullets(afterDirective);
+		if (escaped) {
+			title = escaped.title;
+			for (const b of escaped.bullets) {
+				body.push(`- ${b}`);
+			}
+		} else {
+			title = afterDirective.trim() || "Stats";
+		}
+
 		i += 1;
+
 		while (i < lines.length) {
 			const L = lines[i];
 			if (L.trim() === "") break;
 			if (!isBlockquoteLine(L)) break;
-
 			const item = statBodyLineToMarkdown(L);
 			if (item === null) {
 				break;
