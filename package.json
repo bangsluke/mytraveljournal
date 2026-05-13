@@ -53,7 +53,7 @@
 		"@types/react-simple-maps": "^3.0.1",
 		"eslint": "^9.39.1",
 		"eslint-config-next": "^16.2.3",
-		"postcss": "^8.4.38",
+		"postcss": "^8.5.10",
 		"postcss-preset-mantine": "^1.14.0",
 		"postcss-simple-vars": "^7.0.1",
 		"prettier": "^3.0.3",
