@@ -10,7 +10,7 @@
 	],
 	"scripts": {
 		"generate": "graphql-codegen --config graphql/codegen-frontend.ts",
-		"dev": "yarn generate && next dev",
+		"dev": "yarn generate && node --use-system-ca ./node_modules/next/dist/bin/next dev",
 		"build": "next build",
 		"start": "yarn build && next start",
 		"lint": "eslint ."
