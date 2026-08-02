@@ -25,7 +25,8 @@
   <img src="https://img.shields.io/badge/Mantine-7.17.8-blue?logo=mantine" alt="Mantine" />
 </p>
 
-> Also see the backend server repo <https://github.com/bangsluke/bangsluke-backend-server> for more details and instructions
+> Also see the projects used to populate this data;
+> - bangsluke-backend-server repo <https://github.com/bangsluke/bangsluke-backend-server>
 
 <p align="center">
   <img src="./public/screenshots/Travel Website.png" alt="My Travel Journal Screenshot" height="550"/>
