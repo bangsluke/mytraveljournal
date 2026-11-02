@@ -2,7 +2,7 @@
 if (typeof window !== "undefined") {
 	throw new Error("This module can only be used server-side");
 }
-import nodemailer from "nodemailer";
+import nodemailer, { type Transporter } from "nodemailer";
 
 type SendEmailArgs = {
 	to: string;
@@ -10,7 +10,7 @@ type SendEmailArgs = {
 	html: string;
 };
 
-let cachedTransporter: nodemailer.Transporter | null = null;
+let cachedTransporter: Transporter | null = null;
 
 function getTransporter() {
 	if (cachedTransporter) return cachedTransporter;
